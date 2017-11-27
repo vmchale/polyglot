@@ -4,7 +4,7 @@
 like [tokei](https://github.com/Aaronepower/tokei). Such tools can help one
 orient oneself in an unfamiliar codebase.
 
-<img src=https://nest.pijul.com/vamchale/polyglot:master/32b40012811a836405?raw>
+<img src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
 
 ## Benchmarks
 
