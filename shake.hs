@@ -25,8 +25,8 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
 
     "bench" ~> do
         need ["target/polyglot"]
-        let dir = " /home/vanessa/programming/haskell/done"
-        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei", "loc --exclude 'dist'", "enry", "cloc"])
+        let dir = " /home/vanessa/programming/haskell"
+        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei -e forks", "loc --exclude='forks$'", "enry", "cloc --exclude-list-file='forks'"])
 
     "install" ~> do
         need ["target/polyglot"]

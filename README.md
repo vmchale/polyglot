@@ -8,9 +8,6 @@ orient oneself in an unfamiliar codebase.
 
 ## Benchmarks
 
-Note that some tools are excluded because they gave incomplete or incorrect
-output.
-
 <table>
   <tr>
     <th>Tool</th>
@@ -20,36 +17,26 @@ output.
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>7.985 ms</td>
+    <td>16.60 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>91.26 ms</td>
+    <td>156.7 ms</td>
   </tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>3.043 ms</td>
+    <td>54.62 ms</td>
   </tr>
   <tr>
     <td><code>enry</code></td>
     <td>Go</td>
-    <td> - </td>
+    <td>4.501 s</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>4.080 s</td>
-  </tr>
-  <tr>
-    <td><code>sloc</code></td>
-    <td>JavaScript</td>
-    <td> - </td>
-  </tr>
-  <tr>
-    <td><code>sloccount</td>
-    <td>Bash</td>
-    <td> - </td>
+    <td>11.61 s</td>
   </tr>
 </table>
 
