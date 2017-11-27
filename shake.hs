@@ -21,6 +21,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need $ dats <> sats
         cmd_ ["mkdir", "-p", "target"]
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
+        -- FIXME use pats-filter on the output.
         command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" (dats ++ ["-DATS_MEMALLOC_LIBC", "-o", "target/polyglot", "-cleanaft", "-O3", "-mtune=native"])
 
     "bench" ~> do

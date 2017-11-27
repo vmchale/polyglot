@@ -5,7 +5,8 @@ like [tokei](https://github.com/Aaronepower/tokei). Such tools can help one
 orient oneself in an unfamiliar codebase.
 
 `poly` is currently faster than all other code counting tools, though it
-supports far fewer file formats than is desirable.
+supports far fewer file formats than is desirable. I currently use it alongside
+`tokei`.
 
 <img src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
 
@@ -70,12 +71,12 @@ This repo:
   <tr>
     <td><code>enry</code></td>
     <td>Go</td>
-    <td>27.50 s</td>
+    <td>27.50 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>223.6 s</td>
+    <td>223.6 ms</td>
   </tr>
   <tr>
     <td><code>linguist</code></td>
@@ -108,9 +109,6 @@ File formats detected:
   - [ ] Dhall
   - [x] Cabal
   - [ ] iPKG
-  - [ ] agda-lib
-  - [ ] nix
-  - [ ] Coq
   - [ ] Verilog
   - [ ] VHDL
   - [ ] ion
@@ -124,13 +122,11 @@ File formats detected:
   - [ ] Ruby
   - [ ] Swift
   - [ ] assembly
-  - [ ] Intel HEX
   - [ ] crystal
   - [ ] PHP
   - [ ] Julia
   - [ ] D
   - [ ] C#
   - [ ] Mercury
-  - [ ] C header file
   - [ ] mustache
   - [ ] jinja
