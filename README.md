@@ -5,14 +5,13 @@ like [tokei](https://github.com/Aaronepower/tokei). Such tools can help one
 orient oneself in an unfamiliar codebase.
 
 `poly` is currently faster than all other code counting tools, though it
-supports far fewer file formats than is desirable. I currently use it alongside
-`tokei`.
+supports far fewer file formats than is desirable.
 
 <img src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
 
 ## Benchmarks
 
-Medium-sized directory:
+The Rust repo:
 
 <table>
   <tr>
@@ -23,65 +22,32 @@ Medium-sized directory:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>16.60 ms</td>
+    <td>98.24 ms</td>
+  </tr>
+  <tr>
+    <td><code>loc</code></td>
+    <td>Rust</td>
+    <td>131.1 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>156.7 ms</td>
-  </tr>
-    <td><code>loc</code></td>
-    <td>Rust</td>
-    <td>54.62 ms</td>
+    <td>341.8 ms</td>
   </tr>
   <tr>
     <td><code>enry</code></td>
     <td>Go</td>
-    <td>4.501 s</td>
+    <td>5.183 s</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>11.61 s</td>
-  </tr>
-</table>
-
-This repo:
-
-<table>
-  <tr>
-    <th>Tool</th>
-    <th>Language</th>
-    <th>Time</th>
-  </tr>
-  <tr>
-    <td><code>polyglot</code></td>
-    <td>ATS</td>
-    <td>1.165 ms</td>
-  </tr>
-  <tr>
-    <td><code>tokei</code></td>
-    <td>Rust</td>
-    <td>3.503 ms</td>
-  </tr>
-    <td><code>loc</code></td>
-    <td>Rust</td>
-    <td>2.999 ms</td>
-  </tr>
-  <tr>
-    <td><code>enry</code></td>
-    <td>Go</td>
-    <td>27.50 ms</td>
-  </tr>
-  <tr>
-    <td><code>cloc</code></td>
-    <td>Perl</td>
-    <td>223.6 ms</td>
+    <td>16.47 s</td>
   </tr>
   <tr>
     <td><code>linguist</code></td>
     <td>Ruby</td>
-    <td>1.623 s</td>
+    <td>16.70 s</td>
   </tr>
 </table>
 
@@ -103,17 +69,17 @@ File formats detected:
   - [ ] PureScript
   - [ ] C
   - [ ] C++
-  - [ ] Go
+  - [x] Go
   - [ ] Sixten
   - [ ] Futhark
   - [ ] Dhall
   - [x] Cabal
   - [ ] iPKG
-  - [ ] Verilog
-  - [ ] VHDL
+  - [x] Verilog
+  - [x] VHDL
   - [ ] ion
-  - [ ] HTML
-  - [ ] CSS
+  - [x] HTML
+  - [x] CSS
   - [ ] Shakespearean languages
   - [x] Markdown
   - [ ] Justfile
@@ -130,3 +96,21 @@ File formats detected:
   - [ ] Mercury
   - [ ] mustache
   - [ ] jinja
+  - [ ] C header
+  - [ ] agda library
+  - [ ] groovy
+  - [ ] literate haskell
+  - [ ] literate idris
+  - [ ] R
+  - [ ] Scala
+  - [ ] Elixir
+  - [ ] Erlang
+  - [ ] FORTRAN
+  - [ ] F\*
+  - [ ] F#
+  - [ ] Isabelle
+  - [ ] Kotlin
+  - [ ] Lua
+  - [ ] Pascal
+  - [ ] Clojure
+  - [ ] racket

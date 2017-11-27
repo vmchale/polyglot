@@ -19,20 +19,20 @@ staload EXTRA = "libats/ML/DATS/filebas.dats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 (* ****** ****** *)
 
-fun get_contents(s: string): string =
-  let
-    val stream = fileref_open_exn(s, file_mode_r)
-    val contents = fileref_get_file_string(stream) // TODO get lines instead?
-  in
-    strptr2string(contents)
-  end
-
 fun line_count(s: string): int =
   let
-    val ref = fileref_open_exn(s, file_mode_r)
-    val viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(ref)
+    val ref = fileref_open_opt(s, file_mode_r)
   in
-    stream_vt_length(viewstream) - 1
+    case+ ref of
+      | ~Some_vt(x) => 
+        begin
+          let
+            val viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(x)
+          in
+            stream_vt_length(viewstream) - 1
+          end
+        end
+      | ~None_vt() => 0
   end
 
 fun maybe_string(s: string, n: int): string =
@@ -58,7 +58,8 @@ fun make_output(isc: source_contents): string =
     maybe_string("Elm", isc.elm) +
     maybe_string("Vimscript", isc.vimscript) +
     maybe_string("Idris", isc.idris) +
-    maybe_string("Madlang", isc.madlang)
+    maybe_string("Madlang", isc.madlang) +
+    maybe_string("Go", isc.go)
   ) +
   with_nonempty("\n[33mDocumentation:[0m\n",
     maybe_string("TeX", isc.tex) +
@@ -72,6 +73,14 @@ fun make_output(isc: source_contents): string =
   with_nonempty("\n[33mParser Generators:[0m\n",
     maybe_string("Happy", isc.happy) +
     maybe_string("Alex", isc.alex)
+  ) +
+  with_nonempty("\n[33mWeb:[0m\n",
+    maybe_string("HTML", isc.html) +
+    maybe_string("CSS", isc.css)
+  ) +
+  with_nonempty("\n[33mHardware:[0m\n",
+    maybe_string("Verilog", isc.verilog) +
+    maybe_string("VHDL", isc.vhdl)
   )
 
 fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
@@ -93,6 +102,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -114,6 +128,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -135,6 +154,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -156,6 +180,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -177,6 +206,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -198,6 +232,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -219,6 +258,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -240,6 +284,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -261,6 +310,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -282,6 +336,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -303,6 +362,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -324,6 +388,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -345,6 +414,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal + n
                   , happy = prev.happy
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -366,6 +440,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy + n
                   , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
                   }
       in
         sc
@@ -387,6 +466,141 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
                   , cabal = prev.cabal
                   , happy = prev.happy
                   , alex = prev.alex + n
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
+                  }
+      in
+        sc
+      end
+    | go n =>
+      let
+        val sc = @{ rust = prev.rust
+                  , haskell = prev.haskell
+                  , ats = prev.ats
+                  , python = prev.python
+                  , vimscript = prev.vimscript
+                  , elm = prev.elm
+                  , idris = prev.idris
+                  , madlang = prev.madlang
+                  , tex = prev.tex
+                  , markdown = prev.markdown
+                  , yaml = prev.yaml
+                  , toml = prev.toml
+                  , cabal = prev.cabal
+                  , happy = prev.happy
+                  , alex = prev.alex
+                  , go = prev.go + n
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
+                  }
+      in
+        sc
+      end
+    | html n =>
+      let
+        val sc = @{ rust = prev.rust
+                  , haskell = prev.haskell
+                  , ats = prev.ats
+                  , python = prev.python
+                  , vimscript = prev.vimscript
+                  , elm = prev.elm
+                  , idris = prev.idris
+                  , madlang = prev.madlang
+                  , tex = prev.tex
+                  , markdown = prev.markdown
+                  , yaml = prev.yaml
+                  , toml = prev.toml
+                  , cabal = prev.cabal
+                  , happy = prev.happy
+                  , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html + n
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
+                  }
+      in
+        sc
+      end
+    | css n =>
+      let
+        val sc = @{ rust = prev.rust
+                  , haskell = prev.haskell
+                  , ats = prev.ats
+                  , python = prev.python
+                  , vimscript = prev.vimscript
+                  , elm = prev.elm
+                  , idris = prev.idris
+                  , madlang = prev.madlang
+                  , tex = prev.tex
+                  , markdown = prev.markdown
+                  , yaml = prev.yaml
+                  , toml = prev.toml
+                  , cabal = prev.cabal
+                  , happy = prev.happy
+                  , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css + n
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl
+                  }
+      in
+        sc
+      end
+    | verilog n =>
+      let
+        val sc = @{ rust = prev.rust
+                  , haskell = prev.haskell
+                  , ats = prev.ats
+                  , python = prev.python
+                  , vimscript = prev.vimscript
+                  , elm = prev.elm
+                  , idris = prev.idris
+                  , madlang = prev.madlang
+                  , tex = prev.tex
+                  , markdown = prev.markdown
+                  , yaml = prev.yaml
+                  , toml = prev.toml
+                  , cabal = prev.cabal
+                  , happy = prev.happy
+                  , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog + n
+                  , vhdl = prev.vhdl
+                  }
+      in
+        sc
+      end
+    | vhdl n =>
+      let
+        val sc = @{ rust = prev.rust
+                  , haskell = prev.haskell
+                  , ats = prev.ats
+                  , python = prev.python
+                  , vimscript = prev.vimscript
+                  , elm = prev.elm
+                  , idris = prev.idris
+                  , madlang = prev.madlang
+                  , tex = prev.tex
+                  , markdown = prev.markdown
+                  , yaml = prev.yaml
+                  , toml = prev.toml
+                  , cabal = prev.cabal
+                  , happy = prev.happy
+                  , alex = prev.alex
+                  , go = prev.go
+                  , html = prev.html
+                  , css = prev.css
+                  , verilog = prev.verilog
+                  , vhdl = prev.vhdl + n
                   }
       in
         sc
@@ -436,6 +650,13 @@ fun prune_extension(s: string): pl_type =
       | "yml" => yaml(line_count(s))
       | "y" => happy(line_count(s))
       | "x" => alex(line_count(s))
+      | "go" => go(line_count(s))
+      | "html" => html(line_count(s))
+      | "htm" => html(line_count(s))
+      | "css" => css(line_count(s))
+      | "v" => verilog(line_count(s))
+      | "vhdl" => vhdl(line_count(s))
+      | "vhd" => vhdl(line_count(s))
       | _ => haskell(0)
   end
 
@@ -474,6 +695,11 @@ fnx traverse(ss: list0(string)) : source_contents =
                      , cabal = 0
                      , happy = 0
                      , alex = 0
+                     , go = 0
+                     , html = 0
+                     , css = 0
+                     , verilog = 0
+                     , vhdl = 0
                      } : source_contents
         in
           isc
@@ -506,6 +732,7 @@ fun bad_dir(s: string) : bool =
     | "forks" => true
     | "depends" => true
     | "nix" => true
+    | "docs" => true
     | _ => false
 
 fun not_wrong(s: string) : bool =

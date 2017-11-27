@@ -7,7 +7,11 @@ import           Development.Shake
 
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
-    want [ "target/polyglot" ]
+    want [ "target/polyglot", "man/poly.1" ]
+
+    "man/poly.1" %> \_ -> do
+        need ["man/MANPAGE.md"]
+        cmd ["pandoc", "man/MANPAGE.md", "-s", "-t", "man", "-o", "man/poly.1"]
 
     "build" %> \_ -> do
         need ["shake.hs"]
@@ -26,12 +30,13 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
 
     "bench" ~> do
         need ["target/polyglot"]
-        let dir = " /home/vanessa/programming/haskell"
-        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei -e forks", "loc --exclude='forks$'", "enry", "cloc --exclude-list-file='forks'"])
+        let dir = " /home/vanessa/git-builds/rust"
+        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei", "loc -u", "enry", "cloc", "linguist"])
 
     "install" ~> do
-        need ["target/polyglot"]
+        need ["target/polyglot", "man/poly.1"]
         home <- getEnv "HOME"
+        cmd_ ["cp", "man/poly.1", fromMaybe "" home ++ "/.local/share/man/man1/"]
         cmd ["cp", "target/polyglot", fromMaybe "" home ++ "/.local/bin/poly"]
 
     "run" ~> do
@@ -40,6 +45,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
 
     "clean" ~> do
         cmd_ ["sn", "c"]
+        cmd_ ["rm", "-f", "man/poly.1"]
         removeFilesAfter "." ["//*.c", "tags", "build"]
         removeFilesAfter ".shake" ["//*"]
         removeFilesAfter "target" ["//*"]

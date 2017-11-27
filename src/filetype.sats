@@ -17,6 +17,18 @@ typedef source_contents = @{ // programming languages
                            // parser generators
                            , happy = int
                            , alex = int
+                           // more programming languages lol
+                           , go = int
+                           // web stuff
+                           , html = int
+                           , css = int
+                           // , cassius = int
+                           // , julius = int
+                           // , hamlet = int
+                           // , lucius = int
+                           // hardware
+                           , verilog = int
+                           , vhdl = int
                            }
 
 datatype pl_type =
@@ -43,3 +55,6 @@ datatype pl_type =
   | cabal of int
   | happy of int
   | alex of int
+  | go of int
+  | html of int
+  | css of int
