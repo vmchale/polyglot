@@ -5,7 +5,8 @@ like [tokei](https://github.com/Aaronepower/tokei). Such tools can help one
 orient oneself in an unfamiliar codebase.
 
 `poly` is currently faster than all other code counting tools, though it
-supports far fewer file formats than is desirable.
+supports far fewer file formats than is desirable and is less stable than
+`tokei` or `loc`.
 
 <img src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
 
