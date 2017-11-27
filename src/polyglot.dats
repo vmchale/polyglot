@@ -517,11 +517,6 @@ fun not_wrong(s: string) : bool =
       | _ => extra = 0 // FIXME ignore hidden files?
   end
 
-fun list0_empty{a:t0p}(x: list0(a)) : bool =
-  case x of
-    | list0_cons(_, _) => false
-    | _ => true
-
 fun flow_stream(s: string) : void =
   let
     val files = streamize_dirname_fname(s)
@@ -535,7 +530,7 @@ fnx dir_recursive(s: string): list0(string) =
       val files = dirname_get_fnamelst(s)
       val subdirs: list0(string) = list0_filter(files, lam x => test_file_isdir(s + "/" + x) = 1 && not(bad_dir(x)))
     in
-      if not(list0_empty(subdirs))
+      if not(list0_is_nil(subdirs))
         then
           list0_concat(list0_cons(list0_map(list0_filter(files, lam x => not(bad_dir(x))), lam x => s + "/" + x), list0_map(subdirs, lam x => dir_recursive(s + "/" + x))))
         else
@@ -549,38 +544,53 @@ fun get_dir_contents(s: string): list0(string) =
     list0_filter(files, lam x => not_wrong(x))
   end
 
-fun should_help
+fun detect_flag
   {n: int | n >= 1}
   {m: nat | m < n}
   ( argc: int n
-  , argv: &(@[string][n])
-  , current: int m ) : bool =
+  , argv: !argv(n)
+  , current: int m
+  , long: string
+  , short: string
+  ) : bool =
   let
     val arg = argv[current]
   in
     if current < argc - 1 then
-      arg = "--help" || arg = "-h" || should_help(argc, argv, current + 1)
+      arg = long || arg = short || detect_flag(argc, argv, current + 1, long, short)
     else
-      arg = "--help" || arg = "-h"
+      arg = long || arg = short
   end
 
-fn help () = prerr "Usage: poly [OPTION] ... [DIRECTORY] ...
+fun version(): void =
+  println!("polygot version 0.1.0\nCopyright (c) 2017 Vanessa McHale")
 
-Count lines of source code and output a summary.
+fun help(): void = 
+print("Count lines of source code quickly.
+
+USAGE: poly [OPTION] ... [DIRECTORY] ...
+
+FLAGS:
     -V, --version            show version information
     -h, --help               display this help and exit
 
 When no directory is provided poly will execute in the
 current directory.
 
-Examples:
-  poly ../        Summarize contents of parent directory.  
-  
-Bug reports and updates at
-    nest.pijul.com/vamchale/polyglot\n"
+Bug reports and updates: nest.pijul.com/vamchale/polyglot\n")
 
 implement main0 (argc, argv) =
-  if argc > 1 then
-    print(make_output(traverse(get_dir_contents(argv[1]))))
-  else
-    print(make_output(traverse(get_dir_contents("."))))
+  let val
+    should_help = detect_flag(argc, argv, 0, "--help", "-h")
+  in
+    if not(should_help || detect_flag(argc, argv, 0, "--version", "-V")) then
+      if argc > 1 then
+        print(make_output(traverse(get_dir_contents(argv[1]))))
+      else
+        print(make_output(traverse(get_dir_contents("."))))
+    else
+      if should_help then
+        help()
+      else
+        version()
+  end
