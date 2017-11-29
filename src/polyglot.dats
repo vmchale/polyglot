@@ -21,7 +21,7 @@ staload EXTRA = "libats/ML/SATS/filebas.sats"
 
 fun line_count(s: string): int =
   let
-    val ref = fileref_open_opt(s, file_mode_r)
+    val ref = fileref_open_opt(s, file_mode_r) // fucks up when not created on linux/this computer??
   in
     case+ ref of
       | ~Some_vt(x) => 
@@ -51,32 +51,43 @@ fun with_nonempty(s1: string, s2: string): string =
 
 fun make_output(isc: source_contents): string =
   with_nonempty("[33mProgramming Languages:[0m\n",
-    maybe_string("Rust", isc.rust) +
-    maybe_string("Haskell", isc.haskell) +
     maybe_string("ATS", isc.ats) +
-    maybe_string("Python", isc.python) +
+    maybe_string("Brainfuck", isc.brainfuck) +
+    maybe_string("C", isc.c) +
+    maybe_string("C++", isc.cpp) +
+    maybe_string("COBOL", isc.cobol) +
     maybe_string("Elm", isc.elm) +
-    maybe_string("Vimscript", isc.vimscript) +
+    maybe_string("Go", isc.go) +
+    maybe_string("Haskell", isc.haskell) +
     maybe_string("Idris", isc.idris) +
     maybe_string("Madlang", isc.madlang) +
-    maybe_string("Go", isc.go)
+    maybe_string("Lua", isc.lua) +
+    maybe_string("OCaml", isc.ocaml) +
+    maybe_string("Perl", isc.perl) +
+    maybe_string("Python", isc.python) +
+    maybe_string("R", isc.r) +
+    maybe_string("Ruby", isc.ruby) +
+    maybe_string("Rust", isc.rust) +
+    maybe_string("TCL", isc.tcl) +
+    maybe_string("Vimscript", isc.vimscript)
   ) +
   with_nonempty("\n[33mDocumentation:[0m\n",
-    maybe_string("TeX", isc.tex) +
-    maybe_string("Markdown", isc.markdown)
+    maybe_string("Markdown", isc.markdown) +
+    maybe_string("TeX", isc.tex)
   ) +
   with_nonempty("\n[33mConfiguration:[0m\n",
-    maybe_string("YAML", isc.yaml) +
+    maybe_string("Cabal", isc.cabal) +
     maybe_string("TOML", isc.toml) +
-    maybe_string("Cabal", isc.cabal)
+    maybe_string("YAML", isc.yaml)
   ) +
   with_nonempty("\n[33mParser Generators:[0m\n",
+    maybe_string("Alex", isc.alex) +
     maybe_string("Happy", isc.happy) +
-    maybe_string("Alex", isc.alex)
+    maybe_string("LALRPOP", isc.lalrpop)
   ) +
   with_nonempty("\n[33mWeb:[0m\n",
-    maybe_string("HTML", isc.html) +
-    maybe_string("CSS", isc.css)
+    maybe_string("CSS", isc.css) +
+    maybe_string("HTML", isc.html)
   ) +
   with_nonempty("\n[33mHardware:[0m\n",
     maybe_string("Verilog", isc.verilog) +
@@ -84,528 +95,222 @@ fun make_output(isc: source_contents): string =
   )
 
 fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
-  case+ scf of
-    | haskell n => 
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell + n
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | ats n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats + n
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm 
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | rust n =>
-      let
-        val sc = @{ rust = prev.rust + n
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm 
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | python n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python + n
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm 
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | elm n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm + n
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | vimscript n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript + n
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | idris n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris + n
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | madlang n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang + n
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | tex n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex + n
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | markdown n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown + n
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | toml n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml + n
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | yaml n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml + n
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | cabal n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal + n
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | happy n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy + n
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | alex n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex + n
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | go n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go + n
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | html n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html + n
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | css n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css + n
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | verilog n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog + n
-                  , vhdl = prev.vhdl
-                  }
-      in
-        sc
-      end
-    | vhdl n =>
-      let
-        val sc = @{ rust = prev.rust
-                  , haskell = prev.haskell
-                  , ats = prev.ats
-                  , python = prev.python
-                  , vimscript = prev.vimscript
-                  , elm = prev.elm
-                  , idris = prev.idris
-                  , madlang = prev.madlang
-                  , tex = prev.tex
-                  , markdown = prev.markdown
-                  , yaml = prev.yaml
-                  , toml = prev.toml
-                  , cabal = prev.cabal
-                  , happy = prev.happy
-                  , alex = prev.alex
-                  , go = prev.go
-                  , html = prev.html
-                  , css = prev.css
-                  , verilog = prev.verilog
-                  , vhdl = prev.vhdl + n
-                  }
-      in
-        sc
-      end
-    | _ => prev
+  let
+    val sc_r = ref<source_contents>(prev)
+  in
+    case+ scf of
+      | haskell n => 
+        let
+          val () = sc_r->haskell := prev.haskell + n
+        in
+          !sc_r
+        end
+      | ats n => 
+        let
+          val () = sc_r->ats := prev.ats + n
+        in
+          !sc_r
+        end
+      | rust n => 
+        let
+          val () = sc_r->rust := prev.rust + n
+        in
+          !sc_r
+        end
+      | markdown n => 
+        let
+          val () = sc_r->markdown := prev.markdown + n
+        in
+          !sc_r
+        end
+      | python n => 
+        let
+          val () = sc_r->python := prev.python + n
+        in
+          !sc_r
+        end
+      | vimscript n => 
+        let
+          val () = sc_r->vimscript := prev.vimscript + n
+        in
+          !sc_r
+        end
+      | yaml n => 
+        let
+          val () = sc_r->yaml := prev.yaml + n
+        in
+          !sc_r
+        end
+      | toml n => 
+        let
+          val () = sc_r->toml := prev.toml + n
+        in
+          !sc_r
+        end
+      | happy n => 
+        let
+          val () = sc_r->happy := prev.happy + n
+        in
+          !sc_r
+        end
+      | alex n => 
+        let
+          val () = sc_r->alex := prev.alex + n
+        in
+          !sc_r
+        end
+      | idris n => 
+        let
+          val () = sc_r->idris := prev.idris + n
+        in
+          !sc_r
+        end
+      | madlang n => 
+        let
+          val () = sc_r->madlang := prev.madlang + n
+        in
+          !sc_r
+        end
+      | elm n => 
+        let
+          val () = sc_r->elm := prev.elm + n
+        in
+          !sc_r
+        end
+      | c n => 
+        let
+          val () = sc_r->c := prev.c + n
+        in
+          !sc_r
+        end
+      | go n => 
+        let
+          val () = sc_r->go := prev.go + n
+        in
+          !sc_r
+        end
+      | cabal n => 
+        let
+          val () = sc_r->cabal := prev.cabal + n
+        in
+          !sc_r
+        end
+      | verilog n => 
+        let
+          val () = sc_r->verilog := prev.verilog + n
+        in
+          !sc_r
+        end
+      | vhdl n => 
+        let
+          val () = sc_r->vhdl := prev.vhdl + n
+        in
+          !sc_r
+        end
+      | html n => 
+        let
+          val () = sc_r->html := prev.html + n
+        in
+          !sc_r
+        end
+      | css n => 
+        let
+          val () = sc_r->css := prev.css + n
+        in
+          !sc_r
+        end
+      | purescript n => 
+        let
+          val () = sc_r->purescript := prev.purescript + n
+        in
+          !sc_r
+        end
+      | futhark n => 
+        let
+          val () = sc_r->futhark := prev.futhark + n
+        in
+          !sc_r
+        end
+      | brainfuck n => 
+        let
+          val () = sc_r->brainfuck := prev.brainfuck + n
+        in
+          !sc_r
+        end
+      | ruby n => 
+        let
+          val () = sc_r->ruby := prev.ruby + n
+        in
+          !sc_r
+        end
+      | julia n => 
+        let
+          val () = sc_r->julia := prev.julia + n
+        in
+          !sc_r
+        end
+      | tex n => 
+        let
+          val () = sc_r->tex := prev.tex + n
+        in
+          !sc_r
+        end
+      | perl n => 
+        let
+          val () = sc_r->perl := prev.perl + n
+        in
+          !sc_r
+        end
+      | ocaml n => 
+        let
+          val () = sc_r->ocaml := prev.ocaml + n
+        in
+          !sc_r
+        end
+      | agda n => 
+        let
+          val () = sc_r->agda := prev.agda + n
+        in
+          !sc_r
+        end
+      | cobol n => 
+        let
+          val () = sc_r->cobol := prev.cobol + n
+        in
+          !sc_r
+        end
+      | tcl n => 
+        let
+          val () = sc_r->tcl := prev.tcl + n
+        in
+          !sc_r
+        end
+      | r n => 
+        let
+          val () = sc_r->r := prev.r + n
+        in
+          !sc_r
+        end
+      | lua n => 
+        let
+          val () = sc_r->lua := prev.lua + n
+        in
+          !sc_r
+        end
+      | cpp n => 
+        let
+          val () = sc_r->cpp := prev.cpp + n
+        in
+          !sc_r
+        end
+      | lalrpop n => 
+        let
+          val () = sc_r->lalrpop := prev.lalrpop + n
+        in
+          !sc_r
+        end
+      | unknown _ => prev
+  end
 
 fun prune_extension(s: string): pl_type =
   let
@@ -626,10 +331,10 @@ fun prune_extension(s: string): pl_type =
       | "tex" => tex(line_count(s))
       | "md" => markdown(line_count(s))
       | "markdown" => markdown(line_count(s))
-      | "ats" => ats(line_count(s))
       | "dats" => ats(line_count(s))
       | "hats" => ats(line_count(s))
       | "cats" => ats(line_count(s))
+      | "sats" => ats(line_count(s))
       | "py" => python(line_count(s))
       | "fut" => futhark(line_count(s))
       | "pl" => perl(line_count(s))
@@ -657,7 +362,19 @@ fun prune_extension(s: string): pl_type =
       | "v" => verilog(line_count(s))
       | "vhdl" => vhdl(line_count(s))
       | "vhd" => vhdl(line_count(s))
-      | _ => haskell(0)
+      | "c" => c(line_count(s))
+      | "b" => brainfuck(line_count(s))
+      | "bf" => brainfuck(line_count(s))
+      | "rb" => ruby(line_count(s))
+      | "cob" => cobol(line_count(s))
+      | "ml" => ocaml(line_count(s))
+      | "tcl" => tcl(line_count(s))
+      | "r" => r(line_count(s))
+      | "lua" => lua(line_count(s))
+      | "cpp" => cpp(line_count(s))
+      | "cc" => cpp(line_count(s))
+      | "lalrpop" => lalrpop(line_count(s))
+      | _ => unknown
   end
 
 fun with_string(s: string, prev: source_contents): source_contents =
@@ -667,50 +384,25 @@ fun with_string(s: string, prev: source_contents): source_contents =
     adjust_contents(prev, pl)
   end
 
-fnx traverse(ss: list0(string)) : source_contents =
-  case ss of
+// TODO if we can do this on a stream it's nicer.
+fnx traverse(ss: list0(string), initial: source_contents) : source_contents =
+  case+ ss of
     | list0_cons(x, xs) =>
       begin
         let
-          val prev = traverse(xs)
+          val prev = traverse(xs, initial)
         in
           with_string(x, prev)
         end
       end
-    | _ => 
-      begin
-        let
-          val isc = @{ rust = 0
-                     , haskell = 0
-                     , ats = 0
-                     , python = 0
-                     , vimscript = 0
-                     , elm = 0
-                     , idris = 0
-                     , madlang = 0
-                     , tex = 0
-                     , markdown = 0
-                     , yaml = 0
-                     , toml = 0
-                     , cabal = 0
-                     , happy = 0
-                     , alex = 0
-                     , go = 0
-                     , html = 0
-                     , css = 0
-                     , verilog = 0
-                     , vhdl = 0
-                     } : source_contents
-        in
-          isc
-        end
-      end
+    | _ => initial
 
 fun starts_with(s: String) : char =
   if length(s) > 1 
     then string_head(s)
     else '.'
 
+// TODO take an array of bad directories from CLI.
 fun bad_dir(s: string) : bool =
   case s of
     | "." => true
@@ -718,17 +410,18 @@ fun bad_dir(s: string) : bool =
     | ".pijul" => true
     | "_darcs" => true
     | ".git" => true
-    | "target" => true
+    | "target" => true // TODO make this more sophisticated?
     | ".shake" => true
     | "dist-newstyle" => true
     | "dist" => true
     | ".psc-package" => true
     | ".pulp-cache" => true
-    | "output" => true
+    | "output" => true // TODO only on packages
     | "elm-stuff" => true
     | ".stack-work" => true
     | ".reco" => true
     | ".reco-work" => true
+    // FIXME remove these
     | "forks" => true
     | "depends" => true
     | "nix" => true
@@ -737,21 +430,29 @@ fun bad_dir(s: string) : bool =
 
 fun not_wrong(s: string) : bool =
   let 
-    val fancy = $UN.cast{String}(s)
     val extra = test_file_isdir(s)
   in
-    case starts_with(fancy) of
-      | _ => extra = 0 // FIXME ignore hidden files?
+    case extra of
+      | 0 => true
+      | _ => false
   end
 
-fun flow_stream(s: string) : void =
+fnx step_stream(acc: source_contents, s: string) : source_contents =
+  if test_file_isdir(s) = 1 then
+    flow_stream(s, acc)
+  else
+    adjust_contents(acc, prune_extension(s))
+
+and flow_stream(s: string, init: source_contents) : source_contents =
   let
     val files = streamize_dirname_fname(s)
   in
-    stream_vt_foreach_cloptr(files, lam x => print(x)) // FIXME figure out how tf to use folds.
+    stream_vt_foldleft_cloptr( files
+                             , init
+                             , lam (acc, next) => if not(bad_dir(next)) then step_stream(acc, s + "/" + next) else acc
+                             )
   end
 
-// FIXME this is a fucking disaster lol.
 fnx dir_recursive(s: string): list0(string) =
     let
       val files = dirname_get_fnamelst(s)
@@ -764,6 +465,7 @@ fnx dir_recursive(s: string): list0(string) =
           list0_map(list0_filter(files, lam x => not(bad_dir(x))), lam x => s + "/" + x)
     end
 
+// TODO this is quite inefficient; a fold would be nice.
 fun get_dir_contents(s: string): list0(string) =
   let
     val files = dir_recursive(s)
@@ -807,14 +509,52 @@ current directory.
 Bug reports and updates: nest.pijul.com/vamchale/polyglot\n")
 
 implement main0 (argc, argv) =
-  let val
-    should_help = detect_flag(argc, argv, 0, "--help", "-h")
+  let 
+    val should_help = detect_flag(argc, argv, 0, "--help", "-h")
+    val isc = @{ rust = 0
+               , haskell = 0
+               , ats = 0
+               , python = 0
+               , vimscript = 0
+               , elm = 0
+               , idris = 0
+               , madlang = 0
+               , tex = 0
+               , markdown = 0
+               , yaml = 0
+               , toml = 0
+               , cabal = 0
+               , happy = 0
+               , alex = 0
+               , go = 0
+               , html = 0
+               , css = 0
+               , verilog = 0
+               , vhdl = 0
+               , c = 0
+               , purescript = 0
+               , futhark = 0
+               , brainfuck = 0
+               , ruby = 0
+               , julia = 0
+               , perl = 0
+               , ocaml = 0
+               , agda = 0
+               , cobol = 0
+               , tcl = 0
+               , r = 0
+               , lua = 0
+               , cpp = 0
+               , lalrpop = 0
+               } : source_contents
   in
     if not(should_help || detect_flag(argc, argv, 0, "--version", "-V")) then
-      if argc > 1 then
-        print(make_output(traverse(get_dir_contents(argv[1]))))
+      if argc = ~1 then
+        print(make_output(traverse(get_dir_contents("."), isc))) // why is this necessary???
+      else if argc > 1 then
+        print(make_output(step_stream(isc, argv[1]))) // hacky CLI parser
       else
-        print(make_output(traverse(get_dir_contents("."))))
+        print(make_output(step_stream(isc, ".")))
     else
       if should_help then
         help()

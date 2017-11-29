@@ -1,5 +1,4 @@
-typedef source_contents = @{ // programming languages
-                             rust = int
+typedef source_contents = @{ rust = int
                            , haskell = int
                            , ats = int
                            , python = int
@@ -7,31 +6,39 @@ typedef source_contents = @{ // programming languages
                            , elm = int
                            , idris = int
                            , madlang = int
-                           // documentation
                            , tex = int
                            , markdown = int
-                           // configuration
                            , yaml = int
                            , toml = int
                            , cabal = int
-                           // parser generators
                            , happy = int
                            , alex = int
-                           // more programming languages lol
                            , go = int
-                           // web stuff
                            , html = int
                            , css = int
-                           // , cassius = int
-                           // , julius = int
-                           // , hamlet = int
-                           // , lucius = int
-                           // hardware
                            , verilog = int
                            , vhdl = int
+                           , c = int
+                           , purescript = int
+                           , futhark = int
+                           , brainfuck = int
+                           , ruby = int
+                           , julia = int
+                           , perl = int
+                           , ocaml = int
+                           , agda = int
+                           , cobol = int
+                           , tcl = int
+                           , r = int
+                           , lua = int
+                           , cpp = int
+                           , lalrpop = int
                            }
 
+typedef source_contents_r = ref(source_contents)
+
 datatype pl_type =
+  | unknown
   | rust of int
   | haskell of int
   | perl of int
@@ -42,7 +49,6 @@ datatype pl_type =
   | ats of int
   | idris of int
   | python of int
-  | go of int
   | elm of int
   | purescript of int
   | vimscript of int
@@ -58,3 +64,13 @@ datatype pl_type =
   | go of int
   | html of int
   | css of int
+  | c of int
+  | brainfuck of int
+  | ruby of int
+  | julia of int
+  | cobol of int
+  | tcl of int
+  | r of int
+  | lua of int
+  | cpp of int
+  | lalrpop of int

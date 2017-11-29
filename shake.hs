@@ -4,6 +4,7 @@
 import           Data.Maybe        (fromMaybe)
 import           Data.Monoid
 import           Development.Shake
+import           System.Exit       (ExitCode (..))
 
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
@@ -25,8 +26,11 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need $ dats <> sats
         cmd_ ["mkdir", "-p", "target"]
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        -- FIXME use pats-filter on the output.
-        command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" (dats ++ ["-DATS_MEMALLOC_LIBC", "-o", "target/polyglot", "-cleanaft", "-O3", "-mtune=native"])
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" (dats ++ ["-DATS_MEMALLOC_LIBC", "-o", "target/polyglot", "-cleanaft", "-O2", "-mtune=native"])
+        cmd_ [Stdin err] Shell "pats-filter"
+        if c /= ExitSuccess
+            then error "patscc failure"
+            else pure ()
 
     "bench" ~> do
         need ["target/polyglot"]

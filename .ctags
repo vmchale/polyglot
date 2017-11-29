@@ -1,0 +1,7 @@
+--langdef=ATS
+--langmap=ATS:.dats
+--langmap=ATS:+.sats
+--regex-ATS=/^fun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
+--regex-ATS=/^fnx *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
+--regex-ATS=/^typedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
+--regex-ATS=/^datatype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
