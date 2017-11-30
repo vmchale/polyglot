@@ -6,6 +6,8 @@ import           Data.Monoid
 import           Development.Shake
 import           System.Exit       (ExitCode (..))
 
+{-# ANN module "HLint: ignore Reduce duplication" #-}
+
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     want [ "target/polyglot", "man/poly.1" ]
@@ -19,6 +21,13 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         cmd_ ["mkdir", "-p", ".shake"]
         command_ [Cwd ".shake"] "cp" ["../shake.hs", "."]
         command [Cwd ".shake"] "ghc" ["-O", "shake.hs", "-o", "../build", "-Wall", "-Werror", "-Wincomplete-uni-patterns", "-Wincomplete-record-updates"]
+
+    "target/polyglot.c" %> \_ -> do
+        dats <- getDirectoryFiles "" ["//*.dats"]
+        sats <- getDirectoryFiles "" ["//*.sats"]
+        need $ dats <> sats
+        cmd_ ("patscc -DATS_MEMALLOC_LIBC -ccats " ++ unwords dats)
+        cmd "mv polyglot_dats.c" "target/polyglot.c"
 
     "target/polyglot" %> \_ -> do
         dats <- getDirectoryFiles "" ["//*.dats"]
@@ -35,7 +44,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     "bench" ~> do
         need ["target/polyglot"]
         let dir = " /home/vanessa/git-builds/rust"
-        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei", "loc -u", "enry", "cloc", "linguist"])
+        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 tokei", "numactl --physcpubind=+1 loc -u"])
 
     "install" ~> do
         need ["target/polyglot", "man/poly.1"]

@@ -4,14 +4,26 @@
 like [tokei](https://github.com/Aaronepower/tokei). It provides a good summary
 of what to expect from a particular codebase.
 
-`poly` is currently quite fast, though it
-is not yet stable.
+`poly` is currently quite fast, though parallelism remains to be implemented.
 
 <img src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
 
+## Features
+
+Reasons to use polyglot:
+
+  * Faster than `tokei`
+  * More accurate than `loc`
+
+Reasons not to use polyglot:
+
+  * It's written in ATS
+  * Fewer features than `tokei`
+  * No binary releases
+
 ## Benchmarks
 
-On the Idris source code:
+On the Rust repo:
 
 <table>
   <tr>
@@ -22,32 +34,27 @@ On the Idris source code:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>29.89 ms</td>
+    <td>238.8 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>25.30 ms</td>
-  </tr>
-  <tr>
-    <td><code>loc</code> (single-threaded)</td>
-    <td>Rust</td>
-    <td>38.01 ms</td>
+    <td>130.5 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>46.92 ms</td>
+    <td>328.9 ms</td>
   </tr>
   <tr>
-    <td><code>tokei</code> (single-threaded)</td>
-    <td>Rust</td>
-    <td>90.05 ms</td>
+    <td><code>linguist</code></td>
+    <td>Ruby</td>
+    <td>16.23 s</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>2.556 s s</td>
+    <td>17.59 s</td>
   </tr>
 </table>
 
@@ -107,14 +114,22 @@ File formats detected:
   - [x] tcl
   - [x] C++
   - [x] LALRPOP
-  - [ ] Sixten
+  - [x] C header
+  - [x] Sixten
+  - [x] Dhall
+  - [x] iPKG
+  - [x] bash
+  - [x] ion
+  - [x] Justfile
+  - [x] Makefile
   - [ ] Pony (`.pony`)
-  - [ ] Dhall
-  - [ ] iPKG
-  - [ ] ion
+  - [ ] Elixir
+  - [ ] Erlang
   - [ ] Shakespearean languages
-  - [ ] Justfile
-  - [ ] Makefile
+    - [ ] cassius
+    - [ ] lucius
+    - [ ] hamlet
+    - [ ] julius
   - [ ] Java
   - [ ] Swift (`.swift`)
   - [ ] assembly (`.asm`, `.s`, `.S`)
@@ -125,14 +140,11 @@ File formats detected:
   - [ ] Mercury
   - [ ] mustache
   - [ ] jinja
-  - [ ] C header
-  - [ ] agda library
+  - [ ] Agda library
   - [ ] groovy
   - [ ] literate haskell
   - [ ] literate idris
   - [ ] Scala
-  - [ ] Elixir
-  - [ ] Erlang
   - [ ] FORTRAN
   - [ ] F\*
   - [ ] F#
@@ -153,3 +165,9 @@ File formats detected:
   - [ ] C++ header file
   - [ ] clean
   - [ ] Ddoc (`.dd`)
+  - [ ] nim
+  - [ ] dash
+  - [ ] fish
+  - [ ] dyon
+  - [ ] ketos
+  - [ ] harlan

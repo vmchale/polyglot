@@ -1,5 +1,6 @@
 #include "share/atspre_define.hats"
 #include "share/atspre_staload.hats"
+#include "share/HATS/atslib_staload_libats_libc.hats"
 #include "prelude/DATS/filebas.dats"
 #include "libats/ML/DATS/filebas_dirent.dats"
 #include "libats/libc/DATS/dirent.dats"
@@ -7,6 +8,7 @@
 
 %{^
 #include "libats/libc/CATS/string.cats"
+#include "prelude/CATS/filebas.cats"
 %}
 
 (* ****** ****** *)
@@ -15,21 +17,23 @@ staload "libats/ML/DATS/string.dats"
 staload "libats/libc/SATS/stdio.sats"
 staload "prelude/SATS/filebas.sats"
 staload "src/filetype.sats"
-staload EXTRA = "libats/ML/DATS/filebas.dats"
+staload "libats/ML/DATS/filebas.dats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 (* ****** ****** *)
 
 fun line_count(s: string): int =
   let
-    val ref = fileref_open_opt(s, file_mode_r) // fucks up when not created on linux/this computer??
+    val ref = fileref_open_opt(s, file_mode_r)
   in
     case+ ref of
       | ~Some_vt(x) => 
         begin
           let
             val viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(x)
+            val n: int = stream_vt_length(viewstream) - 1
+            val _ = fileref_close(x)
           in
-            stream_vt_length(viewstream) - 1
+            n
           end
         end
       | ~None_vt() => 0
@@ -54,6 +58,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("ATS", isc.ats) +
     maybe_string("Brainfuck", isc.brainfuck) +
     maybe_string("C", isc.c) +
+    maybe_string("C Header", isc.header) +
     maybe_string("C++", isc.cpp) +
     maybe_string("COBOL", isc.cobol) +
     maybe_string("Elm", isc.elm) +
@@ -68,6 +73,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("R", isc.r) +
     maybe_string("Ruby", isc.ruby) +
     maybe_string("Rust", isc.rust) +
+    maybe_string("Sixten", isc.sixten) +
     maybe_string("TCL", isc.tcl) +
     maybe_string("Vimscript", isc.vimscript)
   ) +
@@ -77,8 +83,14 @@ fun make_output(isc: source_contents): string =
   ) +
   with_nonempty("\n[33mConfiguration:[0m\n",
     maybe_string("Cabal", isc.cabal) +
+    maybe_string("Dhall", isc.dhall) +
+    maybe_string("iPKG", isc.ipkg) +
     maybe_string("TOML", isc.toml) +
     maybe_string("YAML", isc.yaml)
+  ) +
+  with_nonempty("\n[33mShell:[0m\n",
+    maybe_string("Ion", isc.ion) +
+    maybe_string("Bash", isc.bash)
   ) +
   with_nonempty("\n[33mParser Generators:[0m\n",
     maybe_string("Alex", isc.alex) +
@@ -92,7 +104,14 @@ fun make_output(isc: source_contents): string =
   with_nonempty("\n[33mHardware:[0m\n",
     maybe_string("Verilog", isc.verilog) +
     maybe_string("VHDL", isc.vhdl)
+  ) +
+  with_nonempty("\n[33mOther:[0m\n",
+    maybe_string("Justfile", isc.justfile) +
+    maybe_string("Madlang", isc.madlang) +
+    maybe_string("Makefile", isc.makefile)
   )
+
+// fun detect_happy( 
 
 fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
   let
@@ -309,19 +328,110 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
         in
           !sc_r
         end
+      | header n => 
+        let
+          val () = sc_r->header := prev.header + n
+        in
+          !sc_r
+        end
+      | sixten n => 
+        let
+          val () = sc_r->sixten := prev.sixten + n
+        in
+          !sc_r
+        end
+      | dhall n => 
+        let
+          val () = sc_r->dhall := prev.dhall + n
+        in
+          !sc_r
+        end
+      | ipkg n => 
+        let
+          val () = sc_r->ipkg := prev.ipkg + n
+        in
+          !sc_r
+        end
+      | justfile n => 
+        let
+          val () = sc_r->justfile := prev.justfile + n
+        in
+          !sc_r
+        end
+      | makefile n => 
+        let
+          val () = sc_r->makefile := prev.makefile + n
+        in
+          !sc_r
+        end
+      | ion n => 
+        let
+          val () = sc_r->ion := prev.ion + n
+        in
+          !sc_r
+        end
+      | bash n => 
+        let
+          val () = sc_r->bash := prev.bash + n
+        in
+          !sc_r
+        end
       | unknown _ => prev
+  end
+
+fun check_shebang(s: string): pl_type =
+  let
+    val ref = fileref_open_opt(s, file_mode_r)
+    val str: string =
+      case+ ref of
+        | ~Some_vt(x) => 
+          let
+            val s = strptr2string(fileref_get_line_string(x)) // type Strptr1
+            val _ = fileref_close(x)
+          in
+            s
+          end
+        | ~None_vt() => ""
+  in
+    case str of
+      | "#!/usr/bin/env ion" => ion(line_count(s))
+      | "#!/usr/bin/env bash" => bash(line_count(s))
+      | "#!/bin/bash" => bash(line_count(s))
+      | "#!/usr/bin/env python" => python(line_count(s))
+      | "#!/usr/bin/env python2" => python(line_count(s))
+      | "#!/usr/bin/env python3" => python(line_count(s))
+      | "#!/usr/bin/env perl" => perl(line_count(s))
+      | "#!/usr/bin/env perl6" => perl(line_count(s))
+      | "#!/usr/bin/perl" => perl(line_count(s))
+      // | "#!/usr/bin/env node" 
+      | _ => unknown
+  end
+
+fun match_filename(s: string): pl_type =
+  let
+    val (prf | str) = filename_get_base(s)
+    val match = $UN.strptr2string(str)
+    prval () = prf(str)
+  in
+    case match of
+      | "Makefile" => makefile(line_count(s))
+      | "makefile" => makefile(line_count(s))
+      | "GNUmakefile" => makefile(line_count(s))
+      | "Justfile" => justfile(line_count(s))
+      | "justfile" => justfile(line_count(s))
+      | _ => check_shebang(s)
   end
 
 fun prune_extension(s: string): pl_type =
   let
-    val (ext | str) = filename_get_ext(s)
+    val (prf | str) = filename_get_ext(s)
     val match: string = 
       if strptr2ptr(str) > 0
         then
           $UN.strptr2string(str)
         else
           ""
-    prval () = ext (str)
+    prval () = prf (str)
   in
     case match of
       | "hs" => haskell(line_count(s))
@@ -374,12 +484,17 @@ fun prune_extension(s: string): pl_type =
       | "cpp" => cpp(line_count(s))
       | "cc" => cpp(line_count(s))
       | "lalrpop" => lalrpop(line_count(s))
-      | _ => unknown
+      | "h" => header(line_count(s))
+      | "vix" => sixten(line_count(s))
+      | "dhall" => dhall(line_count(s))
+      | "ipkg" => ipkg(line_count(s))
+      | "mk" => makefile(line_count(s))
+      | _ => match_filename(s)
   end
 
 fun with_string(s: string, prev: source_contents): source_contents =
   let
-    val pl = prune_extension(s)
+    var pl = prune_extension(s)
   in
     adjust_contents(prev, pl)
   end
@@ -390,7 +505,7 @@ fnx traverse(ss: list0(string), initial: source_contents) : source_contents =
     | list0_cons(x, xs) =>
       begin
         let
-          val prev = traverse(xs, initial)
+          var prev = traverse(xs, initial)
         in
           with_string(x, prev)
         end
@@ -403,30 +518,33 @@ fun starts_with(s: String) : char =
     else '.'
 
 // TODO take an array of bad directories from CLI.
-fun bad_dir(s: string) : bool =
+fun bad_dir(s: string, excludes: list0(string)) : bool =
   case s of
     | "." => true
     | ".." => true
     | ".pijul" => true
     | "_darcs" => true
+    | ".hg" => true
     | ".git" => true
-    | "target" => true // TODO make this more sophisticated?
+    | "target" => true // Rust, etc.
+    | ".egg-info" => true
+    | "nimcache" => true
     | ".shake" => true
     | "dist-newstyle" => true
     | "dist" => true
     | ".psc-package" => true
     | ".pulp-cache" => true
-    | "output" => true // TODO only on packages
+    | "output" => true // pulp
+    | "bower_components" => true
     | "elm-stuff" => true
     | ".stack-work" => true
     | ".reco" => true
     | ".reco-work" => true
-    // FIXME remove these
-    | "forks" => true
-    | "depends" => true
-    | "nix" => true
-    | "docs" => true
-    | _ => false
+    | ".cabal-sandbox" => true
+    | "node_modules" => true
+    | ".lein-plugins" => true
+    | ".sass-cache" => true
+    | _ => list0_exists(excludes, lam x => x = s) // FIXME this is inefficient
 
 fun not_wrong(s: string) : bool =
   let 
@@ -437,32 +555,32 @@ fun not_wrong(s: string) : bool =
       | _ => false
   end
 
-fnx step_stream(acc: source_contents, s: string) : source_contents =
+fnx step_stream(acc: source_contents, s: string, excludes: list0(string)) : source_contents =
   if test_file_isdir(s) = 1 then
-    flow_stream(s, acc)
+    flow_stream(s, acc, excludes)
   else
     adjust_contents(acc, prune_extension(s))
 
-and flow_stream(s: string, init: source_contents) : source_contents =
+and flow_stream(s: string, init: source_contents, excludes: list0(string)) : source_contents =
   let
     val files = streamize_dirname_fname(s)
   in
     stream_vt_foldleft_cloptr( files
                              , init
-                             , lam (acc, next) => if not(bad_dir(next)) then step_stream(acc, s + "/" + next) else acc
+                             , lam (acc, next) => if not(bad_dir(next, excludes)) then step_stream(acc, s + "/" + next, excludes) else acc
                              )
   end
 
 fnx dir_recursive(s: string): list0(string) =
     let
       val files = dirname_get_fnamelst(s)
-      val subdirs: list0(string) = list0_filter(files, lam x => test_file_isdir(s + "/" + x) = 1 && not(bad_dir(x)))
+      val subdirs: list0(string) = list0_filter(files, lam x => test_file_isdir(s + "/" + x) = 1 && not(bad_dir(x, list0_nil)))
     in
       if not(list0_is_nil(subdirs))
         then
-          list0_concat(list0_cons(list0_map(list0_filter(files, lam x => not(bad_dir(x))), lam x => s + "/" + x), list0_map(subdirs, lam x => dir_recursive(s + "/" + x))))
+          list0_concat(list0_cons(list0_map(list0_filter(files, lam x => not(bad_dir(x, list0_nil))), lam x => s + "/" + x), list0_map(subdirs, lam x => dir_recursive(s + "/" + x))))
         else
-          list0_map(list0_filter(files, lam x => not(bad_dir(x))), lam x => s + "/" + x)
+          list0_map(list0_filter(files, lam x => not(bad_dir(x, list0_nil))), lam x => s + "/" + x)
     end
 
 // TODO this is quite inefficient; a fold would be nice.
@@ -473,7 +591,33 @@ fun get_dir_contents(s: string): list0(string) =
     list0_filter(files, lam x => not_wrong(x))
   end
 
-fun detect_flag
+fnx detect_excludes
+  {n: int | n >= 1}
+  {m: nat | m < n}
+  ( argc: int n
+  , argv: !argv(n)
+  , current: int m
+  , skip_rest: bool
+  ) : list0(string) =
+  let
+    val arg = argv[current]
+  in
+    if current < argc - 1 then
+      if skip_rest then
+        list0_cons(arg, detect_excludes(argc, argv, current + 1, false))
+      else
+        if arg = "--exclude" || arg = "-e" then
+          detect_excludes(argc, argv, current + 1, true)
+        else
+          detect_excludes(argc, argv, current + 1, skip_rest)
+    else
+      if skip_rest then
+        list0_cons(arg, list0_nil)
+      else
+        list0_nil
+  end
+
+fnx detect_flag
   {n: int | n >= 1}
   {m: nat | m < n}
   ( argc: int n
@@ -495,13 +639,14 @@ fun version(): void =
   println!("polygot version 0.1.0\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
-print("Count lines of source code quickly.
+print("polyglot - Count lines of code quickly.
 
-USAGE: poly [OPTION] ... [DIRECTORY] ...
+[36mUSAGE:[0m poly [DIRECTORY] ... [OPTION] ...
 
-FLAGS:
+[36mFLAGS:[0m
     -V, --version            show version information
     -h, --help               display this help and exit
+    -e, --exclude            exclude a directory
 
 When no directory is provided poly will execute in the
 current directory.
@@ -546,15 +691,26 @@ implement main0 (argc, argv) =
                , lua = 0
                , cpp = 0
                , lalrpop = 0
+               , header = 0
+               , sixten = 0
+               , dhall = 0
+               , ipkg = 0
+               , makefile = 0
+               , justfile = 0
+               , ion = 0
+               , bash = 0
                } : source_contents
   in
     if not(should_help || detect_flag(argc, argv, 0, "--version", "-V")) then
       if argc = ~1 then
         print(make_output(traverse(get_dir_contents("."), isc))) // why is this necessary???
       else if argc > 1 then
-        print(make_output(step_stream(isc, argv[1]))) // hacky CLI parser
+        if argv[1] != "--excludes" && argv[1] != "-e" then
+          print(make_output(step_stream(isc, argv[1], detect_excludes(argc, argv, 0, false))))
+        else
+          print(make_output(step_stream(isc, ".", detect_excludes(argc, argv, 0, false))))
       else
-        print(make_output(step_stream(isc, ".")))
+        print(make_output(step_stream(isc, ".", detect_excludes(argc, argv, 0, false))))
     else
       if should_help then
         help()

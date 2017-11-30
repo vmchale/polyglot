@@ -33,6 +33,14 @@ typedef source_contents = @{ rust = int
                            , lua = int
                            , cpp = int
                            , lalrpop = int
+                           , header = int
+                           , sixten = int
+                           , dhall = int
+                           , ipkg = int
+                           , makefile = int
+                           , justfile = int
+                           , ion = int
+                           , bash = int
                            }
 
 typedef source_contents_r = ref(source_contents)
@@ -74,3 +82,11 @@ datatype pl_type =
   | lua of int
   | cpp of int
   | lalrpop of int
+  | header of int
+  | sixten of int
+  | dhall of int
+  | ipkg of int
+  | makefile of int
+  | justfile of int
+  | ion of int
+  | bash of int

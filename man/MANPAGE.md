@@ -7,7 +7,7 @@ poly - a command-line tool for counting source code
 
 # SYNOPSIS
 
-  poly [OPTION]... [DIRECTORY]...
+  poly [DIRECTORY]... [OPTION]...
 
 # DESCRIPTION
 
@@ -22,12 +22,20 @@ When no directory is given, polyglot will execute in the current directory.
 
 **-v**, **-\-version** Display version and exit
 
+**-e**, **-\-exclude** Exclude a directory
+
 # EXAMPLES
 
-Show the contents of the current directory
+Show the contents of ~/programming
 
 ```
-poly .
+poly ~/programming
+```
+
+Count lines of source code in the current directory, skipping any directory called forks
+
+```
+poly -e forks
 ```
 
 # BUG REPORTS
