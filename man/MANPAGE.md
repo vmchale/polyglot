@@ -24,6 +24,8 @@ When no directory is given, polyglot will execute in the current directory.
 
 **-e**, **-\-exclude** Exclude a directory
 
+**-t**, **-\-table** Show results as a table
+
 # EXAMPLES
 
 Show the contents of ~/programming
@@ -36,6 +38,12 @@ Count lines of source code in the current directory, skipping any directory call
 
 ```
 poly -e forks
+```
+
+Shoe the contents of ./project/src, displaying a table in the terminal
+
+```
+polt ./project/src --table
 ```
 
 # BUG REPORTS

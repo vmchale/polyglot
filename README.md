@@ -118,7 +118,7 @@ File formats detected:
   - [x] Perl
   - [x] OCaml
   - [x] Agda
-  - [x] tcl
+  - [x] Tcl
   - [x] C++
   - [x] LALRPOP
   - [x] C header
@@ -156,8 +156,8 @@ File formats detected:
   - [ ] Pascal
   - [ ] Clojure
   - [ ] racket
-  - [ ] rakefile
-  - [ ] plaintext
+  - [ ] Rakefile
+  - [ ] Plaintext
   - [ ] Ada
   - [ ] elisp
   - [ ] JavaScript
@@ -173,3 +173,4 @@ File formats detected:
   - [ ] harlan
   - [ ] Objective C
   - [ ] Objective C++
+  - [ ] J

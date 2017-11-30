@@ -849,7 +849,7 @@ fnx detect_flag
   end
 
 fun version(): void =
-  println!("polygot version 0.1.0\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.2.0\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
 print("polyglot - Count lines of code quickly.
@@ -860,6 +860,7 @@ print("polyglot - Count lines of code quickly.
     -V, --version            show version information
     -h, --help               display this help and exit
     -e, --exclude            exclude a directory
+    -t, --table              display results in a table
 
 When no directory is provided poly will execute in the
 current directory.

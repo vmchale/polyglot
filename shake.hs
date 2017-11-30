@@ -1,6 +1,8 @@
 #!/usr/bin/env stack
 -- stack runghc --resolver nightly-2017-11-16 --package shake --install-ghc
 
+{-# LANGUAGE ScopedTypeVariables #-}
+
 import           Data.Maybe        (fromMaybe)
 import           Data.Monoid
 import           Development.Shake
@@ -44,6 +46,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     "bench" ~> do
         need ["target/polyglot"]
         let dir = " /home/vanessa/git-builds/rust"
+        (Stdout (_ :: String)) <- cmd $ "poly " ++ dir
         cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
 
     "install" ~> do
