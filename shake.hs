@@ -44,7 +44,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     "bench" ~> do
         need ["target/polyglot"]
         let dir = " /home/vanessa/git-builds/rust"
-        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 tokei", "numactl --physcpubind=+1 loc -u"])
+        cmd $ ["bench"] <> ((++dir) <$> ["target/polyglot", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
 
     "install" ~> do
         need ["target/polyglot", "man/poly.1"]

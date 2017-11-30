@@ -8,4 +8,5 @@
 --regex-ATS=/^datatype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^sortdef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^viewtypedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
+--regex-ATS=/^vtypedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^dataviewtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/

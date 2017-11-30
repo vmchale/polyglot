@@ -1,46 +1,59 @@
-typedef source_contents = @{ rust = int
-                           , haskell = int
-                           , ats = int
-                           , python = int
-                           , vimscript = int
-                           , elm = int
-                           , idris = int
-                           , madlang = int
-                           , tex = int
-                           , markdown = int
-                           , yaml = int
-                           , toml = int
-                           , cabal = int
-                           , happy = int
-                           , alex = int
-                           , go = int
-                           , html = int
-                           , css = int
-                           , verilog = int
-                           , vhdl = int
-                           , c = int
-                           , purescript = int
-                           , futhark = int
-                           , brainfuck = int
-                           , ruby = int
-                           , julia = int
-                           , perl = int
-                           , ocaml = int
-                           , agda = int
-                           , cobol = int
-                           , tcl = int
-                           , r = int
-                           , lua = int
-                           , cpp = int
-                           , lalrpop = int
-                           , header = int
-                           , sixten = int
-                           , dhall = int
-                           , ipkg = int
-                           , makefile = int
-                           , justfile = int
-                           , ion = int
-                           , bash = int
+typedef file = @{ lines = int
+                , files = int
+                }
+
+typedef command_line = @{ version = bool
+                        , help = bool
+                        , excludes = [ m: int | m <= 40 ] list(string, m)
+                        }
+
+typedef source_contents = @{ rust = file
+                           , haskell = file
+                           , ats = file
+                           , python = file
+                           , vimscript = file
+                           , elm = file
+                           , idris = file
+                           , madlang = file
+                           , tex = file
+                           , markdown = file
+                           , yaml = file
+                           , toml = file
+                           , cabal = file
+                           , happy = file
+                           , alex = file
+                           , go = file
+                           , html = file
+                           , css = file
+                           , verilog = file
+                           , vhdl = file
+                           , c = file
+                           , purescript = file
+                           , futhark = file
+                           , brainfuck = file
+                           , ruby = file
+                           , julia = file
+                           , perl = file
+                           , ocaml = file
+                           , agda = file
+                           , cobol = file
+                           , tcl = file
+                           , r = file
+                           , lua = file
+                           , cpp = file
+                           , lalrpop = file
+                           , header = file
+                           , sixten = file
+                           , dhall = file
+                           , ipkg = file
+                           , makefile = file
+                           , justfile = file
+                           , ion = file
+                           , bash = file
+                           , hamlet = file
+                           , cassius = file
+                           , lucius = file
+                           , julius = file
                            }
 
 typedef source_contents_r = ref(source_contents)
@@ -90,3 +103,7 @@ datatype pl_type =
   | justfile of int
   | ion of int
   | bash of int
+  | hamlet of int
+  | cassius of int
+  | lucius of int
+  | julius of int

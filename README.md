@@ -47,14 +47,14 @@ On the Rust repo:
     <td>328.9 ms</td>
   </tr>
   <tr>
-    <td><code>linguist</code></td>
-    <td>Ruby</td>
-    <td>16.23 s</td>
-  </tr>
-  <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>17.59 s</td>
+    <td>15.51 s</td>
+  </tr>
+  <tr>
+    <td><code>linguist</code></td>
+    <td>Ruby</td>
+    <td>16.21 s</td>
   </tr>
 </table>
 
@@ -78,17 +78,24 @@ You can view manpages for `poly` with
  $ man poly
 ```
 
-## Support
+## Supported Languages
 
 File formats detected:
   - [x] Vimscript
   - [x] Haskell
+    - [x] Shakespearean languages
+      - [x] cassius
+      - [x] lucius
+      - [x] hamlet
+      - [x] julius
+    - [ ] literate Haskell
   - [x] Rust
   - [x] YAML
   - [x] TOML
   - [x] Happy
   - [x] Alex
   - [x] Idris
+    - [ ] literate Idris
   - [x] Madlang
   - [x] ATS
   - [x] Python
@@ -125,25 +132,19 @@ File formats detected:
   - [ ] Pony (`.pony`)
   - [ ] Elixir
   - [ ] Erlang
-  - [ ] Shakespearean languages
-    - [ ] cassius
-    - [ ] lucius
-    - [ ] hamlet
-    - [ ] julius
   - [ ] Java
   - [ ] Swift (`.swift`)
   - [ ] assembly (`.asm`, `.s`, `.S`)
   - [ ] crystal (`.cr`)
   - [ ] PHP
   - [ ] D (`.d`)
+    - [ ] DDoc
   - [ ] C#
   - [ ] Mercury
   - [ ] mustache
   - [ ] jinja
   - [ ] Agda library
   - [ ] groovy
-  - [ ] literate haskell
-  - [ ] literate idris
   - [ ] Scala
   - [ ] FORTRAN
   - [ ] F\*
@@ -164,10 +165,11 @@ File formats detected:
   - [ ] CoffeeScript
   - [ ] C++ header file
   - [ ] clean
-  - [ ] Ddoc (`.dd`)
   - [ ] nim
   - [ ] dash
   - [ ] fish
   - [ ] dyon
   - [ ] ketos
   - [ ] harlan
+  - [ ] Objective C
+  - [ ] Objective C++
