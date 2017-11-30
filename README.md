@@ -19,7 +19,6 @@ Reasons not to use polyglot:
 
   * It's written in ATS
   * Fewer features than `tokei`
-  * No binary releases
 
 ## Benchmarks
 
@@ -59,6 +58,11 @@ On the Rust repo:
 </table>
 
 ## Installation
+
+The easiest way to install is to head over to the
+[releases](https://github.com/vmchale/polyglot/releases) page.
+
+## Building
 
 If you install [stack](http://haskellstack.org/), [pandoc](http://pandoc.org/) and
 [patscc](http://www.ats-lang.org/Downloads.html), you can install `poly` with

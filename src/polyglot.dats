@@ -3,7 +3,7 @@
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "prelude/DATS/filebas.dats"
 #include "libats/ML/DATS/filebas_dirent.dats"
-#include "libats/libc/DATS/dirent.dats"
+#include "libats/libc/DATS/dirent.dats" // causes problematic include "share/H/pats_atslib.h"
 #include "libats/ML/DATS/list0.dats"
 
 %{^
@@ -849,7 +849,7 @@ fnx detect_flag
   end
 
 fun version(): void =
-  println!("polygot version 0.2.0\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.2.1\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
 print("polyglot - Count lines of code quickly.
