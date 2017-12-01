@@ -13,12 +13,14 @@ of what to expect from a particular codebase.
 Reasons to use polyglot:
 
   * Faster than `tokei`
-  * More accurate than `loc`
+  * More accurate than `loc`, `tokei`, or `linguist`
+  * Pretty magenta output
 
 Reasons not to use polyglot:
 
   * It's written in ATS
   * Fewer features than `tokei`
+  * No regex-based exclusions
 
 ## Benchmarks
 
@@ -33,17 +35,17 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>238.8 ms</td>
+    <td>231.1 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>130.5 ms</td>
+    <td>163.6 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>328.9 ms</td>
+    <td>345.2 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
@@ -59,8 +61,9 @@ On the Rust repo:
 
 ## Installation
 
-The easiest way to install is to head over to the
-[releases](https://github.com/vmchale/polyglot/releases) page.
+The easiest way to install is to download a binary from the
+[releases](https://github.com/vmchale/polyglot/releases) page and put it
+somewhere on your `PATH`.
 
 ## Building
 
@@ -133,6 +136,7 @@ File formats detected:
   - [x] ion
   - [x] Justfile
   - [x] Makefile
+  - [x] Yacc
   - [ ] Pony (`.pony`)
   - [ ] Elixir
   - [ ] Erlang
@@ -143,8 +147,10 @@ File formats detected:
   - [ ] PHP
   - [ ] D (`.d`)
     - [ ] DDoc
+  - [ ] Dockerfile
   - [ ] C#
   - [ ] Mercury
+  - [ ] Objective C
   - [ ] mustache
   - [ ] jinja
   - [ ] Agda library
@@ -157,7 +163,9 @@ File formats detected:
   - [ ] Kotlin (`.kt`, `.kts`)
   - [ ] REBOL
   - [ ] Intel hex
+  - [ ] occam
   - [ ] Pascal
+  - [ ] modula
   - [ ] Clojure
   - [ ] racket
   - [ ] Rakefile
@@ -169,6 +177,7 @@ File formats detected:
   - [ ] CoffeeScript
   - [ ] C++ header file
   - [ ] clean
+  - [ ] lean
   - [ ] nim
   - [ ] dash
   - [ ] fish
@@ -176,5 +185,29 @@ File formats detected:
   - [ ] ketos
   - [ ] harlan
   - [ ] Objective C
+  - [ ] Ragel
+  - [ ] puppet
+  - [ ] forth
   - [ ] Objective C++
   - [ ] J
+  - [ ] Lex
+  - [ ] Bison (`.yy` among others)
+  - [ ] flex
+  - [ ] Felix
+  - [ ] Autoconf (`.in`)
+  - [ ] Batch
+  - [ ] PowerShell
+  - [ ] Sass
+  - [ ] Scons
+  - [ ] Vala
+  - [ ] Cmake
+  - [ ] shen
+  - [ ] ceylon
+  - [ ] Dart
+  - [ ] Korn shell
+  - [ ] fish
+  - [ ] jsx
+  - [ ] ColdFusion
+  - [ ] Balsa
+  - [ ] Teak
+  - [ ] SQL

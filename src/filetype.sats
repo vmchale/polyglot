@@ -4,7 +4,9 @@ typedef file = @{ lines = int
 
 typedef command_line = @{ version = bool
                         , help = bool
-                        , excludes = [ m: int | m <= 40 ] list(string, m)
+                        , table = bool
+                        , excludes = [ m: nat ] list(string, m)
+                        , includes = [ m: nat ] list(string, m)
                         }
 
 typedef source_contents = @{ rust = file
@@ -54,6 +56,10 @@ typedef source_contents = @{ rust = file
                            , cassius = file
                            , lucius = file
                            , julius = file
+                           , mercury = file
+                           , yacc = file
+                           , lex = file
+                           , coq = file
                            }
 
 typedef source_contents_r = ref(source_contents)
@@ -107,3 +113,7 @@ datatype pl_type =
   | cassius of int
   | lucius of int
   | julius of int
+  | mercury of int
+  | yacc of int
+  | lex of int
+  | coq of int

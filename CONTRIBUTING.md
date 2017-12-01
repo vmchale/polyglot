@@ -18,7 +18,9 @@ open a PR or an issue if you need guidance on how to implement something.
 ATS can be quite daunting. The following are things that are relatively easy to
 implement:
 
-  * Adding a new file type and its associated extension
+  * Adding a new file type and its associated extension (note that the name of
+    a file type must be less than 20 characters; otherwise there will be a type
+    error!)
   * Adding a new directory to ignore (e.g. `.cabal-sandbox`)
   * Adding new shebang detection
   * Updating the `--help` or manpage.

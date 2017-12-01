@@ -14,11 +14,11 @@ main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     want [ "target/poly"
          , "man/poly.1"
-         , "target/poly-s390x-linux-gnu"
-         , "target/poly-aarch64-linux-gnu"
-         , "target/poly-sparc64-linux-gnu"
-         , "target/poly-arm-linux-gnueabihf"
-         , "target/poly-arm-linux-gnueabi"
+         -- , "target/poly-s390x-linux-gnu"
+         -- , "target/poly-aarch64-linux-gnu"
+         -- , "target/poly-sparc64-linux-gnu"
+         -- , "target/poly-arm-linux-gnueabihf"
+         -- , "target/poly-arm-linux-gnueabi"
          ]
 
     "man/poly.1" %> \_ -> do
@@ -48,7 +48,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need $ dats <> sats
         cmd_ ["mkdir", "-p", "target"]
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" (dats ++ ["-atsccomp", "clang -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native"])
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" (dats ++ ["-atsccomp", "clang -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native"])
         cmd_ [Stdin err] Shell "pats-filter"
         if c /= ExitSuccess
             then error "patscc failure"
@@ -58,7 +58,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need ["target/poly"]
         let dir = " /home/vanessa/git-builds/rust"
         (Stdout (_ :: String)) <- cmd $ "poly " ++ dir
-        cmd $ ["bench"] <> ((++dir) <$> ["target/poly", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
+        cmd $ ["bench"] <> ((++dir) <$> ["target/poly -t", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
 
     "install" ~> do
         need ["target/poly", "man/poly.1"]

@@ -43,7 +43,7 @@ poly -e forks
 Shoe the contents of ./project/src, displaying a table in the terminal
 
 ```
-polt ./project/src --table
+poly ./project/src --table
 ```
 
 # BUG REPORTS

@@ -5,6 +5,7 @@
 #include "libats/ML/DATS/filebas_dirent.dats"
 #include "libats/libc/DATS/dirent.dats" // causes problematic include "share/H/pats_atslib.h"
 #include "libats/ML/DATS/list0.dats"
+#include "libats/DATS/athread_posix.dats"
 
 %{^
 #include "libats/libc/CATS/string.cats"
@@ -18,33 +19,34 @@ staload "libats/libc/SATS/stdio.sats"
 staload "prelude/SATS/filebas.sats"
 staload "src/filetype.sats"
 staload "libats/ML/DATS/filebas.dats"
+staload "libats/SATS/athread.sats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 (* ****** ****** *)
 
 fun line_count(s: string): int =
   let
-    val ref = fileref_open_opt(s, file_mode_r)
+    var ref = fileref_open_opt(s, file_mode_r)
   in
     case+ ref of
-      | ~Some_vt(x) => 
+      | ~Some_vt(x) =>
         begin
           let
-            val viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(x)
-            val n: int = stream_vt_length(viewstream) - 1
+            var viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(x)
+            var n: int = stream_vt_length(viewstream) - 1
             val _ = fileref_close(x)
           in
             n
           end
         end
-      | ~None_vt() => 0
+      | ~None_vt() => (println!("[33mWarning:[0m could not open file at " + s) ; 0)
   end
 
-fnx right_pad {k: int | k >= 0} .<k>. (s: string, n: int(k)) : string =
+fnx right_pad { k: int | k >= 0 }{ m: int | m <= k } .<k>. (s: string(m), n: int(k)) : string =
   case+ length(s) < n of
     | true when n > 0 => right_pad(s, n - 1) + " "
     | _ => s
 
-fnx left_pad {k: int | k >= 0} .<k>. (s: string, n: int(k)) : string =
+fnx left_pad { k: int | k >= 0 } .<k>. (s : string, n : int(k)) : string =
   case+ length(s) < n of
     | true when n > 0 => " " + left_pad(s, n - 1)
     | _ => s
@@ -56,10 +58,10 @@ fun maybe_string(s: string, n: int): string =
     else
       ""
 
-fun maybe_table(s: string, files: int, lines: int): string =
+fun maybe_table{ k : int | k >= 0 && k < 20 }(s: string(k), files: int, lines: int): string =
   if files > 0
     then
-      right_pad(" " + s, 21) + left_pad(tostring_int(files), 5) + left_pad(tostring_int(lines), 13) + "            -            -            -\n"
+      " " + right_pad(s, 21) + left_pad(tostring_int(files), 5) + left_pad(tostring_int(lines), 13) + "           -            -            -\n"
   else
     ""
 
@@ -207,6 +209,7 @@ fun make_table(isc: source_contents): string =
   maybe_table("OCaml", isc.ocaml.files, isc.ocaml.lines) +
   maybe_table("Perl", isc.perl.files, isc.perl.lines) +
   maybe_table("Python", isc.python.files, isc.python.lines) +
+  maybe_table("PureScript", isc.purescript.files, isc.purescript.lines) +
   maybe_table("R", isc.r.files, isc.r.lines) +
   maybe_table("Ruby", isc.ruby.files, isc.ruby.lines) +
   maybe_table("Rust", isc.rust.files, isc.rust.lines) +
@@ -217,6 +220,7 @@ fun make_table(isc: source_contents): string =
   maybe_table("Verilog", isc.verilog.files, isc.verilog.lines) +
   maybe_table("VHDL", isc.vhdl.files, isc.vhdl.lines) +
   maybe_table("Vimscript", isc.vimscript.files, isc.vimscript.lines) +
+  maybe_table("Yacc", isc.yacc.files, isc.yacc.lines) +
   maybe_table("YAML", isc.yaml.files, isc.yaml.lines) +
   "-------------------------------------------------------------------------------\n" +
   maybe_table("Total", (sum_fields(isc)).files, (sum_fields(isc)).lines) +
@@ -238,6 +242,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("Julia", isc.julia.lines) +
     maybe_string("Lua", isc.lua.lines) +
     maybe_string("OCaml", isc.ocaml.lines) +
+    maybe_string("PureScript", isc.purescript.lines) +
     maybe_string("Perl", isc.perl.lines) +
     maybe_string("Python", isc.python.lines) +
     maybe_string("R", isc.r.lines) +
@@ -265,7 +270,8 @@ fun make_output(isc: source_contents): string =
   with_nonempty("\n[33mParser Generators:[0m\n",
     maybe_string("Alex", isc.alex.lines) +
     maybe_string("Happy", isc.happy.lines) +
-    maybe_string("LALRPOP", isc.lalrpop.lines)
+    maybe_string("LALRPOP", isc.lalrpop.lines) +
+    maybe_string("Yacc", isc.yacc.lines)
   ) +
   with_nonempty("\n[33mWeb:[0m\n",
     maybe_string("Cassius", isc.cassius.lines) +
@@ -289,7 +295,7 @@ fun make_output(isc: source_contents): string =
 
 fun add_results(x: file, y: file): file =
   let
-    val next = @{ lines = x.lines + y.lines
+    var next = @{ lines = x.lines + y.lines
                 , files = x.files + y.files 
                 }
   in
@@ -585,13 +591,84 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
         in
           !sc_r
         end
+      | mercury n => 
+        let
+          val () = sc_r->mercury := prev.mercury + @{ lines = n, files = 1}
+        in
+          !sc_r
+        end
+      | yacc n => 
+        let
+          val () = sc_r->yacc := prev.yacc + @{ lines = n, files = 1}
+        in
+          !sc_r
+        end
+      | lex n => 
+        let
+          val () = sc_r->lex := prev.lex + @{ lines = n, files = 1}
+        in
+          !sc_r
+        end
+      | coq n => 
+        let
+          val () = sc_r->coq := prev.coq + @{ lines = n, files = 1}
+        in
+          !sc_r
+        end
       | unknown _ => prev
+  end
+
+
+fun match_keywords { m : nat | m <= 10 } (keys: list(string, m), word: string) : bool =
+  list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || next = word, false)
+
+fun step_keyword(size: int, pre: pl_type, word: string, ext: string) : pl_type =
+  case+ pre of
+    | unknown _ =>
+      let
+        var happy_alex_keywords = list_cons("module", list_nil())
+        var yacc_keywords = list_cons("struct", list_cons("char", list_cons("int", list_nil())))
+        var mercury_keywords = list_cons(":-", list_cons("import_module", list_cons("pred", list_nil())))
+        var verilog_keywords = list_cons("assign", list_cons("wire", list_nil()))
+      in
+        case+ ext of
+          | "y" =>
+            if match_keywords(happy_alex_keywords, word)
+              then happy size
+              else if match_keywords(yacc_keywords, word) then yacc size
+              else unknown // yacc size
+          | "x" => if match_keywords(happy_alex_keywords, word) then alex size else unknown //  lex size
+          | "v" => if match_keywords(verilog_keywords, word) then verilog size else unknown // coq size
+          | "m" => mercury size
+          | _ => pre
+      end
+    | _ => pre
+
+// This should only be called when file extension conflict, as it reads from the whole file.
+fun check_keywords(s: string, size: int, ext: string) : pl_type =
+  let
+    var ref = fileref_open_opt(s, file_mode_r)
+  in
+    case+ ref of
+      | ~Some_vt(x) =>
+        let
+          var init: pl_type = unknown
+          var viewstream = $EXTRA.streamize_fileref_word(x)
+          val result = stream_vt_foldleft_cloptr( viewstream
+                                                , init
+                                                , lam (acc, next) => step_keyword(size, acc, next, ext)
+                                                )
+          val _ = fileref_close(x)
+        in
+          result
+        end
+      | ~None_vt() => (println!("[33mWarning:[0m could not open file at " + s) ; unknown)
   end
 
 fun check_shebang(s: string): pl_type =
   let
     val ref = fileref_open_opt(s, file_mode_r)
-    val str: string =
+    val str: string = // FIXME var?
       case+ ref of
         | ~Some_vt(x) =>
           let
@@ -600,11 +677,11 @@ fun check_shebang(s: string): pl_type =
           in
             s
           end
-        | ~None_vt() => ""
+        | ~None_vt() => (println!("[33mWarning:[0m could not open file at " + s) ; "")
   in
     case str of
       | "#!/usr/bin/env ion" => ion(line_count(s))
-      | "#!/usr/bin/env bash" => bash(line_count(s))
+      | "#!/usr/bin/env bash" => bash(line_count(s)) // TODO flexible parser that drops junk/spaces
       | "#!/bin/bash" => bash(line_count(s))
       | "#!/usr/bin/env python" => python(line_count(s))
       | "#!/usr/bin/env python2" => python(line_count(s))
@@ -671,8 +748,8 @@ fun prune_extension(s: string): pl_type =
       | "yaml" => yaml(line_count(s))
       | "cabal" => cabal(line_count(s))
       | "yml" => yaml(line_count(s))
-      | "y" => happy(line_count(s))
-      | "x" => alex(line_count(s))
+      | "y" => check_keywords(s, line_count(s), match)
+      | "x" => check_keywords(s, line_count(s), match)
       | "go" => go(line_count(s))
       | "html" => html(line_count(s))
       | "htm" => html(line_count(s))
@@ -688,6 +765,7 @@ fun prune_extension(s: string): pl_type =
       | "ml" => ocaml(line_count(s))
       | "tcl" => tcl(line_count(s))
       | "r" => r(line_count(s))
+      | "R" => r(line_count(s))
       | "lua" => lua(line_count(s))
       | "cpp" => cpp(line_count(s))
       | "cc" => cpp(line_count(s))
@@ -705,33 +783,8 @@ fun prune_extension(s: string): pl_type =
       | _ => match_filename(s)
   end
 
-fun with_string(s: string, prev: source_contents): source_contents =
-  let
-    var pl = prune_extension(s)
-  in
-    adjust_contents(prev, pl)
-  end
-
-// TODO if we can do this on a stream it's nicer.
-fnx traverse(ss: list0(string), initial: source_contents) : source_contents =
-  case+ ss of
-    | list0_cons(x, xs) =>
-      begin
-        let
-          var prev = traverse(xs, initial)
-        in
-          with_string(x, prev)
-        end
-      end
-    | _ => initial
-
-fun starts_with(s: String) : char =
-  if length(s) > 1 
-    then string_head(s)
-    else '.'
-
 // TODO take an array of bad directories from CLI.
-fun bad_dir(s: string, excludes: list0(string)) : bool =
+fun bad_dir(s: string, excludes: List0(string)) : bool =
   case s of
     | "." => true
     | ".." => true
@@ -757,99 +810,101 @@ fun bad_dir(s: string, excludes: list0(string)) : bool =
     | "node_modules" => true
     | ".lein-plugins" => true
     | ".sass-cache" => true
-    | _ => list0_exists(excludes, lam x => x = s) // FIXME this is inefficient
+    | _ => list_exists_cloref(excludes, lam x => x = s)
 
-fun not_wrong(s: string) : bool =
-  let 
-    val extra = test_file_isdir(s)
-  in
-    case extra of
-      | 0 => true
-      | _ => false
-  end
-
-fnx step_stream(acc: source_contents, s: string, excludes: list0(string)) : source_contents =
-  if test_file_isdir(s) = 1 then
+fnx step_stream(acc: source_contents, s: string, excludes: List0(string)) : source_contents =
+  if test_file_isdir(s) != 0 then
     flow_stream(s, acc, excludes)
   else
     adjust_contents(acc, prune_extension(s))
 
-and flow_stream(s: string, init: source_contents, excludes: list0(string)) : source_contents =
+and flow_stream(s: string, init: source_contents, excludes: List0(string)) : source_contents =
   let
-    val files = streamize_dirname_fname(s)
+    var files = streamize_dirname_fname(s)
+    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
   in
-    stream_vt_foldleft_cloptr( files
+    stream_vt_foldleft_cloptr( ffiles
                              , init
-                             , lam (acc, next) => if not(bad_dir(next, excludes)) then step_stream(acc, s + "/" + next, excludes) else acc
+                             , lam (acc, next) => step_stream(acc, s + "/" + next, excludes)
                              )
   end
 
-fnx dir_recursive(s: string): list0(string) =
-    let
-      val files = dirname_get_fnamelst(s)
-      val subdirs: list0(string) = list0_filter(files, lam x => test_file_isdir(s + "/" + x) = 1 && not(bad_dir(x, list0_nil)))
-    in
-      if not(list0_is_nil(subdirs))
+fun is_flag(s: string) : bool =
+  string_is_prefix("-", s)
+
+fun process_excludes(s: string, acc: command_line) : command_line =
+  let
+    val acc_r = ref<command_line>(acc)
+    val () = acc_r->excludes := list_cons(s, acc.excludes)
+  in
+    !acc_r // TODO don't allow any bad input through.
+  end
+
+fun process(s: string, acc: command_line, is_first: bool) : command_line =
+  let
+    val acc_r = ref<command_line>(acc)
+    val () = 
+      if is_flag(s)
         then
-          list0_concat(list0_cons(list0_map(list0_filter(files, lam x => not(bad_dir(x, list0_nil))), lam x => s + "/" + x), list0_map(subdirs, lam x => dir_recursive(s + "/" + x))))
+          case+ s of
+            | "--help" => acc_r->help := true
+            | "-h" => acc_r->help := true
+            | "--table" => acc_r->table := true // TODO fail when double flags
+            | "-t" => acc_r->table := true
+            | "--version" => acc_r->version := true
+            | "-V" => acc_r->version := true
+            | "-e" => (println!("[31mError:[0m flag " + s + " must be followed by an argument") ; exit(0) ; ())
+            | "--exclude" => (println!("[31mError:[0m flag " + s + " must be followed by an argument") ; exit(0) ; ())
+            | _ => (println!("[31mError:[0m flag " + s + " not recognized") ; exit(0) ; ())
         else
-          list0_map(list0_filter(files, lam x => not(bad_dir(x, list0_nil))), lam x => s + "/" + x)
-    end
-
-// TODO this is quite inefficient; a fold would be nice.
-fun get_dir_contents(s: string): list0(string) =
-  let
-    val files = dir_recursive(s)
+          if not(is_first) then
+            acc_r->includes := list_cons(s, acc.includes)
+          else
+            ()
   in
-    list0_filter(files, lam x => not_wrong(x))
+    !acc_r
   end
 
-fnx detect_excludes
-  {n: int | n >= 1}
-  {m: nat | m < n}
+fnx get_cli
+  { n : int | n >= 1 }
+  { m : nat | m < n }
+  .<n-m>.
   ( argc: int n
   , argv: !argv(n)
   , current: int m
-  , skip_rest: bool
-  ) : list0(string) =
+  , prev_is_exclude: bool
+  , acc: command_line
+  ) : command_line =
   let
-    val arg = argv[current]
+    var arg = argv[current]
   in
     if current < argc - 1 then
-      if skip_rest then
-        list0_cons(arg, detect_excludes(argc, argv, current + 1, false))
+      if arg != "--exclude" && arg != "-e" then
+        let 
+          val c = get_cli(argc, argv, current + 1, false, acc)
+        in
+          if prev_is_exclude && current != 0 then
+            process_excludes(arg, c)
+          else if current != 0 then
+            process(arg, c, current = 0)
+          else
+            c
+        end
       else
-        if arg = "--exclude" || arg = "-e" then
-          detect_excludes(argc, argv, current + 1, true)
-        else
-          detect_excludes(argc, argv, current + 1, skip_rest)
+        let 
+          val c = get_cli(argc, argv, current + 1, true, acc)
+        in
+          c
+        end
     else
-      if skip_rest then
-        list0_cons(arg, list0_nil)
+      if prev_is_exclude then
+        process_excludes(arg, acc)
       else
-        list0_nil
-  end
-
-fnx detect_flag
-  {n: int | n >= 1}
-  {m: nat | m < n}
-  ( argc: int n
-  , argv: !argv(n)
-  , current: int m
-  , long: string
-  , short: string
-  ) : bool =
-  let
-    val arg = argv[current]
-  in
-    if current < argc - 1 then
-      arg = long || arg = short || detect_flag(argc, argv, current + 1, long, short)
-    else
-      arg = long || arg = short
+        process(arg, acc, current = 0)
   end
 
 fun version(): void =
-  println!("polygot version 0.2.1\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.2.2\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
 print("polyglot - Count lines of code quickly.
@@ -867,6 +922,11 @@ current directory.
 
 Bug reports and updates: nest.pijul.com/vamchale/polyglot\n")
 
+fun default_head(ls: List0(string)) : string =
+  case+ ls of
+    | list_cons(x, _) => x
+    | list_nil() => "."
+
 fun empty_file(): file =
   let
     var f = @{ files = 0
@@ -876,9 +936,17 @@ fun empty_file(): file =
     f
   end
 
+// >> means "transform proof??"
+
 implement main0 (argc, argv) =
-  let 
-    var should_help = detect_flag(argc, argv, 0, "--help", "-h")
+  let
+    val cli = @{ version = false
+               , help = false
+               , table = false
+               , excludes = list_nil()
+               , includes = list_nil()
+               } : command_line
+    val parsed = get_cli(argc, argv, 0, false, cli)
     var isc = @{ rust = empty_file()
                , haskell = empty_file()
                , ats = empty_file()
@@ -926,30 +994,22 @@ implement main0 (argc, argv) =
                , cassius = empty_file()
                , lucius = empty_file()
                , julius = empty_file()
+               , mercury = empty_file()
+               , yacc = empty_file()
+               , lex = empty_file()
+               , coq = empty_file()
                } : source_contents
   in
-    if not(should_help || detect_flag(argc, argv, 0, "--version", "-V")) then
-      if argc = ~1 then
-        print(make_output(traverse(get_dir_contents("."), isc))) // why is this necessary???
-      else if argc > 1 then
-        if argv[1] != "--excludes" && argv[1] != "-e" then
-          if detect_flag(argc, argv, 0, "-t", "--table") then
-            print(make_table(step_stream(isc, argv[1], detect_excludes(argc, argv, 0, false))))
-          else
-            print(make_output(step_stream(isc, argv[1], detect_excludes(argc, argv, 0, false))))
-        else
-          if detect_flag(argc, argv, 0, "-t", "--table") then
-            print(make_table(step_stream(isc, ".", detect_excludes(argc, argv, 0, false))))
-          else
-            print(make_output(step_stream(isc, ".", detect_excludes(argc, argv, 0, false))))
-      else
-        if detect_flag(argc, argv, 0, "-t", "--table") then
-          print(make_table(step_stream(isc, ".", detect_excludes(argc, argv, 0, false))))
-        else
-          print(make_output(step_stream(isc, ".", detect_excludes(argc, argv, 0, false))))
+    if parsed.help
+      then
+        ( help() ; exit(0) )
+    else if parsed.version
+      then
+        ( version() ; exit(0) )
     else
-      if should_help then
-        help()
+      if parsed.table
+        then
+          print(make_table(step_stream(isc, default_head(parsed.includes), parsed.excludes)))
       else
-        version()
+        print(make_output(step_stream(isc, default_head(parsed.includes), parsed.excludes)))
   end
