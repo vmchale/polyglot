@@ -61,9 +61,10 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         cmd $ ["bench"] <> ((++dir) <$> ["target/poly -t", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
 
     "install" ~> do
-        need ["target/poly", "man/poly.1"]
+        need ["target/poly", "man/poly.1", "compleat/poly.usage"]
         home <- getEnv "HOME"
         cmd_ ["cp", "man/poly.1", fromMaybe "" home ++ "/.local/share/man/man1/"]
+        cmd_ ["cp", "compleat/poly.usage", fromMaybe "" home ++ "/.compleat"]
         cmd ["cp", "target/poly", fromMaybe "" home ++ "/.local/bin/poly"]
 
     "run" ~> do
