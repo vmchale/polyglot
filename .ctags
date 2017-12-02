@@ -4,7 +4,7 @@
 --regex-ATS=/^fun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^prfun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^fnx *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
---regex-ATS=/^praxi *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
+--regex-ATS=/^praxi *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/p,proof/
 --regex-ATS=/^typedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^datatype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^sortdef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
@@ -12,3 +12,5 @@
 --regex-ATS=/^vtypedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^dataviewtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^datavtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
+--regex-ATS=/^dataprop *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/
+--regex-ATS=/^dataviewprop *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/

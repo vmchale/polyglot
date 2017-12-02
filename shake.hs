@@ -52,7 +52,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need $ dats <> sats
         cmd_ ["mkdir", "-p", "target"]
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" (dats ++ ["-atsccomp", "clang -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native"])
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["src/polyglot.dats", "-atsccomp", "clang -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native"]
         cmd_ [Stdin err] Shell "pats-filter"
         if c /= ExitSuccess
             then error "patscc failure"

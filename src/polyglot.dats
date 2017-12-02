@@ -779,6 +779,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "yaml" => yaml(line_count(s))
       | "cabal" => cabal(line_count(s))
       | "yml" => yaml(line_count(s))
+      | "yaml" => yaml(line_count(s))
       | "y" => check_keywords(s, line_count(s), match)
       | "ypp" => yacc(line_count(s))
       | "x" => alex(line_count(s))

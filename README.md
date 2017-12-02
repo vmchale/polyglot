@@ -9,14 +9,15 @@
 
 Reasons to use polyglot:
 
-  * Faster than `tokei`
-  * More accurate than `loc`
-  * Pretty magenta output
+  * Fast: 217 ms to run on the entire GHC codebase
+  * Accurate: won't confuse Coq and Verilog
+  * Pretty: magenta output
 
 Reasons not to use polyglot:
 
   * It's written in ATS
   * No regex-based exclusions
+  * Command-line parser is finicky
 
 ### Benchmarks
 
@@ -57,8 +58,8 @@ On the Rust repo:
 
 ### Heuristics
 
-Polyglot distinguishes itself by being able to disambiguate file names. Thus,
-while `tokei` and `loc` confuse Verilog for Coq, `poly` will not.
+Polyglot distinguishes itself from `tokei` and `loc` by being able to disambiguate file names.
+Thus, `poly` will not confuse Verilog for Coq or Happy for Yacc.
 
 ## Installation
 
