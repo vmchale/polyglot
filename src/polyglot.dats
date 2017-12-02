@@ -194,6 +194,7 @@ fun make_table(isc: source_contents): string =
   maybe_table("Cabal", isc.cabal.files, isc.cabal.lines) +
   maybe_table("Cassius", isc.cassius.files, isc.cassius.lines) +
   maybe_table("COBOL", isc.cobol.files, isc.cobol.lines) +
+  maybe_table("Coq", isc.coq.files, isc.coq.lines) +
   maybe_table("CSS", isc.css.files, isc.css.lines) +
   maybe_table("Dhall", isc.dhall.files, isc.dhall.lines) +
   maybe_table("Elm", isc.elm.files, isc.elm.lines) +
@@ -245,6 +246,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("C Header", isc.header.lines) +
     maybe_string("C++", isc.cpp.lines) +
     maybe_string("COBOL", isc.cobol.lines) +
+    maybe_string("Coq", isc.coq.lines) +
     maybe_string("Elm", isc.elm.lines) +
     maybe_string("Go", isc.go.lines) +
     maybe_string("Haskell", isc.haskell.lines) +
@@ -638,15 +640,15 @@ fun step_keyword(size: int, pre: pl_type, word: string, ext: string) : pl_type =
   case+ pre of
     | unknown _ =>
       let
-        var happy_alex_keywords = list_cons("module", list_nil())
+        var happy_keywords = list_cons("module", list_nil())
         var yacc_keywords = list_cons("struct", list_cons("char", list_cons("int", list_nil())))
         var mercury_keywords = list_cons(":-", list_cons("import_module", list_cons("pred", list_nil())))
-        var verilog_keywords = list_cons("endmodule", list_cons("pos_edge", list_cons("edge", list_cons("always", list_cons("wire", list_nil())))))
-        var coq_keywords = list_cons("Qed", list_cons("Require", list_cons("Inductive", list_cons("Remark", list_cons("Lemma", list_cons("Proof", list_cons("Definition", list_cons("Theorem", list_nil()))))))))
+        var verilog_keywords = list_cons("endmodule", list_cons("posedge", list_cons("edge", list_cons("always", list_cons("wire", list_nil())))))
+        var coq_keywords = list_cons("Qed", list_cons("Require", list_cons("Hypothesis", list_cons("Inductive", list_cons("Remark", list_cons("Lemma", list_cons("Proof", list_cons("Definition", list_cons("Theorem", list_nil())))))))))
       in
         case+ ext of
           | "y" =>
-            if match_keywords(happy_alex_keywords, word)
+            if match_keywords(happy_keywords, word)
               then happy size
               else if match_keywords(yacc_keywords, word) then yacc size
               else unknown // yacc size
@@ -764,7 +766,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "pl" => perl(line_count(s))
       | "agda" => agda(line_count(s))
       | "idr" => idris(line_count(s))
-      | "v" => verilog(line_count(s))
+      | "v" => check_keywords(s, line_count(s), match)
       | "vhdl" => vhdl(line_count(s))
       | "vhd" => vhdl(line_count(s))
       | "go" => go(line_count(s))
@@ -786,7 +788,6 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "html" => html(line_count(s))
       | "htm" => html(line_count(s))
       | "css" => css(line_count(s))
-      | "v" => verilog(line_count(s))
       | "vhdl" => vhdl(line_count(s))
       | "vhd" => vhdl(line_count(s))
       | "c" => c(line_count(s))
@@ -853,7 +854,7 @@ fnx step_stream(acc: source_contents, full_name: string, file_proper: string, ex
   if test_file_isdir(full_name) != 0 then
     flow_stream(full_name, acc, excludes)
   else
-    adjust_contents(acc, prune_extension(full_name, file_proper)) // TODO if we check extension *first*, we will avoid having to append the string in many cases!
+    adjust_contents(acc, prune_extension(full_name, file_proper))
 
 and flow_stream(s: string, init: source_contents, excludes: List0(string)) : source_contents =
   let
@@ -941,7 +942,7 @@ fnx get_cli
   end
 
 fun version(): void =
-  println!("polygot version 0.3.1\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.3.2\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
 print("polyglot - Count lines of code quickly.
@@ -1046,7 +1047,7 @@ implement main0 (argc, argv) =
     else
       if parsed.table
         then
-          print(make_table(step_stream(isc, default_head(parsed.includes), default_head(parsed.includes), parsed.excludes)))
+          print(make_table(step_stream(isc, default_head(parsed.includes), default_head(parsed.includes), parsed.excludes))) // TODO fold over these values and whatnot.
       else
         print(make_output(step_stream(isc, default_head(parsed.includes), default_head(parsed.includes), parsed.excludes)))
   end

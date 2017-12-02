@@ -13,7 +13,7 @@ of what to expect from a particular codebase.
 Reasons to use polyglot:
 
   * Faster than `tokei`
-  * More accurate than `loc`, `tokei`, or `linguist`
+  * More accurate than `loc` or `tokei`
   * Pretty magenta output
 
 Reasons not to use polyglot:
