@@ -1,28 +1,24 @@
 # polyglot
 
-`poly` is a command-line tool that determines project contents. It is much
-like [tokei](https://github.com/Aaronepower/tokei). It provides a good summary
-of what to expect from a particular codebase.
+`poly` is a command-line tool that determines project contents.
 
-`poly` is currently quite fast, though parallelism remains to be implemented.
-
-<img src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
+<img alt="Screenshot of sample output" src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
+<img alt="Screenshot of tabular output" src=https://github.com/vmchale/polyglot/raw/master/tabular-output.png>
 
 ## Features
 
 Reasons to use polyglot:
 
   * Faster than `tokei`
-  * More accurate than `loc` or `tokei`
+  * More accurate than `loc`
   * Pretty magenta output
 
 Reasons not to use polyglot:
 
   * It's written in ATS
-  * Fewer features than `tokei`
   * No regex-based exclusions
 
-## Benchmarks
+### Benchmarks
 
 On the Rust repo:
 
@@ -59,6 +55,11 @@ On the Rust repo:
   </tr>
 </table>
 
+### Heuristics
+
+Polyglot distinguishes itself by being able to disambiguate file names. Thus,
+while `tokei` and `loc` confuse Verilog for Coq, `poly` will not.
+
 ## Installation
 
 The easiest way to install is to use the installation script, like so:
@@ -89,175 +90,3 @@ You can view manpages for `poly` with
 ```
  $ man poly
 ```
-
-## Heuristics
-
-Heuristics for determining file type:
-  - [x] file extension
-    - [x] keywords
-    - [ ] parser
-  - [x] filename
-    - [ ] parent directory (`.cargo/config`)
-  - [x] shebang
-  - [ ] modeline
-  - [ ] `.gitattributes`
-  - [ ] `.poly.toml` project file
-
-Heuristics for determining file relevance:
-  - [x] builtin directory skips
-  - [ ] `.gitignore`/darcs boringfile/`.ignore` file
-  - [ ] `.gitattributes`
-  - [ ] `.poly.toml` project file
-
-### Languages Supported
-
-File formats detected:
-  - [x] Vimscript
-  - [x] Haskell
-    - [x] Shakespearean languages
-      - [x] cassius
-      - [x] lucius
-      - [x] hamlet
-      - [x] julius
-    - [ ] literate Haskell
-  - [x] Rust
-  - [x] YAML
-  - [x] TOML
-  - [x] Happy
-  - [x] Alex
-  - [x] Idris
-    - [ ] literate Idris
-  - [x] Madlang
-  - [x] ATS
-  - [x] Python
-  - [x] Elm
-  - [x] PureScript
-  - [x] C
-  - [x] Go
-  - [x] Futhark
-  - [x] Cabal
-  - [x] Verilog
-  - [x] VHDL
-  - [x] HTML
-  - [x] CSS
-  - [x] Markdown
-  - [x] Ruby
-  - [x] Julia
-  - [x] R (`.r`)
-  - [x] COBOL (`.cob`)
-  - [x] Lua
-  - [x] Perl
-  - [x] OCaml
-  - [x] Agda
-  - [x] Tcl
-  - [x] C++
-  - [x] LALRPOP
-  - [x] C header
-  - [x] Sixten
-  - [x] Dhall
-  - [x] iPKG
-  - [x] bash
-  - [x] ion
-  - [x] Justfile
-  - [x] Makefile
-  - [x] Yacc
-  - [x] Lex
-  - [ ] Jupyter
-  - [ ] Pony (`.pony`)
-  - [ ] Elixir
-  - [ ] Erlang
-  - [ ] Java
-  - [ ] Swift (`.swift`)
-  - [ ] assembly (`.asm`, `.s`, `.S`)
-  - [ ] crystal (`.cr`)
-  - [ ] PHP
-  - [ ] D (`.d`)
-    - [ ] DDoc
-  - [ ] Dockerfile
-  - [ ] C#
-  - [ ] Mercury
-  - [ ] Objective C
-  - [ ] mustache
-  - [ ] jinja
-  - [ ] Agda library
-  - [ ] groovy
-  - [ ] Scala
-  - [ ] FORTRAN
-  - [ ] F\*
-  - [ ] F#
-  - [ ] Isabelle
-  - [ ] Kotlin (`.kt`, `.kts`)
-  - [ ] REBOL
-  - [ ] Intel hex
-  - [ ] occam
-  - [ ] Pascal
-  - [ ] modula
-  - [ ] Clojure
-  - [ ] racket
-  - [ ] Rakefile
-  - [ ] Plaintext
-  - [ ] Ada
-  - [ ] elisp
-  - [ ] JavaScript
-  - [ ] TypeScript
-  - [ ] CoffeeScript
-  - [ ] C++ header file
-  - [ ] clean
-  - [ ] lean
-  - [ ] nim
-  - [ ] dash
-  - [ ] fish
-  - [ ] dyon
-  - [ ] ketos
-  - [ ] harlan
-  - [ ] Objective C
-  - [ ] Ragel
-  - [ ] puppet
-  - [ ] forth
-  - [ ] Objective C++
-  - [ ] J
-  - [ ] nix
-  - [ ] Bison (`.yy` among others)
-  - [ ] Flex
-  - [ ] Felix
-  - [ ] Autoconf (`.in`)
-  - [ ] Batch
-  - [ ] PowerShell
-  - [ ] Sass
-  - [ ] Scons
-  - [ ] Vala
-  - [ ] Cmake
-  - [ ] shen
-  - [ ] ceylon
-  - [ ] Dart
-  - [ ] Korn shell
-  - [ ] fish
-  - [ ] jsx
-  - [ ] ColdFusion
-  - [ ] Balsa
-  - [ ] Teak
-  - [ ] SQL
-  - [ ] m4
-  - [ ] automake
-  - [ ] Carp
-  - [ ] Dale
-  - [ ] awk
-  - [ ] microsoft module definition
-  - [ ] XSLT
-  - [ ] `.rst`
-  - [ ] QML
-  - [ ] `.ini`
-  - [ ] roff/troff/groff
-  - [ ] Terra
-  - [ ] logos
-  - [ ] cabal project
-  - [ ] LLVM
-  - [ ] PureBasic
-  - [ ] visual basic
-  - [ ] MSBuild
-  - [ ] Ur
-  - [ ] SRecoder template
-  - [ ] Cogent
-  - [ ] emacs dev env
-  - [ ] Xtend
-  - [ ] less (fancy CSS)
