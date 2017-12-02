@@ -17,7 +17,6 @@ Reasons not to use polyglot:
 
   * It's written in ATS
   * No regex-based exclusions
-  * Command-line parser is finicky
 
 ### Benchmarks
 
