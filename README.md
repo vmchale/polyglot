@@ -69,6 +69,12 @@ The easiest way to install is to use the installation script, like so:
 curl -sSl https://raw.githubusercontent.com/vmchale/polyglot/master/bash/install.sh | sh -s
 ```
 
+You may need to add `$HOME/.local/bin` to your `PATH` and
+`$HOME/.local/share/man/man1` to your `MANPATH`.
+
+You can optionally install [compleat](https://github.com/mbrubeck/compleat) for
+shell completions as well.
+
 ## Building
 
 If you install [stack](http://haskellstack.org/), [pandoc](http://pandoc.org/) and
@@ -77,12 +83,6 @@ If you install [stack](http://haskellstack.org/), [pandoc](http://pandoc.org/) a
 ```bash
  $ ./shake.hs install
 ```
-
-You may have to add `$HOME/.local/bin` to your `PATH` and
-`$HOME/.local/share/man/man1` to your `MANPATH`.
-
-You can optionally install [compleat](https://github.com/mbrubeck/compleat) for
-shell completions as well.
 
 ### Documentation
 

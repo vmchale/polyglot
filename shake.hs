@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack runghc --resolver nightly-2017-11-16 --package shake --install-ghc
+-- stack runghc --resolver nightly-2017-12-01 --package shake --install-ghc
 
 {-# LANGUAGE ScopedTypeVariables #-}
 
@@ -33,7 +33,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need ["shake.hs"]
         cmd_ ["mkdir", "-p", ".shake"]
         command_ [Cwd ".shake"] "cp" ["../shake.hs", "."]
-        command [Cwd ".shake"] "ghc" ["-O", "shake.hs", "-o", "../build", "-Wall", "-Werror", "-Wincomplete-uni-patterns", "-Wincomplete-record-updates"]
+        command [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "../build", "-Wall", "-Werror", "-Wincomplete-uni-patterns", "-Wincomplete-record-updates"]
 
     "target/poly-*" %> \out -> do
         let target = drop 1 . dropWhile (/='-') $ out
