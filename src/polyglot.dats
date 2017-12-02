@@ -24,6 +24,10 @@ staload "libats/SATS/athread.sats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 (* ****** ****** *)
 
+// TODO think of parallelism/concurrency approach - MS queue wouldn't be exactly perfect.
+// Conversely, channels could be slower than desired.
+// Want: three workers traversing directories, one 
+
 // Given a string representing a filepath, return an integer.
 fun line_count(s: string): int =
   let
@@ -716,6 +720,8 @@ fun check_shebang(s: string): pl_type =
       | "#!/usr/bin/env perl" => perl(line_count(s))
       | "#!/usr/bin/env perl6" => perl(line_count(s))
       | "#!/usr/bin/perl" => perl(line_count(s))
+      | "#!/usr/bin/env stack" => haskell(line_count(s))
+      | "#!/usr/bin/env runhaskell" => haskell(line_count(s))
       | _ => unknown
   end
 
@@ -869,15 +875,20 @@ and flow_stream(s: string, init: source_contents, excludes: List0(string)) : sou
                              )
   end
 
+fun map_stream(acc: source_contents, includes: List0(string), excludes: List0(string)) : source_contents =
+  list_foldleft_cloref(includes, acc, lam (acc, next) => step_stream(acc, next, next, excludes))
+
 fun is_flag(s: string) : bool =
   string_is_prefix("-", s)
 
 fun process_excludes(s: string, acc: command_line) : command_line =
   let
     val acc_r = ref<command_line>(acc)
-    val () = acc_r->excludes := list_cons(s, acc.excludes)
+    val () = if is_flag(s)
+      then (println!("Error: flag " + s + " found where a directory name was expected") ; exit(0) ; ())
+      else acc_r->excludes := list_cons(s, acc.excludes)
   in
-    !acc_r // TODO don't allow any bad input through.
+    !acc_r
   end
 
 fun process(s: string, acc: command_line, is_first: bool) : command_line =
@@ -889,8 +900,12 @@ fun process(s: string, acc: command_line, is_first: bool) : command_line =
           case+ s of
             | "--help" => acc_r->help := true
             | "-h" => acc_r->help := true
-            | "--table" => acc_r->table := true // TODO fail when double flags
-            | "-t" => acc_r->table := true
+            | "--table" => if not(acc.table) then
+              acc_r->table := true
+              else (println!("[31mError:[0m flag " + s + " cannot appear twice") ; exit(0) ; ())
+            | "-t" => if not(acc.table) then
+              acc_r->table := true
+              else (println!("[31mError:[0m flag " + s + " cannot appear twice") ; exit(0) ; ())
             | "--version" => acc_r->version := true
             | "-V" => acc_r->version := true
             | "-e" => (println!("[31mError:[0m flag " + s + " must be followed by an argument") ; exit(0) ; ())
@@ -1047,9 +1062,13 @@ implement main0 (argc, argv) =
       then
         ( version() ; exit(0) )
     else
-      if parsed.table
-        then
-          print(make_table(step_stream(isc, default_head(parsed.includes), default_head(parsed.includes), parsed.excludes))) // TODO fold over these values and whatnot.
-      else
-        print(make_output(step_stream(isc, default_head(parsed.includes), default_head(parsed.includes), parsed.excludes)))
+      let 
+        val result = map_stream(isc, parsed.includes, parsed.excludes)
+      in
+        if parsed.table
+          then
+            print(make_table(result))
+        else
+          print(make_output(result))
+      end
   end

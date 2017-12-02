@@ -7,7 +7,7 @@ cache:
 
 before_install:
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
-  - cd ATS2-Postiats && ./configure --prefix ../libats && make && make install
+  - cd ATS2-Postiats && ./configure --prefix $HOME/libats && make && make install
 
 install:
-  - PATSHOME=libats patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
+  - PATSHOME=$HOME/libats patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
