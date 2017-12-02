@@ -66,7 +66,7 @@ Thus, `poly` will not confuse Verilog for Coq or Happy for Yacc.
 The easiest way to install is to use the installation script, like so:
 
 ```bash
-curl -sSl https://nest.pijul.com/vamchale/polyglot:master/352f87c9ecd7775f1?raw | sh -s
+curl -sSl https://raw.githubusercontent.com/vmchale/polyglot/master/bash/install.sh | sh -s
 ```
 
 ## Building
