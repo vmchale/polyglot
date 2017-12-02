@@ -35,17 +35,17 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>231.1 ms</td>
+    <td>224.3 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>163.6 ms</td>
+    <td>135.5 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>345.2 ms</td>
+    <td>331.4 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
@@ -61,9 +61,11 @@ On the Rust repo:
 
 ## Installation
 
-The easiest way to install is to download a binary from the
-[releases](https://github.com/vmchale/polyglot/releases) page and put it
-somewhere on your `PATH`.
+The easiest way to install is to use the installation script, like so:
+
+```bash
+curl -sSl https://nest.pijul.com/vamchale/polyglot:master/352f87c9ecd7775f1?raw | sh -s
+```
 
 ## Building
 
@@ -77,6 +79,9 @@ If you install [stack](http://haskellstack.org/), [pandoc](http://pandoc.org/) a
 You may have to add `$HOME/.local/bin` to your `PATH` and
 `$HOME/.local/share/man/man1` to your `MANPATH`.
 
+You can optionally install [compleat](https://github.com/mbrubeck/compleat) for
+shell completions as well.
+
 ### Documentation
 
 You can view manpages for `poly` with
@@ -85,7 +90,26 @@ You can view manpages for `poly` with
  $ man poly
 ```
 
-## Supported Languages
+## Heuristics
+
+Heuristics for determining file type:
+  - [x] file extension
+    - [x] keywords
+    - [ ] parser
+  - [x] filename
+    - [ ] parent directory (`.cargo/config`)
+  - [x] shebang
+  - [ ] modeline
+  - [ ] `.gitattributes`
+  - [ ] `.poly.toml` project file
+
+Heuristics for determining file relevance:
+  - [x] builtin directory skips
+  - [ ] `.gitignore`/darcs boringfile/`.ignore` file
+  - [ ] `.gitattributes`
+  - [ ] `.poly.toml` project file
+
+### Languages Supported
 
 File formats detected:
   - [x] Vimscript
@@ -137,6 +161,8 @@ File formats detected:
   - [x] Justfile
   - [x] Makefile
   - [x] Yacc
+  - [x] Lex
+  - [ ] Jupyter
   - [ ] Pony (`.pony`)
   - [ ] Elixir
   - [ ] Erlang
@@ -190,9 +216,9 @@ File formats detected:
   - [ ] forth
   - [ ] Objective C++
   - [ ] J
-  - [ ] Lex
+  - [ ] nix
   - [ ] Bison (`.yy` among others)
-  - [ ] flex
+  - [ ] Flex
   - [ ] Felix
   - [ ] Autoconf (`.in`)
   - [ ] Batch
@@ -211,3 +237,27 @@ File formats detected:
   - [ ] Balsa
   - [ ] Teak
   - [ ] SQL
+  - [ ] m4
+  - [ ] automake
+  - [ ] Carp
+  - [ ] Dale
+  - [ ] awk
+  - [ ] microsoft module definition
+  - [ ] XSLT
+  - [ ] `.rst`
+  - [ ] QML
+  - [ ] `.ini`
+  - [ ] roff/troff/groff
+  - [ ] Terra
+  - [ ] logos
+  - [ ] cabal project
+  - [ ] LLVM
+  - [ ] PureBasic
+  - [ ] visual basic
+  - [ ] MSBuild
+  - [ ] Ur
+  - [ ] SRecoder template
+  - [ ] Cogent
+  - [ ] emacs dev env
+  - [ ] Xtend
+  - [ ] less (fancy CSS)

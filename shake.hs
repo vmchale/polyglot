@@ -21,6 +21,10 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
          -- , "target/poly-arm-linux-gnueabi"
          ]
 
+    "lint" ~> do
+        cmd_ "shellcheck --exclude SC2155 bash/install.sh"
+        cmd "hlint shake.hs"
+
     "man/poly.1" %> \_ -> do
         need ["man/MANPAGE.md"]
         cmd ["pandoc", "man/MANPAGE.md", "-s", "-t", "man", "-o", "man/poly.1"]
@@ -63,6 +67,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     "install" ~> do
         need ["target/poly", "man/poly.1", "compleat/poly.usage"]
         home <- getEnv "HOME"
+        cmd_ ["mkdir", "-p", fromMaybe "" home ++ "/.compleat"]
         cmd_ ["cp", "man/poly.1", fromMaybe "" home ++ "/.local/share/man/man1/"]
         cmd_ ["cp", "compleat/poly.usage", fromMaybe "" home ++ "/.compleat"]
         cmd ["cp", "target/poly", fromMaybe "" home ++ "/.local/bin/poly"]

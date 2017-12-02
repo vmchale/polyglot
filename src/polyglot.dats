@@ -23,6 +23,7 @@ staload "libats/SATS/athread.sats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 (* ****** ****** *)
 
+// Given a string representing a filepath, return an integer.
 fun line_count(s: string): int =
   let
     var ref = fileref_open_opt(s, file_mode_r)
@@ -41,16 +42,19 @@ fun line_count(s: string): int =
       | ~None_vt() => (println!("[33mWarning:[0m could not open file at " + s) ; 0)
   end
 
+// Pad a string of bounded length on the right by adding spaces.
 fnx right_pad { k: int | k >= 0 }{ m: int | m <= k } .<k>. (s: string(m), n: int(k)) : string =
   case+ length(s) < n of
     | true when n > 0 => right_pad(s, n - 1) + " "
     | _ => s
 
+// Pad a string on the left by adding spaces.
 fnx left_pad { k: int | k >= 0 } .<k>. (s : string, n : int(k)) : string =
   case+ length(s) < n of
     | true when n > 0 => " " + left_pad(s, n - 1)
     | _ => s
 
+// helper function for make_output
 fun maybe_string(s: string, n: int): string =
   if n > 0
     then
@@ -58,6 +62,7 @@ fun maybe_string(s: string, n: int): string =
     else
       ""
 
+// helper function for make_table
 fun maybe_table{ k : int | k >= 0 && k < 20 }(s: string(k), files: int, lines: int): string =
   if files > 0
     then
@@ -65,6 +70,7 @@ fun maybe_table{ k : int | k >= 0 && k < 20 }(s: string(k), files: int, lines: i
   else
     ""
 
+// helper function for make_output
 fun with_nonempty(s1: string, s2: string): string =
   if s2 != ""
     then
@@ -72,6 +78,7 @@ fun with_nonempty(s1: string, s2: string): string =
     else
       ""
 
+// helper function to make totals for tabular output.
 fun sum_fields(sc: source_contents): file =
   let
     var f = @{ lines = sc.rust.lines +
@@ -173,6 +180,7 @@ fun sum_fields(sc: source_contents): file =
     f
   end
 
+// function to print tabular output at the end
 fun make_table(isc: source_contents): string =
   "-------------------------------------------------------------------------------\n [35mLanguage[0m            [35mFiles[0m        [35mLines[0m         [35mCode[0m     [35mComments[0m       [35mBlanks[0m\n-------------------------------------------------------------------------------\n" +
   maybe_table("Alex", isc.alex.files, isc.alex.lines) +
@@ -201,6 +209,7 @@ fun make_table(isc: source_contents): string =
   maybe_table("Julia", isc.julia.files, isc.julia.lines) +
   maybe_table("Justfile", isc.justfile.files, isc.justfile.lines) +
   maybe_table("LALRPOP", isc.lalrpop.files, isc.lalrpop.lines) +
+  maybe_table("Lex", isc.lex.files, isc.lex.lines) +
   maybe_table("Lua", isc.lua.files, isc.lua.lines) +
   maybe_table("Lucius", isc.lucius.files, isc.lucius.lines) +
   maybe_table("Madlang", isc.madlang.files, isc.madlang.lines) +
@@ -226,6 +235,7 @@ fun make_table(isc: source_contents): string =
   maybe_table("Total", (sum_fields(isc)).files, (sum_fields(isc)).lines) +
   "-------------------------------------------------------------------------------\n"
 
+// Function to print output sorted by type of language.
 fun make_output(isc: source_contents): string =
   with_nonempty("[33mProgramming Languages:[0m\n",
     maybe_string("Agda", isc.agda.lines) +
@@ -271,6 +281,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("Alex", isc.alex.lines) +
     maybe_string("Happy", isc.happy.lines) +
     maybe_string("LALRPOP", isc.lalrpop.lines) +
+    maybe_string("Lex", isc.lex.lines) +
     maybe_string("Yacc", isc.yacc.lines)
   ) +
   with_nonempty("\n[33mWeb:[0m\n",
@@ -291,8 +302,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("Makefile", isc.makefile.lines)
   )
 
-// fun detect_happy( 
-
+// monoidal addition for 'file' type.
 fun add_results(x: file, y: file): file =
   let
     var next = @{ lines = x.lines + y.lines
@@ -304,6 +314,7 @@ fun add_results(x: file, y: file): file =
 
 overload + with add_results
 
+// This is the step function used when streaming directory contents. 
 fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
   let
     val sc_r = ref<source_contents>(prev)
@@ -311,7 +322,7 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
     case+ scf of
       | haskell n => 
         let
-          val () = sc_r->haskell := prev.haskell + @{ lines = n, files = 1} // @{ lines = n, files = 1}
+          val () = sc_r->haskell := prev.haskell + @{ lines = n, files = 1}
         in
           !sc_r
         end
@@ -618,10 +629,11 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
       | unknown _ => prev
   end
 
-
+// match a particular word against a list of keywords
 fun match_keywords { m : nat | m <= 10 } (keys: list(string, m), word: string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || next = word, false)
 
+// helper function for check_keywords
 fun step_keyword(size: int, pre: pl_type, word: string, ext: string) : pl_type =
   case+ pre of
     | unknown _ =>
@@ -629,7 +641,8 @@ fun step_keyword(size: int, pre: pl_type, word: string, ext: string) : pl_type =
         var happy_alex_keywords = list_cons("module", list_nil())
         var yacc_keywords = list_cons("struct", list_cons("char", list_cons("int", list_nil())))
         var mercury_keywords = list_cons(":-", list_cons("import_module", list_cons("pred", list_nil())))
-        var verilog_keywords = list_cons("assign", list_cons("wire", list_nil()))
+        var verilog_keywords = list_cons("endmodule", list_cons("pos_edge", list_cons("edge", list_cons("always", list_cons("wire", list_nil())))))
+        var coq_keywords = list_cons("Qed", list_cons("Require", list_cons("Inductive", list_cons("Remark", list_cons("Lemma", list_cons("Proof", list_cons("Definition", list_cons("Theorem", list_nil()))))))))
       in
         case+ ext of
           | "y" =>
@@ -637,14 +650,18 @@ fun step_keyword(size: int, pre: pl_type, word: string, ext: string) : pl_type =
               then happy size
               else if match_keywords(yacc_keywords, word) then yacc size
               else unknown // yacc size
-          | "x" => if match_keywords(happy_alex_keywords, word) then alex size else unknown //  lex size
-          | "v" => if match_keywords(verilog_keywords, word) then verilog size else unknown // coq size
+          | "v" => if match_keywords(verilog_keywords, word) 
+            then verilog size 
+            else if match_keywords(coq_keywords, word) then coq size
+            else unknown
           | "m" => mercury size
           | _ => pre
       end
     | _ => pre
 
-// This should only be called when file extension conflict, as it reads from the whole file.
+// Function to disambiguate extensions such as .v (Coq and Verilog) and .m
+// (Mercury and Objective C). This should only be called when extensions are in
+// conflict, as it reads the whole file.
 fun check_keywords(s: string, size: int, ext: string) : pl_type =
   let
     var ref = fileref_open_opt(s, file_mode_r)
@@ -665,10 +682,14 @@ fun check_keywords(s: string, size: int, ext: string) : pl_type =
       | ~None_vt() => (println!("[33mWarning:[0m could not open file at " + s) ; unknown)
   end
 
+// Check shebang on scripts.
+//
+// TODO flexible parser that drops spaces as appropriate
+// TODO check magic number so as to avoid checking shebang of binary file
 fun check_shebang(s: string): pl_type =
   let
     val ref = fileref_open_opt(s, file_mode_r)
-    val str: string = // FIXME var?
+    val str: string =
       case+ ref of
         | ~Some_vt(x) =>
           let
@@ -681,8 +702,11 @@ fun check_shebang(s: string): pl_type =
   in
     case str of
       | "#!/usr/bin/env ion" => ion(line_count(s))
-      | "#!/usr/bin/env bash" => bash(line_count(s)) // TODO flexible parser that drops junk/spaces
+      | "#!/usr/bin/env bash" => bash(line_count(s))
       | "#!/bin/bash" => bash(line_count(s))
+      | "#!python" => python(line_count(s))
+      | "#!python2" => python(line_count(s))
+      | "#!python3" => python(line_count(s))
       | "#!/usr/bin/env python" => python(line_count(s))
       | "#!/usr/bin/env python2" => python(line_count(s))
       | "#!/usr/bin/env python3" => python(line_count(s))
@@ -692,6 +716,7 @@ fun check_shebang(s: string): pl_type =
       | _ => unknown
   end
 
+// Match based on filename (for makefiles, etc.)
 fun match_filename(s: string): pl_type =
   let
     val (prf | str) = filename_get_base(s)
@@ -700,16 +725,20 @@ fun match_filename(s: string): pl_type =
   in
     case match of
       | "Makefile" => makefile(line_count(s))
+      | "Makefile.tc" => makefile(line_count(s))
       | "makefile" => makefile(line_count(s))
       | "GNUmakefile" => makefile(line_count(s))
+      | ".yamllint" => yaml(line_count(s))
       | "Justfile" => justfile(line_count(s))
       | "justfile" => justfile(line_count(s))
       | _ => check_shebang(s)
   end
 
-fun prune_extension(s: string): pl_type =
+// Match based on file extension (assuming the file name is passed in as an
+// argument).
+fun prune_extension(s: string, file_proper: string): pl_type =
   let
-    val (prf | str) = filename_get_ext(s)
+    val (prf | str) = filename_get_ext(file_proper)
     val match: string = 
       if strptr2ptr(str) > 0
         then
@@ -749,7 +778,10 @@ fun prune_extension(s: string): pl_type =
       | "cabal" => cabal(line_count(s))
       | "yml" => yaml(line_count(s))
       | "y" => check_keywords(s, line_count(s), match)
-      | "x" => check_keywords(s, line_count(s), match)
+      | "ypp" => yacc(line_count(s))
+      | "x" => alex(line_count(s))
+      | "l" => lex(line_count(s))
+      | "lpp" => lex(line_count(s))
       | "go" => go(line_count(s))
       | "html" => html(line_count(s))
       | "htm" => html(line_count(s))
@@ -779,11 +811,16 @@ fun prune_extension(s: string): pl_type =
       | "cassius" => cassius(line_count(s))
       | "lucius" => cassius(line_count(s))
       | "julius" => julius(line_count(s))
-      | "jl" => julius(line_count(s))
-      | _ => match_filename(s)
+      | "jl" => julia(line_count(s))
+      | "ion" => ion(line_count(s))
+      | "bash" => bash(line_count(s))
+      | "" => match_filename(s)
+      | "sh" => match_filename(s)
+      | "yamllint" => match_filename(s)
+      | _ => unknown
   end
 
-// TODO take an array of bad directories from CLI.
+// filter out directories containing artifacts
 fun bad_dir(s: string, excludes: List0(string)) : bool =
   case s of
     | "." => true
@@ -812,11 +849,11 @@ fun bad_dir(s: string, excludes: List0(string)) : bool =
     | ".sass-cache" => true
     | _ => list_exists_cloref(excludes, lam x => x = s)
 
-fnx step_stream(acc: source_contents, s: string, excludes: List0(string)) : source_contents =
-  if test_file_isdir(s) != 0 then
-    flow_stream(s, acc, excludes)
+fnx step_stream(acc: source_contents, full_name: string, file_proper: string, excludes: List0(string)) : source_contents =
+  if test_file_isdir(full_name) != 0 then
+    flow_stream(full_name, acc, excludes)
   else
-    adjust_contents(acc, prune_extension(s))
+    adjust_contents(acc, prune_extension(full_name, file_proper)) // TODO if we check extension *first*, we will avoid having to append the string in many cases!
 
 and flow_stream(s: string, init: source_contents, excludes: List0(string)) : source_contents =
   let
@@ -825,7 +862,7 @@ and flow_stream(s: string, init: source_contents, excludes: List0(string)) : sou
   in
     stream_vt_foldleft_cloptr( ffiles
                              , init
-                             , lam (acc, next) => step_stream(acc, s + "/" + next, excludes)
+                             , lam (acc, next) => step_stream(acc, s + "/" + next, next, excludes)
                              )
   end
 
@@ -904,7 +941,7 @@ fnx get_cli
   end
 
 fun version(): void =
-  println!("polygot version 0.2.2\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.3.1\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
 print("polyglot - Count lines of code quickly.
@@ -1009,7 +1046,7 @@ implement main0 (argc, argv) =
     else
       if parsed.table
         then
-          print(make_table(step_stream(isc, default_head(parsed.includes), parsed.excludes)))
+          print(make_table(step_stream(isc, default_head(parsed.includes), default_head(parsed.includes), parsed.excludes)))
       else
-        print(make_output(step_stream(isc, default_head(parsed.includes), parsed.excludes)))
+        print(make_output(step_stream(isc, default_head(parsed.includes), default_head(parsed.includes), parsed.excludes)))
   end

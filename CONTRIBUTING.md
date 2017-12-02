@@ -24,6 +24,10 @@ implement:
   * Adding a new directory to ignore (e.g. `.cabal-sandbox`)
   * Adding new shebang detection
   * Updating the `--help` or manpage.
+  * Adding keywords to disambiguate extensions.
+
+If you have any trouble figuring this out, feel free to open an issue and I will
+give you guidance on where to look.
 
 ## Rules etc.
 We follow the [rust standards of

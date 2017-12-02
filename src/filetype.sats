@@ -1,7 +1,9 @@
+// Type for a collection of files (monoidal)
 typedef file = @{ lines = int
                 , files = int
                 }
 
+// Type for the parsed command-line arguments. 
 typedef command_line = @{ version = bool
                         , help = bool
                         , table = bool
@@ -9,6 +11,7 @@ typedef command_line = @{ version = bool
                         , includes = [ m: nat ] list(string, m)
                         }
 
+// Program state, tracking *all* supported file types in an unboxed structure.
 typedef source_contents = @{ rust = file
                            , haskell = file
                            , ats = file
@@ -62,8 +65,10 @@ typedef source_contents = @{ rust = file
                            , coq = file
                            }
 
+// Reference to source_contents; used to update the structure.
 typedef source_contents_r = ref(source_contents)
 
+// Sum type representing all supported data types.
 datatype pl_type =
   | unknown
   | rust of int
