@@ -15,6 +15,7 @@ cache:
 install:
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
   - cd ATS2-Postiats && ./configure && make && sudo make install
+  - cd ../
     # - nix-env -i stack
     #- nix-env -i pandoc
 
