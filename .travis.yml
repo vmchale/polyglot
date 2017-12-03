@@ -9,7 +9,7 @@ matrix:
 cache:
   - $HOME/libats
 
-before_install:
+install:
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
   - cd ATS2-Postiats && ./configure --prefix $HOME/libats && make && make install
 
@@ -21,7 +21,7 @@ script:
     then
       pip install yamllint
       yamllint .travis.yml
-      curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
+      curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s ./shake.hs
       export TARGET="x86_64-unknown-linux"
     else
       export TARGET="x86_64-apple-darwin"
