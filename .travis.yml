@@ -1,3 +1,5 @@
+---
+language: python
 os:
   - linux
   - osx
@@ -10,4 +12,6 @@ before_install:
   - cd ATS2-Postiats && ./configure --prefix $HOME/libats && make && make install
 
 install:
-  - PATSHOME=$HOME/libats patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
+  - export PATSHOME=$HOME/libats
+  - export PATH=$PATSHOME:$PATH
+  - patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
