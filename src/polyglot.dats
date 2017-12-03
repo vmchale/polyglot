@@ -5,7 +5,6 @@
 #include "libats/ML/DATS/filebas_dirent.dats"
 #include "libats/libc/DATS/dirent.dats" // causes problematic include "share/H/pats_atslib.h"
 #include "libats/ML/DATS/list0.dats"
-#include "src/filetype.sats"
 #include "libats/DATS/athread_posix.dats"
 
 %{^
@@ -18,7 +17,7 @@ staload "prelude/DATS/unsafe.dats"
 staload "libats/ML/DATS/string.dats"
 staload "libats/libc/SATS/stdio.sats"
 staload "prelude/SATS/filebas.sats"
-// staload "src/filetype.sats"
+staload "src/filetype.sats"
 staload "libats/ML/DATS/filebas.dats"
 staload "libats/SATS/athread.sats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
