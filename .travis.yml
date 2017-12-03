@@ -9,7 +9,8 @@ matrix:
 
 cache:
   directories:
-    - $HOME/libats
+    - /usr/local/lib/ats2-postiats-0.3.8/
+    - /usr/local/bin
 
 install:
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
@@ -18,7 +19,7 @@ install:
     #- nix-env -i pandoc
 
 script:
-  - ./shake.hs
+  # - ./shake.hs
     # - export PATSHOME=$HOME/libats
     # - export PATH=$PATSHOME/bin:$PATH
     #  - |
