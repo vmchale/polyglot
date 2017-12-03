@@ -10,7 +10,7 @@ matrix:
     - env: TARGET="x86_64-apple-darwin"
       os: osx
 
-    - env: TARGET="s390x-linux-gnu" COMMAND="-atscc
+    - env: TARGET="s390x-linux-gnu" COMMAND="-atscc s390x-linux-gnu-gcc -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/"
       os: linux
       addons:
         apt:
