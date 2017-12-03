@@ -33,6 +33,7 @@ script:
       #else
       #export TARGET="x86_64-apple-darwin"
       #fi
+  - ls
   - patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
   - echo "done."
 
