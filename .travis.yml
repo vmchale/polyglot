@@ -14,4 +14,20 @@ before_install:
 script:
   - export PATSHOME=$HOME/libats
   - export PATH=$PATSHOME/bin:$PATH
-  - patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
+  - |
+    if [ `uname` = "Darwin" ]
+    then
+      export TARGET="x86_64-apple-darwin"
+    else
+      export TARGET="x86_64-unknown-linux"
+    fi
+    patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-"$TARGET" -cleanaft -O2 -flto
+
+deploy:
+  api_key:
+    secure: "A7A2h7iYFO8z+wK3He9W2Y18G5leAlPhAtL2/HtJsAL/rIog+K5MB1rn7lcSWFgXMimMA+aWmr5PQHPLstVqt6IZNv3O/LV4We95Yr5HhHH+QP76zDChzRTM++9eRX/AIAJB4mZgyguZXXYdco6m/4Wj5DO/I2gyniP3sajqOsEhCnASskhcCoQhp9XGWSiRgowWxiKvjfLDAR6Bt/B9lLfg+gTR9VTQGrbAbSzwEWb7qlRp9P5WHNzWaof7C+6NM7XP+OMwENEJ/5KKNXiHEbht0GpU6Mmga7PpB8W2NzsKoFaG2nOmp+iyzp9sl+oC0pBycxX7n2+unDoW04kJPTLYNBW+xN/yj7c0Ioujnq4XXJWCckpwg4pK7/zj6FeQJULAHplCEZf5HxCBPZ1TnvsfpdqeYD1Vjf/B0DzVnvhrPDasG0Et1iFedBvc9YL7fkyypc45ySXbnRlupr5KknMGqIUrC0QiY0jP9+LGTfWu4IoN3ArUItcfs/D99w6PH82FU9Z+AkDEWHaVtPwXN9y43Pt1p7vuIszCYY3/So1TrFtmPwsYnjVIiKrhQIzx2N5tN9pyZiiQBY1QU5/k6kEXIdXXScGIJbT1qqcTqMduguguS6NDygiJ9nomFnUS0wPMpLKP5T31aAble6rWuHTlM0tyZ4l3qJbNSWPDUPw="
+  file: poly-$TARGET
+  on:
+    tags: true
+  provider: releases
+  skip_cleanup: true
