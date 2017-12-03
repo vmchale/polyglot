@@ -876,7 +876,7 @@ and flow_stream(s: string, init: source_contents, excludes: List0(string)) : sou
   end
 
 fun map_stream(acc: source_contents, includes: List0(string), excludes: List0(string)) : source_contents =
-  list_foldleft_cloref(includes, acc, lam (acc, next) => step_stream(acc, next, next, excludes))
+  list_foldleft_cloref(includes, acc, lam (acc, next) => step_stream(acc, next, next, excludes)) // TODO check uniqueness
 
 fun is_flag(s: string) : bool =
   string_is_prefix("-", s)
