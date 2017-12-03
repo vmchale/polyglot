@@ -17,18 +17,18 @@ install:
 script:
   - export PATSHOME=$HOME/libats
   - export PATH=$PATSHOME/bin:$PATH
-  - |
-    if [ `uname` = "Linux" ]
-    then
-      pip install yamllint
+    #  - |
+    #if [ `uname` = "Linux" ]
+    #then
+    #  pip install yamllint
       #yamllint .travis.yml
       #curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s ./shake.hs
-      export TARGET="x86_64-unknown-linux"
-    else
-      export TARGET="x86_64-apple-darwin"
-    fi
-    patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
-    echo "done"
+      #  export TARGET="x86_64-unknown-linux"
+      #else
+      #export TARGET="x86_64-apple-darwin"
+      #fi
+  - patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
+  - echo "done."
 
 deploy:
   api_key:
