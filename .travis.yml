@@ -26,7 +26,7 @@ script:
       curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
       export TARGET="x86_64-unknown-linux"
     fi
-    patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-"$TARGET" -cleanaft -O2 -flto
+    patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto
 
 deploy:
   api_key:
