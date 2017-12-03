@@ -1,8 +1,10 @@
 ---
-language: python
-os:
-  - linux
-  - osx
+matrix:
+  include:
+    - os: linux
+      language: python
+
+    - os: osx
 
 cache:
   - $HOME/libats
@@ -19,6 +21,9 @@ script:
     then
       export TARGET="x86_64-apple-darwin"
     else
+      pip install yamllint
+      yamllint .travis.yml
+      curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
       export TARGET="x86_64-unknown-linux"
     fi
     patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-"$TARGET" -cleanaft -O2 -flto
