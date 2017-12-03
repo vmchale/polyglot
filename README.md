@@ -67,7 +67,7 @@ Thus, `poly` will not confuse Happy for Yacc (for instance).
 The easiest way to install is to use the installation script, like so:
 
 ```bash
-curl -sSl https://raw.githubusercontent.com/vmchale/polyglot/master/bash/install.sh | sh -s
+curl -sSl https://raw.githubusercontent.com/vmchale/polyglot/master/bash/install.sh | bash -s
 ```
 
 You may need to add `$HOME/.local/bin` to your `PATH` and
