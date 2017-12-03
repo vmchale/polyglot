@@ -63,13 +63,20 @@ typedef source_contents = @{ rust = file
                            , yacc = file
                            , lex = file
                            , coq = file
+                           , jupyter = file
+                           , java = file
+                           , scala = file
+                           , erlang = file
+                           , elixir = file
+                           , pony = file
+                           , clojure = file
                            }
 
 // Reference to source_contents; used to update the structure.
 typedef source_contents_r = ref(source_contents)
 
 // Sum type representing all supported data types.
-datatype pl_type =
+datavtype pl_type =
   | unknown
   | rust of int
   | haskell of int
@@ -122,3 +129,10 @@ datatype pl_type =
   | yacc of int
   | lex of int
   | coq of int
+  | jupyter of int
+  | java of int
+  | scala of int
+  | erlang of int
+  | elixir of int
+  | pony of int
+  | clojure of int

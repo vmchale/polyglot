@@ -32,8 +32,8 @@ fun line_count(s: string): int =
   let
     var ref = fileref_open_opt(s, file_mode_r)
   in
-    case+ ref of
-      | ~Some_vt(x) =>
+    case ref of
+      | ~Some_vt(x) => 
         begin
           let
             var viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(x)
@@ -201,7 +201,9 @@ fun make_table(isc: source_contents): string =
   maybe_table("Coq", isc.coq.files, isc.coq.lines) +
   maybe_table("CSS", isc.css.files, isc.css.lines) +
   maybe_table("Dhall", isc.dhall.files, isc.dhall.lines) +
+  maybe_table("Elixir", isc.elixir.files, isc.elixir.lines) +
   maybe_table("Elm", isc.elm.files, isc.elm.lines) +
+  maybe_table("Erlang", isc.erlang.files, isc.erlang.lines) +
   maybe_table("Go", isc.go.files, isc.go.lines) +
   maybe_table("Hamlet", isc.hamlet.files, isc.hamlet.lines) +
   maybe_table("Happy", isc.happy.files, isc.happy.lines) +
@@ -210,8 +212,10 @@ fun make_table(isc: source_contents): string =
   maybe_table("Idris", isc.idris.files, isc.idris.lines) +
   maybe_table("iPKG", isc.ipkg.files, isc.ipkg.lines) +
   maybe_table("Ion", isc.ion.files, isc.ion.lines) +
+  maybe_table("Java", isc.java.files, isc.java.lines) +
   maybe_table("Julius", isc.julius.files, isc.julius.lines) +
   maybe_table("Julia", isc.julia.files, isc.julia.lines) +
+  maybe_table("Jupyter", isc.jupyter.files, isc.jupyter.lines) +
   maybe_table("Justfile", isc.justfile.files, isc.justfile.lines) +
   maybe_table("LALRPOP", isc.lalrpop.files, isc.lalrpop.lines) +
   maybe_table("Lex", isc.lex.files, isc.lex.lines) +
@@ -222,11 +226,13 @@ fun make_table(isc: source_contents): string =
   maybe_table("Markdown", isc.markdown.files, isc.markdown.lines) +
   maybe_table("OCaml", isc.ocaml.files, isc.ocaml.lines) +
   maybe_table("Perl", isc.perl.files, isc.perl.lines) +
+  maybe_table("Pony", isc.pony.files, isc.pony.lines) +
   maybe_table("Python", isc.python.files, isc.python.lines) +
   maybe_table("PureScript", isc.purescript.files, isc.purescript.lines) +
   maybe_table("R", isc.r.files, isc.r.lines) +
   maybe_table("Ruby", isc.ruby.files, isc.ruby.lines) +
   maybe_table("Rust", isc.rust.files, isc.rust.lines) +
+  maybe_table("Scala", isc.scala.files, isc.scala.lines) +
   maybe_table("Sixten", isc.sixten.files, isc.sixten.lines) +
   maybe_table("TCL", isc.tcl.files, isc.tcl.lines) +
   maybe_table("TeX", isc.tex.files, isc.tex.lines) +
@@ -251,19 +257,24 @@ fun make_output(isc: source_contents): string =
     maybe_string("C++", isc.cpp.lines) +
     maybe_string("COBOL", isc.cobol.lines) +
     maybe_string("Coq", isc.coq.lines) +
+    maybe_string("Elixir", isc.elixir.lines) +
     maybe_string("Elm", isc.elm.lines) +
+    maybe_string("Erlang", isc.elm.lines) +
     maybe_string("Go", isc.go.lines) +
     maybe_string("Haskell", isc.haskell.lines) +
     maybe_string("Idris", isc.idris.lines) +
+    maybe_string("Java", isc.java.lines) +
     maybe_string("Julia", isc.julia.lines) +
     maybe_string("Lua", isc.lua.lines) +
     maybe_string("OCaml", isc.ocaml.lines) +
-    maybe_string("PureScript", isc.purescript.lines) +
     maybe_string("Perl", isc.perl.lines) +
+    maybe_string("Pony", isc.pony.lines) +
+    maybe_string("PureScript", isc.purescript.lines) +
     maybe_string("Python", isc.python.lines) +
     maybe_string("R", isc.r.lines) +
     maybe_string("Ruby", isc.ruby.lines) +
     maybe_string("Rust", isc.rust.lines) +
+    maybe_string("Scala", isc.scala.lines) +
     maybe_string("Sixten", isc.sixten.lines) +
     maybe_string("TCL", isc.tcl.lines) +
     maybe_string("Vimscript", isc.vimscript.lines)
@@ -303,6 +314,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("VHDL", isc.vhdl.lines)
   ) +
   with_nonempty("\n[33mOther:[0m\n",
+    maybe_string("Jupyter", isc.jupyter.lines) +
     maybe_string("Justfile", isc.justfile.lines) +
     maybe_string("Madlang", isc.madlang.lines) +
     maybe_string("Makefile", isc.makefile.lines)
@@ -324,343 +336,181 @@ overload + with add_results
 fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
   let
     val sc_r = ref<source_contents>(prev)
+    val _ =
+      case+ scf of
+        | ~haskell n => sc_r->haskell := prev.haskell + @{ lines = n, files = 1 }
+        | ~ats n => sc_r->ats := prev.ats + @{ lines = n, files = 1}
+        | ~rust n => sc_r->rust := prev.rust + @{ lines = n, files = 1}
+        | ~markdown n => sc_r->markdown := prev.markdown + @{ lines = n, files = 1}
+        | ~python n => sc_r->python := prev.python + @{ lines = n, files = 1}
+        | ~vimscript n => sc_r->vimscript := prev.vimscript + @{ lines = n, files = 1}
+        | ~yaml n => sc_r->yaml := prev.yaml + @{ lines = n, files = 1}
+        | ~toml n => sc_r->toml := prev.toml + @{ lines = n, files = 1}
+        | ~happy n => sc_r->happy := prev.happy + @{ lines = n, files = 1}
+        | ~alex n => sc_r->alex := prev.alex + @{ lines = n, files = 1}
+        | ~idris n => sc_r->idris := prev.idris + @{ lines = n, files = 1}
+        | ~madlang n => sc_r->madlang := prev.madlang + @{ lines = n, files = 1}
+        | ~elm n => sc_r->elm := prev.elm + @{ lines = n, files = 1}
+        | ~c n => sc_r->c := prev.c + @{ lines = n, files = 1}
+        | ~go n => sc_r->go := prev.go + @{ lines = n, files = 1}
+        | ~cabal n => sc_r->cabal := prev.cabal + @{ lines = n, files = 1}
+        | ~verilog n => sc_r->verilog := prev.verilog + @{ lines = n, files = 1}
+        | ~vhdl n => sc_r->vhdl := prev.vhdl + @{ lines = n, files = 1}
+        | ~html n => sc_r->html := prev.html + @{ lines = n, files = 1}
+        | ~css n => sc_r->css := prev.css + @{ lines = n, files = 1}
+        | ~purescript n => sc_r->purescript := prev.purescript + @{ lines = n, files = 1}
+        | ~futhark n => sc_r->futhark := prev.futhark + @{ lines = n, files = 1}
+        | ~brainfuck n => sc_r->brainfuck := prev.brainfuck + @{ lines = n, files = 1}
+        | ~ruby n => sc_r->ruby := prev.ruby + @{ lines = n, files = 1}
+        | ~julia n => sc_r->julia := prev.julia + @{ lines = n, files = 1}
+        | ~tex n => sc_r->tex := prev.tex + @{ lines = n, files = 1}
+        | ~perl n => sc_r->perl := prev.perl + @{ lines = n, files = 1}
+        | ~ocaml n => sc_r->ocaml := prev.ocaml + @{ lines = n, files = 1}
+        | ~agda n => sc_r->agda := prev.agda + @{ lines = n, files = 1}
+        | ~cobol n => sc_r->cobol := prev.cobol + @{ lines = n, files = 1}
+        | ~tcl n => sc_r->tcl := prev.tcl + @{ lines = n, files = 1}
+        | ~r n => sc_r->r := prev.r + @{ lines = n, files = 1}
+        | ~lua n => sc_r->lua := prev.lua + @{ lines = n, files = 1}
+        | ~cpp n => sc_r->cpp := prev.cpp + @{ lines = n, files = 1}
+        | ~lalrpop n => sc_r->lalrpop := prev.lalrpop + @{ lines = n, files = 1}
+        | ~header n => sc_r->header := prev.header + @{ lines = n, files = 1}
+        | ~sixten n => sc_r->sixten := prev.sixten + @{ lines = n, files = 1}
+        | ~dhall n => sc_r->dhall := prev.dhall + @{ lines = n, files = 1}
+        | ~ipkg n => sc_r->ipkg := prev.ipkg + @{ lines = n, files = 1}
+        | ~justfile n => sc_r->justfile := prev.justfile + @{ lines = n, files = 1}
+        | ~makefile n => sc_r->makefile := prev.makefile + @{ lines = n, files = 1}
+        | ~ion n => sc_r->ion := prev.ion + @{ lines = n, files = 1}
+        | ~bash n => sc_r->bash := prev.bash + @{ lines = n, files = 1}
+        | ~hamlet n => sc_r->hamlet := prev.hamlet + @{ lines = n, files = 1}
+        | ~cassius n => sc_r->cassius := prev.cassius + @{ lines = n, files = 1}
+        | ~lucius n => sc_r->lucius := prev.lucius + @{ lines = n, files = 1}
+        | ~julius n => sc_r->julius := prev.julius + @{ lines = n, files = 1}
+        | ~mercury n => sc_r->mercury := prev.mercury + @{ lines = n, files = 1}
+        | ~yacc n => sc_r->yacc := prev.yacc + @{ lines = n, files = 1}
+        | ~lex n => sc_r->lex := prev.lex + @{ lines = n, files = 1}
+        | ~coq n => sc_r->coq := prev.coq + @{ lines = n, files = 1}
+        | ~jupyter n => sc_r->jupyter := prev.jupyter + @{ lines = n, files = 1}
+        | ~java n => sc_r->java := prev.java + @{ lines = n, files = 1}
+        | ~scala n => sc_r->scala := prev.scala + @{ lines = n, files = 1}
+        | ~erlang n => sc_r->erlang := prev.erlang + @{ lines = n, files = 1}
+        | ~elixir n => sc_r->elixir := prev.elixir + @{ lines = n, files = 1}
+        | ~pony n => sc_r->pony := prev.pony + @{ lines = n, files = 1}
+        | ~clojure n => sc_r->clojure := prev.clojure + @{ lines = n, files = 1}
+        | ~unknown _ => ()
   in
-    case+ scf of
-      | haskell n => 
-        let
-          val () = sc_r->haskell := prev.haskell + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | ats n => 
-        let
-          val () = sc_r->ats := prev.ats + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | rust n => 
-        let
-          val () = sc_r->rust := prev.rust + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | markdown n => 
-        let
-          val () = sc_r->markdown := prev.markdown + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | python n => 
-        let
-          val () = sc_r->python := prev.python + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | vimscript n => 
-        let
-          val () = sc_r->vimscript := prev.vimscript + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | yaml n => 
-        let
-          val () = sc_r->yaml := prev.yaml + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | toml n => 
-        let
-          val () = sc_r->toml := prev.toml + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | happy n => 
-        let
-          val () = sc_r->happy := prev.happy + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | alex n => 
-        let
-          val () = sc_r->alex := prev.alex + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | idris n => 
-        let
-          val () = sc_r->idris := prev.idris + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | madlang n => 
-        let
-          val () = sc_r->madlang := prev.madlang + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | elm n => 
-        let
-          val () = sc_r->elm := prev.elm + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | c n => 
-        let
-          val () = sc_r->c := prev.c + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | go n => 
-        let
-          val () = sc_r->go := prev.go + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | cabal n => 
-        let
-          val () = sc_r->cabal := prev.cabal + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | verilog n => 
-        let
-          val () = sc_r->verilog := prev.verilog + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | vhdl n => 
-        let
-          val () = sc_r->vhdl := prev.vhdl + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | html n => 
-        let
-          val () = sc_r->html := prev.html + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | css n => 
-        let
-          val () = sc_r->css := prev.css + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | purescript n => 
-        let
-          val () = sc_r->purescript := prev.purescript + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | futhark n => 
-        let
-          val () = sc_r->futhark := prev.futhark + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | brainfuck n => 
-        let
-          val () = sc_r->brainfuck := prev.brainfuck + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | ruby n => 
-        let
-          val () = sc_r->ruby := prev.ruby + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | julia n => 
-        let
-          val () = sc_r->julia := prev.julia + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | tex n => 
-        let
-          val () = sc_r->tex := prev.tex + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | perl n => 
-        let
-          val () = sc_r->perl := prev.perl + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | ocaml n => 
-        let
-          val () = sc_r->ocaml := prev.ocaml + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | agda n => 
-        let
-          val () = sc_r->agda := prev.agda + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | cobol n => 
-        let
-          val () = sc_r->cobol := prev.cobol + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | tcl n => 
-        let
-          val () = sc_r->tcl := prev.tcl + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | r n => 
-        let
-          val () = sc_r->r := prev.r + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | lua n => 
-        let
-          val () = sc_r->lua := prev.lua + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | cpp n => 
-        let
-          val () = sc_r->cpp := prev.cpp + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | lalrpop n => 
-        let
-          val () = sc_r->lalrpop := prev.lalrpop + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | header n => 
-        let
-          val () = sc_r->header := prev.header + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | sixten n => 
-        let
-          val () = sc_r->sixten := prev.sixten + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | dhall n => 
-        let
-          val () = sc_r->dhall := prev.dhall + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | ipkg n => 
-        let
-          val () = sc_r->ipkg := prev.ipkg + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | justfile n => 
-        let
-          val () = sc_r->justfile := prev.justfile + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | makefile n => 
-        let
-          val () = sc_r->makefile := prev.makefile + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | ion n => 
-        let
-          val () = sc_r->ion := prev.ion + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | bash n => 
-        let
-          val () = sc_r->bash := prev.bash + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | hamlet n => 
-        let
-          val () = sc_r->hamlet := prev.hamlet + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | cassius n => 
-        let
-          val () = sc_r->cassius := prev.cassius + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | lucius n => 
-        let
-          val () = sc_r->lucius := prev.lucius + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | julius n => 
-        let
-          val () = sc_r->julius := prev.julius + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | mercury n => 
-        let
-          val () = sc_r->mercury := prev.mercury + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | yacc n => 
-        let
-          val () = sc_r->yacc := prev.yacc + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | lex n => 
-        let
-          val () = sc_r->lex := prev.lex + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | coq n => 
-        let
-          val () = sc_r->coq := prev.coq + @{ lines = n, files = 1}
-        in
-          !sc_r
-        end
-      | unknown _ => prev
+    !sc_r
   end
+
+fun free_pl(pl: pl_type) : void =
+  case+ pl of
+    | ~unknown _ => ()
+    | ~rust _ => ()
+    | ~haskell _ => ()
+    | ~perl _ => ()
+    | ~lucius _ => ()
+    | ~cassius _ => ()
+    | ~hamlet _ => ()
+    | ~julius _ => ()
+    | ~bash _ => ()
+    | ~coq _ => ()
+    | ~justfile _ => ()
+    | ~makefile _ => ()
+    | ~yaml _ => ()
+    | ~toml _ => ()
+    | ~dhall _ => ()
+    | ~ipkg _ => ()
+    | ~ion _ => ()
+    | ~mercury _ => ()
+    | ~yacc _ => ()
+    | ~lex _ => ()
+    | ~r _ => ()
+    | ~c _ => ()
+    | ~cpp _ => ()
+    | ~lua _ => ()
+    | ~lalrpop _ => ()
+    | ~header _ => ()
+    | ~sixten _ => ()
+    | ~java _ => ()
+    | ~scala _ => ()
+    | ~elixir _ => ()
+    | ~erlang _ => ()
+    | ~happy _ => ()
+    | ~alex _ => ()
+    | ~go _ => ()
+    | ~html _ => ()
+    | ~css _ => ()
+    | ~brainfuck _ => ()
+    | ~ruby _ => ()
+    | ~julia _ => ()
+    | ~elm _ => ()
+    | ~purescript _ => ()
+    | ~vimscript _ => ()
+    | ~ocaml _ => ()
+    | ~madlang _ => ()
+    | ~agda _ => ()
+    | ~idris _ => ()
+    | ~futhark _ => ()
+    | ~ats _ => ()
+    | ~tex _ => ()
+    | ~cabal _ => ()
+    | ~cobol _ => ()
+    | ~tcl _ => ()
+    | ~verilog _ => ()
+    | ~vhdl _ => ()
+    | ~markdown _ => ()
+    | ~python _ => ()
+    | ~pony _ => ()
+    | ~jupyter _ => ()
+    | ~clojure _ => ()
 
 // match a particular word against a list of keywords
 fun match_keywords { m : nat | m <= 10 } (keys: list(string, m), word: string) : bool =
-  list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || next = word, false)
+  list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string(next, word), false) // next = word, false)
 
 // helper function for check_keywords
 fun step_keyword(size: int, pre: pl_type, word: string, ext: string) : pl_type =
   case+ pre of
     | unknown _ =>
       let
-        var happy_keywords = list_cons("module", list_nil())
-        var yacc_keywords = list_cons("struct", list_cons("char", list_cons("int", list_nil())))
-        var mercury_keywords = list_cons(":-", list_cons("import_module", list_cons("pred", list_nil())))
-        var verilog_keywords = list_cons("endmodule", list_cons("posedge", list_cons("edge", list_cons("always", list_cons("wire", list_nil())))))
-        var coq_keywords = list_cons("Qed", list_cons("Require", list_cons("Hypothesis", list_cons("Inductive", list_cons("Remark", list_cons("Lemma", list_cons("Proof", list_cons("Definition", list_cons("Theorem", list_nil())))))))))
       in
         case+ ext of
           | "y" =>
-            if match_keywords(happy_keywords, word)
-              then happy size
-              else if match_keywords(yacc_keywords, word) then yacc size
-              else unknown // yacc size
-          | "v" => if match_keywords(verilog_keywords, word) 
-            then verilog size 
-            else if match_keywords(coq_keywords, word) then coq size
-            else unknown
-          | "m" => mercury size
+            let 
+              val _ = free_pl(pre)
+              var happy_keywords = list_cons("module", list_nil())
+            in
+              if match_keywords(happy_keywords, word)
+                then happy size
+                else if
+                  let 
+                    var yacc_keywords = list_cons("struct", list_cons("char", list_cons("int", list_nil())))
+                  in
+                    match_keywords(yacc_keywords, word)
+                  end
+                    then yacc size
+                else unknown
+            end
+          | "v" =>
+            let 
+              var _ = free_pl(pre)
+              var verilog_keywords = list_cons("endmodule", list_cons("posedge", list_cons("edge", list_cons("always", list_cons("wire", list_nil())))))
+            in 
+              if match_keywords(verilog_keywords, word) 
+                then verilog size 
+                else if 
+                  let 
+                    var coq_keywords = list_cons("Qed", list_cons("Require", list_cons("Hypothesis", list_cons("Inductive", list_cons("Remark", list_cons("Lemma", list_cons("Proof", list_cons("Definition", list_cons("Theorem", list_nil())))))))))
+                  in
+                  match_keywords(coq_keywords, word)
+                  end
+                    then coq size
+                else unknown end
+          | "m" =>
+            let 
+              val _ = free_pl(pre) 
+            in 
+              mercury size
+            end
           | _ => pre
       end
     | _ => pre
@@ -706,7 +556,7 @@ fun check_shebang(s: string): pl_type =
           end
         | ~None_vt() => (println!("[33mWarning:[0m could not open file at " + s) ; "")
   in
-    case str of
+    case+ str of
       | "#!/usr/bin/env ion" => ion(line_count(s))
       | "#!/usr/bin/env bash" => bash(line_count(s))
       | "#!/bin/bash" => bash(line_count(s))
@@ -731,7 +581,7 @@ fun match_filename(s: string): pl_type =
     val match = $UN.strptr2string(str)
     prval () = prf(str)
   in
-    case match of
+    case+ match of
       | "Makefile" => makefile(line_count(s))
       | "Makefile.tc" => makefile(line_count(s))
       | "makefile" => makefile(line_count(s))
@@ -755,7 +605,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
           ""
     prval () = prf (str)
   in
-    case match of
+    case+ match of
       | "hs" => haskell(line_count(s))
       | "hs-boot" => haskell(line_count(s))
       | "hsig" => haskell(line_count(s))
@@ -822,6 +672,15 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "jl" => julia(line_count(s))
       | "ion" => ion(line_count(s))
       | "bash" => bash(line_count(s))
+      | "ipynb" => jupyter(line_count(s))
+      | "java" => java(line_count(s))
+      | "scala" => scala(line_count(s))
+      | "erl" => erlang(line_count(s))
+      | "hrl" => erlang(line_count(s))
+      | "ex" => elixir(line_count(s))
+      | "exs" => elixir(line_count(s))
+      | "pony" => pony(line_count(s))
+      | "clj" => clojure(line_count(s))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -830,7 +689,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
 
 // filter out directories containing artifacts
 fun bad_dir(s: string, excludes: List0(string)) : bool =
-  case s of
+  case+ s of
     | "." => true
     | ".." => true
     | ".pijul" => true
@@ -1052,6 +911,13 @@ implement main0 (argc, argv) =
                , yacc = empty_file()
                , lex = empty_file()
                , coq = empty_file()
+               , jupyter = empty_file()
+               , java = empty_file()
+               , scala = empty_file()
+               , erlang = empty_file()
+               , elixir = empty_file()
+               , pony = empty_file()
+               , clojure = empty_file()
                } : source_contents
   in
     if parsed.help
