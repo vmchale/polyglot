@@ -13,5 +13,5 @@ before_install:
 
 script:
   - export PATSHOME=$HOME/libats
-  - export PATH=$PATSHOME:$PATH
+  - export PATH=$PATSHOME/bin:$PATH
   - patscc src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly -cleanaft -O2 -flto
