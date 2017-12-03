@@ -5,7 +5,7 @@ os:
   - osx
 
 cache:
-  - libats
+  - $HOME/libats
 
 before_install:
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
