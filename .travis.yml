@@ -1,4 +1,5 @@
 ---
+sudo: required
 matrix:
   include:
     - os: linux
@@ -12,11 +13,14 @@ cache:
 
 install:
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-Postiats
-  - cd ATS2-Postiats && ./configure --prefix $HOME/libats && make && make install
+  - cd ATS2-Postiats && ./configure && make && sudo make install
+    # - nix-env -i stack
+    #- nix-env -i pandoc
 
 script:
-  - export PATSHOME=$HOME/libats
-  - export PATH=$PATSHOME/bin:$PATH
+  - ./shake.hs
+    # - export PATSHOME=$HOME/libats
+    # - export PATH=$PATSHOME/bin:$PATH
     #  - |
     #if [ `uname` = "Linux" ]
     #then
