@@ -1,5 +1,7 @@
 # polyglot
 
+[![Build Status](https://travis-ci.org/vmchale/polyglot.svg?branch=master)](https://travis-ci.org/vmchale/polyglot)
+
 `poly` is a command-line tool that determines project contents.
 
 <img alt="Screenshot of sample output" src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
