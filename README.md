@@ -5,7 +5,6 @@
 `poly` is a command-line tool that determines project contents.
 
 <img alt="Screenshot of sample output" src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
-<img alt="Screenshot of tabular output" src=https://github.com/vmchale/polyglot/raw/master/tabular-output.png>
 
 ## Features
 

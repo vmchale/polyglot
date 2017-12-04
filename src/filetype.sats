@@ -70,10 +70,30 @@ typedef source_contents = @{ rust = file
                            , elixir = file
                            , pony = file
                            , clojure = file
+                           , cabal_project = file
+                           , assembly = file
+                           , nix = file
+                           , php = file
+                           , javascript = file
+                           , kotlin = file
+                           , fsharp = file
+                           , fortran = file
+                           , swift = file
+                           , csharp = file
+                           , nim = file
+                           , cpp_header = file
+                           , elisp = file
+                           , plaintext = file
+                           , rakefile = file
+                           , llvm = file
+                           , autoconf = file
+                           , batch = file
+                           , powershell = file
+                           , m4 = file
                            }
 
 // Reference to source_contents; used to update the structure.
-typedef source_contents_r = ref(source_contents)
+vtypedef source_contents_r = ref(source_contents)
 
 // Sum type representing all supported data types.
 datavtype pl_type =
@@ -136,3 +156,23 @@ datavtype pl_type =
   | elixir of int
   | pony of int
   | clojure of int
+  | cabal_project of int
+  | assembly of int
+  | nix of int
+  | php of int
+  | javascript of int
+  | kotlin of int
+  | fsharp of int
+  | fortran of int
+  | swift of int
+  | csharp of int
+  | nim of int
+  | cpp_header of int
+  | elisp of int
+  | rakefile of int
+  | plaintext of int
+  | llvm of int
+  | autoconf of int
+  | batch of int
+  | powershell of int
+  | m4 of int

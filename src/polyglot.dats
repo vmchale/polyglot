@@ -131,7 +131,38 @@ fun sum_fields(sc: source_contents): file =
                        sc.hamlet.lines +
                        sc.cassius.lines +
                        sc.lucius.lines +
-                       sc.julius.lines
+                       sc.julius.lines +
+                       sc.mercury.lines +
+                       sc.yacc.lines +
+                       sc.lex.lines +
+                       sc.coq.lines +
+                       sc.jupyter.lines +
+                       sc.java.lines +
+                       sc.scala.lines +
+                       sc.erlang.lines +
+                       sc.elixir.lines +
+                       sc.pony.lines +
+                       sc.clojure.lines +
+                       sc.cabal_project.lines +
+                       sc.assembly.lines +
+                       sc.nix.lines +
+                       sc.php.lines +
+                       sc.javascript.lines +
+                       sc.kotlin.lines +
+                       sc.fsharp.lines +
+                       sc.fortran.lines +
+                       sc.swift.lines +
+                       sc.csharp.lines +
+                       sc.nim.lines +
+                       sc.cpp_header.lines +
+                       sc.elisp.lines +
+                       sc.plaintext.lines +
+                       sc.rakefile.lines +
+                       sc.llvm.lines +
+                       sc.autoconf.lines +
+                       sc.batch.lines +
+                       sc.powershell.lines +
+                       sc.m4.lines
              , files = sc.rust.files +
                        sc.haskell.files +
                        sc.ats.files +
@@ -178,7 +209,38 @@ fun sum_fields(sc: source_contents): file =
                        sc.hamlet.files +
                        sc.cassius.files +
                        sc.lucius.files +
-                       sc.julius.files
+                       sc.julius.files +
+                       sc.mercury.files +
+                       sc.yacc.files +
+                       sc.lex.files +
+                       sc.coq.files +
+                       sc.jupyter.files +
+                       sc.java.files +
+                       sc.scala.files +
+                       sc.erlang.files +
+                       sc.elixir.files +
+                       sc.pony.files +
+                       sc.clojure.files +
+                       sc.cabal_project.files +
+                       sc.assembly.files +
+                       sc.nix.files +
+                       sc.php.files +
+                       sc.javascript.files +
+                       sc.kotlin.files +
+                       sc.fsharp.files +
+                       sc.fortran.files +
+                       sc.swift.files +
+                       sc.csharp.files +
+                       sc.nim.files +
+                       sc.cpp_header.files +
+                       sc.elisp.files +
+                       sc.plaintext.files +
+                       sc.rakefile.files +
+                       sc.llvm.files +
+                       sc.autoconf.files +
+                       sc.batch.files +
+                       sc.powershell.files +
+                       sc.m4.files
              }
   in
     f
@@ -189,13 +251,19 @@ fun make_table(isc: source_contents): string =
   "-------------------------------------------------------------------------------\n [35mLanguage[0m            [35mFiles[0m        [35mLines[0m         [35mCode[0m     [35mComments[0m       [35mBlanks[0m\n-------------------------------------------------------------------------------\n" +
   maybe_table("Alex", isc.alex.files, isc.alex.lines) +
   maybe_table("Agda", isc.agda.files, isc.agda.lines) +
+  maybe_table("Assembly", isc.assembly.files, isc.assembly.lines) +
   maybe_table("ATS", isc.ats.files, isc.ats.lines) +
+  maybe_table("Autoconf", isc.autoconf.files, isc.autoconf.lines) +
   maybe_table("Bash", isc.bash.files, isc.bash.lines) +
+  maybe_table("Batch", isc.batch.files, isc.batch.lines) +
   maybe_table("Brainfuck", isc.brainfuck.files, isc.brainfuck.lines) +
   maybe_table("C", isc.c.files, isc.c.lines) +
   maybe_table("C Header", isc.header.files, isc.header.lines) +
+  maybe_table("C++ cpp_header", isc.cpp_header.files, isc.cpp_header.lines) +
   maybe_table("C++", isc.cpp.files, isc.cpp.lines) +
+  maybe_table("C#", isc.csharp.files, isc.csharp.lines) +
   maybe_table("Cabal", isc.cabal.files, isc.cabal.lines) +
+  maybe_table("Cabal Project", isc.cabal_project.files, isc.cabal_project.lines) +
   maybe_table("Cassius", isc.cassius.files, isc.cassius.lines) +
   maybe_table("COBOL", isc.cobol.files, isc.cobol.lines) +
   maybe_table("Coq", isc.coq.files, isc.coq.lines) +
@@ -203,7 +271,10 @@ fun make_table(isc: source_contents): string =
   maybe_table("Dhall", isc.dhall.files, isc.dhall.lines) +
   maybe_table("Elixir", isc.elixir.files, isc.elixir.lines) +
   maybe_table("Elm", isc.elm.files, isc.elm.lines) +
+  maybe_table("Emacs Lisp", isc.elisp.files, isc.elisp.lines) +
   maybe_table("Erlang", isc.erlang.files, isc.erlang.lines) +
+  maybe_table("F#", isc.fsharp.files, isc.fsharp.lines) +
+  maybe_table("Fortran", isc.fortran.files, isc.fortran.lines) +
   maybe_table("Go", isc.go.files, isc.go.lines) +
   maybe_table("Hamlet", isc.hamlet.files, isc.hamlet.lines) +
   maybe_table("Happy", isc.happy.files, isc.happy.lines) +
@@ -213,27 +284,38 @@ fun make_table(isc: source_contents): string =
   maybe_table("iPKG", isc.ipkg.files, isc.ipkg.lines) +
   maybe_table("Ion", isc.ion.files, isc.ion.lines) +
   maybe_table("Java", isc.java.files, isc.java.lines) +
+  maybe_table("JavaScript", isc.javascript.files, isc.javascript.lines) +
   maybe_table("Julius", isc.julius.files, isc.julius.lines) +
   maybe_table("Julia", isc.julia.files, isc.julia.lines) +
   maybe_table("Jupyter", isc.jupyter.files, isc.jupyter.lines) +
   maybe_table("Justfile", isc.justfile.files, isc.justfile.lines) +
+  maybe_table("Kotlin", isc.kotlin.files, isc.kotlin.lines) +
   maybe_table("LALRPOP", isc.lalrpop.files, isc.lalrpop.lines) +
   maybe_table("Lex", isc.lex.files, isc.lex.lines) +
+  maybe_table("LLVM", isc.llvm.files, isc.llvm.lines) +
   maybe_table("Lua", isc.lua.files, isc.lua.lines) +
   maybe_table("Lucius", isc.lucius.files, isc.lucius.lines) +
+  maybe_table("M4", isc.m4.files, isc.m4.lines) +
   maybe_table("Madlang", isc.madlang.files, isc.madlang.lines) +
   maybe_table("Makefile", isc.makefile.files, isc.makefile.lines) +
   maybe_table("Markdown", isc.markdown.files, isc.markdown.lines) +
+  maybe_table("Nim", isc.nim.files, isc.nim.lines) +
+  maybe_table("Nix", isc.nix.files, isc.nix.lines) +
   maybe_table("OCaml", isc.ocaml.files, isc.ocaml.lines) +
   maybe_table("Perl", isc.perl.files, isc.perl.lines) +
+  maybe_table("PHP", isc.php.files, isc.php.lines) +
+  maybe_table("Plaintext", isc.plaintext.files, isc.plaintext.lines) +
+  maybe_table("PowerShell", isc.powershell.files, isc.powershell.lines) +
   maybe_table("Pony", isc.pony.files, isc.pony.lines) +
   maybe_table("Python", isc.python.files, isc.python.lines) +
   maybe_table("PureScript", isc.purescript.files, isc.purescript.lines) +
   maybe_table("R", isc.r.files, isc.r.lines) +
+  maybe_table("Rakefile", isc.rakefile.files, isc.rakefile.lines) +
   maybe_table("Ruby", isc.ruby.files, isc.ruby.lines) +
   maybe_table("Rust", isc.rust.files, isc.rust.lines) +
   maybe_table("Scala", isc.scala.files, isc.scala.lines) +
   maybe_table("Sixten", isc.sixten.files, isc.sixten.lines) +
+  maybe_table("Swift", isc.swift.files, isc.swift.lines) +
   maybe_table("TCL", isc.tcl.files, isc.tcl.lines) +
   maybe_table("TeX", isc.tex.files, isc.tex.lines) +
   maybe_table("TOML", isc.toml.files, isc.toml.lines) +
@@ -255,17 +337,23 @@ fun make_output(isc: source_contents): string =
     maybe_string("C", isc.c.lines) +
     maybe_string("C Header", isc.header.lines) +
     maybe_string("C++", isc.cpp.lines) +
+    maybe_string("C++ Header", isc.cpp_header.lines) +
+    maybe_string("C#", isc.csharp.lines) +
     maybe_string("COBOL", isc.cobol.lines) +
     maybe_string("Coq", isc.coq.lines) +
     maybe_string("Elixir", isc.elixir.lines) +
     maybe_string("Elm", isc.elm.lines) +
     maybe_string("Erlang", isc.elm.lines) +
+    maybe_string("F#", isc.fsharp.lines) +
+    maybe_string("Fortran", isc.fortran.lines) +
     maybe_string("Go", isc.go.lines) +
     maybe_string("Haskell", isc.haskell.lines) +
     maybe_string("Idris", isc.idris.lines) +
+    maybe_string("Kotline", isc.kotlin.lines) +
     maybe_string("Java", isc.java.lines) +
     maybe_string("Julia", isc.julia.lines) +
     maybe_string("Lua", isc.lua.lines) +
+    maybe_string("Nim", isc.nim.lines) +
     maybe_string("OCaml", isc.ocaml.lines) +
     maybe_string("Perl", isc.perl.lines) +
     maybe_string("Pony", isc.pony.lines) +
@@ -276,23 +364,31 @@ fun make_output(isc: source_contents): string =
     maybe_string("Rust", isc.rust.lines) +
     maybe_string("Scala", isc.scala.lines) +
     maybe_string("Sixten", isc.sixten.lines) +
-    maybe_string("TCL", isc.tcl.lines) +
+    maybe_string("Swift", isc.swift.lines) +
+    maybe_string("TCL", isc.tcl.lines)
+  ) +
+  with_nonempty("\n[33mEditor Plugins:[0m\n",
+    maybe_string("Emacs Lisp", isc.elisp.lines) +
     maybe_string("Vimscript", isc.vimscript.lines)
   ) +
   with_nonempty("\n[33mDocumentation:[0m\n",
     maybe_string("Markdown", isc.markdown.lines) +
+    maybe_string("Plaintext", isc.plaintext.lines) +
     maybe_string("TeX", isc.tex.lines)
   ) +
   with_nonempty("\n[33mConfiguration:[0m\n",
     maybe_string("Cabal", isc.cabal.lines) +
+    maybe_string("cabal Project", isc.cabal_project.lines) +
     maybe_string("Dhall", isc.dhall.lines) +
     maybe_string("iPKG", isc.ipkg.lines) +
     maybe_string("TOML", isc.toml.lines) +
     maybe_string("YAML", isc.yaml.lines)
   ) +
   with_nonempty("\n[33mShell:[0m\n",
+    maybe_string("Bash", isc.bash.lines) +
+    maybe_string("Batch", isc.batch.lines) +
     maybe_string("Ion", isc.ion.lines) +
-    maybe_string("Bash", isc.bash.lines)
+    maybe_string("PowerShell", isc.powershell.lines)
   ) +
   with_nonempty("\n[33mParser Generators:[0m\n",
     maybe_string("Alex", isc.alex.lines) +
@@ -306,6 +402,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("CSS", isc.css.lines) +
     maybe_string("Hamlet", isc.hamlet.lines) +
     maybe_string("HTML", isc.html.lines) +
+    maybe_string("JavaScript", isc.javascript.lines) +
     maybe_string("Julius", isc.julius.lines) +
     maybe_string("Lucius", isc.lucius.lines)
   ) +
@@ -314,10 +411,14 @@ fun make_output(isc: source_contents): string =
     maybe_string("VHDL", isc.vhdl.lines)
   ) +
   with_nonempty("\n[33mOther:[0m\n",
+    maybe_string("Autoconf", isc.autoconf.lines) +
     maybe_string("Jupyter", isc.jupyter.lines) +
     maybe_string("Justfile", isc.justfile.lines) +
+    maybe_string("LLVM", isc.llvm.lines) +
+    maybe_string("M4", isc.m4.lines) +
     maybe_string("Madlang", isc.madlang.lines) +
-    maybe_string("Makefile", isc.makefile.lines)
+    maybe_string("Makefile", isc.makefile.lines) +
+    maybe_string("Rakefile", isc.rakefile.lines)
   )
 
 // monoidal addition for 'file' type.
@@ -396,6 +497,26 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
         | ~elixir n => sc_r->elixir := prev.elixir + @{ lines = n, files = 1}
         | ~pony n => sc_r->pony := prev.pony + @{ lines = n, files = 1}
         | ~clojure n => sc_r->clojure := prev.clojure + @{ lines = n, files = 1}
+        | ~cabal_project n => sc_r->cabal_project := prev.cabal_project + @{ lines = n, files = 1}
+        | ~assembly n => sc_r->assembly := prev.assembly + @{ lines = n, files = 1}
+        | ~nix n => sc_r->nix := prev.nix + @{ lines = n, files = 1}
+        | ~php n => sc_r->php := prev.php + @{ lines = n, files = 1}
+        | ~javascript n => sc_r->javascript := prev.javascript + @{ lines = n, files = 1}
+        | ~kotlin n => sc_r->kotlin := prev.kotlin + @{ lines = n, files = 1}
+        | ~fsharp n => sc_r->fsharp := prev.fsharp + @{ lines = n, files = 1}
+        | ~fortran n => sc_r->fortran := prev.fortran + @{ lines = n, files = 1}
+        | ~swift n => sc_r->swift := prev.swift + @{ lines = n, files = 1}
+        | ~csharp n => sc_r->csharp := prev.csharp + @{ lines = n, files = 1}
+        | ~nim n => sc_r->nim := prev.nim + @{ lines = n, files = 1}
+        | ~cpp_header n => sc_r->cpp_header := prev.cpp_header + @{ lines = n, files = 1}
+        | ~elisp n => sc_r->elisp := prev.elisp + @{ lines = n, files = 1}
+        | ~plaintext n => sc_r->plaintext := prev.plaintext + @{ lines = n, files = 1}
+        | ~rakefile n => sc_r->rakefile := prev.rakefile + @{ lines = n, files = 1}
+        | ~llvm n => sc_r->llvm := prev.llvm + @{ lines = n, files = 1}
+        | ~autoconf n => sc_r->autoconf := prev.autoconf + @{ lines = n, files = 1}
+        | ~batch n => sc_r->batch := prev.batch + @{ lines = n, files = 1}
+        | ~powershell n => sc_r->powershell := prev.powershell + @{ lines = n, files = 1}
+        | ~m4 n => sc_r->m4 := prev.m4 + @{ lines = n, files = 1}
         | ~unknown _ => ()
   in
     !sc_r
@@ -462,6 +583,26 @@ fun free_pl(pl: pl_type) : void =
     | ~pony _ => ()
     | ~jupyter _ => ()
     | ~clojure _ => ()
+    | ~cabal_project _ => ()
+    | ~assembly _ => ()
+    | ~nix _ => ()
+    | ~php _ => ()
+    | ~javascript _ => ()
+    | ~kotlin _ => ()
+    | ~fsharp _ => ()
+    | ~fortran _ => ()
+    | ~swift _ => ()
+    | ~csharp _ => ()
+    | ~nim _ => ()
+    | ~cpp_header _ => ()
+    | ~elisp _ => ()
+    | ~plaintext _ => ()
+    | ~rakefile _ => ()
+    | ~llvm _ => ()
+    | ~autoconf _ => ()
+    | ~batch _ => ()
+    | ~powershell _ => ()
+    | ~m4 _ => ()
 
 // match a particular word against a list of keywords
 fun match_keywords { m : nat | m <= 10 } (keys: list(string, m), word: string) : bool =
@@ -571,6 +712,7 @@ fun check_shebang(s: string): pl_type =
       | "#!/usr/bin/perl" => perl(line_count(s))
       | "#!/usr/bin/env stack" => haskell(line_count(s))
       | "#!/usr/bin/env runhaskell" => haskell(line_count(s))
+      | "#!/usr/bin/env node" => javascript(line_count(s))
       | _ => unknown
   end
 
@@ -586,9 +728,9 @@ fun match_filename(s: string): pl_type =
       | "Makefile.tc" => makefile(line_count(s))
       | "makefile" => makefile(line_count(s))
       | "GNUmakefile" => makefile(line_count(s))
-      | ".yamllint" => yaml(line_count(s))
       | "Justfile" => justfile(line_count(s))
       | "justfile" => justfile(line_count(s))
+      | "Rakefile" => rakefile(line_count(s))
       | _ => check_shebang(s)
   end
 
@@ -681,6 +823,30 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "exs" => elixir(line_count(s))
       | "pony" => pony(line_count(s))
       | "clj" => clojure(line_count(s))
+      | "s" => assembly(line_count(s))
+      | "S" => assembly(line_count(s))
+      | "nix" => nix(line_count(s))
+      | "php" => php(line_count(s))
+      | "local" => cabal_project(line_count(s))
+      | "project" => cabal_project(line_count(s))
+      | "js" => javascript(line_count(s))
+      | "jsexe" => javascript(line_count(s))
+      | "kt" => kotlin(line_count(s))
+      | "kts" => kotlin(line_count(s))
+      | "fs" => fsharp(line_count(s))
+      | "f" => fortran(line_count(s))
+      | "for" => fortran(line_count(s))
+      | "f90" => fortran(line_count(s))
+      | "swift" => swift(line_count(s))
+      | "csharp" => csharp(line_count(s))
+      | "nim" => nim(line_count(s))
+      | "el" => elisp(line_count(s))
+      | "txt" => plaintext(line_count(s))
+      | "ll" => llvm(line_count(s))
+      | "in" => autoconf(line_count(s))
+      | "bat" => batch(line_count(s))
+      | "ps1" => powershell(line_count(s))
+      | "ac" => m4(line_count(s))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -734,7 +900,10 @@ and flow_stream(s: string, init: source_contents, excludes: List0(string)) : sou
   end
 
 fun map_stream(acc: source_contents, includes: List0(string), excludes: List0(string)) : source_contents =
-  list_foldleft_cloref(includes, acc, lam (acc, next) => step_stream(acc, next, next, excludes)) // TODO check uniqueness
+  if length(includes) > 0 then
+    list_foldleft_cloref(includes, acc, lam (acc, next) => step_stream(acc, next, next, excludes)) // TODO check uniqueness
+  else
+    step_stream(acc, ".", ".", excludes)
 
 fun is_flag(s: string) : bool =
   string_is_prefix("-", s)
@@ -918,6 +1087,26 @@ implement main0 (argc, argv) =
                , elixir = empty_file()
                , pony = empty_file()
                , clojure = empty_file()
+               , cabal_project = empty_file()
+               , assembly = empty_file()
+               , nix = empty_file()
+               , php = empty_file()
+               , javascript = empty_file()
+               , kotlin = empty_file()
+               , fsharp = empty_file()
+               , fortran = empty_file()
+               , swift = empty_file()
+               , csharp = empty_file()
+               , nim = empty_file()
+               , cpp_header = empty_file()
+               , elisp = empty_file()
+               , plaintext = empty_file()
+               , rakefile = empty_file()
+               , llvm = empty_file()
+               , autoconf = empty_file()
+               , batch = empty_file()
+               , powershell = empty_file()
+               , m4 = empty_file()
                } : source_contents
   in
     if parsed.help
