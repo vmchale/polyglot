@@ -6,6 +6,7 @@
 #include "libats/libc/DATS/dirent.dats" // causes problematic include "share/H/pats_atslib.h"
 #include "libats/ML/DATS/list0.dats"
 #include "libats/DATS/athread_posix.dats"
+#include "src/hx.dats"
 
 %{^
 #include "libats/libc/CATS/string.cats"
@@ -24,8 +25,8 @@ staload EXTRA = "libats/ML/SATS/filebas.sats"
 (* ****** ****** *)
 
 // TODO think of parallelism/concurrency approach - MS queue wouldn't be exactly perfect.
-// Conversely, channels could be slower than desired.
-// Want: three workers traversing directories, one 
+// Conversely, channels could be slower than desired?
+// Want: three workers traversing directories, one scribe.
 
 // Given a string representing a filepath, return an integer.
 fun line_count(s: string): int =
@@ -162,7 +163,9 @@ fun sum_fields(sc: source_contents): file =
                        sc.autoconf.lines +
                        sc.batch.lines +
                        sc.powershell.lines +
-                       sc.m4.lines
+                       sc.m4.lines +
+                       sc.objective_c.lines +
+                       sc.automake.lines
              , files = sc.rust.files +
                        sc.haskell.files +
                        sc.ats.files +
@@ -240,7 +243,9 @@ fun sum_fields(sc: source_contents): file =
                        sc.autoconf.files +
                        sc.batch.files +
                        sc.powershell.files +
-                       sc.m4.files
+                       sc.m4.files +
+                       sc.objective_c.files +
+                       sc.automake.files
              }
   in
     f
@@ -254,6 +259,7 @@ fun make_table(isc: source_contents): string =
   maybe_table("Assembly", isc.assembly.files, isc.assembly.lines) +
   maybe_table("ATS", isc.ats.files, isc.ats.lines) +
   maybe_table("Autoconf", isc.autoconf.files, isc.autoconf.lines) +
+  maybe_table("Automake", isc.automake.files, isc.automake.lines) +
   maybe_table("Bash", isc.bash.files, isc.bash.lines) +
   maybe_table("Batch", isc.batch.files, isc.batch.lines) +
   maybe_table("Brainfuck", isc.brainfuck.files, isc.brainfuck.lines) +
@@ -299,8 +305,10 @@ fun make_table(isc: source_contents): string =
   maybe_table("Madlang", isc.madlang.files, isc.madlang.lines) +
   maybe_table("Makefile", isc.makefile.files, isc.makefile.lines) +
   maybe_table("Markdown", isc.markdown.files, isc.markdown.lines) +
+  maybe_table("Mercury", isc.mercury.files, isc.mercury.lines) +
   maybe_table("Nim", isc.nim.files, isc.nim.lines) +
   maybe_table("Nix", isc.nix.files, isc.nix.lines) +
+  maybe_table("Objective C", isc.objective_c.files, isc.objective_c.lines) +
   maybe_table("OCaml", isc.ocaml.files, isc.ocaml.lines) +
   maybe_table("Perl", isc.perl.files, isc.perl.lines) +
   maybe_table("PHP", isc.php.files, isc.php.lines) +
@@ -332,6 +340,7 @@ fun make_table(isc: source_contents): string =
 fun make_output(isc: source_contents): string =
   with_nonempty("[33mProgramming Languages:[0m\n",
     maybe_string("Agda", isc.agda.lines) +
+    maybe_string("Assembly", isc.assembly.lines) +
     maybe_string("ATS", isc.ats.lines) +
     maybe_string("Brainfuck", isc.brainfuck.lines) +
     maybe_string("C", isc.c.lines) +
@@ -343,7 +352,7 @@ fun make_output(isc: source_contents): string =
     maybe_string("Coq", isc.coq.lines) +
     maybe_string("Elixir", isc.elixir.lines) +
     maybe_string("Elm", isc.elm.lines) +
-    maybe_string("Erlang", isc.elm.lines) +
+    maybe_string("Erlang", isc.erlang.lines) +
     maybe_string("F#", isc.fsharp.lines) +
     maybe_string("Fortran", isc.fortran.lines) +
     maybe_string("Go", isc.go.lines) +
@@ -353,7 +362,9 @@ fun make_output(isc: source_contents): string =
     maybe_string("Java", isc.java.lines) +
     maybe_string("Julia", isc.julia.lines) +
     maybe_string("Lua", isc.lua.lines) +
+    maybe_string("Mercury", isc.mercury.lines) +
     maybe_string("Nim", isc.nim.lines) +
+    maybe_string("Objective C", isc.objective_c.lines) +
     maybe_string("OCaml", isc.ocaml.lines) +
     maybe_string("Perl", isc.perl.lines) +
     maybe_string("Pony", isc.pony.lines) +
@@ -410,9 +421,12 @@ fun make_output(isc: source_contents): string =
     maybe_string("Verilog", isc.verilog.lines) +
     maybe_string("VHDL", isc.vhdl.lines)
   ) +
+  with_nonempty("\n[33mNotebooks:[0m\n",
+    maybe_string("Jupyter", isc.jupyter.lines)
+  ) +
   with_nonempty("\n[33mOther:[0m\n",
     maybe_string("Autoconf", isc.autoconf.lines) +
-    maybe_string("Jupyter", isc.jupyter.lines) +
+    maybe_string("Automake", isc.automake.lines) +
     maybe_string("Justfile", isc.justfile.lines) +
     maybe_string("LLVM", isc.llvm.lines) +
     maybe_string("M4", isc.m4.lines) +
@@ -517,6 +531,8 @@ fun adjust_contents(prev: source_contents, scf: pl_type) : source_contents =
         | ~batch n => sc_r->batch := prev.batch + @{ lines = n, files = 1}
         | ~powershell n => sc_r->powershell := prev.powershell + @{ lines = n, files = 1}
         | ~m4 n => sc_r->m4 := prev.m4 + @{ lines = n, files = 1}
+        | ~objective_c n => sc_r->objective_c := prev.objective_c + @{ lines = n, files = 1}
+        | ~automake n => sc_r->automake := prev.automake + @{ lines = n, files = 1}
         | ~unknown _ => ()
   in
     !sc_r
@@ -603,6 +619,8 @@ fun free_pl(pl: pl_type) : void =
     | ~batch _ => ()
     | ~powershell _ => ()
     | ~m4 _ => ()
+    | ~objective_c _ => ()
+    | ~automake _ => ()
 
 // match a particular word against a list of keywords
 fun match_keywords { m : nat | m <= 10 } (keys: list(string, m), word: string) : bool =
@@ -648,9 +666,20 @@ fun step_keyword(size: int, pre: pl_type, word: string, ext: string) : pl_type =
                 else unknown end
           | "m" =>
             let 
-              val _ = free_pl(pre) 
-            in 
-              mercury size
+              val _ = free_pl(pre)
+              var mercury_keywords = list_cons("module", list_cons("pred", list_cons("mode", list_nil())))
+            in
+              if match_keywords(mercury_keywords, word)
+              then mercury size
+              else if
+                let
+                  var objective_c_keywords = list_cons("nil", list_cons("nullable", list_cons("nonnull", list_nil())))
+                in
+                  match_keywords(objective_c_keywords, word)
+                end
+                  then
+                    objective_c size
+              else unknown
             end
           | _ => pre
       end
@@ -750,7 +779,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
     case+ match of
       | "hs" => haskell(line_count(s))
       | "hs-boot" => haskell(line_count(s))
-      | "hsig" => haskell(line_count(s))
+      | "hsig" => haskell(line_count(s)) // TODO consider haskell signature type?
       | "rs" => rust(line_count(s))
       | "tex" => tex(line_count(s))
       | "md" => markdown(line_count(s))
@@ -765,6 +794,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "agda" => agda(line_count(s))
       | "idr" => idris(line_count(s))
       | "v" => check_keywords(s, line_count(s), match)
+      | "m" => check_keywords(s, line_count(s), match)
       | "vhdl" => vhdl(line_count(s))
       | "vhd" => vhdl(line_count(s))
       | "go" => go(line_count(s))
@@ -774,7 +804,6 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "elm" => elm(line_count(s))
       | "mad" => madlang(line_count(s))
       | "toml" => toml(line_count(s))
-      | "yaml" => yaml(line_count(s))
       | "cabal" => cabal(line_count(s))
       | "yml" => yaml(line_count(s))
       | "yaml" => yaml(line_count(s))
@@ -794,6 +823,8 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "bf" => brainfuck(line_count(s))
       | "rb" => ruby(line_count(s))
       | "cob" => cobol(line_count(s))
+      | "cbl" => cobol(line_count(s))
+      | "cpy" => cobol(line_count(s)) // TODO no separation of programs/copybooks yet.
       | "ml" => ocaml(line_count(s))
       | "tcl" => tcl(line_count(s))
       | "r" => r(line_count(s))
@@ -825,6 +856,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "clj" => clojure(line_count(s))
       | "s" => assembly(line_count(s))
       | "S" => assembly(line_count(s))
+      | "asm" => assembly(line_count(s))
       | "nix" => nix(line_count(s))
       | "php" => php(line_count(s))
       | "local" => cabal_project(line_count(s))
@@ -837,6 +869,7 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "f" => fortran(line_count(s))
       | "for" => fortran(line_count(s))
       | "f90" => fortran(line_count(s))
+      | "f95" => fortran(line_count(s))
       | "swift" => swift(line_count(s))
       | "csharp" => csharp(line_count(s))
       | "nim" => nim(line_count(s))
@@ -847,6 +880,8 @@ fun prune_extension(s: string, file_proper: string): pl_type =
       | "bat" => batch(line_count(s))
       | "ps1" => powershell(line_count(s))
       | "ac" => m4(line_count(s))
+      | "mm" => objective_c(line_count(s))
+      | "am" => automake(line_count(s))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -986,7 +1021,7 @@ fnx get_cli
   end
 
 fun version(): void =
-  println!("polygot version 0.3.6\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.3.7\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
 print("polyglot - Count lines of code quickly.
@@ -1017,8 +1052,6 @@ fun empty_file(): file =
   in
     f
   end
-
-// >> means "transform proof??"
 
 implement main0 (argc, argv) =
   let
@@ -1107,6 +1140,8 @@ implement main0 (argc, argv) =
                , batch = empty_file()
                , powershell = empty_file()
                , m4 = empty_file()
+               , objective_c = empty_file()
+               , automake = empty_file()
                } : source_contents
   in
     if parsed.help

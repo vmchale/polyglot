@@ -90,6 +90,8 @@ typedef source_contents = @{ rust = file
                            , batch = file
                            , powershell = file
                            , m4 = file
+                           , objective_c = file
+                           , automake = file
                            }
 
 // Reference to source_contents; used to update the structure.
@@ -176,3 +178,5 @@ datavtype pl_type =
   | batch of int
   | powershell of int
   | m4 of int
+  | objective_c of int
+  | automake of int
