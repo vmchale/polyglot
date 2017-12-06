@@ -6,7 +6,6 @@
 #include "libats/libc/DATS/dirent.dats" // causes problematic include "share/H/pats_atslib.h"
 #include "libats/ML/DATS/list0.dats"
 #include "libats/DATS/athread_posix.dats"
-#include "src/hx.dats"
 
 %{^
 #include "libats/libc/CATS/string.cats"
@@ -936,7 +935,7 @@ and flow_stream(s: string, init: source_contents, excludes: List0(string)) : sou
 
 fun map_stream(acc: source_contents, includes: List0(string), excludes: List0(string)) : source_contents =
   if length(includes) > 0 then
-    list_foldleft_cloref(includes, acc, lam (acc, next) => step_stream(acc, next, next, excludes)) // TODO check uniqueness
+    list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next) then step_stream(acc, next, next, excludes) else (prerr("[31mError:[0m directory '" + next + "' does not exist\n") ; exit(1) ; acc)) // TODO check uniqueness
   else
     step_stream(acc, ".", ".", excludes)
 
