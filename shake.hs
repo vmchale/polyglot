@@ -52,7 +52,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need $ dats <> sats
         cmd_ ["mkdir", "-p", "target"]
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["src/polyglot.dats", "-atsccomp", "clang -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-D_GNU_SOURCE", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native", "-lpthread"]
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["src/polyglot.dats", "-atsccomp", "gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native", "-lpthread"]
         cmd_ [Stdin err] Shell "pats-filter"
         if c /= ExitSuccess
             then error "patscc failure"
@@ -62,7 +62,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need ["target/poly"]
         let dir = " /home/vanessa/git-builds/rust"
         (Stdout (_ :: String)) <- cmd $ "poly " ++ dir
-        cmd $ ["bench"] <> ((++dir) <$> ["target/poly -t", "tokei", "loc -u", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
+        cmd $ ["bench"] <> ((++dir) <$> ["target/poly -t", "tokei", "loc", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
 
     "install" ~> do
         need ["target/poly", "man/poly.1", "compleat/poly.usage"]

@@ -2,7 +2,8 @@
 
 I emphatically welcome bug reports, issues you may encounter, documentation, and
 pull requests. Feature requests will likely be implemented if and only they are
-relatively small.
+relatively small; feel free to request support for a particular language, no
+matter how niche.
 
 Do note that `polyglot` is hosted using
 [pijul](https://nest.pijul.com/vamchale/polyglot), so contributions and bug
@@ -27,7 +28,8 @@ implement:
   * Adding keywords to disambiguate extensions.
 
 If you have any trouble figuring this out, feel free to open an issue and I will
-give you guidance on where to look.
+give you guidance on where to look. I am occasionally in the `##ats` IRC
+channel, and you can ask me any questions about the code that you'd like.
 
 ## Rules etc.
 We follow the [rust standards of

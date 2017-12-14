@@ -24,7 +24,9 @@ When no directory is given, polyglot will execute in the current directory.
 
 **-e**, **-\-exclude** Exclude a directory
 
-**-t**, **-\-table** Show results as a table
+**-p**, **-\-parallel** Execute in parallel
+
+**-t**, **-\-no-table** Show results in an alternate format.
 
 # EXAMPLES
 

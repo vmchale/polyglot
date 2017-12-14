@@ -10,7 +10,7 @@
 
 Reasons to use polyglot:
 
-  * Fast: 217 ms to run on the entire GHC codebase
+  * Fast: 360 ms to run on the entire GHC codebase
   * Accurate: won't confuse Coq and Verilog
   * Pretty: magenta output
 
@@ -18,6 +18,7 @@ Reasons not to use polyglot:
 
   * It's written in ATS
   * No regex-based exclusions
+  * Requires [MinGW](http://www.mingw.org/) on Windows.
 
 ### Benchmarks
 
@@ -32,17 +33,17 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>218.3 ms</td>
+    <td>251.6 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>139.5 ms</td>
+    <td>151.1 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>333.3 ms</td>
+    <td>331.4 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>

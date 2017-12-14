@@ -1,18 +1,20 @@
 // Type for a collection of files (monoidal)
-typedef file = @{ lines = int
-                , files = int
-                }
+vtypedef file = @{ lines = int
+                 , blanks = int
+                 , comments = int
+                 , files = int}
 
 // Type for the parsed command-line arguments. 
-typedef command_line = @{ version = bool
+vtypedef command_line = @{ version = bool
                         , help = bool
-                        , table = bool
+                        , no_table = bool
+                        , parallel = bool
                         , excludes = [ m: nat ] list(string, m)
                         , includes = [ m: nat ] list(string, m)
                         }
 
 // Program state, tracking *all* supported file types in an unboxed structure.
-typedef source_contents = @{ rust = file
+vtypedef source_contents = @{ rust = file
                            , haskell = file
                            , ats = file
                            , python = file
@@ -92,6 +94,7 @@ typedef source_contents = @{ rust = file
                            , m4 = file
                            , objective_c = file
                            , automake = file
+                           , margaret = file
                            }
 
 // Reference to source_contents; used to update the structure.
@@ -100,83 +103,84 @@ vtypedef source_contents_r = ref(source_contents)
 // Sum type representing all supported data types.
 datavtype pl_type =
   | unknown
-  | rust of int
-  | haskell of int
-  | perl of int
-  | verilog of int
-  | vhdl of int
-  | agda of int
-  | futhark of int
-  | ats of int
-  | idris of int
-  | python of int
-  | elm of int
-  | purescript of int
-  | vimscript of int
-  | ocaml of int
-  | madlang of int
-  | tex of int
-  | markdown of int
-  | yaml of int
-  | toml of int
-  | cabal of int
-  | happy of int
-  | alex of int
-  | go of int
-  | html of int
-  | css of int
-  | c of int
-  | brainfuck of int
-  | ruby of int
-  | julia of int
-  | cobol of int
-  | tcl of int
-  | r of int
-  | lua of int
-  | cpp of int
-  | lalrpop of int
-  | header of int
-  | sixten of int
-  | dhall of int
-  | ipkg of int
-  | makefile of int
-  | justfile of int
-  | ion of int
-  | bash of int
-  | hamlet of int
-  | cassius of int
-  | lucius of int
-  | julius of int
-  | mercury of int
-  | yacc of int
-  | lex of int
-  | coq of int
-  | jupyter of int
-  | java of int
-  | scala of int
-  | erlang of int
-  | elixir of int
-  | pony of int
-  | clojure of int
-  | cabal_project of int
-  | assembly of int
-  | nix of int
-  | php of int
-  | javascript of int
-  | kotlin of int
-  | fsharp of int
-  | fortran of int
-  | swift of int
-  | csharp of int
-  | nim of int
-  | cpp_header of int
-  | elisp of int
-  | rakefile of int
-  | plaintext of int
-  | llvm of int
-  | autoconf of int
-  | batch of int
-  | powershell of int
-  | m4 of int
-  | objective_c of int
-  | automake of int
+  | rust of file
+  | haskell of file
+  | perl of file
+  | verilog of file
+  | vhdl of file
+  | agda of file
+  | futhark of file
+  | ats of file
+  | idris of file
+  | python of file
+  | elm of file
+  | purescript of file
+  | vimscript of file
+  | ocaml of file
+  | madlang of file
+  | tex of file
+  | markdown of file
+  | yaml of file
+  | toml of file
+  | cabal of file
+  | happy of file
+  | alex of file
+  | go of file
+  | html of file
+  | css of file
+  | c of file
+  | brainfuck of file
+  | ruby of file
+  | julia of file
+  | cobol of file
+  | tcl of file
+  | r of file
+  | lua of file
+  | cpp of file
+  | lalrpop of file
+  | header of file
+  | sixten of file
+  | dhall of file
+  | ipkg of file
+  | makefile of file
+  | justfile of file
+  | ion of file
+  | bash of file
+  | hamlet of file
+  | cassius of file
+  | lucius of file
+  | julius of file
+  | mercury of file
+  | yacc of file
+  | lex of file
+  | coq of file
+  | jupyter of file
+  | java of file
+  | scala of file
+  | erlang of file
+  | elixir of file
+  | pony of file
+  | clojure of file
+  | cabal_project of file
+  | assembly of file
+  | nix of file
+  | php of file
+  | javascript of file
+  | kotlin of file
+  | fsharp of file
+  | fortran of file
+  | swift of file
+  | csharp of file
+  | nim of file
+  | cpp_header of file
+  | elisp of file
+  | rakefile of file
+  | plaintext of file
+  | llvm of file
+  | autoconf of file
+  | batch of file
+  | powershell of file
+  | m4 of file
+  | objective_c of file
+  | automake of file
+  | margaret of file
