@@ -1,0 +1,129 @@
+# Features
+- [ ] `.poly.toml` project file
+- [ ] per-file output like `tokei`
+- [ ] run on multiple directories
+  - [ ] point at a single file
+- [ ] error if directory does not exist
+- [ ] parse directories on the command line starting with a `-` by using escapes
+- [ ] detect documentation comments
+- [ ] feature to use data from quasi-quotes (e.g. haskell)
+# Performance
+- [ ] parallelism
+- [ ] get rid of GC
+  - [ ] `ptr_alloc<t@ype>()` to allocate appropriately sized pointer
+  - [ ] `mfree_gc_v` to free allocated memory
+# Bugs
+- [ ] doesn't disambiguate objective C/C headers
+# Code Maintenance
+- [ ] Test suite
+- [ ] builds for other systems
+- [ ] linear types to ensure each field gets printed at the end?
+## Heuristics
+### Heuristics for determining file type:
+- [ ] parser (happy)
+- [ ] parent directory (`.cargo/config`)
+- [ ] modeline
+- [ ] `.gitattributes`
+- [ ] `.poly.toml` project file
+### Heuristics for determining file relevance:
+- [ ] `.gitignore`/darcs boringfile/`.ignore` file
+- [ ] `.gitattributes`
+- [ ] `.poly.toml` project file
+### Language Support
+- [ ] Ada
+- [ ] literate Haskell
+- [ ] literate Idris
+- [ ] crystal (`.cr`)
+- [ ] D (`.d`)
+- [ ] DDoc
+- [ ] Dockerfile
+- [ ] Jenkinsfile (groovy?)
+- [ ] mustache
+- [ ] jinja
+- [ ] Agda library
+- [ ] groovy
+- [ ] F\* (`.fst`)
+- [ ] Isabelle (`.thy`)
+- [ ] REBOL
+- [ ] Intel hex (`.ihex`)
+- [ ] occam
+- [ ] Pascal
+- [ ] Prolog
+- [ ] modula
+- [ ] racket (`.rkt`)
+- [ ] TypeScript
+- [ ] CoffeeScript (`.coffee`)
+- [ ] clean
+- [ ] lean
+- [ ] dash
+- [ ] fish
+- [ ] dyon
+- [ ] ketos
+- [ ] harlan (`.kfc`)
+- [ ] Ragel (`.rl`)
+- [ ] puppet (`.pp`)
+- [ ] forth
+- [ ] Objective C++
+- [ ] J
+- [ ] Bison (`.yy` among others)
+- [ ] Flex
+- [ ] Felix
+- [ ] Sass
+- [ ] gemfile
+- [ ] gemspec
+- [ ] rdoc
+- [ ] Scons
+- [ ] Vala
+- [ ] Cmake
+- [ ] shen
+- [ ] gradle
+- [ ] tulip (`.tlp`)
+- [ ] kitten (`.ktn`)
+- [ ] siren (`.siren`)
+- [ ] emily (`.em`)
+- [ ] ceylon
+- [ ] Dart
+- [ ] Korn shell
+- [ ] jsx
+- [ ] ColdFusion
+- [ ] Balsa
+- [ ] Teak
+- [ ] SQL
+- [ ] Carp
+- [ ] Dale
+- [ ] awk
+- [ ] microsoft module definition
+- [ ] XSLT
+- [ ] `.rst`
+- [ ] QML
+- [ ] `.ini`
+- [ ] roff/troff/groff
+- [ ] Terra
+- [ ] logos (also `.x`)
+- [ ] PureBasic
+- [ ] visual basic
+- [ ] MSBuild
+- [ ] Ur
+- [ ] SRecoder template
+- [ ] Cogent
+- [ ] emacs dev env
+- [ ] Xtend
+- [ ] less (fancy CSS)
+- [ ] haxe
+- [ ] HLSL
+- [ ] GNU plot (`.plt`)
+- [ ] dtrace
+- [ ] `pyf` - F2PY signature
+- [ ] quack (`.qk`)
+- [ ] saltstack
+- [ ] plasma
+- [ ] SISAL
+- [ ] G-code (`.mpt`, `.mpf`, `.nc`)
+- [ ] ALGOL
+- [ ] flow-matic
+- [ ] B
+- [ ] delphi
+- [ ] Gherkin
+- [ ] Pyret
+- [ ] Stylus
+- [ ] haddock interface
