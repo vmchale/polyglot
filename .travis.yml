@@ -32,7 +32,7 @@ script:
     else
       echo "skipping..."
     fi
-  - patscc "$COMMAND" src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto
+  - patscc "$COMMAND" src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto -lpthread
 
 deploy:
   api_key:
