@@ -33,12 +33,12 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>251.6 ms</td>
+    <td>253.8 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>151.1 ms</td>
+    <td>153.1 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
@@ -48,12 +48,12 @@ On the Rust repo:
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>15.51 s</td>
+    <td>16.98 s</td>
   </tr>
   <tr>
     <td><code>linguist</code></td>
     <td>Ruby</td>
-    <td>16.21 s</td>
+    <td>17.01 s</td>
   </tr>
 </table>
 
