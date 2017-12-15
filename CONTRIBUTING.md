@@ -5,10 +5,6 @@ pull requests. Feature requests will likely be implemented if and only they are
 relatively small; feel free to request support for a particular language, no
 matter how niche.
 
-Do note that `polyglot` is hosted using
-[pijul](https://nest.pijul.com/vamchale/polyglot), so contributions and bug
-reports there will be more effective.
-
 ## Getting started
 
 If you'd like ideas for ways to contribute, check out `TODO.md`. Feel free to
