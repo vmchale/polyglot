@@ -1401,7 +1401,7 @@ fnx get_cli
   end
 
 fun version(): void =
-  println!("polygot version 0.3.9\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.3.10\nCopyright (c) 2017 Vanessa McHale")
 
 fun help(): void = 
 print("polyglot - Count lines of code quickly.
