@@ -1,0 +1,3 @@
+ribbon = 0.6 # maximum ribbon fraction
+width = 120 # maximum width
+clang-format = false # call clang-format on inline code
