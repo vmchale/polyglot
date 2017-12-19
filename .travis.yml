@@ -32,7 +32,8 @@ script:
     else
       echo "skipping..."
     fi
-  - patscc "$COMMAND" src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto -lpthread
+  - export COMMAND="gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/"
+  - patscc -atsccomp "$COMMAND" src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto -lpthread
 
 deploy:
   api_key:
