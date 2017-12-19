@@ -1,5 +1,3 @@
-// Much of this is from the ATS book section on linear channels
-
 #include "share/atspre_define.hats"
 #include "share/atspre_staload.hats"
 #include "libats/ML/COMPILE/DATS/funarray.dats"
