@@ -12,6 +12,7 @@
 - [ ] get rid of GC
   - [ ] `ptr_alloc<t@ype>()` to allocate appropriately sized pointer
   - [ ] `mfree_gc_v` to free allocated memory
+  - [ ] `gfree_val`
 # Bugs
 - [ ] doesn't disambiguate objective C/C headers
 # Code Maintenance
@@ -127,3 +128,4 @@
 - [ ] Pyret
 - [ ] Stylus
 - [ ] haddock interface
+- [ ] Vagrantfile
