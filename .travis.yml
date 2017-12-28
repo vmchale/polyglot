@@ -32,6 +32,7 @@ script:
       pip install yamllint
       yamllint .travis.yml
       curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
+      curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
     else
       echo "skipping..."
     fi
