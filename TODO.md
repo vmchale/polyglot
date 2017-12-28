@@ -9,6 +9,8 @@
 - [ ] feature to use data from quasi-quotes (e.g. haskell)
 # Performance
 - [ ] parallelism
+- [ ] linear types everywhere!!
+- [ ] stack-allocated functions
 - [ ] get rid of GC
   - [ ] `ptr_alloc<t@ype>()` to allocate appropriately sized pointer
   - [ ] `mfree_gc_v` to free allocated memory

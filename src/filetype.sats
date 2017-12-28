@@ -1,9 +1,5 @@
 // Type for a collection of files (monoidal)
-vtypedef file = @{ lines = int
-                 , blanks = int
-                 , comments = int
-                 , files = int
-                 }
+vtypedef file = @{ lines = int, blanks = int, comments = int, files = int }
 
 // Type for the parsed command-line arguments. 
 vtypedef command_line = @{ version = bool
