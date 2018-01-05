@@ -1,4 +1,5 @@
 # Features
+- [ ] parallel garbage collector?
 - [ ] `.poly.toml` project file
 - [ ] per-file output like `tokei`
 - [ ] run on multiple directories
