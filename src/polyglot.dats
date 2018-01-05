@@ -1097,7 +1097,7 @@ fnx get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n - m>. ( argc : int(n)
   end
 
 fun version() : void =
-  println!("polygot version 0.3.13\nCopyright (c) 2017 Vanessa McHale")
+  println!("polygot version 0.3.13\nCopyright (c) 2018 Vanessa McHale")
 
 fun help() : void =
   print("polyglot - Count lines of code quickly.
@@ -1147,12 +1147,14 @@ int ncpu() {
 
 #define NCPU 4
 
-fun apportion(includes : List0(string)) : (List0(string), List0(string)) =
+fun apportion(includes : List0(string)) : (List0(string), List0(string), List0(string), List0(string)) =
   let
-    var n = length(includes) / 2
-    val (p, q) = list_split_at(includes, n)
+    var n = length(includes) / 4
+    val (p, pre_q) = list_split_at(includes, n)
+    val (q, pre_r) = list_split_at(pre_q, n)
+    val (r, s) = list_split_at(pre_r, n)
   in
-    (list_vt2t(p), q)
+    (list_vt2t(p), list_vt2t(q), list_vt2t(r), s)
   end
 
 // TODO maybe make a parallel fold?
@@ -1161,26 +1163,40 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
     val chan = channel_make<source_contents>(2)
     val chan2 = channel_ref(chan)
     val chan3 = channel_ref(chan)
+    val chan4 = channel_ref(chan)
+    val chan5 = channel_ref(chan)
     val send1 = channel_make<List0(string)>(1)
     val send2 = channel_make<List0(string)>(1)
+    val send3 = channel_make<List0(string)>(1)
+    val send4 = channel_make<List0(string)>(1)
     val send_r1 = channel_ref(send1)
     val send_r2 = channel_ref(send2)
+    val send_r3 = channel_ref(send3)
+    val send_r4 = channel_ref(send4)
     var new_includes = if length(includes) > 0 then
       includes
     else
       list_cons(".", list_nil())
-    val (fst, snd) = apportion(new_includes)
+    val (fst, snd, thd, fth) = apportion(new_includes)
     val _ = channel_insert(send1, fst)
     val _ = channel_insert(send2, snd)
+    val _ = channel_insert(send3, thd)
+    val _ = channel_insert(send4, fth)
     val t2 = athread_create_cloptr_exn(llam () => work(excludes, send_r1, chan2))
     val t3 = athread_create_cloptr_exn(llam () => work(excludes, send_r2, chan3))
+    val t4 = athread_create_cloptr_exn(llam () => work(excludes, send_r3, chan4))
+    val t5 = athread_create_cloptr_exn(llam () => work(excludes, send_r4, chan5))
     val- ~None_vt() = channel_unref(send1)
     val- ~None_vt() = channel_unref(send2)
+    val- ~None_vt() = channel_unref(send3)
+    val- ~None_vt() = channel_unref(send4)
     val- (n) = channel_remove(chan)
     val- (m) = channel_remove(chan)
+    val- (k) = channel_remove(chan)
+    val- (l) = channel_remove(chan)
     val () = ignoret(usleep(1u))
     val () = while(channel_refcount(chan) >= 2)()
-    val r = add_contents(n, m)
+    val r = add_contents(add_contents(k, l), add_contents(n, m))
     val- ~Some_vt (que) = channel_unref<source_contents>(chan)
     val () = queue_free<source_contents>(que)
   in
