@@ -763,6 +763,7 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "md" => markdown(line_count(s, None))
       | "markdown" => markdown(line_count(s, None))
       | "dats" => ats(line_count(s, Some("//")))
+      | "lats" => ats(line_count(s, Some("//")))
       | "hats" => ats(line_count(s, Some("//")))
       | "cats" => ats(line_count(s, Some("//")))
       | "sats" => ats(line_count(s, Some("//")))
@@ -1158,6 +1159,7 @@ fun apportion(includes : List0(string)) : (List0(string), List0(string), List0(s
   end
 
 // TODO maybe make a parallel fold?
+// general approach to parallel recursion? 
 fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
     val chan = channel_make<source_contents>(2)
