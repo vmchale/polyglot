@@ -1196,7 +1196,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
     val- (m) = channel_remove(chan)
     val- (k) = channel_remove(chan)
     val- (l) = channel_remove(chan)
-    val () = ignoret(usleep(1u))
+    val () = ignoret(usleep(10u))
     val () = while(channel_refcount(chan) >= 2)()
     val r = add_contents(add_contents(k, l), add_contents(n, m))
     val- ~Some_vt (que) = channel_unref<source_contents>(chan)
