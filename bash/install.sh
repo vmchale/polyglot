@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
 
-function getOs {
-    if [ `uname` = "Darwin" ]
+set -e
+set pipefail
+
+function getTarget {
+    if [ "$(uname)" = "Darwin" ]
     then
-        echo "poly-x86_64-apple-darwin"
+        echo "poly-$(uname -m)-apple-darwin"
     else
-        echo "poly-x86_64-unknown-linux"
+        echo "poly-$(uname -m)-unknown-linux"
     fi
 }
 
 main() {
 
-    local latest="$(curl -s https://github.com/vmchale/polyglot/releases/latest/ | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)"
-    local binname=$(getOs)
+    latest="$(curl -s https://github.com/vmchale/polyglot/releases/latest/ | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)"
+    binname=$(getTarget)
     mkdir -p "$HOME/.local/bin"
     mkdir -p "$HOME/.local/share/man/man1/"
     mkdir -p "$HOME/.compleat"

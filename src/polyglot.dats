@@ -5,7 +5,6 @@
 #include "libats/libc/DATS/dirent.dats"
 #include "src/concurrency.dats"
 #include "libats/DATS/athread_posix.dats"
-#include "prelude/DATS/stream_vt.dats"
 
 %{^
 #include "libats/libc/CATS/string.cats"
