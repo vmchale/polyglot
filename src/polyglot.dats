@@ -68,17 +68,16 @@ fun line_count(s : string, pre : Option(string)) : file =
         begin
           let
             var viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(x)
-            val n: file = stream_vt_foldleft_cloptr( viewstream
-                                                   , acc_file
-                                                   , lam (acc, f) =<cloptr1> acc + to_file(f, pre)
-                                                   )
+            val n: file = stream_vt_foldleft_cloptr(viewstream, acc_file, lam (acc, f) =<cloptr1> acc
+                                                   + to_file(f, pre))
             val _ = fileref_close(x)
           in
             n
           end
         end
-      | ~None_vt() => (println!("\33[33mWarning:\33[0m could not open file at " + s
-                               ) ; to_file(s, None))
+      | ~None_vt() => (println!("\33[33mWarning:\33[0m could not open file at " + s) ; to_file( s
+                                                                                              , None
+                                                                                              ))
   end
 
 fnx right_pad { k : int | k >= 0 }{ m : int | m <= k } .<k>. (s : string(m), n : int(k)) :
@@ -99,10 +98,10 @@ fun maybe_table { k : int | k >= 0 && k < 20 } (s : string(k), f : file) : strin
     var code = f.lines - f.comments - f.blanks
   in
     if f.files > 0 then
-      " " + right_pad(s, 21) + left_pad(tostring_int(f.files), 5) + left_pad(tostring_int(f.lines
-                                                                                         ), 12)
-      + left_pad(tostring_int(code), 13) + left_pad(tostring_int(f.comments), 13)
-      + left_pad(tostring_int(f.blanks), 13) + "\n"
+      " " + right_pad(s, 21) + left_pad(tostring_int(f.files), 5) + left_pad( tostring_int(f.lines)
+                                                                            , 12
+                                                                            ) + left_pad(tostring_int(code), 13)
+      + left_pad(tostring_int(f.comments), 13) + left_pad(tostring_int(f.blanks), 13) + "\n"
     else
       ""
   end
@@ -254,14 +253,16 @@ fun make_table(isc : source_contents) : string =
 // Function to print output sorted by type of language.
 fun make_output(isc : source_contents) : string =
   let
-    var maybe_string = lam@  (s : string, n : int) : string => if n > 0 then
-      s + ": " + tostring_int(n) + "\n"
-    else
-      ""
-    var with_nonempty = lam@  (s1 : string, s2 : string) : string => if s2 != "" then
-      s1 + s2
-    else
-      ""
+    var maybe_string = lam@ (s : string, n : int) : string =>
+      if n > 0 then
+        s + ": " + tostring_int(n) + "\n"
+      else
+        ""
+    var with_nonempty = lam@ (s1 : string, s2 : string) : string =>
+      if s2 != "" then
+        s1 + s2
+      else
+        ""
   in
     with_nonempty( "\33[33mProgramming Languages:\33[0m\n"
                  , maybe_string("Agda", isc.agda.lines) + maybe_string("Assembly", isc.assembly.lines)
@@ -303,63 +304,36 @@ fun make_output(isc : source_contents) : string =
                                                                     + maybe_string("iPKG", isc.ipkg.lines)
                                                                     + maybe_string("TOML", isc.toml.lines)
                                                                     + maybe_string("YAML", isc.yaml.lines)
-                                                                    ) + with_nonempty( "\n\33[33mShell:\33[0m\n"
-                                                                                     , maybe_string( "Bash"
-                                                                                                   , isc.bash.lines
-                                                                                                   )
-                                                                                     + maybe_string( "Batch"
-                                                                                                   , isc.batch.lines
-                                                                                                   )
-                                                                                     + maybe_string( "Ion"
-                                                                                                   , isc.ion.lines
-                                                                                                   )
-                                                                                     + maybe_string( "PowerShell"
-                                                                                                   , isc.powershell.lines
-                                                                                                   )
-                                                                                     )
-    + with_nonempty( "\n\33[33mParser Generators:\33[0m\n"
-                   , maybe_string("Alex", isc.alex.lines) + maybe_string("Happy", isc.happy.lines)
-                   + maybe_string("LALRPOP", isc.lalrpop.lines) + maybe_string("Lex", isc.lex.lines)
-                   + maybe_string("Yacc", isc.yacc.lines)
-                   ) + with_nonempty( "\n\33[33mWeb:\33[0m\n"
-                                    , maybe_string("Cassius", isc.cassius.lines) + maybe_string("CSS", isc.css.lines)
-                                    + maybe_string("Hamlet", isc.hamlet.lines) + maybe_string("HTML", isc.html.lines)
-                                    + maybe_string("JavaScript", isc.javascript.lines) + maybe_string( "Julius"
-                                                                                                     , isc.julius.lines
-                                                                                                     )
-                                    + maybe_string("Lucius", isc.lucius.lines)
-                                    ) + with_nonempty( "\n\33[33mHardware:\33[0m\n"
-                                                     , maybe_string("Verilog", isc.verilog.lines) + maybe_string( "VHDL"
-                                                                                                                , isc.vhdl.lines
-                                                                                                                )
-                                                     ) + with_nonempty( "\n\33[33mNotebooks:\33[0m\n"
-                                                                      , maybe_string("Jupyter", isc.jupyter.lines)
-                                                                      ) + with_nonempty( "\n\33[33mOther:\33[0m\n"
-                                                                                       , maybe_string( "Autoconf"
-                                                                                                     , isc.autoconf.lines
-                                                                                                     )
-                                                                                       + maybe_string( "Automake"
-                                                                                                     , isc.automake.lines
-                                                                                                     )
-                                                                                       + maybe_string( "Justfile"
-                                                                                                     , isc.justfile.lines
-                                                                                                     )
-                                                                                       + maybe_string( "LLVM"
-                                                                                                     , isc.llvm.lines
-                                                                                                     )
-                                                                                       + maybe_string( "M4"
-                                                                                                     , isc.m4.lines
-                                                                                                     )
-                                                                                       + maybe_string( "Madlang"
-                                                                                                     , isc.madlang.lines
-                                                                                                     )
-                                                                                       + maybe_string( "Makefile"
-                                                                                                     , isc.makefile.lines
-                                                                                                     )
-                                                                                       + maybe_string( "Rakefile"
-                                                                                                     , isc.rakefile.lines
+                                                                    )
+    + with_nonempty( "\n\33[33mShell:\33[0m\n"
+                   , maybe_string("Bash", isc.bash.lines) + maybe_string("Batch", isc.batch.lines)
+                   + maybe_string("Ion", isc.ion.lines) + maybe_string("PowerShell", isc.powershell.lines)
+                   ) + with_nonempty( "\n\33[33mParser Generators:\33[0m\n"
+                                    , maybe_string("Alex", isc.alex.lines) + maybe_string("Happy", isc.happy.lines)
+                                    + maybe_string("LALRPOP", isc.lalrpop.lines) + maybe_string("Lex", isc.lex.lines)
+                                    + maybe_string("Yacc", isc.yacc.lines)
+                                    ) + with_nonempty( "\n\33[33mWeb:\33[0m\n"
+                                                     , maybe_string("Cassius", isc.cassius.lines)
+                                                     + maybe_string("CSS", isc.css.lines)
+                                                     + maybe_string("Hamlet", isc.hamlet.lines)
+                                                     + maybe_string("HTML", isc.html.lines)
+                                                     + maybe_string("JavaScript", isc.javascript.lines)
+                                                     + maybe_string("Julius", isc.julius.lines)
+                                                     + maybe_string("Lucius", isc.lucius.lines)
+                                                     ) + with_nonempty( "\n\33[33mHardware:\33[0m\n"
+                                                                      , maybe_string("Verilog", isc.verilog.lines)
+                                                                      + maybe_string("VHDL", isc.vhdl.lines)
+                                                                      ) + with_nonempty( "\n\33[33mNotebooks:\33[0m\n"
+                                                                                       , maybe_string( "Jupyter"
+                                                                                                     , isc.jupyter.lines
                                                                                                      )
                                                                                        )
+    + with_nonempty( "\n\33[33mOther:\33[0m\n"
+                   , maybe_string("Autoconf", isc.autoconf.lines) + maybe_string("Automake", isc.automake.lines)
+                   + maybe_string("Justfile", isc.justfile.lines) + maybe_string("LLVM", isc.llvm.lines)
+                   + maybe_string("M4", isc.m4.lines) + maybe_string("Madlang", isc.madlang.lines)
+                   + maybe_string("Makefile", isc.makefile.lines) + maybe_string("Rakefile", isc.rakefile.lines)
+                   )
   end
 
 fun add_contents(x : source_contents, y : source_contents) : source_contents =
@@ -574,10 +548,9 @@ fun free_pl(pl : pl_type) : void =
     | ~margaret _ => ()
 
 fun match_keywords { m : nat | m <= 10 } (keys : list(string, m), word : string) : bool =
-  list_foldright_cloref( keys
-                       , lam (next, acc) =<cloref1> acc || eq_string_string(next, word)
-                       , false
-                       )
+  list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
+                                                                                , word
+                                                                                ), false)
 
 // TODO use list_vt{int}(0, 1, 2, 3, 4) instead?
 // helper function for check_keywords
@@ -613,7 +586,9 @@ fun step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_t
                                                      )
                                           )
         in
-          if match_keywords(verilog_keywords, word) then
+          if match_keywords( verilog_keywords
+                           , word
+                           ) then
             verilog(size)
           else
             if let
@@ -676,10 +651,11 @@ fun check_keywords(s : string, size : file, ext : string) : pl_type =
       | ~Some_vt (x) => let
         var init: pl_type = unknown
         var viewstream = $EXTRA.streamize_fileref_word(x)
-        var result = stream_vt_foldleft_cloptr( viewstream
-                                              , init
-                                              , lam (acc, next) => step_keyword(size, acc, next, ext)
-                                              )
+        var result = stream_vt_foldleft_cloptr(viewstream, init, lam (acc, next) => step_keyword( size
+                                                                                                , acc
+                                                                                                , next
+                                                                                                , ext
+                                                                                                ))
         val _ = fileref_close(x)
       in
         result
@@ -727,7 +703,6 @@ fun match_filename(s : string) : pl_type =
   let
     val (prf | str) = filename_get_base(s)
     var match = $UN.strptr2string(str)
-    
     prval () = prf(str)
   in
     case+ match of
@@ -751,7 +726,6 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       $UN.strptr2string(str)
     else
       ""
-    
     prval () = prf(str)
   in
     case+ match of
@@ -911,10 +885,11 @@ source_contents =
     var files = streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
   in
-    stream_vt_foldleft_cloptr( ffiles
-                             , init
-                             , lam (acc, next) => step_stream(acc, s + "/" + next, next, excludes)
-                             )
+    stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
+                                                                          , s + "/" + next
+                                                                          , next
+                                                                          , excludes
+                                                                          ))
   end
 
 fun empty_contents() : source_contents =
@@ -1007,13 +982,11 @@ fun empty_contents() : source_contents =
 
 fun map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) :
 source_contents =
-  list_foldleft_cloref( includes
-                      , acc
-                      , lam (acc, next) => if test_file_exists(next) || next = "" then
+  list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next)
+                      || next = "" then
                         step_stream(acc, next, next, excludes)
                       else
-                        (prerr("\33[31mError:\33[0m directory '" + next + "' does not exist\n") ; exit(1) ; acc)
-                      )
+                        (prerr("\33[31mError:\33[0m directory '" + next + "' does not exist\n") ; exit(1) ; acc))
 
 fun is_flag(s : string) : bool =
   string_is_prefix("-", s)
@@ -1048,10 +1021,10 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-p" => acc_r->parallel := true
         | "--version" => acc_r->version := true
         | "-V" => acc_r->version := true
-        | "-e" => (println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument"
-                           ) ; exit(0) ; ())
-        | "--exclude" => (println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument"
-                                  ) ; exit(0) ; ())
+        | "-e" => (println!("\33[31mError:\33[0m flag " + s
+        + " must be followed by an argument") ; exit(0) ; ())
+        | "--exclude" => (println!("\33[31mError:\33[0m flag " + s
+        + " must be followed by an argument") ; exit(0) ; ())
         | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
     else
       if not(is_first) then
@@ -1062,12 +1035,12 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
     !acc_r
   end
 
-fnx get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n - m>. ( argc : int(n)
-                                                              , argv : !argv(n)
-                                                              , current : int(m)
-                                                              , prev_is_exclude : bool
-                                                              , acc : command_line
-                                                              ) : command_line =
+fnx get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n-m>. ( argc : int(n)
+                                                            , argv : !argv(n)
+                                                            , current : int(m)
+                                                            , prev_is_exclude : bool
+                                                            , acc : command_line
+                                                            ) : command_line =
   let
     var arg = argv[current]
   in
@@ -1109,10 +1082,10 @@ fun help() : void =
     -e, --exclude            exclude a directory
     -p, --parallel           execute in parallel
     -t, --no-table           display results in alternate format
-                                                                                                                                                                 
+                                                                                                                                                                  
     When no directory is provided poly will execute in the
     current directory.
-                                                                                                                                                                 
+                                                                                                                                                                  
     Bug reports and updates: nest.pijul.com/vamchale/polyglot\n")
 
 fun head(xs : List0(string)) : string =
@@ -1148,7 +1121,8 @@ int ncpu() {
 
 #define NCPU 4
 
-fun apportion(includes : List0(string)) : (List0(string), List0(string), List0(string), List0(string)) =
+fun apportion(includes : List0(string)) :
+(List0(string), List0(string), List0(string), List0(string)) =
   let
     var n = length(includes) / 4
     val (p, pre_q) = list_split_at(includes, n)
@@ -1196,7 +1170,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
     val- (m) = channel_remove(chan)
     val- (k) = channel_remove(chan)
     val- (l) = channel_remove(chan)
-    val () = ignoret(usleep(10u))
+    val () = ignoret(usleep(1u))
     val () = while(channel_refcount(chan) >= 2)()
     val r = add_contents(add_contents(k, l), add_contents(n, m))
     val- ~Some_vt (que) = channel_unref<source_contents>(chan)

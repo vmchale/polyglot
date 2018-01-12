@@ -18,6 +18,7 @@
   - [ ] `gfree_val`
 # Bugs
 - [ ] doesn't disambiguate objective C/C headers
+- [ ] parallelism is still a little wrong
 # Code Maintenance
 - [ ] Test suite
 - [ ] builds for other systems
