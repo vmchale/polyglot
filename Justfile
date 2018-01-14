@@ -10,7 +10,6 @@ release:
     git push origin --tags
     git tag -d "$(grep -P -o '\d+\.\d+\.\d+' src/polyglot.dats)"
     git push origin master
-    pijul tag -m "$(grep -P -o '\d+\.\d+\.\d+' src/polyglot.dats)"
     github-release release -s $(cat ~/.git-token) -u vmchale -r polyglot -t "$(grep -P -o '\d+\.\d+\.\d+' src/polyglot.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$(grep -P -o '\d+\.\d+\.\d+' src/polyglot.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$(grep -P -o '\d+\.\d+\.\d+' src/polyglot.dats)"
