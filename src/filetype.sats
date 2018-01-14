@@ -92,6 +92,7 @@ vtypedef source_contents = @{ rust = file
                             , objective_c = file
                             , automake = file
                             , margaret = file
+                            , carp = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -181,3 +182,4 @@ datavtype pl_type =
   | objective_c of file
   | automake of file
   | margaret of file
+  | carp of file

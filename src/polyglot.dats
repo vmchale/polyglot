@@ -80,7 +80,7 @@ fun line_count(s : string, pre : Option(string)) : file =
   end
 
 fnx right_pad { k : int | k >= 0 }{ m : int | m <= k } .<k>. (s : string(m), n : int(k)) :
-string =
+  string =
   case+ length(s) < n of
     | true when n > 0 => right_pad(s, n - 1) + " "
     | _ => s
@@ -191,9 +191,11 @@ fun make_table(isc : source_contents) : string =
   + maybe_table("Bash", isc.bash) + maybe_table("Batch", isc.batch) + maybe_table( "Brainfuck"
                                                                                  , isc.brainfuck
                                                                                  ) + maybe_table("C", isc.c)
-  + maybe_table("C Header", isc.header) + maybe_table("C++ cpp_header", isc.cpp_header)
-  + maybe_table("C++", isc.cpp) + maybe_table("C#", isc.csharp) + maybe_table("Cabal", isc.cabal)
-  + maybe_table("Cabal Project", isc.cabal_project) + maybe_table("Cassius", isc.cassius)
+  + maybe_table("Carp", isc.carp) + maybe_table("C Header", isc.header)
+  + maybe_table("C++ cpp_header", isc.cpp_header) + maybe_table("C++", isc.cpp)
+  + maybe_table("C#", isc.csharp) + maybe_table("Cabal", isc.cabal) + maybe_table( "Cabal Project"
+                                                                                 , isc.cabal_project
+                                                                                 ) + maybe_table("Cassius", isc.cassius)
   + maybe_table("COBOL", isc.cobol) + maybe_table("Coq", isc.coq) + maybe_table("CSS", isc.css)
   + maybe_table("Dhall", isc.dhall) + maybe_table("Elixir", isc.elixir) + maybe_table( "Elm"
                                                                                      , isc.elm
@@ -266,23 +268,22 @@ fun make_output(isc : source_contents) : string =
     with_nonempty( "\33[33mProgramming Languages:\33[0m\n"
                  , maybe_string("Agda", isc.agda.lines) + maybe_string("Assembly", isc.assembly.lines)
                  + maybe_string("ATS", isc.ats.lines) + maybe_string("Brainfuck", isc.brainfuck.lines)
-                 + maybe_string("C", isc.c.lines) + maybe_string("C Header", isc.header.lines)
-                 + maybe_string("C++", isc.cpp.lines) + maybe_string("C++ Header", isc.cpp_header.lines)
-                 + maybe_string("C#", isc.csharp.lines) + maybe_string("COBOL", isc.cobol.lines)
-                 + maybe_string("Coq", isc.coq.lines) + maybe_string("Elixir", isc.elixir.lines)
-                 + maybe_string("Elm", isc.elm.lines) + maybe_string("Erlang", isc.erlang.lines)
-                 + maybe_string("F#", isc.fsharp.lines) + maybe_string("Fortran", isc.fortran.lines)
-                 + maybe_string("Go", isc.go.lines) + maybe_string("Haskell", isc.haskell.lines)
-                 + maybe_string("Idris", isc.idris.lines) + maybe_string("Kotline", isc.kotlin.lines)
-                 + maybe_string("Java", isc.java.lines) + maybe_string("Julia", isc.julia.lines)
-                 + maybe_string("Lua", isc.lua.lines) + maybe_string("Margaret", isc.margaret.lines)
-                 + maybe_string("Mercury", isc.mercury.lines) + maybe_string("Nim", isc.nim.lines)
-                 + maybe_string("Objective C", isc.objective_c.lines) + maybe_string("OCaml", isc.ocaml.lines)
-                 + maybe_string("Perl", isc.perl.lines) + maybe_string("Pony", isc.pony.lines)
-                 + maybe_string("PureScript", isc.purescript.lines) + maybe_string("Python", isc.python.lines)
-                 + maybe_string("R", isc.r.lines) + maybe_string("Ruby", isc.ruby.lines) + maybe_string( "Rust"
-                                                                                                       , isc.rust.lines
-                                                                                                       )
+                 + maybe_string("C", isc.c.lines) + maybe_string("Carp", isc.carp.lines)
+                 + maybe_string("C Header", isc.header.lines) + maybe_string("C++", isc.cpp.lines)
+                 + maybe_string("C++ Header", isc.cpp_header.lines) + maybe_string("C#", isc.csharp.lines)
+                 + maybe_string("COBOL", isc.cobol.lines) + maybe_string("Coq", isc.coq.lines)
+                 + maybe_string("Elixir", isc.elixir.lines) + maybe_string("Elm", isc.elm.lines)
+                 + maybe_string("Erlang", isc.erlang.lines) + maybe_string("F#", isc.fsharp.lines)
+                 + maybe_string("Fortran", isc.fortran.lines) + maybe_string("Go", isc.go.lines)
+                 + maybe_string("Haskell", isc.haskell.lines) + maybe_string("Idris", isc.idris.lines)
+                 + maybe_string("Kotline", isc.kotlin.lines) + maybe_string("Java", isc.java.lines)
+                 + maybe_string("Julia", isc.julia.lines) + maybe_string("Lua", isc.lua.lines)
+                 + maybe_string("Margaret", isc.margaret.lines) + maybe_string("Mercury", isc.mercury.lines)
+                 + maybe_string("Nim", isc.nim.lines) + maybe_string("Objective C", isc.objective_c.lines)
+                 + maybe_string("OCaml", isc.ocaml.lines) + maybe_string("Perl", isc.perl.lines)
+                 + maybe_string("Pony", isc.pony.lines) + maybe_string("PureScript", isc.purescript.lines)
+                 + maybe_string("Python", isc.python.lines) + maybe_string("R", isc.r.lines)
+                 + maybe_string("Ruby", isc.ruby.lines) + maybe_string("Rust", isc.rust.lines)
                  + maybe_string("Scala", isc.scala.lines) + maybe_string("Sixten", isc.sixten.lines)
                  + maybe_string("Swift", isc.swift.lines) + maybe_string("TCL", isc.tcl.lines)
                  ) + with_nonempty( "\n\33[33mEditor Plugins:\33[0m\n"
@@ -365,7 +366,7 @@ fun add_contents(x : source_contents, y : source_contents) : source_contents =
     + y.rakefile, llvm = x.llvm + y.llvm, autoconf = x.autoconf + y.autoconf, batch = x.batch
     + y.batch, powershell = x.powershell + y.powershell, m4 = x.m4
     + y.m4, objective_c = x.objective_c + y.objective_c, automake = x.automake
-    + y.automake, margaret = x.margaret + y.margaret } : source_contents
+    + y.automake, margaret = x.margaret + y.margaret, carp = x.carp + y.carp } : source_contents
   in
     next
   end
@@ -456,6 +457,7 @@ fun adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~objective_c n => sc_r->objective_c := prev.objective_c + n
       | ~automake n => sc_r->automake := prev.automake + n
       | ~margaret n => sc_r->margaret := prev.margaret + n
+      | ~carp n => sc_r->carp := prev.carp + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -545,6 +547,7 @@ fun free_pl(pl : pl_type) : void =
     | ~objective_c _ => ()
     | ~automake _ => ()
     | ~margaret _ => ()
+    | ~carp _ => ()
 
 fun match_keywords { m : nat | m <= 10 } (keys : list(string, m), word : string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
@@ -834,6 +837,7 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "mm" => objective_c(line_count(s, Some("//")))
       | "am" => automake(line_count(s, Some("#")))
       | "mgt" => margaret(line_count(s, Some("--")))
+      | "carp" => carp(line_count(s, Some(";")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -879,7 +883,7 @@ fnx step_stream( acc : source_contents
   else
     adjust_contents(acc, prune_extension(full_name, file_proper))
 and flow_stream(s : string, init : source_contents, excludes : List0(string)) :
-source_contents =
+  source_contents =
   let
     var files = streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
@@ -974,13 +978,14 @@ fun empty_contents() : source_contents =
                , objective_c = empty_file()
                , automake = empty_file()
                , margaret = empty_file()
+               , carp = empty_file()
                } : source_contents
   in
     isc
   end
 
 fun map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) :
-source_contents =
+  source_contents =
   list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next)
                       || next = "" then
                         step_stream(acc, next, next, excludes)
@@ -1070,7 +1075,7 @@ fnx get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n-m>. ( argc : int(n)
   end
 
 fun version() : void =
-  println!("polygot version 0.3.14\nCopyright (c) 2018 Vanessa McHale")
+  println!("polygot version 0.3.15\nCopyright (c) 2018 Vanessa McHale")
 
 fun help() : void =
   print("polyglot - Count lines of code quickly.
@@ -1121,7 +1126,7 @@ int ncpu() {
 #define NCPU 4
 
 fun apportion(includes : List0(string)) :
-(List0(string), List0(string), List0(string), List0(string)) =
+  (List0(string), List0(string), List0(string), List0(string)) =
   let
     var n = length(includes) / 4
     val (p, pre_q) = list_split_at(includes, n)
