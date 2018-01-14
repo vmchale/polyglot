@@ -2,6 +2,7 @@ ci:
     @yamllint .travis.yml
     @hlint shake.hs
     @shellcheck bash/install.sh
+    @tomlcheck --file .atsfmt.toml
     @./build
 
 release:
