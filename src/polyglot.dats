@@ -858,6 +858,7 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | "nimcache" => true
     | ".shake" => true
     | "dist-newstyle" => true
+    | "vendor" => true
     | "dist" => true
     | ".psc-package" => true
     | ".pulp-cache" => true
