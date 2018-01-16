@@ -9,11 +9,11 @@ matrix:
 
     - env: TARGET="x86_64-apple-darwin"
       os: osx
+      language: c
 
   allow_failures:
     - env: TARGET="x86_64-apple-darwin"
 
-language: c
 cache:
   directories:
     - /usr/local/lib/ats2-postiats-0.3.8/
