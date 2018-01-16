@@ -62,7 +62,8 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need ["target/poly"]
         let dir = " /home/vanessa/git-builds/rust"
         (Stdout (_ :: String)) <- cmd $ "poly " ++ dir
-        cmd $ ["bench"] <> ((++dir) <$> ["target/poly", "tokei", "loc", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
+        cmd_ ["mkdir", "-p", "docs"]
+        cmd $ ["bench", "--output=docs/bench.html"] <> ((++dir) <$> ["target/poly", "tokei", "loc", "cloc", "linguist", "numactl --physcpubind=+1 loc -u"])
 
     "install" ~> do
         need ["target/poly", "man/poly.1", "compleat/poly.usage"]
@@ -81,4 +82,5 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         cmd_ ["rm", "-f", "man/poly.1"]
         removeFilesAfter "." ["//*.c", "tags"]
         removeFilesAfter ".shake" ["//*"]
+        removeFilesAfter "docs" ["//*"]
         removeFilesAfter "target" ["//*"]
