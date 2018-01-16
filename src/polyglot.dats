@@ -723,7 +723,7 @@ fun match_filename(s : string) : pl_type =
 // argument).
 fun prune_extension(s : string, file_proper : string) : pl_type =
   let
-    val (prf | str) = filename_get_ext(file_proper)
+    val (prf | str) = filename_get_ext(s)
     val match: string = if strptr2ptr(str) > 0 then
       $UN.strptr2string(str)
     else
@@ -1076,7 +1076,7 @@ fnx get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n-m>. ( argc : int(n)
   end
 
 fun version() : void =
-  println!("polygot version 0.3.17\nCopyright (c) 2018 Vanessa McHale")
+  println!("polygot version 0.3.18\nCopyright (c) 2018 Vanessa McHale")
 
 fun help() : void =
   print("polyglot - Count lines of code quickly.
@@ -1097,34 +1097,6 @@ fun head(xs : List0(string)) : string =
   case+ xs of
     | list_cons (x, xs) => x + ", " + head(xs)
     | list_nil() => ""
-
-// TODO channel to draw work? e.g. take a channel of strings, return a channel of source_contents
-fun work( excludes : List0(string)
-        , send : channel(List0(string))
-        , chan : channel(source_contents)
-        ) : void =
-  {
-    val- (n) = channel_remove(send)
-    var x = map_stream(empty_contents(), n, excludes)
-    val () = channel_insert(chan, x)
-    val- ~None_vt() = channel_unref(chan)
-    val- () = case channel_unref<List0(string)>(send) of
-      | ~None_vt() => ()
-      | ~Some_vt (snd) => queue_free<List0(string)>(snd)
-  }
-
-// Function returning the number of CPU cores.
-extern
-fun ncpu() : int
-
-%{^
-#include <unistd.h>
-int ncpu() {
-  return sysconf(_SC_NPROCESSORS_ONLN);
-}
-%}
-
-#define NCPU 4
 
 fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
@@ -1148,6 +1120,7 @@ fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
     
     fun stream2list(x : stream_vt(string)) : List0(string) =
       case+ !x of
+        | ~stream_vt_cons (x, xs) when s = "." => list_cons(x, stream2list(xs))
         | ~stream_vt_cons (x, xs) => list_cons(s + "/" + x, stream2list(xs))
         | ~stream_vt_nil() => list_nil
   in
@@ -1194,6 +1167,38 @@ fun apportion(includes : List0(string), excludes : List0(string)) :
     (list_vt2t(p), list_vt2t(q), list_vt2t(r), s)
   end
 
+fun work( excludes : List0(string)
+        , send : channel(List0(string))
+        , chan : channel(source_contents)
+        ) : void =
+  {
+    val- (n) = channel_remove(send)
+    var x = map_stream(empty_contents(), n, excludes)
+    val () = channel_insert(chan, x)
+    val- ~None_vt() = channel_unref(chan)
+    val- () = case channel_unref<List0(string)>(send) of
+      | ~None_vt() => ()
+      | ~Some_vt (snd) => queue_free<List0(string)>(snd)
+  }
+
+// Function returning the number of CPU cores.
+extern
+fun ncpu() : int
+
+%{^
+#include <unistd.h>
+int ncpu() {
+  return sysconf(_SC_NPROCESSORS_ONLN);
+}
+%}
+
+#define NCPU 4
+
+fn handle_unref(x : channel(string)) : void =
+  case+ channel_unref(x) of
+    | ~None_vt() => ()
+    | ~Some_vt (q) => queue_free<List0(string)>(q)
+
 // TODO maybe make a parallel fold?
 fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
@@ -1223,10 +1228,10 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
     val t3 = athread_create_cloptr_exn(llam () => work(excludes, send_r2, chan3))
     val t4 = athread_create_cloptr_exn(llam () => work(excludes, send_r3, chan4))
     val t5 = athread_create_cloptr_exn(llam () => work(excludes, send_r4, chan5))
-    val- ~None_vt() = channel_unref(send1)
-    val- ~None_vt() = channel_unref(send2)
-    val- ~None_vt() = channel_unref(send3)
-    val- ~None_vt() = channel_unref(send4)
+    val _ = handle_unref(send1)
+    val _ = handle_unref(send2)
+    val _ = handle_unref(send3)
+    val _ = handle_unref(send4)
     val- (n) = channel_remove(chan)
     val- (m) = channel_remove(chan)
     val- (k) = channel_remove(chan)

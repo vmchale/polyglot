@@ -11,11 +11,6 @@ staload "libats/SATS/funarray.sats"
 staload "libats/SATS/deqarray.sats"
 staload _ = "libats/DATS/deqarray.dats"
 
-datavtype work =
-  | done
-  | wait
-  | work of string
-
 absvtype queue_vtype(a: vt@ype+, int) = ptr
 
 vtypedef queue(a: vt0p, id: int) = queue_vtype(a, id)

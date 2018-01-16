@@ -10,7 +10,7 @@
 
 Reasons to use polyglot:
 
-  * Fast: 360 ms to run on the entire GHC codebase
+  * Fast: 266 ms to run on the entire GHC codebase
   * Accurate: won't confuse Coq and Verilog
   * Pretty: magenta output
 
