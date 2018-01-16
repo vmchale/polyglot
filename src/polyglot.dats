@@ -1022,8 +1022,8 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
           acc_r->no_table := true
         else
           (println!("\33[31mError:\33[0m flag " + s + " cannot appear twice") ; exit(0) ; ())
-        | "--parallel" => acc_r->parallel := true
-        | "-p" => acc_r->parallel := true
+        | "--no-parallel" => acc_r->no_parallel := true
+        | "-p" => acc_r->no_parallel := true
         | "--version" => acc_r->version := true
         | "-V" => acc_r->version := true
         | "-e" => (println!("\33[31mError:\33[0m flag " + s
@@ -1085,7 +1085,7 @@ fun help() : void =
     -V, --version            show version information
     -h, --help               display this help and exit
     -e, --exclude            exclude a directory
-    -p, --parallel           execute in parallel
+    -p, --no-parallel        do not execute in parallel
     -t, --no-table           display results in alternate format
                                                                                                                                                                   
     When no directory is provided poly will execute in the
@@ -1126,11 +1126,37 @@ int ncpu() {
 
 #define NCPU 4
 
-fun apportion(includes : List0(string)) :
+fun depth_two(s : string, excludes : List0(string)) : List0(string) =
+  let
+    var files = streamize_dirname_fname(s)
+    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)
+                                        && test_file_isdir(s + "/" + x) != 0))
+    
+    fun stream2list(x : stream_vt(string)) : List0(string) =
+      case+ !x of
+        | ~stream_vt_cons (x, xs) => list_cons(s + "/" + x, stream2list(xs))
+        | ~stream_vt_nil() => list_nil
+  in
+    stream2list(ffiles)
+  end
+
+fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
+  let
+    fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
+      case+ i of
+        | 0 => g1ofg0(list0_mapjoin(g0ofg1(xs), lam x => g0ofg1(depth_two(x, excludes))))
+        | _ => g1ofg0(list0_mapjoin(g0ofg1(xs), lam x => g0ofg1(loop(i
+                                                                    - 1, depth_two(x, excludes), excludes))))
+  in
+    loop(4, xs, excludes)
+  end
+
+fun apportion(includes : List0(string), excludes : List0(string)) :
   (List0(string), List0(string), List0(string), List0(string)) =
   let
-    var n = length(includes) / 4
-    val (p, pre_q) = list_split_at(includes, n)
+    var deep = map_depth(includes, excludes)
+    var n = length(deep) / 4
+    val (p, pre_q) = list_split_at(deep, n)
     val (q, pre_r) = list_split_at(pre_q, n)
     val (r, s) = list_split_at(pre_r, n)
   in
@@ -1138,7 +1164,6 @@ fun apportion(includes : List0(string)) :
   end
 
 // TODO maybe make a parallel fold?
-// general approach to parallel recursion? 
 fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
     val chan = channel_make<source_contents>(2)
@@ -1158,7 +1183,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
       includes
     else
       list_cons(".", list_nil())
-    val (fst, snd, thd, fth) = apportion(new_includes)
+    val (fst, snd, thd, fth) = apportion(new_includes, excludes)
     val _ = channel_insert(send1, fst)
     val _ = channel_insert(send2, snd)
     val _ = channel_insert(send3, thd)
@@ -1189,7 +1214,7 @@ implement main0 (argc, argv) =
     val cli = @{ version = false
                , help = false
                , no_table = false
-               , parallel = false
+               , no_parallel = false
                , excludes = list_nil()
                , includes = list_nil()
                } : command_line
@@ -1202,7 +1227,7 @@ implement main0 (argc, argv) =
         (version() ; exit(0))
       else
         let
-          var result = if parsed.parallel then
+          var result = if not(parsed.no_parallel) then
             threads(parsed.includes, parsed.excludes)
           else
             if length(parsed.includes) > 0 then

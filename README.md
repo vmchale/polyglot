@@ -19,6 +19,7 @@ Reasons not to use polyglot:
   * It's written in ATS
   * No regex-based exclusions
   * Requires [MinGW](http://www.mingw.org/) on Windows.
+  * GC is broken
 
 ### Benchmarks
 
@@ -33,27 +34,27 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>253.3 ms</td>
+    <td>89.02 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>147.9 ms</td>
+    <td>159.0 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>335.8 ms</td>
+    <td>345.9 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>16.98 s</td>
+    <td>14.86 s</td>
   </tr>
   <tr>
     <td><code>linguist</code></td>
     <td>Ruby</td>
-    <td>17.01 s</td>
+    <td>15.17 s</td>
   </tr>
 </table>
 

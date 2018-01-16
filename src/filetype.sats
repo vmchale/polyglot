@@ -5,7 +5,7 @@ vtypedef file = @{ lines = int, blanks = int, comments = int, files = int }
 vtypedef command_line = @{ version = bool
                          , help = bool
                          , no_table = bool
-                         , parallel = bool
+                         , no_parallel = bool
                          , excludes = [ m : nat ] list(string, m)
                          , includes = [ m : nat ] list(string, m)
                          }

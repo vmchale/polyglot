@@ -12,6 +12,8 @@ function getTarget {
     fi
 }
 
+# https://github.com/vmchale/polyglot/releases/download/0.3.8/poly-x86_64-apple-darwin
+
 main() {
 
     latest="$(curl -s https://github.com/vmchale/polyglot/releases/latest/ | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)"
