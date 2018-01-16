@@ -13,6 +13,7 @@ matrix:
   allow_failures:
     - env: TARGET="x86_64-apple-darwin"
 
+language: c
 cache:
   directories:
     - /usr/local/lib/ats2-postiats-0.3.8/
@@ -38,7 +39,9 @@ script:
       echo "skipping..."
     fi
   - export COMMAND="gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/"
+  - export CLANG_COMMAND="clang -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/"
   - patscc -atsccomp "$COMMAND" src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto -lpthread
+  - patscc -atsccomp "$CLANG_COMMAND" src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto -lpthread
 
 deploy:
   api_key:

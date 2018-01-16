@@ -1,3 +1,5 @@
+// This is mostly taken from the example in the book.
+
 #include "share/atspre_define.hats"
 #include "share/atspre_staload.hats"
 #include "libats/ML/COMPILE/DATS/funarray.dats"
@@ -234,7 +236,6 @@ implement {a} channel_remove_helper(chan, xs) =
         x_out
       end
   end
-
 
 implement {a} channel_insert_helper(chan, xs, x) = 
   let
