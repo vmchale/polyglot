@@ -51,10 +51,14 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-p" => acc_r->no_parallel := true
         | "--version" => acc_r->version := true
         | "-V" => acc_r->version := true
-        | "-e" => (println!("\33[31mError:\33[0m flag " + s
-        + " must be followed by an argument") ; exit(0) ; ())
-        | "--exclude" => (println!("\33[31mError:\33[0m flag " + s
-        + " must be followed by an argument") ; exit(0) ; ())
+        | "-e" => ( println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument")
+                  ; exit(0)
+                  ; ()
+                  )
+        | "--exclude" => ( println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument")
+                         ; exit(0)
+                         ; ()
+                         )
         | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
     else
       if not(is_first) then
