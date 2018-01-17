@@ -23,10 +23,6 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
                   , "target/poly-musl"
                   ]
 
-    "lint" ~> do
-        cmd_ "shellcheck --exclude SC2155 bash/install.sh"
-        cmd "hlint shake.hs"
-
     "man/poly.1" %> \_ -> do
         need ["man/MANPAGE.md"]
         cmd ["pandoc", "man/MANPAGE.md", "-s", "-t", "man", "-o", "man/poly.1"]

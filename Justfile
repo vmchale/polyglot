@@ -5,6 +5,12 @@ ci:
     @tomlcheck --file .atsfmt.toml
     @./build
 
+safe:
+    patscc src/compat.dats -DATS_MEMALLOC_GCBDW -O2 -flto -mtune=native -o target/poly-safe -lpthread -lgc
+
+bench:
+    bench "poly ~/git-builds/ghc" "loc -u ~/git-builds/ghc" "tokei ~/git-builds/ghc"
+
 release:
     git tag "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     git push origin --tags
