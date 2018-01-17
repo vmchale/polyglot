@@ -1,5 +1,5 @@
 ---
-# sudo: required
+sudo: required
 matrix:
   include:
 
@@ -22,7 +22,7 @@ cache:
 install:
   - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
   - tar xvf ATS2-Postiats-0.3.8.tgz
-  - cd ATS2-Postiats-0.3.8 && ./configure && make  # && sudo make install
+  - cd ATS2-Postiats-0.3.8 && ./configure && make && sudo make install
   - cd ../
   - rm -rf ATS2-Postiats-0.3.8
 
