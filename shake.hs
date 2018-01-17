@@ -14,12 +14,14 @@ main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     want [ "target/poly"
          , "man/poly.1"
-         -- , "target/poly-s390x-linux-gnu"
-         -- , "target/poly-aarch64-linux-gnu"
-         -- , "target/poly-sparc64-linux-gnu"
-         -- , "target/poly-arm-linux-gnueabihf"
-         -- , "target/poly-arm-linux-gnueabi"
          ]
+
+    "all" ~> need [ "target/poly"
+                  , "target/poly-aarch64-linux-gnu"
+                  , "target/poly-arm-linux-gnueabihf"
+                  , "target/poly-arm-linux-gnueabi"
+                  , "target/poly-musl"
+                  ]
 
     "lint" ~> do
         cmd_ "shellcheck --exclude SC2155 bash/install.sh"
@@ -37,7 +39,8 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
 
     "target/poly-*" %> \out -> do
         let target = drop 1 . dropWhile (/='-') $ out
-        cmd $ "patscc -atsccomp " ++ target ++ "-gcc -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/ src/polyglot.dats -DATS_MEMALLOC_LIBC -o target/poly-" ++ target ++ " -cleanaft -O2 -flto"
+        let maybeStatic = if target == "musl" then "-static " else ""
+        command [] "patscc" ["-atsccomp", target ++ "-gcc" ++ " " ++ maybeStatic ++ "-I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "src/polyglot.dats", "-DATS_MEMALLOC_LIBC", "-o", "target/poly-" ++ target, "-cleanaft", "-O2", "-flto", "-lpthread"]
 
     "target/poly.c" %> \_ -> do
         dats <- getDirectoryFiles "" ["//*.dats"]
@@ -46,7 +49,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         cmd_ ("patscc -DATS_MEMALLOC_LIBC -ccats " ++ unwords dats)
         cmd "mv poly_dats.c" "target/poly.c"
 
-    "target/poly" %> \_ -> do
+    "target/poly" %> \out -> do
         dats <- getDirectoryFiles "" ["//*.dats"]
         sats <- getDirectoryFiles "" ["//*.sats"]
         need $ dats <> sats
@@ -54,6 +57,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
         (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["src/polyglot.dats", "-atsccomp", "gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native", "-lpthread"]
         cmd_ [Stdin err] Shell "pats-filter"
+        cmd_ ["strip", out]
         if c /= ExitSuccess
             then error "patscc failure"
             else pure ()

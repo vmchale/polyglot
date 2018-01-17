@@ -1,15 +1,6 @@
 // Type for a collection of files (monoidal)
 vtypedef file = @{ lines = int, blanks = int, comments = int, files = int }
 
-// Type for the parsed command-line arguments. 
-vtypedef command_line = @{ version = bool
-                         , help = bool
-                         , no_table = bool
-                         , no_parallel = bool
-                         , excludes = [ m : nat ] list(string, m)
-                         , includes = [ m : nat ] list(string, m)
-                         }
-
 // Program state, tracking *all* supported file types in an unboxed structure.
 vtypedef source_contents = @{ rust = file
                             , haskell = file
