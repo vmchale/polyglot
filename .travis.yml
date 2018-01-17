@@ -44,7 +44,7 @@ script:
     then
       patscc -atsccomp "$COMMAND" src/polyglot.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto -lpthread
     else
-      patscc -atsccomp "$COMMAND" src/compat.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto -lpthread
+      patscc -atsccomp "$COMMAND" src/compat.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto
     fi
 
 deploy:
