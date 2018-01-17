@@ -3,7 +3,6 @@
 #include "prelude/DATS/filebas.dats"
 #include "libats/ML/DATS/filebas_dirent.dats"
 #include "libats/libc/DATS/dirent.dats"
-#include "libats/DATS/athread_posix.dats"
 #include "src/cli.dats"
 
 %{^
@@ -12,14 +11,12 @@
 
 staload "prelude/SATS/stream_vt.sats"
 staload "libats/ML/DATS/list0.dats"
-staload "libats/SATS/athread.sats"
 staload "libats/ML/DATS/string.dats"
 staload "prelude/SATS/filebas.sats"
 staload "src/filetype.sats"
 staload "libats/ML/DATS/filebas.dats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 staload "libats/libc/SATS/unistd.sats"
-staload "libats/DATS/athread.dats"
 
 fun to_file(s : string, pre : Option(string)) : file =
   let
@@ -887,11 +884,18 @@ and flow_stream(s : string, init : source_contents, excludes : List0(string)) :
     var files = streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
   in
-    stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
-                                                                          , s + "/" + next
-                                                                          , next
-                                                                          , excludes
-                                                                          ))
+    if s != "." then
+      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
+                                                                            , s + "/" + next
+                                                                            , next
+                                                                            , excludes
+                                                                            ))
+    else
+      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
+                                                                            , next
+                                                                            , next
+                                                                            , excludes
+                                                                            ))
   end
 
 fun empty_contents() : source_contents =

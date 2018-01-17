@@ -1,10 +1,9 @@
 // This is mostly taken from the example in the book.
 
-#include "share/atspre_define.hats"
 #include "share/atspre_staload.hats"
-#include "libats/ML/COMPILE/DATS/funarray.dats"
+#include "share/atspre_staload_libats_ML.hats"
+#include "libats/DATS/athread_posix.dats"
 
-staload "libats/ML/DATS/string.dats"
 staload "libats/SATS/athread.sats"
 staload "src/filetype.sats"
 staload "libats/SATS/funarray.sats"

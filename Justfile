@@ -6,7 +6,7 @@ ci:
     @./build
 
 safe:
-    patscc src/compat.dats -DATS_MEMALLOC_GCBDW -O2 -flto -mtune=native -o target/poly-safe -lpthread -lgc
+    patscc src/polyglot.dats -DATS_MEMALLOC_GCBDW -O2 -flto -mtune=native -o target/poly-safe -lpthread -lgc
 
 bench:
     bench "poly ~/git-builds/ghc" "loc -u ~/git-builds/ghc" "tokei ~/git-builds/ghc"
