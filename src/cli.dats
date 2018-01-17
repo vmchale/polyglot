@@ -21,13 +21,13 @@ fun help() : void =
     -V, --version            show version information
     -h, --help               display this help and exit
     -e, --exclude            exclude a directory
-    -p, --no-parallel        do not execute in parallel (disabled already on Mac)
+    -p, --no-parallel        do not execute in parallel
     -t, --no-table           display results in alternate format
                                                                                                                                                                   
     When no directory is provided poly will execute in the
     current directory.
                                                                                                                                                                   
-    Bug reports and updates: nest.pijul.com/vamchale/polyglot\n")
+    Bug reports and updates: github.com/vmchale/polyglot\n")
 
 fun is_flag(s : string) : bool =
   string_is_prefix("-", s)

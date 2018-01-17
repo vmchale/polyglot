@@ -24,7 +24,8 @@ When no directory is given, polyglot will execute in the current directory.
 
 **-e**, **-\-exclude** Exclude a directory
 
-**-p**, **-\-parallel** Execute in parallel
+**-p**, **-\-no-parallel** Do not execute in parallel. Concurrency is already
+disabled on some platforms.
 
 **-t**, **-\-no-table** Show results in an alternate format.
 

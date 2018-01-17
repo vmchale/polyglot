@@ -86,5 +86,4 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         cmd_ ["rm", "-f", "man/poly.1"]
         removeFilesAfter "." ["//*.c", "tags"]
         removeFilesAfter ".shake" ["//*"]
-        removeFilesAfter "docs" ["//*"]
         removeFilesAfter "target" ["//*"]
