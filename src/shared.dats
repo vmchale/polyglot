@@ -233,15 +233,15 @@ fun make_table(isc : source_contents) : string =
                                                                                        ) + maybe_table( "Scala"
                                                                                                       , isc.scala
                                                                                                       )
-  + maybe_table("Sixten", isc.sixten) + maybe_table("Swift", isc.swift) + maybe_table( "TCL"
-                                                                                     , isc.tcl
-                                                                                     ) + maybe_table("TeX", isc.tex)
-  + maybe_table("TOML", isc.toml) + maybe_table("Verilog", isc.verilog) + maybe_table( "VHDL"
-                                                                                     , isc.vhdl
-                                                                                     ) + maybe_table( "Vimscript"
-                                                                                                    , isc.vimscript
-                                                                                                    )
-  + maybe_table("Yacc", isc.yacc) + maybe_table("YAML", isc.yaml)
+  + maybe_table("Shen", isc.shen) + maybe_table("Sixten", isc.sixten) + maybe_table( "Swift"
+                                                                                   , isc.swift
+                                                                                   ) + maybe_table("TCL", isc.tcl)
+  + maybe_table("TeX", isc.tex) + maybe_table("TOML", isc.toml) + maybe_table( "Verilog"
+                                                                             , isc.verilog
+                                                                             ) + maybe_table("VHDL", isc.vhdl)
+  + maybe_table("Vimscript", isc.vimscript) + maybe_table("Yacc", isc.yacc) + maybe_table( "YAML"
+                                                                                         , isc.yaml
+                                                                                         )
   + "-------------------------------------------------------------------------------\n"
   + maybe_table("Total", sum_fields(isc))
   + "-------------------------------------------------------------------------------\n"
@@ -279,8 +279,9 @@ fun make_output(isc : source_contents) : string =
                  + maybe_string("Pony", isc.pony.lines) + maybe_string("PureScript", isc.purescript.lines)
                  + maybe_string("Python", isc.python.lines) + maybe_string("R", isc.r.lines)
                  + maybe_string("Ruby", isc.ruby.lines) + maybe_string("Rust", isc.rust.lines)
-                 + maybe_string("Scala", isc.scala.lines) + maybe_string("Sixten", isc.sixten.lines)
-                 + maybe_string("Swift", isc.swift.lines) + maybe_string("TCL", isc.tcl.lines)
+                 + maybe_string("Scala", isc.scala.lines) + maybe_string("Shen", isc.shen.lines)
+                 + maybe_string("Sixten", isc.sixten.lines) + maybe_string("Swift", isc.swift.lines)
+                 + maybe_string("TCL", isc.tcl.lines)
                  ) + with_nonempty( "\n\33[33mEditor Plugins:\33[0m\n"
                                   , maybe_string("Emacs Lisp", isc.elisp.lines) + maybe_string( "Vimscript"
                                                                                               , isc.vimscript.lines
@@ -361,7 +362,8 @@ fun add_contents(x : source_contents, y : source_contents) : source_contents =
     + y.rakefile, llvm = x.llvm + y.llvm, autoconf = x.autoconf + y.autoconf, batch = x.batch
     + y.batch, powershell = x.powershell + y.powershell, m4 = x.m4
     + y.m4, objective_c = x.objective_c + y.objective_c, automake = x.automake
-    + y.automake, margaret = x.margaret + y.margaret, carp = x.carp + y.carp } : source_contents
+    + y.automake, margaret = x.margaret + y.margaret, carp = x.carp + y.carp, shen = x.shen
+    + y.shen } : source_contents
   in
     next
   end
@@ -453,6 +455,7 @@ fun adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~automake n => sc_r->automake := prev.automake + n
       | ~margaret n => sc_r->margaret := prev.margaret + n
       | ~carp n => sc_r->carp := prev.carp + n
+      | ~shen n => sc_r->shen := prev.shen + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -543,6 +546,7 @@ fun free_pl(pl : pl_type) : void =
     | ~automake _ => ()
     | ~margaret _ => ()
     | ~carp _ => ()
+    | ~shen _ => ()
 
 fun match_keywords { m : nat | m <= 10 } (keys : list(string, m), word : string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
@@ -982,6 +986,7 @@ fun empty_contents() : source_contents =
                , automake = empty_file()
                , margaret = empty_file()
                , carp = empty_file()
+               , shen = empty_file()
                } : source_contents
   in
     isc

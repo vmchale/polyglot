@@ -84,6 +84,7 @@ vtypedef source_contents = @{ rust = file
                             , automake = file
                             , margaret = file
                             , carp = file
+                            , shen = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -174,3 +175,4 @@ datavtype pl_type =
   | automake of file
   | margaret of file
   | carp of file
+  | shen of file
