@@ -72,7 +72,7 @@ fun apportion(n : int, list : List0(string)) : List0(List0(string)) =
   let
     fun loop(k : int, acc : List0(string)) : (List0(string), List0(string)) =
       case+ k of
-        | 0 => (list_nil, acc)
+        | 0 => (acc, list_nil)
         | _ => case+ acc of
           | list_nil() => (list_nil, acc)
           | list_cons (x, xs) => let
@@ -83,7 +83,7 @@ fun apportion(n : int, list : List0(string)) : List0(List0(string)) =
     
     fun outer(i : int, acc : List0(string)) : List0(List0(string)) =
       let
-        val (p, q) = loop(n, acc)
+        val (p, q) = loop(length(acc) / n, acc)
       in
         if i > 0 then
           list_cons(p, outer(i - 1, q))
