@@ -4,6 +4,8 @@
 staload "libats/SATS/athread.sats"
 staload "libats/DATS/athread.dats"
 
+#define NCPU 4
+
 fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
@@ -61,6 +63,7 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
     loop(3, xs, excludes)
   end
 
+// fun apportion2(n: int, includes: List0(string), excludes: List0(string)) : List0(List0(string))
 fun apportion(includes : List0(string), excludes : List0(string)) :
   (List0(string), List0(string), List0(string), List0(string)) =
   let

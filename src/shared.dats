@@ -1401,8 +1401,8 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
                                      else
                                        list0_nil))
           | _ => g1ofg0(list0_mapjoin(xs0, lam x => let
-                                       val ys = step_list(x, excludes)
-                                       val zs = step_list_files(x, excludes)
+                                       var ys = step_list(x, excludes)
+                                       var zs = step_list_files(x, excludes)
                                      in
                                        if not(bad_dir(x, excludes)) then
                                          g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
