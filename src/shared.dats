@@ -1393,7 +1393,7 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   let
     fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
       let
-        val xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) != 0)
+        var xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) != 0)
       in
         case+ i of
           | 0 => g1ofg0(list0_mapjoin(xs0, lam x => if not(bad_dir(x, excludes)) then
