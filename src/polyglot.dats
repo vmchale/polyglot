@@ -63,17 +63,35 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
     loop(3, xs, excludes)
   end
 
-// fun apportion2(n: int, includes: List0(string), excludes: List0(string)) : List0(List0(string))
-fun apportion(includes : List0(string), excludes : List0(string)) :
-  (List0(string), List0(string), List0(string), List0(string)) =
+fun get_or_nothing(n : intGte(0), xs : List0(List0(string))) : List0(string) =
+  case+ list_get_at_opt(xs, n) of
+    | ~Some_vt (x) => x
+    | ~None_vt() => list_nil
+
+fun apportion(n : int, list : List0(string)) : List0(List0(string)) =
   let
-    var deep = map_depth(includes, excludes)
-    var n = length(deep) / 4
-    val (p, pre_q) = list_split_at(deep, n)
-    val (q, pre_r) = list_split_at(pre_q, n)
-    val (r, s) = list_split_at(pre_r, n)
+    fun loop(k : int, acc : List0(string)) : (List0(string), List0(string)) =
+      case+ k of
+        | 0 => (list_nil, acc)
+        | _ => case+ acc of
+          | list_nil() => (list_nil, acc)
+          | list_cons (x, xs) => let
+            val (p, q) = loop(k - 1, xs)
+          in
+            (list_cons(x, p), q)
+          end
+    
+    fun outer(i : int, acc : List0(string)) : List0(List0(string)) =
+      let
+        val (p, q) = loop(n, acc)
+      in
+        if i > 0 then
+          list_cons(p, outer(i - 1, q))
+        else
+          list_nil
+      end
   in
-    (list_vt2t(p), list_vt2t(q), list_vt2t(r), s)
+    outer(n, list)
   end
 
 fun work( excludes : List0(string)
@@ -102,18 +120,18 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
       includes
     else
       list_cons(".", list_nil())
-    val (fst, snd, thd, fth) = apportion(new_includes, excludes)
+    val deep = map_depth(new_includes, excludes)
+    val x = apportion(4, deep)
     
     fun loop {i : nat} .<i>. (i : int(i), chan : !channel(source_contents)) : void =
       {
         val chan_ = channel_ref(chan)
         val send = channel_make<List0(string)>(1)
         val send_r = channel_ref(send)
-        val _ = case- i of
-          | 1 => channel_insert(send, fst)
-          | 2 => channel_insert(send, snd)
-          | 3 => channel_insert(send, thd)
-          | 4 => channel_insert(send, fth)
+        val _ = if i > 0 then
+          channel_insert(send, get_or_nothing(i - 1, x))
+        else
+          ()
         val _ = athread_create_cloptr_exn(llam () =>
             work(excludes, send_r, chan_))
         val _ = handle_unref(send)
