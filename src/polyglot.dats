@@ -115,13 +115,13 @@ fn handle_unref(x : channel(string)) : void =
 
 fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
-    val chan = channel_make<source_contents>(4)
+    val chan = channel_make<source_contents>(NCPU)
     var new_includes = if length(includes) > 0 then
       includes
     else
       list_cons(".", list_nil())
     val deep = map_depth(new_includes, excludes)
-    val x = apportion(4, deep)
+    val x = apportion(NCPU, deep)
     
     fun loop {i : nat} .<i>. (i : int(i), chan : !channel(source_contents)) : void =
       {
@@ -141,7 +141,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
           loop(i - 1, chan)
       }
     
-    val _ = loop(4, chan)
+    val _ = loop(NCPU, chan)
     
     fun loop_return(i : int, chan : !channel(source_contents)) : source_contents =
       case+ i of
@@ -153,7 +153,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
           add_contents(m, n)
         end
     
-    var r = loop_return(4, chan)
+    var r = loop_return(NCPU, chan)
     val () = ignoret(usleep(1u))
     val () = while(channel_refcount(chan) >= 2)()
     val () = handle_unref(chan)
