@@ -37,7 +37,7 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   let
     fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
       let
-        val xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) != 0)
+        var xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) != 0)
       in
         case+ i of
           | 0 => g1ofg0(list0_mapjoin(xs0, lam x => if not(bad_dir(x, excludes)) then
@@ -45,8 +45,8 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
                                      else
                                        list0_nil))
           | _ => g1ofg0(list0_mapjoin(xs0, lam x => let
-                                       val ys = step_list(x, excludes)
-                                       val zs = step_list_files(x, excludes)
+                                       var ys = step_list(x, excludes)
+                                       var zs = step_list_files(x, excludes)
                                      in
                                        if not(bad_dir(x, excludes)) then
                                          g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
@@ -92,48 +92,50 @@ fn handle_unref(x : channel(string)) : void =
     | ~None_vt() => ()
     | ~Some_vt (q) => queue_free<List0(string)>(q)
 
-// TODO maybe make a parallel fold?
 fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
     val chan = channel_make<source_contents>(4)
-    val chan2 = channel_ref(chan)
-    val chan3 = channel_ref(chan)
-    val chan4 = channel_ref(chan)
-    val chan5 = channel_ref(chan)
-    val send1 = channel_make<List0(string)>(1)
-    val send2 = channel_make<List0(string)>(1)
-    val send3 = channel_make<List0(string)>(1)
-    val send4 = channel_make<List0(string)>(1)
-    val send_r1 = channel_ref(send1)
-    val send_r2 = channel_ref(send2)
-    val send_r3 = channel_ref(send3)
-    val send_r4 = channel_ref(send4)
     var new_includes = if length(includes) > 0 then
       includes
     else
       list_cons(".", list_nil())
     val (fst, snd, thd, fth) = apportion(new_includes, excludes)
-    val _ = channel_insert(send1, fst)
-    val _ = channel_insert(send2, snd)
-    val _ = channel_insert(send3, thd)
-    val _ = channel_insert(send4, fth)
-    val t2 = athread_create_cloptr_exn(llam () => work(excludes, send_r1, chan2))
-    val t3 = athread_create_cloptr_exn(llam () => work(excludes, send_r2, chan3))
-    val t4 = athread_create_cloptr_exn(llam () => work(excludes, send_r3, chan4))
-    val t5 = athread_create_cloptr_exn(llam () => work(excludes, send_r4, chan5))
-    val _ = handle_unref(send1)
-    val _ = handle_unref(send2)
-    val _ = handle_unref(send3)
-    val _ = handle_unref(send4)
-    val- (n) = channel_remove(chan)
-    val- (m) = channel_remove(chan)
-    val- (k) = channel_remove(chan)
-    val- (l) = channel_remove(chan)
+    
+    fun loop {i : nat} .<i>. (i : int(i), chan : !channel(source_contents)) : void =
+      {
+        val chan_ = channel_ref(chan)
+        val send = channel_make<List0(string)>(1)
+        val send_r = channel_ref(send)
+        val _ = case- i of
+          | 1 => channel_insert(send, fst)
+          | 2 => channel_insert(send, snd)
+          | 3 => channel_insert(send, thd)
+          | 4 => channel_insert(send, fth)
+        val _ = athread_create_cloptr_exn(llam () =>
+            work(excludes, send_r, chan_))
+        val _ = handle_unref(send)
+        val _ = if i < 2 then
+          ()
+        else
+          loop(i - 1, chan)
+      }
+    
+    val _ = loop(4, chan)
+    
+    fun loop_return(i : int, chan : !channel(source_contents)) : source_contents =
+      case+ i of
+        | 0 => empty_contents()
+        | _ => let
+          val- (n) = channel_remove(chan)
+          var m = loop_return(i - 1, chan)
+        in
+          add_contents(m, n)
+        end
+    
+    var r = loop_return(4, chan)
     val () = ignoret(usleep(1u))
     val () = while(channel_refcount(chan) >= 2)()
-    val r = add_contents(add_contents(k, l), add_contents(n, m))
-    val- ~Some_vt (que) = channel_unref<source_contents>(chan)
-    val () = queue_free<source_contents>(que)
+    val () = handle_unref(chan)
   in
     r
   end
