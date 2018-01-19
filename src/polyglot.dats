@@ -117,10 +117,10 @@ fn handle_unref(x : channel(string)) : void =
 fun tiny_loop(xs : List0(string), exludes : List0(string)) : (source_contents, List0(string)) =
   (empty_contents(), xs)
 
-fun work( excludes : List0(string)
-        , send : channel(List0(string))
-        , chan : channel(source_contents)
-        ) : void =
+fun worker( excludes : List0(string)
+          , send : channel(List0(string))
+          , chan : channel(source_contents)
+          ) : void =
   {
     val () = handle_unref(send)
     val () = handle_unref(chan)

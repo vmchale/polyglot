@@ -121,7 +121,7 @@ implement {a} channel_ref (chan) =
     val (prf | ()) = spin_lock(spin)
     val () = ch.refcount := ch.refcount + 1
     val () = spin_unlock(prf | spin)
-    prval () = fold@((((((chan))))))
+    prval () = fold@(chan)
   in
     $UN.castvwtp1{channel(a)}(chan)
   end
@@ -148,7 +148,7 @@ implement {a} channel_unref (chan) =
     else
       let
         val () = ch.refcount := refcount - 1
-        prval () = fold@(((((chan)))))
+        prval () = fold@(chan)
         prval () = $UN.cast2void(chan)
       in
         None_vt()
@@ -160,7 +160,7 @@ implement channel_refcount {a} (chan) =
     val @CHANNEL{ l0, l1, l2, l3 }(ch) = chan
     val refcount = ch.refcount
   in
-    (fold@((chan)) ; refcount)
+    (fold@(chan) ; refcount)
   end
 
 implement {a} channel_make (cap) =
@@ -203,7 +203,7 @@ implement {a} channel_make (cap) =
     
     val () = ch.queue := $UN.castvwtp0{ptr}(queue_make<a>(cap))
   in
-    (fold@((((((chan)))))) ; chan)
+    (fold@(chan) ; chan)
   end
 
 implement {a} channel_insert (chan, x) =
