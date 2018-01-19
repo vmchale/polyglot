@@ -8,21 +8,24 @@
 - [ ] parse directories on the command line starting with a `-` by using escapes
 - [ ] detect documentation comments
 - [ ] feature to use data from quasi-quotes (e.g. haskell)
+- [ ] block comments
 # Performance
-- [ ] parallelism
+- [x] parallelism
+  - [ ] better parallelism
 - [ ] linear types everywhere!!
-- [ ] stack-allocated functions
+  - [ ] fork common functions?
 - [ ] get rid of GC
   - [ ] `ptr_alloc<t@ype>()` to allocate appropriately sized pointer
   - [ ] `mfree_gc_v` to free allocated memory
   - [ ] `gfree_val`
 # Bugs
 - [ ] doesn't disambiguate objective C/C headers
-- [ ] parallelism is still a little wrong
+- [ ] can't run on files when in parallel
 # Code Maintenance
 - [ ] Test suite
 - [ ] builds for other systems
 - [ ] linear types to ensure each field gets printed at the end?
+  - [ ] or alternately a macro
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parser (happy)

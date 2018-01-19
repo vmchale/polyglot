@@ -10,7 +10,7 @@ fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)
-                                        && test_file_isdir(s + "/" + x) != 0))
+                                        && test_file_isdir(s + "/" + x) > 0))
     
     fun stream2list(x : stream_vt(string)) : List0(string) =
       case+ !x of
@@ -39,7 +39,7 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   let
     fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
       let
-        var xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) != 0)
+        var xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) > 0)
       in
         case+ i of
           | 0 => g1ofg0(list0_mapjoin(xs0, lam x => if not(bad_dir(x, excludes)) then
@@ -126,6 +126,7 @@ fn handle_unref(x : channel(string)) : void =
     | ~None_vt() => ()
     | ~Some_vt (q) => queue_free<List0(string)>(q)
 
+// ideally we want one "large" channel that will handle back-and-forth communication between threads.
 fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
     val chan = channel_make<source_contents>(NCPU)

@@ -32,6 +32,33 @@ fun help() : void =
 fun is_flag(s : string) : bool =
   string_is_prefix("-", s)
 
+fn bad_exclude(s : string) : void =
+  (println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument"); exit(0); ())
+
+fun process_short { s : int | s > 0 } (s : string(s), acc : command_line) : command_line =
+  let
+    val str = string_make_substring(s, i2sz(0), i2sz(1))
+    var acc_r = ref<command_line>(acc)
+    val () = case+ str of
+      | "h" => acc_r->help := true
+      | "p" => acc_r->no_parallel := true
+      | "t" => acc_r->no_table := true
+      | "e" => bad_exclude(s)
+      | "V" => acc_r->version := true
+      | "-" => ()
+      | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
+    
+    fn witness(s : string) : [ n : nat | n > 0 ] string(n) =
+      $UN.cast(s)
+    
+    val inter = !acc_r
+  in
+    if length(s) > 1 then
+      process_short(witness(string_make_substring(s, i2sz(1), length(s))), inter)
+    else
+      inter
+  end
+
 fun process(s : string, acc : command_line, is_first : bool) : command_line =
   let
     var acc_r = ref<command_line>(acc)
@@ -51,14 +78,8 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-p" => acc_r->no_parallel := true
         | "--version" => acc_r->version := true
         | "-V" => acc_r->version := true
-        | "-e" => ( println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument")
-                  ; exit(0)
-                  ; ()
-                  )
-        | "--exclude" => ( println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument")
-                         ; exit(0)
-                         ; ()
-                         )
+        | "-e" => bad_exclude(s)
+        | "--exclude" => bad_exclude(s)
         | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
     else
       if not(is_first) then

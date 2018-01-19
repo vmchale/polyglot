@@ -79,8 +79,14 @@ shell completions as well.
 
 ## Building
 
-If you install [stack](http://haskellstack.org/), [pandoc](http://pandoc.org/) and
-[patscc](http://www.ats-lang.org/Downloads.html), you can install `poly` with
+If you install [stack](http://haskellstack.org/), [pats-filter](https://github.com/Hibou57/PostiATS-Utilities),
+[pandoc](http://pandoc.org/), and [patscc](http://www.ats-lang.org/Downloads.html), you can build `poly` with
+
+```bash
+ $ ./shake.hs
+```
+
+or install with
 
 ```bash
  $ ./shake.hs install

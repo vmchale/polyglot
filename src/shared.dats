@@ -1238,7 +1238,7 @@ fnx step_stream( acc : source_contents
                , file_proper : string
                , excludes : List0(string)
                ) : source_contents =
-  if test_file_isdir(full_name) != 0 then
+  if test_file_isdir(full_name) > 0 then
     flow_stream(full_name, acc, excludes)
   else
     adjust_contents(acc, prune_extension(full_name, file_proper))
@@ -1352,19 +1352,22 @@ fun empty_contents() : source_contents =
     isc
   end
 
+fn maybe_err(next : string) : void =
+  (prerr("\33[31mError:\33[0m directory '" + next + "' does not exist\n") ; exit(1))
+
 fun map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) :
   source_contents =
   list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next)
-                      || next = "" then
+                      || test_file_isdir(next) < 0 || next = "" then
                         step_stream(acc, next, next, excludes)
                       else
-                        (prerr("\33[31mError:\33[0m directory '" + next + "' does not exist\n") ; exit(1) ; acc))
+                        (maybe_err(next) ; acc))
 
 fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)
-                                        && test_file_isdir(s + "/" + x) != 0))
+                                        && test_file_isdir(s + "/" + x) > 0))
     
     fun stream2list(x : stream_vt(string)) : List0(string) =
       case+ !x of
@@ -1393,7 +1396,7 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   let
     fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
       let
-        var xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) != 0)
+        var xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) > 0)
       in
         case+ i of
           | 0 => g1ofg0(list0_mapjoin(xs0, lam x => if not(bad_dir(x, excludes)) then
