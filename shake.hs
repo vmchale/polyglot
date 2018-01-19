@@ -23,6 +23,10 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
                   , "target/poly-musl"
                   ]
 
+    "test" ~> do
+        need [ "target/test" ]
+        cmd "target/test"
+
     "man/poly.1" %> \_ -> do
         need ["man/MANPAGE.md"]
         cmd ["pandoc", "man/MANPAGE.md", "-s", "-t", "man", "-o", "man/poly.1"]
@@ -44,6 +48,19 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need $ dats <> sats
         cmd_ ("patscc -DATS_MEMALLOC_LIBC -ccats " ++ unwords dats)
         cmd "mv poly_dats.c" "target/poly.c"
+
+    "target/test" %> \out -> do
+        dats <- getDirectoryFiles "" ["//*.dats"]
+        sats <- getDirectoryFiles "" ["//*.sats"]
+        need $ dats <> sats
+        cmd_ ["mkdir", "-p", "target"]
+        let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["test/test.dats", "-atsccomp", "gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/test", "-cleanaft"]
+        cmd_ [Stdin err] Shell "pats-filter"
+        cmd_ ["strip", out]
+        if c /= ExitSuccess
+            then error "patscc failure"
+            else pure ()
 
     "target/poly" %> \out -> do
         dats <- getDirectoryFiles "" ["//*.dats"]

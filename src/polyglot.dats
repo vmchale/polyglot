@@ -98,7 +98,8 @@ fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
 fun apportion(includes : List0(string), excludes : List0(string)) :
   (List0(string), List0(string), List0(string), List0(string)) =
   let
-    var deep = map_depth(includes, excludes)
+    var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
+    var deep = map_depth(includes, excludes) + g1ofg0(ys)
     var n = length(deep) / 4
     val (p, pre_q) = list_split_at(deep, n)
     val (q, pre_r) = list_split_at(pre_q, n)

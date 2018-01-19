@@ -18,6 +18,13 @@ staload "libats/ML/DATS/filebas.dats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 staload "libats/libc/SATS/unistd.sats"
 
+fn eq_pl_type(x: !pl_type, y: !pl_type) : bool =
+  case- (x, y) of
+    | (happy(_), happy(_)) => true
+    | (yacc(_), yacc(_)) => true
+
+overload = with eq_pl_type
+
 fun to_file(s : string, pre : Option(string)) : file =
   let
     var is_comment = case+ pre of
@@ -1125,7 +1132,8 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "cabal" => cabal(line_count(s, Some("--")))
       | "yml" => yaml(line_count(s, Some("#")))
       | "yaml" => yaml(line_count(s, Some("#")))
-      | "y" => check_keywords(s, line_count(s, None), match)
+      | "y" => check_keywords(s, line_count(s, Some("--")), match)
+      | "yl" => happy(line_count(s, Some("--")))
       | "ypp" => yacc(line_count(s, Some("//")))
       | "x" => alex(line_count(s, Some("--")))
       | "l" => lex(line_count(s, None))

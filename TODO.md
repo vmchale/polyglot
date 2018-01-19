@@ -37,6 +37,7 @@
 ### Language Support
 - [ ] Ada
 - [ ] literate Haskell
+  - [ ] literate happy?
 - [ ] literate Idris
 - [ ] crystal (`.cr`)
 - [ ] D (`.d`)
