@@ -108,6 +108,24 @@ fun apportion(includes : List0(string), excludes : List0(string)) :
     (list_vt2t(p), list_vt2t(q), list_vt2t(r), s)
   end
 
+fn handle_unref(x : channel(string)) : void =
+  case+ channel_unref(x) of
+    | ~None_vt() => ()
+    | ~Some_vt (q) => queue_free<List0(string)>(q)
+
+// return directory's summed contents + a list
+fun tiny_loop(xs : List0(string), exludes : List0(string)) : (source_contents, List0(string)) =
+  (empty_contents(), xs)
+
+fun work( excludes : List0(string)
+        , send : channel(List0(string))
+        , chan : channel(source_contents)
+        ) : void =
+  {
+    val () = handle_unref(send)
+    val () = handle_unref(chan)
+  }
+
 fun work( excludes : List0(string)
         , send : channel(List0(string))
         , chan : channel(source_contents)
@@ -121,11 +139,6 @@ fun work( excludes : List0(string)
       | ~None_vt() => ()
       | ~Some_vt (snd) => queue_free<List0(string)>(snd)
   }
-
-fn handle_unref(x : channel(string)) : void =
-  case+ channel_unref(x) of
-    | ~None_vt() => ()
-    | ~Some_vt (q) => queue_free<List0(string)>(q)
 
 // ideally we want one "large" channel that will handle back-and-forth communication between threads.
 fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
