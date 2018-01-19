@@ -54,6 +54,12 @@ fun add_results(x : file, y : file) : file =
 
 overload + with add_results
 
+fn bad_file(s : string) : void =
+  if s != "" then
+    prerr!("\33[33mWarning:\33[0m could not open file at " + s)
+  else
+    ()
+
 // Given a string representing a filepath, return an integer.
 fun line_count(s : string, pre : Option(string)) : file =
   let
@@ -74,9 +80,7 @@ fun line_count(s : string, pre : Option(string)) : file =
             n
           end
         end
-      | ~None_vt() => (println!("\33[33mWarning:\33[0m could not open file at " + s) ; to_file( s
-                                                                                              , None
-                                                                                              ))
+      | ~None_vt() => (bad_file(s) ; to_file(s, None))
   end
 
 fnx right_pad { k : int | k >= 0 }{ m : int | m <= k } .<k>. (s : string(m), n : int(k)) :
@@ -1021,7 +1025,7 @@ fun check_keywords(s : string, size : file, ext : string) : pl_type =
       in
         result
       end
-      | ~None_vt() => (println!("\33[33mWarning:\33[0m could not open file at " + s) ; unknown)
+      | ~None_vt() => (bad_file(s) ; unknown)
   end
 
 // Check shebang on scripts.
@@ -1038,7 +1042,7 @@ fun check_shebang(s : string) : pl_type =
       in
         s
       end
-      | ~None_vt() => (println!("\33[33mWarning:\33[0m could not open file at " + s) ; "")
+      | ~None_vt() => (bad_file(s) ; "")
   in
     case+ str of
       | "#!/usr/bin/env ion" => ion(line_count(s, Some("#")))

@@ -51,4 +51,4 @@ poly ./project/src --table
 
 # BUG REPORTS
 
-For bug reports and updates, go to https://nest.pijul.com/vamchale/polyglot
+For bug reports and updates, go to https://github.com/vmchale/polyglot

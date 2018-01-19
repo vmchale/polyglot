@@ -2,9 +2,6 @@
 - [ ] parallel garbage collector?
 - [ ] `.poly.toml` project file
 - [ ] per-file output like `tokei`
-- [ ] run on multiple directories
-  - [ ] point at a single file
-- [ ] error if directory does not exist
 - [ ] parse directories on the command line starting with a `-` by using escapes
 - [ ] detect documentation comments
 - [ ] feature to use data from quasi-quotes (e.g. haskell)
