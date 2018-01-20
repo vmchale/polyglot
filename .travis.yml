@@ -29,6 +29,7 @@ cache:
     - $HOME/.ghc
 
 install:
+  - export PATH=/opt/ghc/bin:$PATH
   - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
   - tar xvf ATS2-Postiats-0.3.8.tgz
   - cd ATS2-Postiats-0.3.8 && ./configure && make && sudo make install
