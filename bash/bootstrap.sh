@@ -13,7 +13,7 @@ fi
 
 # check for existence of 'shake' package
 function find_shake {
-  ghc-pkg list | $grepcmd 'shake-ext-0.2.0.3'
+  ghc-pkg list | $grepcmd 'shake-ext-0.3.0.0'
 }
 
 PATH=$HOME/.cabal/bin:$PATH
