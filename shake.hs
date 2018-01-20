@@ -20,10 +20,9 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
                   ]
     "ci" ~> do
         need [ "target/test", "target/poly", "man/poly.1" ]
-        yamllint
-        hlint
+        sequence_ [ yamllint, hlint, shellcheck =<< getShell , tomlcheck ]
         shellcheck =<< getDirectoryFiles "" ["bash//*.sh"]
-        tomlcheck
+        shellcheck =<< getDirectoryFiles "" ["bash//*.sh"]
         cmd_ "target/test"
 
     "test" ~> do

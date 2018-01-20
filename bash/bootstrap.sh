@@ -13,17 +13,17 @@ fi
 
 # check for existence of 'shake' package
 function find_shake {
-  ghc-pkg list | $grepcmd 'shake-ext'
+  ghc-pkg list | $grepcmd 'shake-ext-0.2.0.3'
 }
 
 PATH=$HOME/.cabal/bin:$PATH
 
-if [ ! "$(test -x happy)" ]; then
+if [ ! "$(ls "$HOME"/.cabal/bin/happy)" ]; then
   cabal update
   cabal install happy
 fi
 
-if [ ! "$(test -x alex)" ]; then
+if [ ! "$(ls "$HOME"/.cabal/bin/happy)" ]; then
   cabal update
   cabal install alex
 fi
