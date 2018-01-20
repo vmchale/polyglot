@@ -7,8 +7,8 @@ vtypedef command_line = @{ version = bool
                          , help = bool
                          , no_table = bool
                          , no_parallel = bool
-                         , excludes = [ m : nat ] list(string, m)
-                         , includes = [ m : nat ] list(string, m)
+                         , excludes = [m:nat] list(string, m)
+                         , includes = [m:nat] list(string, m)
                          }
 
 fun version() : void =

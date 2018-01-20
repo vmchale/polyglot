@@ -20,7 +20,13 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
                   ]
     "ci" ~> do
         need [ "target/test", "target/poly", "man/poly.1" ]
-        sequence_ [ yamllint, shellcheck =<< getShell , tomlcheck, ghc ["."], hlint ["."] ]
+        sequence_ [ yamllint
+                  , shellcheck =<< getShell
+                  , tomlcheck
+                  , ghc ["."]
+                  , hlint ["."]
+                  , atsfmt =<< getAts
+                  ]
         cmd_ "target/test"
 
     "test" ~> do
