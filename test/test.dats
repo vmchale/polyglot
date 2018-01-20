@@ -15,8 +15,8 @@ vtypedef test_tree = List_vt(named)
 
 fn fail_incomplete(i : int, n : int) : void =
   {
-    val () = prerr!("Test suite complete (" + tostring_int(i) + "/" + tostring_int(n) + ")\n")
-    val () = if n != i then
+    val _ = prerr!("Test suite complete (" + tostring_int(i) + "/" + tostring_int(n) + ")\n")
+    val _ = if n != i then
       (exit(1) ; ())
     else
       ()
@@ -40,11 +40,15 @@ implement main0 () =
   {
     var e = empty_file()
     var t0_expected = happy(e)
-    var t1_expected = yacc(e)
     var b0 = test_file("Python.y", t0_expected)
-    var b1 = test_file("rust.y", t1_expected)
     var n0 = @{ fst = "happy", snd = b0 }
+    var t1_expected = yacc(e)
+    var b1 = test_file("rust.y", t1_expected)
     var n1 = @{ fst = "yacc", snd = b1 }
-    var xs = list_vt_cons(n0, list_vt_cons(n1, list_vt_nil))
-    val _ = iterate_list(xs, 0, 2)
+    var t2_expected = coq(e)
+    var b2 = test_file("Coq.v", t2_expected)
+    var n2 = @{ fst = "coq", snd = b2 }
+    var xs = list_vt_cons(n0, list_vt_cons(n1, list_vt_cons(n2, list_vt_nil)))
+    val total = list_vt_length(xs)
+    val _ = iterate_list(xs, 0, total)
   }

@@ -22,6 +22,7 @@ fn eq_pl_type(x : !pl_type, y : !pl_type) : bool =
   case- (x, y) of
     | (happy (_), happy (_)) => true
     | (yacc (_), yacc (_)) => true
+    | (coq (_), coq (_)) => true
 
 overload = with eq_pl_type
 
