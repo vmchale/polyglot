@@ -26,6 +26,7 @@ cache:
     - /usr/local/lib/ats2-postiats-0.3.8/
     - /usr/local/bin
     - $HOME/.cabal
+    - $HOME/.ghc
 
 install:
   - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
@@ -36,7 +37,7 @@ install:
 
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
 script:
-  - ./bash/setup.sh
+  - ./bash/bootstrap.sh
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then

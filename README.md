@@ -83,7 +83,7 @@ First, install [GHC](https://www.haskell.org/ghc/download.html) and
 [cabal](https://www.haskell.org/cabal/download.html).  Then run
 
 ```bash
- $ ./bash/setup.sh
+ $ ./bash/bootstrap.sh
 ```
 
 to bootstrap the build system. Next, install

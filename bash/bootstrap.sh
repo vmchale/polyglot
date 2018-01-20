@@ -16,6 +16,8 @@ function find_shake {
   ghc-pkg list | $grepcmd 'shake-ext'
 }
 
+PATH=$HOME/.cabal/bin:$PATH
+
 if [ ! "$(test -x happy)" ]; then
   cabal update
   cabal install happy
