@@ -10,7 +10,7 @@ matrix:
           sources:
             - hvr-ghc
           packages:
-            - ghc-8.2.1
+            - ghc-8.2.2
             - cabal-install-head
       language: python
 
