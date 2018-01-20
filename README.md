@@ -10,7 +10,7 @@
 
 Reasons to use polyglot:
 
-  * Fast: 266 ms to run on the entire GHC codebase
+  * Fast: 266 ms to run on a fully checked-out GHC
   * Accurate: won't confuse Coq and Verilog
   * Pretty: magenta output
 
@@ -79,17 +79,21 @@ shell completions as well.
 
 ## Building
 
-If you install [stack](http://haskellstack.org/), [pats-filter](https://github.com/Hibou57/PostiATS-Utilities),
-[pandoc](http://pandoc.org/), and [patscc](http://www.ats-lang.org/Downloads.html), you can build `poly` with
+First, install [GHC](https://www.haskell.org/ghc/download.html) and
+[cabal](https://www.haskell.org/cabal/download.html).  Then run
 
 ```bash
- $ ./shake.hs
+ $ ./bash/setup.sh
 ```
 
-or install with
+to bootstrap the build system. Next, install
+[pats-filter](https://github.com/Hibou57/PostiATS-Utilities),
+[pandoc](http://pandoc.org/), and
+[patscc](http://www.ats-lang.org/Downloads.html). You should then be able to
+build with
 
 ```bash
- $ ./shake.hs install
+ $ ./build
 ```
 
 ### Documentation

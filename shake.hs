@@ -1,14 +1,10 @@
-#!/usr/bin/env stack
--- stack runghc --resolver nightly-2017-12-01 --package shake --install-ghc
-
 {-# LANGUAGE ScopedTypeVariables #-}
 
 import           Data.Maybe        (fromMaybe)
 import           Data.Monoid
 import           Development.Shake
+import Development.Shake.Linters
 import           System.Exit       (ExitCode (..))
-
-{-# ANN module "HLint: ignore Reduce duplication" #-}
 
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
@@ -22,6 +18,13 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
                   , "target/poly-arm-linux-gnueabi"
                   , "target/poly-musl"
                   ]
+    "ci" ~> do
+        need [ "target/test", "target/poly", "man/poly.1" ]
+        yamllint
+        hlint
+        shellcheck =<< getDirectoryFiles "" ["bash//*.sh"]
+        tomlcheck
+        cmd_ "target/test"
 
     "test" ~> do
         need [ "target/test" ]
@@ -42,17 +45,8 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         let maybeStatic = if target == "musl" then "-static " else ""
         command [] "patscc" ["-atsccomp", target ++ "-gcc" ++ " " ++ maybeStatic ++ "-I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "src/polyglot.dats", "-DATS_MEMALLOC_LIBC", "-o", "target/poly-" ++ target, "-cleanaft", "-O2", "-flto", "-lpthread"]
 
-    "target/poly.c" %> \_ -> do
-        dats <- getDirectoryFiles "" ["//*.dats"]
-        sats <- getDirectoryFiles "" ["//*.sats"]
-        need $ dats <> sats
-        cmd_ ("patscc -DATS_MEMALLOC_LIBC -ccats " ++ unwords dats)
-        cmd "mv poly_dats.c" "target/poly.c"
-
     "target/test" %> \out -> do
-        dats <- getDirectoryFiles "" ["//*.dats"]
-        sats <- getDirectoryFiles "" ["//*.sats"]
-        need $ dats <> sats
+        need =<< getAts
         cmd_ ["mkdir", "-p", "target"]
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
         (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["test/test.dats", "-atsccomp", "gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/test", "-cleanaft"]
@@ -63,9 +57,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
             else pure ()
 
     "target/poly" %> \out -> do
-        dats <- getDirectoryFiles "" ["//*.dats"]
-        sats <- getDirectoryFiles "" ["//*.sats"]
-        need $ dats <> sats
+        need =<< getAts
         cmd_ ["mkdir", "-p", "target"]
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
         (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["src/polyglot.dats", "-atsccomp", "gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native", "-lpthread"]
@@ -79,8 +71,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need ["target/poly"]
         let dir = " /home/vanessa/git-builds/rust"
         (Stdout (_ :: String)) <- cmd $ "poly " ++ dir
-        cmd_ ["mkdir", "-p", "docs"]
-        cmd $ ["bench", "--output=docs/bench.html"] <> ((++dir) <$> ["target/poly", "tokei", "loc", "cloc", "linguist", "numactl --physcpubind=+1 loc -u", "target/poly -p"])
+        cmd $ ["bench"] <> ((++dir) <$> ["target/poly", "tokei", "loc", "cloc", "linguist", "numactl --physcpubind=+1 loc -u", "target/poly -p"])
 
     "install" ~> do
         need ["target/poly", "man/poly.1", "compleat/poly.usage"]

@@ -18,10 +18,10 @@ staload "libats/ML/DATS/filebas.dats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 staload "libats/libc/SATS/unistd.sats"
 
-fn eq_pl_type(x: !pl_type, y: !pl_type) : bool =
+fn eq_pl_type(x : !pl_type, y : !pl_type) : bool =
   case- (x, y) of
-    | (happy(_), happy(_)) => true
-    | (yacc(_), yacc(_)) => true
+    | (happy (_), happy (_)) => true
+    | (yacc (_), yacc (_)) => true
 
 overload = with eq_pl_type
 
@@ -63,7 +63,7 @@ overload + with add_results
 
 fn bad_file(s : string) : void =
   if s != "" then
-    prerr!("\33[33mWarning:\33[0m could not open file at " + s)
+    prerr!("\33[33mWarning:\33[0m could not open file at " + s + "\n")
   else
     ()
 
@@ -106,6 +106,7 @@ fnx left_pad { k : int | k >= 0 } .<k>. (s : string, n : int(k)) : string =
 fun maybe_table { k : int | k >= 0 && k < 20 } (s : string(k), f : file) : string =
   let
     var code = f.lines - f.comments - f.blanks
+    var pad = right_pad(s, 21)
   in
     if f.files > 0 then
       " "
@@ -448,10 +449,17 @@ fun sum_fields(sc : source_contents) : file =
     f
   end
 
+fn maybe_full(a: string, b: string, c: string) =
+  if b != "" then
+    a + b + c
+  else
+    ""
+
 // function to print tabular output at the end
 fun make_table(isc : source_contents) : string =
-  "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m            \33[35mFiles\33[0m        \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
-  + maybe_table("Alex", isc.alex)
+  let var a = "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m            \33[35mFiles\33[0m        \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
+  var b: string =
+  maybe_table("Alex", isc.alex)
   + maybe_table("Agda", isc.agda)
   + maybe_table("Assembly", isc.assembly)
   + maybe_table("ATS", isc.ats)
@@ -532,9 +540,11 @@ fun make_table(isc : source_contents) : string =
   + maybe_table("Vimscript", isc.vimscript)
   + maybe_table("Yacc", isc.yacc)
   + maybe_table("YAML", isc.yaml)
-  + "-------------------------------------------------------------------------------\n"
+  var c =
+  "-------------------------------------------------------------------------------\n"
   + maybe_table("Total", sum_fields(isc))
   + "-------------------------------------------------------------------------------\n"
+  in maybe_full(a, b, c) end
 
 // Function to print output sorted by type of language.
 fun make_output(isc : source_contents) : string =

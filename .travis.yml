@@ -5,6 +5,13 @@ matrix:
 
     - env: TARGET="x86_64-unknown-linux"
       os: linux
+      addons:
+        apt:
+          sources:
+            - hvr-ghc
+          packages:
+            - ghc-8.2.1
+            - cabal-install-head
       language: python
 
     - env: TARGET="x86_64-apple-darwin"
@@ -18,6 +25,7 @@ cache:
   directories:
     - /usr/local/lib/ats2-postiats-0.3.8/
     - /usr/local/bin
+    - $HOME/.cabal
 
 install:
   - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
@@ -28,11 +36,14 @@ install:
 
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
 script:
+  - ./bash/setup.sh
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
       pip install yamllint
       yamllint .travis.yml
+      yamllint .hlint.yml
+      yamllint .yamllint
       curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
     else

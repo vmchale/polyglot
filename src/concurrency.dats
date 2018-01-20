@@ -12,32 +12,32 @@ staload _ = "libats/DATS/deqarray.dats"
 absvtype queue_vtype(a : vt@ype+, int) = ptr
 
 vtypedef queue(a : vt0p, id : int) = queue_vtype(a, id)
-vtypedef queue(a : vt0p) = [ id : int ] queue(a, id)
+vtypedef queue(a : vt0p) = [id:int] queue(a, id)
 
 absprop ISNIL (id : int, b : bool)
 
 extern
-fun {a : vt0p} queue_is_nil {id : int} (!queue(a, id)) : [ b : bool ] (ISNIL(id, b) | bool(b))
+fun {a:vt0p} queue_is_nil {id:int} (!queue(a, id)) : [b:bool] (ISNIL(id, b) | bool(b))
 
 absprop ISFULL (id : int, b : bool)
 
 extern
-fun {a : vt0p} queue_is_full {id : int} (!queue(a, id)) : [ b : bool ] (ISFULL(id, b) | bool(b))
+fun {a:vt0p} queue_is_full {id:int} (!queue(a, id)) : [b:bool] (ISFULL(id, b) | bool(b))
 
 extern
-fun {a : vt0p} queue_insert {id : int} ( ISFULL(id,false) | xs : !queue(a, id) >> queue(a, id2)
-                                       , x : a
-                                       ) : #[ id2 : int ] void
+fun {a:vt0p} queue_insert {id:int} ( ISFULL(id,false) | xs : !queue(a, id) >> queue(a, id2)
+                                   , x : a
+                                   ) : #[id2:int] void
 
 extern
-fun {a : vt0p} queue_remove {id : int} (ISNIL(id,false) | xs : !queue(a, id) >> queue(a, id2)) :
-  #[ id2 : int ] a
+fun {a:vt0p} queue_remove {id:int} (ISNIL(id,false) | xs : !queue(a, id) >> queue(a, id2)) :
+  #[id2:int] a
 
 extern
-fun {a : vt0p} queue_make  (cap : intGt(0)) : queue(a)
+fun {a:vt0p} queue_make  (cap : intGt(0)) : queue(a)
 
 extern
-fun {a : t@ype} queue_free  (que : queue(a)) : void
+fun {a:t@ype} queue_free  (que : queue(a)) : void
 
 assume queue_vtype(a : vt0p, id : int) = deqarray(a)
 
@@ -50,16 +50,16 @@ absvtype channel_vtype(a : vt@ype+) = ptr
 vtypedef channel(a : vt0p) = channel_vtype(a)
 
 extern
-fun {a : vt0p} channel_insert  (!channel(a), a) : void
+fun {a:vt0p} channel_insert  (!channel(a), a) : void
 
 extern
-fun {a : vt0p} channel_remove  (chan : !channel(a)) : a
+fun {a:vt0p} channel_remove  (chan : !channel(a)) : a
 
 extern
-fun {a : vt0p} channel_remove_helper  (chan : !channel(a), !queue(a) >> _) : a
+fun {a:vt0p} channel_remove_helper  (chan : !channel(a), !queue(a) >> _) : a
 
 extern
-fun {a : vt0p} channel_insert_helper  (!channel(a), !queue(a) >> _, a) : void
+fun {a:vt0p} channel_insert_helper  (!channel(a), !queue(a) >> _, a) : void
 
 datavtype channel_ =
   | { l0, l1, l2, l3 : agz } CHANNEL of @{ cap = intGt(0)
@@ -72,16 +72,16 @@ datavtype channel_ =
                                          }
 
 extern
-fun {a : vt0p} channel_make  (cap : intGt(0)) : channel(a)
+fun {a:vt0p} channel_make  (cap : intGt(0)) : channel(a)
 
 extern
-fun {a : vt0p} channel_ref  (ch : !channel(a)) : channel(a)
+fun {a:vt0p} channel_ref  (ch : !channel(a)) : channel(a)
 
 extern
-fun {a : vt0p} channel_unref  (ch : channel(a)) : Option_vt(queue(a))
+fun {a:vt0p} channel_unref  (ch : channel(a)) : Option_vt(queue(a))
 
 extern
-fun channel_refcount {a : vt0p} (ch : !channel(a)) : intGt(0)
+fun channel_refcount {a:vt0p} (ch : !channel(a)) : intGt(0)
 
 assume channel_vtype(a : vt0p) = channel_
 
@@ -95,7 +95,7 @@ implement {a} queue_remove (prf | xs) =
   let
     prval () = __assert(prf) where
     { extern
-      praxi __assert {id : int} (p : ISNIL(id, false)) : [ false ] void }
+      praxi __assert {id:int} (p : ISNIL(id, false)) : [ false ] void }
   in
     deqarray_takeout_atbeg<a>(xs)
   end
@@ -104,7 +104,7 @@ implement {a} queue_insert (prf | xs, x) =
   {
     prval () = __assert(prf) where
     { extern
-      praxi __assert {id : int} (p : ISFULL(id, false)) : [ false ] void }
+      praxi __assert {id:int} (p : ISFULL(id, false)) : [ false ] void }
     val () = deqarray_insert_atend<a>(xs, x)
   }
 
@@ -166,12 +166,12 @@ implement channel_refcount {a} (chan) =
 implement {a} channel_make (cap) =
   let
     extern
-    praxi __assert() : [ l : agz ] void
+    praxi __assert() : [l:agz] void
     
-    prval [ l0 : addr ]() = __assert()
-    prval [ l1 : addr ]() = __assert()
-    prval [ l2 : addr ]() = __assert()
-    prval [ l3 : addr ]() = __assert()
+    prval [l0:addr]() = __assert()
+    prval [l1:addr]() = __assert()
+    prval [l2:addr]() = __assert()
+    prval [l3:addr]() = __assert()
     val chan = CHANNEL{l0,l1,l2,l3}(_)
     val+ CHANNEL (ch) = chan
     val () = ch.cap := cap

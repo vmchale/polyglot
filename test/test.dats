@@ -8,6 +8,14 @@ fn test_file(s : string, expected : pl_type) : void =
     val _ = free_pl(t0_actual)
   }
 
+vtypedef named = @{ fst = string, snd = string }
+vtypedef test_tree = List_vt(named)
+
+fnx iterate_list(t : test_tree) : void =
+  case+ t of
+    | ~list_vt_nil() => ()
+    | ~list_vt_cons (x, xs) => (println!(x.snd) ; prerr!(x.fst) ; iterate_list(xs))
+
 implement main0 () =
   {
     var f0 = empty_file()

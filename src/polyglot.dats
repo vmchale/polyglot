@@ -117,11 +117,17 @@ fn handle_unref(x : channel(string)) : void =
 fun tiny_loop(xs : List0(string), exludes : List0(string)) : (source_contents, List0(string)) =
   (empty_contents(), xs)
 
+fun handle(x : Option_vt(List0(string))) : (source_contents, List0(string)) =
+  case- x of
+    | ~None_vt() => (empty_contents(), list_nil)
+
 fun worker( excludes : List0(string)
-          , send : channel(List0(string))
+          , send : channel(Option_vt(List0(string)))
           , chan : channel(source_contents)
           ) : void =
   {
+    val- (xs) = channel_remove(send)
+    val (sc, ls) = handle(xs)
     val () = handle_unref(send)
     val () = handle_unref(chan)
   }
@@ -150,7 +156,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
       list_cons(".", list_nil())
     val (fst, snd, thd, fth) = apportion(new_includes, excludes)
     
-    fun loop {i : nat} .<i>. (i : int(i), chan : !channel(source_contents)) : void =
+    fun loop {i:nat} .<i>. (i : int(i), chan : !channel(source_contents)) : void =
       {
         val chan_ = channel_ref(chan)
         val send = channel_make<List0(string)>(1)
