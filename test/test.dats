@@ -48,7 +48,10 @@ implement main0 () =
     var t2_expected = coq(e)
     var b2 = test_file("Coq.v", t2_expected)
     var n2 = @{ fst = "coq", snd = b2 }
-    var xs = list_vt_cons(n0, list_vt_cons(n1, list_vt_cons(n2, list_vt_nil)))
+    var t3_expected = verilog(e)
+    var b3 = test_file("verilog.v", t3_expected)
+    var n3 = @{ fst = "verilog", snd = b3 }
+    var xs = list_vt_cons(n0, list_vt_cons(n1, list_vt_cons(n2, list_vt_cons(n3, list_vt_nil))))
     val total = list_vt_length(xs)
     val _ = iterate_list(xs, 0, total)
   }
