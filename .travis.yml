@@ -23,6 +23,7 @@ matrix:
 
 cache:
   directories:
+    - /opt/ghc
     - /usr/local/lib/ats2-postiats-0.3.8/
     - /usr/local/bin
     - $HOME/.cabal
