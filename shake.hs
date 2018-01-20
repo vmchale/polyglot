@@ -9,7 +9,7 @@ import           System.Exit       (ExitCode (..))
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     want [ "target/poly"
-         , "man/poly.1"
+         -- , "man/poly.1"
          ]
 
     "all" ~> need [ "target/poly"

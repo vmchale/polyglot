@@ -4,13 +4,14 @@
 set -e
 set pipefail
 
-# check for existence of 'shake' package
+# set our searcher
 if [ -x rg ]; then
   grepcmd="rg"
 else
   grepcmd="grep"
 fi
 
+# check for existence of 'shake' package
 function find_shake {
   ghc-pkg list | $grepcmd 'shake-ext'
 }
