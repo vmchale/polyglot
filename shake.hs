@@ -1,15 +1,15 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
-import           Data.Maybe        (fromMaybe)
+import           Data.Maybe                (fromMaybe)
 import           Data.Monoid
 import           Development.Shake
-import Development.Shake.Linters
-import           System.Exit       (ExitCode (..))
+import           Development.Shake.Linters
+import           System.Exit               (ExitCode (..))
 
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     want [ "target/poly"
-         -- , "man/poly.1"
+         , "man/poly.1"
          ]
 
     "all" ~> need [ "target/poly"
@@ -38,7 +38,9 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         need ["shake.hs"]
         cmd_ ["mkdir", "-p", ".shake"]
         command_ [Cwd ".shake"] "cp" ["../shake.hs", "."]
-        command [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "../build", "-Wall", "-Werror", "-Wincomplete-uni-patterns", "-Wincomplete-record-updates"]
+        r <- command [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "../build", "-Wall", "-Werror", "-Wincomplete-uni-patterns", "-Wincomplete-record-updates"]
+        cmd_ [Cwd ".shake"] "rm" ["shake.hs"]
+        pure r
 
     "target/poly-*" %> \out -> do
         let target = drop 1 . dropWhile (/='-') $ out

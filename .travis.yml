@@ -49,9 +49,8 @@ script:
     else
       echo "skipping..."
     fi
-  - export COMMAND="gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/"
-  - patscc -atsccomp "$COMMAND" test/test.dats -DATS_MEMALLOC_LIBC -o testsuite -cleanaft
   - ./testsuite
+  - export COMMAND="gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/"
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then

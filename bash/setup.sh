@@ -16,7 +16,7 @@ function find_shake {
   ghc-pkg list | $grepcmd 'shake-ext'
 }
 
-if [ ! $(find_shake) ]; then
+if [ ! "$(find_shake)" ]; then
   cabal update
   cabal install shake-ext
 fi
@@ -25,3 +25,4 @@ mkdir -p .shake
 cd .shake
 cp ../shake.hs .
 ghc-8.2.2 -O shake.hs -o ../build -Wall -Werror -Wincomplete-uni-patterns -Wincomplete-record-updates
+rm shake.hs
