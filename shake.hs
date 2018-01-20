@@ -26,6 +26,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
                   , ghc ["."]
                   , hlint ["."]
                   , atsfmt =<< getAts
+                  , stylishHaskell =<< getHs ["."]
                   ]
         cmd_ "target/test"
 
