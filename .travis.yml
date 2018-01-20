@@ -48,7 +48,7 @@ script:
       yamllint .yamllint
       curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-    ./build test
+      ./build test
     else
       echo "skipping..."
     fi
