@@ -6,9 +6,9 @@ set pipefail
 
 # set our searcher
 if [ -x rg ]; then
-  grepcmd="rg"
-else
   grepcmd="grep"
+else
+  grepcmd="rg"
 fi
 
 # check for existence of 'shake' package
