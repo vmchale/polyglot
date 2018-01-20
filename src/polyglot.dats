@@ -140,10 +140,8 @@ fun work( excludes : List0(string)
     val- (n) = channel_remove(send)
     var x = map_stream(empty_contents(), n, excludes)
     val () = channel_insert(chan, x)
-    val- ~None_vt() = channel_unref(chan)
-    val- () = case channel_unref<List0(string)>(send) of
-      | ~None_vt() => ()
-      | ~Some_vt (snd) => queue_free<List0(string)>(snd)
+    val _ = handle_unref(chan)
+    val _ = handle_unref(send)
   }
 
 // ideally we want one "large" channel that will handle back-and-forth communication between threads.
