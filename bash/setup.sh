@@ -16,6 +16,16 @@ function find_shake {
   ghc-pkg list | $grepcmd 'shake-ext'
 }
 
+if [ ! "$(test -x happy)" ]; then
+  cabal update
+  cabal install happy
+fi
+
+if [ ! "$(test -x alex)" ]; then
+  cabal update
+  cabal install alex
+fi
+
 if [ ! "$(find_shake)" ]; then
   cabal update
   cabal install shake-ext
