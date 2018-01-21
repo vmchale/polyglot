@@ -2,8 +2,8 @@
 
 I emphatically welcome bug reports, issues you may encounter, documentation, and
 pull requests. Feature requests will likely be implemented if and only they are
-relatively small; feel free to request support for a particular language, no
-matter how niche.
+relatively small; however, feel free to request support for a particular
+language, no matter how niche.
 
 ## Getting started
 
@@ -35,3 +35,12 @@ regardless of sex worker status or previous sex worker status.
 
 In addition, please be aware that not everyone speaks English as a first
 language.
+
+## Building
+
+In order to build, you will first need to install the tooling mentioned in the
+`README.md`. Make sure your code passes
+
+```bash
+ $ atspkg test
+```
