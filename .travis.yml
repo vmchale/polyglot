@@ -45,6 +45,7 @@ script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
+      cabal update
       cabal install ats-pkg
       pip install yamllint
       yamllint .travis.yml
