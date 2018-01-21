@@ -1,6 +1,3 @@
-bench:
-    bench "poly ~/git-builds/ghc" "loc -u ~/git-builds/ghc" "tokei ~/git-builds/ghc"
-
 release:
     git tag "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     git push origin --tags
