@@ -30,7 +30,6 @@ cache:
     - $HOME/.ghc
 
 install:
-  - export PATH=$HOME/.cabal/bin:$PATH
   - export PATH=/opt/ghc/bin:$PATH
   - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
   - tar xvf ATS2-Postiats-0.3.8.tgz
@@ -42,6 +41,7 @@ install:
 # nix-env -i python3.6-pip-9.0.1
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
 script:
+  - export PATH=$HOME/.cabal/bin:$PATH
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
