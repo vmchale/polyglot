@@ -65,6 +65,8 @@ Thus, `poly` will not confuse Happy for Yacc (for instance).
 
 ## Installation
 
+### From a Script
+
 The easiest way to install is to use the installation script, like so:
 
 ```bash
@@ -77,17 +79,17 @@ You may need to add `$HOME/.local/bin` to your `PATH` and
 You can optionally install [compleat](https://github.com/mbrubeck/compleat) for
 shell completions as well.
 
-## Building
+## From Source
 
 First, install [GHC](https://www.haskell.org/ghc/download.html),
 [cabal](https://www.haskell.org/cabal/download.html), and
 [pandoc](http://pandoc.org/).
 
 You can then install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
-and run with
+with
 
 ```bash
- $ atspkg
+ $ atspkg install
 ```
 
 ### Documentation

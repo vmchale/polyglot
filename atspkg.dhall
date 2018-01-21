@@ -10,7 +10,7 @@ let pkg : { bin : List { src : Text, target : Text, libs : List Text }, test : L
       [
         { src = "test/test.dats"
         , target = "target/test"
-        , libs = [ "gc" ]
+        , libs = ([] : List Text)
         }
       ]
     , man = ([ "man/poly.md" ] : Optional Text)
