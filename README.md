@@ -79,21 +79,15 @@ shell completions as well.
 
 ## Building
 
-First, install [GHC](https://www.haskell.org/ghc/download.html) and
-[cabal](https://www.haskell.org/cabal/download.html).  Then run
+First, install [GHC](https://www.haskell.org/ghc/download.html),
+[cabal](https://www.haskell.org/cabal/download.html), and
+[pandoc](http://pandoc.org/).
+
+You can then install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
+and run with
 
 ```bash
- $ ./bash/bootstrap.sh
-```
-
-to bootstrap the build system. Next, install
-[pats-filter](https://github.com/Hibou57/PostiATS-Utilities),
-[pandoc](http://pandoc.org/), and
-[patscc](http://www.ats-lang.org/Downloads.html). You should then be able to
-build with
-
-```bash
- $ ./build
+ $ atspkg
 ```
 
 ### Documentation

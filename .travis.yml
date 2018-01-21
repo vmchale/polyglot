@@ -42,14 +42,14 @@ script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
-      ./bash/bootstrap.sh
+      cabal install ats-pkg
       pip install yamllint
       yamllint .travis.yml
       yamllint .hlint.yml
       yamllint .yamllint
       curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-      ./build test
+      atspkg test
     else
       echo "skipping..."
     fi

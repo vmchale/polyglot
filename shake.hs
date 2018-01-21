@@ -2,8 +2,12 @@
 
 import           Data.Maybe                (fromMaybe)
 import           Data.Monoid
+import qualified Data.Text.Lazy            as TL
 import           Development.Shake
+-- import           Development.Shake.ATS
 import           Development.Shake.Linters
+import           Dhall
+import           Language.ATS.Package.Type
 -- import           System.Exit               (ExitCode (..))
 
 main :: IO ()
@@ -25,6 +29,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
                   , tomlcheck
                   , ghc ["."]
                   , hlint ["."]
+                  , dhall
                   , atsfmt =<< getAts
                   , stylishHaskell =<< getHs ["."]
                   ]
@@ -47,25 +52,11 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         pure r
 
     "target/poly-*" %> \out -> do
-        let target = drop 1 . dropWhile (/='-') $ out
-        let maybeStatic = if target == "musl" then "-static " else ""
-        command [] "patscc" ["-atsccomp", target ++ "-gcc" ++ " " ++ maybeStatic ++ "-I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "src/polyglot.dats", "-DATS_MEMALLOC_LIBC", "-o", "target/poly-" ++ target, "-cleanaft", "-O2", "-flto", "-lpthread"]
+        let t = drop 1 . dropWhile (/='-') $ out
+        let maybeStatic = if t == "musl" then "-static " else ""
+        command [] "patscc" ["-atsccomp", t ++ "-gcc" ++ " " ++ maybeStatic ++ "-I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "src/polyglot.dats", "-DATS_MEMALLOC_LIBC", "-o", "target/poly-" ++ t, "-cleanaft", "-O2", "-flto", "-lpthread"]
 
-    "target/test" %> \out -> do
-        need =<< getAts
-        cmd_ ["mkdir", "-p", "target"]
-        let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        command_ [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["test/test.dats", "-atsccomp", "gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/test", "-cleanaft"]
-        -- cmd_ [Stdin err] Shell "pats-filter"
-        cmd ["strip", out]
-
-    "target/poly" %> \out -> do
-        need =<< getAts
-        cmd_ ["mkdir", "-p", "target"]
-        let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        command_ [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["src/polyglot.dats", "-atsccomp", "gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/", "-DATS_MEMALLOC_LIBC", "-o", "target/poly", "-cleanaft", "-O2", "-mtune=native", "-lpthread"]
-        -- cmd_ [Stdin err] Shell "pats-filter"
-        cmd ["strip", out]
+    pkgToAction =<< liftIO (input auto (TL.pack "./atspkg.dhall"))
 
     "bench" ~> do
         need ["target/poly"]
