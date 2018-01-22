@@ -12,7 +12,7 @@ let pkg : { bin : List { src : Text, target : Text, libs : List Text, gc : Bool 
         { src = "test/test.dats"
         , target = "target/test"
         , libs = [ "gc" ]
-        , gc = True
+        , gc = False
         }
       ]
     , man = ([ "man/poly.md" ] : Optional Text)
