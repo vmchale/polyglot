@@ -89,6 +89,12 @@ You can then install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
 with
 
 ```bash
+ $ cabal new-install ats-pkg --symlink-bindir ~/.local/bin
+```
+
+And install `poly` with
+
+```bash
  $ atspkg install
 ```
 
