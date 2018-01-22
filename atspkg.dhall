@@ -1,16 +1,18 @@
-let pkg : { bin : List { src : Text, target : Text, libs : List Text }, test : List { src : Text, target : Text, libs : List Text }, man : Optional Text }
+let pkg : { bin : List { src : Text, target : Text, libs : List Text, gc : Bool }, test : List { src : Text, target : Text, libs : List Text, gc : Bool }, man : Optional Text }
   = { bin = 
       [
         { src = "src/polyglot.dats"
         , target = "target/poly" 
         , libs = [ "pthread" ]
+        , gc = False
         }
       ]
     , test =
       [
         { src = "test/test.dats"
         , target = "target/test"
-        , libs = ([] : List Text)
+        , libs = [ "gc" ]
+        , gc = True
         }
       ]
     , man = ([ "man/poly.md" ] : Optional Text)
