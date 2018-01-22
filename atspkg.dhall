@@ -11,7 +11,7 @@ let pkg : { bin : List { src : Text, target : Text, libs : List Text, gc : Bool 
       [
         { src = "test/test.dats"
         , target = "target/test"
-        , libs = [ "gc" ]
+        , libs = ([] : List Text)
         , gc = False
         }
       ]
