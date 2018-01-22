@@ -1,3 +1,4 @@
+.atspkg
 build
 *.c
 target
