@@ -1,4 +1,3 @@
-#include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "prelude/DATS/filebas.dats"
 #include "libats/ML/DATS/filebas_dirent.dats"

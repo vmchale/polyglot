@@ -1,5 +1,4 @@
 // This is mostly taken from the example in the book.
-#include "share/atspre_staload.hats"
 #include "share/atspre_staload_libats_ML.hats"
 #include "libats/DATS/athread_posix.dats"
 
