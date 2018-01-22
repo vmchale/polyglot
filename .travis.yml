@@ -47,6 +47,7 @@ script:
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
       cabal update
+      rm ~/.local/bin/atspkg
       cabal new-install ats-pkg --symlink-bindir ~/.local/bin
       pip install yamllint
       yamllint .travis.yml
