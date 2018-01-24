@@ -3,7 +3,7 @@
 staload "libats/ML/SATS/string.sats"
 staload "libats/ML/DATS/string.dats"
 
-// Type for the parsed command-line arguments. 
+// Type for the parsed command-line arguments.
 vtypedef command_line = @{ version = bool
                          , help = bool
                          , no_table = bool
@@ -13,7 +13,7 @@ vtypedef command_line = @{ version = bool
                          }
 
 fun version() : void =
-  println!("polygot version 0.3.31\nCopyright (c) 2018 Vanessa McHale")
+  println!("polygot version 0.3.32\nCopyright (c) 2018 Vanessa McHale")
 
 fun help() : void =
   print("polyglot - Count lines of code quickly.
@@ -38,7 +38,7 @@ fn bad_exclude(s : string) : void =
 
 fun process_short { s : int | s > 0 } (s : string(s), acc : command_line) : command_line =
   let
-    val str = string_make_substring(s, i2sz(0), i2sz(1))
+    var str = string_make_substring(s, i2sz(0), i2sz(1))
     var acc_r = ref<command_line>(acc)
     val () = case+ str of
       | "h" => acc_r->help := true
