@@ -21,6 +21,7 @@ cache:
 
 install:
   - export PATH=$HOME/.local/bin:$PATH
+  - echo "nothing"
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
 
 
