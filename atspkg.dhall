@@ -19,4 +19,5 @@ in pkg //
     ]
   , man = ([ "man/poly.md" ] : Optional Text)
   , compiler = [0,3,8]
+  , dependencies = [ https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/atscntrb-concurrency-0.1.0.dhall ]
   }

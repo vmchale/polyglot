@@ -1,5 +1,5 @@
 #include "src/shared.dats"
-#include "src/concurrency.dats"
+#include ".atspkg/contrib/ats-concurrency-0.1.0/channel.dats"
 
 staload "libats/SATS/athread.sats"
 staload "libats/DATS/athread.dats"
