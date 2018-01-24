@@ -28,7 +28,9 @@ install:
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
 script:
   - atspkg test
-  - atspkg target/poly-$TARGET
+  - atspkg target/poly
+  - mv target/poly target/poly-$TARGET
+  - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
       pip install yamllint
