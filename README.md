@@ -95,7 +95,7 @@ with
 And install `poly` with
 
 ```bash
- $ atspkg remote https://github.com/vmchale/polyglot/archive/0.3.30.tar.gz
+ $ atspkg remote https://github.com/vmchale/polyglot/archive/0.3.31.tar.gz
 ```
 
 ### Documentation
