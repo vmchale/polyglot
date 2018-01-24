@@ -3,7 +3,6 @@
 #include "libats/DATS/athread_posix.dats"
 
 staload "libats/SATS/athread.sats"
-staload "src/filetype.sats"
 staload "libats/SATS/funarray.sats"
 staload "libats/SATS/deqarray.sats"
 staload _ = "libats/DATS/deqarray.dats"
