@@ -1,5 +1,6 @@
 #include "share/atspre_staload.hats"
 
+staload "libats/ML/SATS/string.sats"
 staload "libats/ML/DATS/string.dats"
 
 // Type for the parsed command-line arguments. 

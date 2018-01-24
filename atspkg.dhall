@@ -16,7 +16,7 @@ let pkg
         }
       ]
     , man = ([ "man/poly.md" ] : Optional Text)
-    , version = [0,3,8]
+    , version = [0,3,9]
     }
 
 in pkg
