@@ -1,10 +1,10 @@
 let pkg = https://raw.githubusercontent.com/vmchale/atspkg/master/atspkg.dhall
 
 in pkg //
-  { bin = 
+  { bin =
     [
       { src = "src/polyglot.dats"
-      , target = "target/poly" 
+      , target = "target/poly"
       , libs = [ "pthread" ]
       , gc = False
       }
