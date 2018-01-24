@@ -8,6 +8,11 @@ in pkg //
       , libs = [ "pthread" ]
       , gc = False
       }
+    , { src = "src/compat.dats"
+      , target = "target/poly-gc"
+      , libs = [ "gc" ]
+      , gc = True
+      }
     ]
   , test =
     [
