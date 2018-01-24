@@ -28,6 +28,7 @@ cache:
     - /usr/local/bin
     - $HOME/.cabal
     - $HOME/.ghc
+    - $HOME/.local/bin
 
 install:
   - export PATH=/opt/ghc/bin:$PATH
