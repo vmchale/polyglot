@@ -29,8 +29,6 @@ install:
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
 script:
   - atspkg test
-  - atspkg build target/poly
-  - mv target/poly target/poly-$TARGET
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
@@ -39,8 +37,11 @@ script:
       yamllint .hlint.yml
       yamllint .yamllint
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
+      atspkg build target/poly
+      mv target/poly target/poly-$TARGET
     else
-      echo "skipping..."
+      atspkg build target/poly-compat
+      mv target/poly-compat target/poly-$TARGET
     fi
 
 deploy:

@@ -81,21 +81,17 @@ shell completions as well.
 
 ## From Source
 
-First, install [GHC](https://www.haskell.org/ghc/download.html),
-[cabal](https://www.haskell.org/cabal/download.html), and
-[pandoc](http://pandoc.org/).
-
-You can then install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
+You can install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
 with
 
 ```bash
- $ cabal new-install ats-pkg --symlink-bindir ~/.local/bin
+ $ curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
 ```
 
 And install `poly` with
 
 ```bash
- $ atspkg remote https://github.com/vmchale/polyglot/archive/0.3.31.tar.gz
+ $ atspkg remote https://github.com/vmchale/polyglot/archive/0.3.32.tar.gz
 ```
 
 ### Documentation
