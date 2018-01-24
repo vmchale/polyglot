@@ -8,12 +8,6 @@ in pkg //
       , libs = [ "pthread" ]
       , gc = False
       }
-    ,
-      { src = "src/compat.dats"
-      , target = "target/poly-compat"
-      , libs = ([] : List Text)
-      , gc = False
-      }
     ]
   , test =
     [
