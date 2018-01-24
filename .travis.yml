@@ -38,10 +38,10 @@ script:
       yamllint .yamllint
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
       atspkg build target/poly
-      mv target/poly target/poly-$TARGET
+      mv target/poly poly-$TARGET
     else
       atspkg build target/poly-compat
-      mv target/poly-compat target/poly-$TARGET
+      mv target/poly-compat poly-$TARGET
     fi
 
 deploy:
