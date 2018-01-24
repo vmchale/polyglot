@@ -64,7 +64,7 @@ script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
-      atspkg target/poly
+      atspkg build target/poly
     else
       patscc -atsccomp "$COMMAND" src/compat.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto
     fi
