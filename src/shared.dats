@@ -1237,6 +1237,7 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | ".hg" => true
     | ".git" => true
     | "target" => true
+    | ".atspkg" => true
     | ".egg-info" => true
     | "nimcache" => true
     | ".shake" => true
