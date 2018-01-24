@@ -5,13 +5,6 @@ matrix:
 
     - env: TARGET="x86_64-unknown-linux"
       os: linux
-      addons:
-        apt:
-          sources:
-            - hvr-ghc
-          packages:
-            - ghc-8.2.2
-            - cabal-install-head
       language: python
 
     - env: TARGET="x86_64-apple-darwin"
@@ -23,50 +16,28 @@ matrix:
 
 cache:
   directories:
-    - /opt/ghc
-    - /usr/local/lib/ats2-postiats-0.3.8/
-    - /usr/local/bin
-    - $HOME/.cabal
-    - $HOME/.ghc
+    - $HOME/.atspkg
     - $HOME/.local/bin
 
 install:
-  - export PATH=/opt/ghc/bin:$PATH
-  - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
-  - tar xvf ATS2-Postiats-0.3.8.tgz
-  - cd ATS2-Postiats-0.3.8 && ./configure && make && sudo make install
-  - cd ../
-  - rm -rf ATS2-Postiats-0.3.8
+  - export PATH=$HOME/.local/bin:$PATH
+  - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
 
 
 # nix-env -i python3.6-pip-9.0.1
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
 script:
-  - export PATH=$HOME/.local/bin:$PATH
-  - mkdir -p $HOME/.local/bin
-  - |
+  - atspkg test
+  - atspkg target/poly-$TARGET
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
-      cabal update
-      rm ~/.local/bin/atspkg
-      cabal new-install ats-pkg --symlink-bindir ~/.local/bin
       pip install yamllint
       yamllint .travis.yml
       yamllint .hlint.yml
       yamllint .yamllint
-      curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-      atspkg test
     else
       echo "skipping..."
-    fi
-  - export COMMAND="gcc -flto -I/usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/ -I/usr/local/lib/ats2-postiats-0.3.8/"
-  - |
-    if [ $TARGET = "x86_64-unknown-linux" ]
-    then
-      atspkg build target/poly
-    else
-      patscc -atsccomp "$COMMAND" src/compat.dats -DATS_MEMALLOC_LIBC -o poly-$TARGET -cleanaft -O2 -flto
     fi
 
 deploy:
