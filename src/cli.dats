@@ -62,6 +62,9 @@ fun process_short { s : int | s > 0 } (s : string(s), acc : command_line) : comm
 
 fun process(s : string, acc : command_line, is_first : bool) : command_line =
   let
+    fn witness(s : string) : [ s : nat | s > 0 ] string(s) =
+      $UN.cast(s)
+    
     var acc_r = ref<command_line>(acc)
     val () = if is_flag(s) then
       case+ s of
@@ -81,7 +84,15 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-V" => acc_r->version := true
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
-        | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
+        | _ => let
+          val new_acc = process_short(witness(s), acc)
+          val _ = acc_r->help := new_acc.help
+          val _ = acc_r->no_parallel := new_acc.no_parallel
+          val _ = acc_r->version := new_acc.version
+          val _ = acc_r->no_table := new_acc.no_table
+        in
+          ()
+        end
     else
       if not(is_first) then
         acc_r->includes := list_cons(s, acc.includes)
