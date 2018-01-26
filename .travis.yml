@@ -40,8 +40,8 @@ script:
       atspkg build target/poly
       mv target/poly poly-$TARGET
     else
-      atspkg build target/poly-compat
-      mv target/poly-compat poly-$TARGET
+      travis_wait 30 atspkg build target/poly
+      mv target/poly poly-$TARGET
     fi
 
 deploy:
