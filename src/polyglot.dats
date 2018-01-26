@@ -1,3 +1,12 @@
+%{^
+#include <pthread.h>
+#ifdef ATS_MEMALLOC_GCBDW
+#undef GC_H
+#define GC_THREADS
+#include <gc/gc.h>
+#endif
+%}
+
 #include "src/shared.dats"
 #include ".atspkg/contrib/ats-concurrency-0.1.0/channel.dats"
 

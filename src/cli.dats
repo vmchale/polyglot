@@ -113,6 +113,7 @@ fun process_excludes(s : string, acc : command_line) : command_line =
     !acc_r
   end
 
+// TODO minor problem in how exclusions are handled with short flags
 fnx get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n-m>. ( argc : int(n)
                                                             , argv : !argv(n)
                                                             , current : int(m)

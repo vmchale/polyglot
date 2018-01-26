@@ -1,5 +1,4 @@
 # Features
-- [ ] parallel garbage collector?
 - [ ] `.poly.toml` project file
 - [ ] per-file output like `tokei`
 - [ ] parse directories on the command line starting with a `-` by using escapes
