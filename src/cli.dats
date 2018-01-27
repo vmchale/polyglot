@@ -106,7 +106,10 @@ fun process_excludes(s : string, acc : command_line) : command_line =
   let
     var acc_r = ref<command_line>(acc)
     val () = if is_flag(s) then
-      (println!("Error: flag " + s + " found where a directory name was expected") ; exit(0) ; ())
+      ( println!("\33[31mError:\33[0m flag " + s + " found where a directory name was expected")
+      ; exit(0)
+      ; ()
+      )
     else
       acc_r->excludes := list_cons(s, acc.excludes)
   in
