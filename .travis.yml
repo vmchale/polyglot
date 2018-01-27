@@ -24,7 +24,6 @@ install:
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
   - atspkg -v
 
-
 # nix-env -i python3.6-pip-9.0.1
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
 script:
@@ -40,7 +39,7 @@ script:
       atspkg build target/poly
       mv target/poly poly-$TARGET
     else
-      travis_wait 30 atspkg build target/poly
+      travis_wait 40 atspkg build target/poly
       mv target/poly poly-$TARGET
     fi
 
