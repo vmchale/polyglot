@@ -24,7 +24,6 @@
   - [ ] or alternately a macro
 ## Heuristics
 ### Heuristics for determining file type:
-- [ ] parser (happy)
 - [ ] parent directory (`.cargo/config`)
 - [ ] modeline
 - [ ] `.gitattributes`

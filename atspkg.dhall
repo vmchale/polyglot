@@ -5,7 +5,7 @@ in pkg //
     [
       { src = "src/compat.dats"
       , target = "target/poly"
-      , libs = [ "gc" ]
+      , libs = ([] : List Text)
       , gc = True
       }
     ]
@@ -13,14 +13,13 @@ in pkg //
     [
       { src = "test/test.dats"
       , target = "target/test"
-      , libs = [ "gc" ]
+      , libs = ([] : List Text)
       , gc = True
       }
     ]
   , man = ([ "man/poly.md" ] : Optional Text)
   , compiler = [0,3,8]
+  , version = [0,3,9]
   , dependencies = [ https://raw.githubusercontent.com/vmchale/ats-concurrency/master/atspkg.dhall ]
-  , clib = [ https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/libc-atomic-ops.dhall
-           , https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/libc-gc.dhall ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }

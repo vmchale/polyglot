@@ -39,7 +39,7 @@ script:
       atspkg build target/poly
       mv target/poly poly-$TARGET
     else
-      travis_wait 40 atspkg build target/poly
+      travis_wait 45 atspkg build target/poly
       mv target/poly poly-$TARGET
     fi
 
