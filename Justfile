@@ -1,3 +1,6 @@
+ci:
+    ac .poly.dhall | dhall
+
 bench:
     bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust"
 
