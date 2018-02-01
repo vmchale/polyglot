@@ -35,10 +35,10 @@ script:
       yamllint .hlint.yml
       yamllint .yamllint
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-      atspkg build target/poly
+      atspkg build
       mv target/poly poly-$TARGET
     else
-      travis_wait 45 atspkg build target/poly
+      travis_wait 45 atspkg build
       mv target/poly poly-$TARGET
     fi
 
