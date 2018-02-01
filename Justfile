@@ -1,5 +1,12 @@
+install:
+    @atspkg install
+
 ci:
     ac .poly.dhall | dhall
+    tomlcheck --file .atsfmt.toml
+    yamllint .travis.yml
+    yamllint .yamllint
+    atspkg test
 
 bench:
     bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust"
