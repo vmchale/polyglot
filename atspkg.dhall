@@ -8,14 +8,14 @@ in pkg //
       dbin //
       { src = "src/compat.dats"
       , target = "target/poly"
-      , gc = True
+      , gcBin = True
       }
     ]
   , test =
     [ dbin //
       { src = "test/test.dats"
       , target = "target/test"
-      , gc = True
+      , gcBin = True
       }
     ]
   , man = ([ "man/poly.md" ] : Optional Text)
