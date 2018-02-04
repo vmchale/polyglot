@@ -15,6 +15,7 @@
   - [ ] `mfree_gc_v` to free allocated memory
   - [ ] `gfree_val`
 - [ ] Use `ats-linecount` or some approach like it?
+  - [ ] Step 1: Figure out how comments would work in that context
 # Bugs
 - [ ] doesn't disambiguate objective C/C headers
 - [ ] can't run on files when in parallel
