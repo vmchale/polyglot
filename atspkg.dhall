@@ -22,7 +22,6 @@ in pkg //
   , compiler = [0,3,8]
   , version = [0,3,9]
   , dependencies = [ https://raw.githubusercontent.com/vmchale/ats-concurrency/master/atspkg.dhall
-                   , https://raw.githubusercontent.com/vmchale/ats-linecount/master/pkg.dhall
                    ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }

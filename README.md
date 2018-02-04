@@ -23,6 +23,8 @@ Reasons not to use polyglot:
 
 ### Benchmarks
 
+<!-- TODO: using the faster file count method gets us down to near-parity with loc -->
+
 On the Rust repo:
 
 <table>
