@@ -1,5 +1,4 @@
 #include "share/HATS/atslib_staload_libats_libc.hats"
-#include "prelude/DATS/filebas.dats"
 #include "libats/ML/DATS/filebas_dirent.dats"
 #include "libats/libc/DATS/dirent.dats"
 #include "src/cli.dats"
@@ -104,7 +103,7 @@ fnx left_pad { k : int | k >= 0 } .<k>. (s : string, n : int(k)) : string =
     | _ => s
 
 // helper function for make_table
-fun maybe_table { k : int | k >= 0 && k < 20 } (s : string(k), f : file) : string =
+fun maybe_table { k : int | k >= 0 && k < 20 }(s : string(k), f : file) : string =
   let
     var code = f.lines - f.comments - f.blanks
     var pad = right_pad(s, 21)
@@ -459,7 +458,7 @@ fn maybe_full(a : string, b : string, c : string) : string =
 // function to print tabular output at the end
 fun make_table(isc : source_contents) : string =
   let
-    var a = "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m            \33[35mFiles\33[0m        \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
+    var a = "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m             \33[35mFiles\33[0m       \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
     var b: string = maybe_table("Alex", isc.alex)
     + maybe_table("Agda", isc.agda)
     + maybe_table("Assembly", isc.assembly)
@@ -931,7 +930,7 @@ fun free_pl(pl : pl_type) : void =
     | ~carp _ => ()
     | ~shen _ => ()
 
-fun match_keywords { m : nat | m <= 10 } (keys : list(string, m), word : string) : bool =
+fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
                                                                                 , word
                                                                                 ), false)

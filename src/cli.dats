@@ -34,9 +34,11 @@ fun is_flag(s : string) : bool =
   string_is_prefix("-", s)
 
 fn bad_exclude(s : string) : void =
-  (println!("\33[31mError:\33[0m flag " + s + " must be followed by an argument"); exit(0); ())
+  (println!("\33[31mError:\33[0m flag "
+  + s
+  + " must be followed by an argument and must occur alone") ; exit(0) ; ())
 
-fun process_short { s : int | s > 0 } (s : string(s), acc : command_line) : command_line =
+fun process_short { s : int | s > 0 }(s : string(s), acc : command_line) : command_line =
   let
     var str = string_make_substring(s, i2sz(0), i2sz(1))
     var acc_r = ref<command_line>(acc)

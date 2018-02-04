@@ -14,6 +14,7 @@
   - [ ] `ptr_alloc<t@ype>()` to allocate appropriately sized pointer
   - [ ] `mfree_gc_v` to free allocated memory
   - [ ] `gfree_val`
+- [ ] Use `ats-linecount` or some approach like it?
 # Bugs
 - [ ] doesn't disambiguate objective C/C headers
 - [ ] can't run on files when in parallel
