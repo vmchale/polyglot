@@ -6,9 +6,9 @@ in pkg //
   { bin =
     [
       dbin //
-      { src = "src/compat.dats"
+      { src = "src/polyglot.dats"
       , target = "target/poly"
-      , gcBin = True
+      , libs = [ "pthread" ]
       }
     ]
   , test =
@@ -20,8 +20,6 @@ in pkg //
     ]
   , man = ([ "man/poly.md" ] : Optional Text)
   , compiler = [0,3,8]
-  , version = [0,3,9]
-  , dependencies = [ https://raw.githubusercontent.com/vmchale/ats-concurrency/master/atspkg.dhall
-                   ]
+  , dependencies = [ https://raw.githubusercontent.com/vmchale/ats-concurrency/master/atspkg.dhall ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }

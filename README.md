@@ -10,7 +10,7 @@
 
 Reasons to use polyglot:
 
-  * Fast: 266 ms to run on a fully checked-out GHC
+  * Fast: 163 ms to run on a fully checked-out GHC
   * Accurate: won't confuse Coq and Verilog
   * Pretty: magenta output
 
@@ -34,7 +34,7 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>188.1 ms</td>
+    <td>90.62 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>

@@ -2,6 +2,7 @@
 #include "libats/ML/DATS/filebas_dirent.dats"
 #include "libats/libc/DATS/dirent.dats"
 #include "src/cli.dats"
+#include "src/count-loop.dats"
 
 %{^
 #include "prelude/CATS/filebas.cats"
@@ -47,48 +48,11 @@ fun empty_file() : file =
     f
   end
 
-// monoidal addition for 'file' type
-fun add_results(x : file, y : file) : file =
-  let
-    var next = @{ lines = x.lines + y.lines
-                , blanks = x.blanks + y.blanks
-                , comments = x.comments + y.comments
-                , files = x.files + y.files
-                }
-  in
-    next
-  end
-
-overload + with add_results
-
 fn bad_file(s : string) : void =
   if s != "" then
     prerr!("\33[33mWarning:\33[0m could not open file at " + s + "\n")
   else
     ()
-
-// Given a string representing a filepath, return an integer.
-fun line_count(s : string, pre : Option(string)) : file =
-  let
-    var ref = fileref_open_opt(s, file_mode_r)
-    var acc_file = @{ files = 1, blanks = 0, comments = 0, lines = ~1 } : file
-  in
-    case ref of
-      | ~Some_vt (x) => 
-        begin
-          let
-            var viewstream: stream_vt(string) = $EXTRA.streamize_fileref_line(x)
-            val n: file = stream_vt_foldleft_cloptr( viewstream
-                                                   , acc_file
-                                                   , lam (acc, f) =<cloptr1> acc + to_file(f, pre)
-                                                   )
-            val _ = fileref_close(x)
-          in
-            n
-          end
-        end
-      | ~None_vt() => (bad_file(s) ; to_file(s, None))
-  end
 
 fnx right_pad { k : int | k >= 0 }{ m : int | m <= k } .<k>. (s : string(m), n : int(k)) :
   string =

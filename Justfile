@@ -1,5 +1,6 @@
 install:
     @atspkg install
+    @cp compleat/poly.usage ~/.compleat/
 
 ci:
     ac .poly.dhall | dhall
