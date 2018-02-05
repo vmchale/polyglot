@@ -42,20 +42,38 @@ implement freadc (pf | inp, p, c) =
     n
   end
 
+// bytes_v_split
+// if s2 = ' ' &&  then
+// compare_bytes(pf | ptr_succ<byte>(p), compare)
+fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : char) : bool =
+  let
+    val s2 = $UN.ptr0_get<char>(p)
+    val b = s2 = compare
+  in
+    b
+  end
+
 extern
 fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : int, res : file) :
   file
 
+fun match_acc_file(b : bool) : file =
+  case+ b of
+    | true => @{ files = 0, blanks = 1, comments = 0, lines = 1 }
+    | false => @{ files = 0, blanks = 0, comments = 0, lines = 1 }
+
 // TODO get previous?
+// we should be able to use the bytes view?
 implement wclbuf (pf | p, pz, c, res) =
   let
     val (pf1, pf2 | p2) = rawmemchr(pf | p, c)
-    var acc_file = @{ files = 0, blanks = 0, comments = 0, lines = 1 } : file
   in
     if p2 < pz then
       let
         prval (pf21, pf22) = array_v_uncons(pf2)
-        var res = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file)
+        var cmp = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n')
+        var acc_file = match_acc_file(cmp)
+        var res = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + match_acc_file(cmp))
         prval () = pf2 := array_v_cons(pf21, pf22)
         prval () = pf := bytes_v_unsplit(pf1, pf2)
       in
@@ -74,7 +92,7 @@ fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : in
 
 implement wclfil {l} (pf | inp, p, c) =
   let
-    var acc_file = @{ files = 1, blanks = 0, comments = 0, lines = 1 } : file
+    var acc_file = @{ files = 1, blanks = ~1, comments = 0, lines = 0 } : file
     
     fun loop(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, res : file) : file =
       let
@@ -107,5 +125,7 @@ fn count_char(s : string, c : char) : file =
   end
 
 // Haskell: length . lines . fmap readFile 
-fun line_count(s : string, pre : Option(string)) : file =
-  count_char(s, '\n')
+fun line_count(s : string, pre : Option_vt(string)) : file =
+  case+ pre of
+    | ~Some_vt (_) => count_char(s, '\n')
+    | ~None_vt() => count_char(s, '\n')

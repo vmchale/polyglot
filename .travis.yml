@@ -2,6 +2,8 @@
 matrix:
   include:
 
+    # atspkg build --target=sparc64-linux-gnu --rebuild
+
     - env: TARGET="x86_64-unknown-linux"
       os: linux
       language: python

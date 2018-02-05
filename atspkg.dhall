@@ -9,6 +9,7 @@ in pkg //
       { src = "src/polyglot.dats"
       , target = "target/poly"
       , libs = [ "pthread" ]
+      , gcBin = True
       }
     ]
   , test =
