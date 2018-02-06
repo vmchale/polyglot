@@ -33,7 +33,7 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>110.0 ms</td>
+    <td>114.7 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>

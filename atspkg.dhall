@@ -6,9 +6,8 @@ in pkg //
   { bin =
     [
       dbin //
-      { src = "src/polyglot.dats"
+      { src = "src/compat.dats"
       , target = "target/poly"
-      , libs = [ "pthread" ]
       , gcBin = True
       }
     ]

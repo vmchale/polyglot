@@ -112,6 +112,7 @@ implement wclfil {l} (pf | inp, p, c) =
     loop(pf | inp, p, c, acc_file)
   end
 
+// TODO don't use _exn here 
 fn count_char(s : string, c : char) : file =
   let
     var inp: FILEref = fopen_ref_exn(s, file_mode_r)
