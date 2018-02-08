@@ -1,4 +1,4 @@
-# Contributing to Madlang
+# Contributing to Polyglot
 
 I emphatically welcome bug reports, issues you may encounter, documentation, and
 pull requests. Feature requests will likely be implemented if and only they are

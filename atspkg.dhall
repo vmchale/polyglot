@@ -21,7 +21,6 @@ in pkg //
     ]
   , man = ([ "man/poly.md" ] : Optional Text)
   , compiler = [0,3,8]
-  -- TODO ccomp ?
   , dependencies = [ https://raw.githubusercontent.com/vmchale/ats-concurrency/master/atspkg.dhall ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }

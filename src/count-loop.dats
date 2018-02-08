@@ -1,9 +1,11 @@
-// adapted from the book
+// adapted from the book. You can find the original here:
+// https://github.com/githwxi/ATS-Postiats/blob/master/doc/EXAMPLE/MISC/wclines.dats
 #include "share/atspre_staload.hats"
 
 staload UN = "prelude/SATS/unsafe.sats"
 staload "libats/libc/SATS/stdio.sats"
 staload "src/filetype.sats"
+staload "prelude/SATS/string.sats"
 
 %{^
 extern void *rawmemchr(const void *s, int c);
@@ -42,12 +44,12 @@ implement freadc (pf | inp, p, c) =
     n
   end
 
-// bytes_v_split
-// if s2 = ' ' &&  then
-// compare_bytes(pf | ptr_succ<byte>(p), compare)
+// TODO - this should account for comments as well; should be pretty easy once we pass a string?
 fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : char) : bool =
   let
     val s2 = $UN.ptr0_get<char>(p)
+    
+    // val s3 = $UN.ptr0_get<char>(ptr_succ<byte>(p))
     val b = s2 = compare
   in
     b
