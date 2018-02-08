@@ -44,38 +44,71 @@ implement freadc (pf | inp, p, c) =
     n
   end
 
+vtypedef pair = @{ f = char, s = char }
+
+// TODO refactor the '?' stuff out
+fun get_chars(s : string) : Option(pair) =
+  if length(s) >= 2 then
+    let
+      var p = @{ f = $UN.ptr1_get<char>(string2ptr(s))
+               , s = $UN.ptr1_get<char>(add_ptr_bsz(string2ptr(s), i2sz(1)))
+               }
+    in
+      Some(p)
+    end
+  else
+    if length(s) >= 1 then
+      let
+        var p = @{ f = $UN.ptr1_get<char>(string2ptr(s)), s = '?' }
+      in
+        Some(p)
+      end
+    else
+      None
+
 // TODO - this should account for comments as well; should be pretty easy once we pass a string?
-fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : char) : bool =
+fun compare_bytes {l:addr}{m:int}( pf : !bytes_v(l, m) | p : ptr(l)
+                                 , compare : char
+                                 , comment : Option(pair)
+                                 ) : (bool, bool) =
   let
-    val s2 = $UN.ptr0_get<char>(p)
-    
-    // val s3 = $UN.ptr0_get<char>(ptr_succ<byte>(p))
-    val b = s2 = compare
+    var s2 = $UN.ptr0_get<char>(p)
+    var s3 = $UN.ptr0_get<char>(ptr_succ<byte>(p))
+    var b = s2 = compare
+    var b2 = case+ comment of
+      | None() => false
+      | Some (p) => s2 = p.f && (s3 = p.s || p.s = '?')
   in
-    b
+    (b, b2)
   end
 
 extern
-fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : int, res : file) :
-  file
+fun wclbuf {l:addr}{n:int} ( pf : !bytes_v(l, n) | p : ptr(l)
+                           , pz : ptr
+                           , c : int
+                           , res : file
+                           , comment : Option(pair)
+                           ) : file
 
-fun match_acc_file(b : bool) : file =
-  case+ b of
-    | true => @{ files = 0, blanks = 1, comments = 0, lines = 1 }
-    | false => @{ files = 0, blanks = 0, comments = 0, lines = 1 }
+fun match_acc_file(b : bool, b2 : bool) : file =
+  case+ (b, b2) of
+    | (true, true) => @{ files = 0, blanks = 1, comments = 1, lines = 1 }
+    | (true, false) => @{ files = 0, blanks = 1, comments = 0, lines = 1 }
+    | (false, true) => @{ files = 0, blanks = 0, comments = 1, lines = 1 }
+    | (false, false) => @{ files = 0, blanks = 0, comments = 0, lines = 1 }
 
 // TODO get previous?
 // we should be able to use the bytes view?
-implement wclbuf (pf | p, pz, c, res) =
+implement wclbuf (pf | p, pz, c, res, comment) =
   let
     val (pf1, pf2 | p2) = rawmemchr(pf | p, c)
   in
     if p2 < pz then
       let
         prval (pf21, pf22) = array_v_uncons(pf2)
-        var cmp = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n')
-        var acc_file = match_acc_file(cmp)
-        var res = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + match_acc_file(cmp))
+        val (cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n', comment)
+        var acc_file = match_acc_file(cmp1, cmp2)
+        var res = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file, comment)
         prval () = pf2 := array_v_cons(pf21, pf22)
         prval () = pf := bytes_v_unsplit(pf1, pf2)
       in
@@ -90,9 +123,13 @@ implement wclbuf (pf | p, pz, c, res) =
   end
 
 extern
-fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int) : file
+fun wclfil {l:addr} ( pf : !bytes_v(l, BUFSZ) | inp : FILEref
+                    , p : ptr(l)
+                    , c : int
+                    , comment : Option(pair)
+                    ) : file
 
-implement wclfil {l} (pf | inp, p, c) =
+implement wclfil {l} (pf | inp, p, c, comment) =
   let
     var acc_file = @{ files = 1, blanks = ~1, comments = 0, lines = 0 } : file
     
@@ -103,7 +140,7 @@ implement wclfil {l} (pf | inp, p, c) =
         if n > 0 then
           let
             var pz = ptr_add<char>(p, n)
-            var res = wclbuf(pf | p, pz, c, res)
+            var res = wclbuf(pf | p, pz, c, res, comment)
           in
             loop(pf | inp, p, c, res)
           end
@@ -115,20 +152,19 @@ implement wclfil {l} (pf | inp, p, c) =
   end
 
 // TODO don't use _exn here 
-fn count_char(s : string, c : char) : file =
+fn count_char(s : string, c : char, comment : Option(pair)) : file =
   let
     var inp: FILEref = fopen_ref_exn(s, file_mode_r)
     val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
     prval () = pfat := b0ytes2bytes_v(pfat)
-    var res = wclfil(pfat | inp, p, $UN.cast2int(c))
+    var res = wclfil(pfat | inp, p, $UN.cast2int(c), comment)
     val () = mfree_gc(pfat, pfgc | p)
     val _ = fclose_exn(inp)
   in
     res
   end
 
-// Haskell: length . lines . fmap readFile 
 fun line_count(s : string, pre : Option_vt(string)) : file =
   case+ pre of
-    | ~Some_vt (_) => count_char(s, '\n')
-    | ~None_vt() => count_char(s, '\n')
+    | ~Some_vt (x) => count_char(s, '\n', get_chars(x))
+    | ~None_vt() => count_char(s, '\n', None)
