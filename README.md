@@ -84,13 +84,19 @@ You can install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
 with
 
 ```bash
- $ curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
+curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
 ```
 
 And install `poly` with
 
 ```bash
- $ atspkg remote https://github.com/vmchale/polyglot/archive/0.3.32.tar.gz
+atspkg remote https://github.com/vmchale/polyglot/archive/0.3.32.tar.gz
+```
+
+Or
+
+```bash
+atspkg remote https://github.com/vmchale/polyglot/archive/master.zip
 ```
 
 ### Documentation
@@ -98,5 +104,5 @@ And install `poly` with
 You can view manpages for `poly` with
 
 ```
- $ man poly
+man poly
 ```
