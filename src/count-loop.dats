@@ -164,7 +164,7 @@ fn count_char(s : string, c : char, comment : Option(pair)) : file =
     res
   end
 
-typedef small_string = [ m : nat | m <= 2 ] string(m)
+typedef small_string = [ m : nat | m <= 2 && m > 0 ] string(m)
 
 fun line_count(s : string, pre : Option_vt(small_string)) : file =
   case+ pre of
