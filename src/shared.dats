@@ -1207,6 +1207,7 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | "dist-newstyle" => true
     | "vendor" => true
     | "dist" => true
+    | "gen" => true
     | ".psc-package" => true
     | ".pulp-cache" => true
     | "output" => true
