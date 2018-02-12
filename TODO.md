@@ -5,6 +5,7 @@
 - [ ] detect documentation comments
 - [ ] feature to use data from quasi-quotes (e.g. haskell)
 - [ ] block comments
+- [ ] Allow generation of HTML tables from output.
 # Performance
 - [x] parallelism
   - [ ] better parallelism

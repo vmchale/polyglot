@@ -43,11 +43,11 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line) : comma
     var str = string_make_substring(s, i2sz(0), i2sz(1))
     var acc_r = ref<command_line>(acc)
     val () = case+ str of
-      | "h" => acc_r->help := true
-      | "p" => acc_r->no_parallel := true
-      | "t" => acc_r->no_table := true
+      | "h" => acc_r -> help := true
+      | "p" => acc_r -> no_parallel := true
+      | "t" => acc_r -> no_table := true
       | "e" => bad_exclude(s)
-      | "V" => acc_r->version := true
+      | "V" => acc_r -> version := true
       | "-" => ()
       | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
     
@@ -70,34 +70,34 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
     var acc_r = ref<command_line>(acc)
     val () = if is_flag(s) then
       case+ s of
-        | "--help" => acc_r->help := true
-        | "-h" => acc_r->help := true
+        | "--help" => acc_r -> help := true
+        | "-h" => acc_r -> help := true
         | "--no-table" => if not(acc.no_table) then
-          acc_r->no_table := true
+          acc_r -> no_table := true
         else
           (println!("\33[31mError:\33[0m flag " + s + " cannot appear twice") ; exit(0) ; ())
         | "-t" => if not(acc.no_table) then
-          acc_r->no_table := true
+          acc_r -> no_table := true
         else
           (println!("\33[31mError:\33[0m flag " + s + " cannot appear twice") ; exit(0) ; ())
-        | "--no-parallel" => acc_r->no_parallel := true
-        | "-p" => acc_r->no_parallel := true
-        | "--version" => acc_r->version := true
-        | "-V" => acc_r->version := true
+        | "--no-parallel" => acc_r -> no_parallel := true
+        | "-p" => acc_r -> no_parallel := true
+        | "--version" => acc_r -> version := true
+        | "-V" => acc_r -> version := true
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
         | _ => let
           val new_acc = process_short(witness(s), acc)
-          val _ = acc_r->help := new_acc.help
-          val _ = acc_r->no_parallel := new_acc.no_parallel
-          val _ = acc_r->version := new_acc.version
-          val _ = acc_r->no_table := new_acc.no_table
+          val _ = acc_r -> help := new_acc.help
+          val _ = acc_r -> no_parallel := new_acc.no_parallel
+          val _ = acc_r -> version := new_acc.version
+          val _ = acc_r -> no_table := new_acc.no_table
         in
           ()
         end
     else
       if not(is_first) then
-        acc_r->includes := list_cons(s, acc.includes)
+        acc_r -> includes := list_cons(s, acc.includes)
       else
         ()
   in
@@ -113,7 +113,7 @@ fun process_excludes(s : string, acc : command_line) : command_line =
       ; ()
       )
     else
-      acc_r->excludes := list_cons(s, acc.excludes)
+      acc_r -> excludes := list_cons(s, acc.excludes)
   in
     !acc_r
   end

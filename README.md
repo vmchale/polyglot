@@ -10,7 +10,7 @@
 
 Reasons to use polyglot:
 
-  * Fast: 215 ms to run on a fully checked-out GHC source tree
+  * Fast: polyglot is faster than all others tools
   * Accurate: won't confuse Coq and Verilog
   * Pretty: magenta output
 
