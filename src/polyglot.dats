@@ -8,7 +8,7 @@
 %}
 
 #include "src/shared.dats"
-#include ".atspkg/contrib/ats-concurrency-0.1.2/channel.dats"
+#include "$PATSHOMELOCS/ats-concurrency-0.3.0/mylibies.hats"
 
 staload "libats/SATS/athread.sats"
 staload "libats/DATS/athread.dats"
