@@ -23,7 +23,7 @@ cache:
 install:
   - export PATH=$HOME/.local/bin:$PATH
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
-  - atspkg -v
+  - atspkg -V
 
 # nix-env -i python3.6-pip-9.0.1
 # FIXME: use shellcheck -e 2155 with 'nix-env -i ShellCheck'?
