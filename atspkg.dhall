@@ -23,5 +23,4 @@ in pkg //
   , compiler = [0,3,8]
   , dependencies = [ "concurrency", "specats" ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
-
   }
