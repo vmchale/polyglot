@@ -9,12 +9,13 @@
 
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/ats-concurrency-0.4.0/mylibies.hats"
+#include "$PATSHOMELOCS/nproc-ats-0.1.5/mylibies.hats"
 #include "libats/DATS/deqarray.dats"
 
 staload "libats/SATS/athread.sats"
 staload "libats/DATS/athread.dats"
 
-val NCPU = 4
+var NCPU = ncpu_glibc()
 
 // nproc_glibc()
 fun step_list(s : string, excludes : List0(string)) : List0(string) =

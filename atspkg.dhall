@@ -17,8 +17,8 @@ in prelude.default //
       , gcBin = True
       }
     ]
-  -- , man = ([ "man/poly.md" ] : Optional Text)
+  , man = ([ "man/poly.md" ] : Optional Text)
   , compiler = [0,3,8]
-  , dependencies = prelude.mapPlainDeps [ "concurrency", "specats" ]
+  , dependencies = prelude.mapPlainDeps [ "concurrency", "specats", "nproc-ats" ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }

@@ -1,5 +1,4 @@
 install:
-    @atspkg remote https://github.com/vmchale/ats-concurrency/archive/master.zip
     @atspkg install
     @cp compleat/poly.usage ~/.compleat/
 
