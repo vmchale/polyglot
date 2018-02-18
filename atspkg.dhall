@@ -1,11 +1,9 @@
-let pkg = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default.dhall
-in
-let dbin = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default-bin.dhall
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
 
-in pkg //
+in prelude.default //
   { bin =
     [
-      dbin //
+      prelude.bin //
       { src = "src/polyglot.dats"
       , target = "target/poly"
       , gcBin = True
@@ -13,7 +11,7 @@ in pkg //
       }
     ]
   , test =
-    [ dbin //
+    [ prelude.bin //
       { src = "test/test.dats"
       , target = "target/test"
       , gcBin = True
@@ -21,6 +19,6 @@ in pkg //
     ]
   , man = ([ "man/poly.md" ] : Optional Text)
   , compiler = [0,3,8]
-  , dependencies = [ "concurrency", "specats" ]
+  , dependencies = prelude.mapPlainDeps [ "concurrency", "specats" ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }
