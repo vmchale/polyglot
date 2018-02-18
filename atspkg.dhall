@@ -7,7 +7,7 @@ in prelude.default //
       { src = "src/polyglot.dats"
       , target = "target/poly"
       , gcBin = True
-      , libs = [ "pthread" ]
+      , libs = [ "pthread", "concurrency" ]
       }
     ]
   , test =
@@ -19,6 +19,7 @@ in prelude.default //
     ]
   , man = ([ "man/poly.md" ] : Optional Text)
   , compiler = [0,3,8]
-  , dependencies = prelude.mapPlainDeps [ "concurrency", "specats" ]
+  , dependencies = prelude.mapPlainDeps [ "specats" ]
+  , buildDeps = prelude.mapPlainDeps [ "concurrency" ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }
