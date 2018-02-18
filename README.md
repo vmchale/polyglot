@@ -90,7 +90,7 @@ curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.s
 And install `poly` with
 
 ```bash
-atspkg remote https://github.com/vmchale/polyglot/archive/0.3.32.tar.gz
+atspkg remote https://github.com/vmchale/polyglot/archive/0.4.7.tar.gz
 ```
 
 Or

@@ -6,6 +6,7 @@
 - [ ] feature to use data from quasi-quotes (e.g. haskell)
 - [ ] block comments
 - [ ] Allow generation of HTML tables from output.
+- [ ] JSON output? Or alternately some other form of output?
 # Performance
 - [x] parallelism
   - [ ] better parallelism
