@@ -1,5 +1,5 @@
 #include "src/shared.dats"
-#include "$PATSHOMELOCS/specats-0.1.2/mylibies.hats"
+#include "$PATSHOMELOCS/specats-0.2.2/mylibies.hats"
 
 fn test_file(s : string, expected : pl_type) : bool =
   let
