@@ -17,9 +17,7 @@ fun version() : void =
 
 fun help() : void =
   print("polyglot - Count lines of code quickly.
-
 \33[36mUSAGE:\33[0m poly [DIRECTORY] ... [OPTION] ...
-
 \33[36mFLAGS:\33[0m
     -V, --version            show version information
     -h, --help               display this help and exit
