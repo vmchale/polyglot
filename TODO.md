@@ -35,6 +35,7 @@
 - [ ] `.gitattributes`
 - [ ] `.poly.toml` project file
 ### Language Support
+- [ ] hsc2hs (`.hsc`), greencard (`.gc`), c2hs (`.chs`), cpphs (`.cpphs`)
 - [ ] Ada
 - [ ] literate Haskell
   - [ ] literate happy?

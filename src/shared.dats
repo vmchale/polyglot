@@ -709,6 +709,7 @@ fun add_contents(x : source_contents, y : source_contents) : source_contents =
                 , margaret = x.margaret + y.margaret
                 , carp = x.carp + y.carp
                 , shen = x.shen + y.shen
+                , greencard = x.greencard + y.greencard
                 } : source_contents
   in
     next
@@ -802,6 +803,7 @@ fun adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~margaret n => sc_r -> margaret := prev.margaret + n
       | ~carp n => sc_r -> carp := prev.carp + n
       | ~shen n => sc_r -> shen := prev.shen + n
+      | ~greencard n => sc_r -> greencard := prev.greencard + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -893,6 +895,7 @@ fun free_pl(pl : pl_type) : void =
     | ~margaret _ => ()
     | ~carp _ => ()
     | ~shen _ => ()
+    | ~greencard _ => ()
 
 fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
@@ -1079,6 +1082,7 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "hs" => haskell(line_count(s, Some_vt("--")))
       | "hs-boot" => haskell(line_count(s, Some_vt("--")))
       | "hsig" => haskell(line_count(s, Some_vt("--")))
+      | "gc" => greencard(line_count(s, Some_vt("--")))
       | "rs" => rust(line_count(s, Some_vt("//")))
       | "tex" => tex(line_count(s, Some_vt("%")))
       | "md" => markdown(line_count(s, None_vt))
@@ -1336,6 +1340,7 @@ fun empty_contents() : source_contents =
                , margaret = empty_file()
                , carp = empty_file()
                , shen = empty_file()
+               , greencard = empty_file()
                } : source_contents
   in
     isc
