@@ -1112,6 +1112,7 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "yml" => yaml(line_count(s, Some_vt("#")))
       | "yaml" => yaml(line_count(s, Some_vt("#")))
       | "y" => check_keywords(s, line_count(s, Some_vt("--")), match)
+      | "ly" => happy(line_count(s, Some_vt("--")))
       | "yl" => happy(line_count(s, Some_vt("--")))
       | "ypp" => yacc(line_count(s, Some_vt("//")))
       | "x" => alex(line_count(s, Some_vt("--")))
