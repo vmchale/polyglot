@@ -16,7 +16,6 @@ staload "libats/DATS/athread.dats"
 
 #define NCPU 4
 
-// nproc_glibc()
 fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
@@ -106,6 +105,7 @@ fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
     outer(n, list)
   end
 
+// FIXME This is unnecessarily slow because of the List0
 fun apportion(includes : List0(string), excludes : List0(string)) :
   (List0(string), List0(string), List0(string), List0(string)) =
   let

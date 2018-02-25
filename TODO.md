@@ -35,6 +35,8 @@
 - [ ] `.gitattributes`
 - [ ] `.poly.toml` project file
 ### Language Support
+- [ ] ShaderLab (`.shader`)
+- [ ] HLSL (`.cginc`)
 - [ ] hsc2hs (`.hsc`), greencard (`.gc`), c2hs (`.chs`), cpphs (`.cpphs`)
 - [ ] Ada
 - [ ] literate Haskell
@@ -48,6 +50,7 @@
 - [ ] mustache
 - [ ] jinja
 - [ ] Agda library
+- [ ] RED
 - [ ] groovy
 - [ ] F\* (`.fst`)
 - [ ] Isabelle (`.thy`)

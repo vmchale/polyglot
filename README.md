@@ -10,7 +10,7 @@
 
 Reasons to use polyglot:
 
-  * Fast: polyglot is faster than all others tools
+  * Fast: polyglot is faster than all other tools
   * Accurate: won't confuse Coq and Verilog
   * Pretty: magenta output
 

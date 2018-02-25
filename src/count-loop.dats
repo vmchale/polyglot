@@ -47,6 +47,7 @@ implement freadc (pf | inp, p, c) =
 vtypedef pair = @{ f = char, s = char }
 
 // TODO refactor the '?' stuff out
+// FIXME we shouldn't use unsafe in various places.
 fun get_chars(s : string) : Option(pair) =
   if length(s) >= 2 then
     let
@@ -66,7 +67,6 @@ fun get_chars(s : string) : Option(pair) =
     else
       None
 
-// TODO - this should account for comments as well; should be pretty easy once we pass a string?
 fun compare_bytes {l:addr}{m:int}( pf : !bytes_v(l, m) | p : ptr(l)
                                  , compare : char
                                  , comment : Option(pair)
@@ -97,8 +97,6 @@ fun match_acc_file(b : bool, b2 : bool) : file =
     | (false, true) => @{ files = 0, blanks = 0, comments = 1, lines = 1 }
     | (false, false) => @{ files = 0, blanks = 0, comments = 0, lines = 1 }
 
-// TODO get previous?
-// we should be able to use the bytes view?
 implement wclbuf (pf | p, pz, c, res, comment) =
   let
     val (pf1, pf2 | p2) = rawmemchr(pf | p, c)

@@ -1,5 +1,4 @@
 ci:
-    ac .poly.dhall | dhall
     tomlcheck --file .atsfmt.toml
     yamllint .travis.yml
     yamllint .yamllint
