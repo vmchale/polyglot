@@ -434,10 +434,11 @@ fun make_table(isc : source_contents) : string =
     + maybe_table("Brainfuck", isc.brainfuck)
     + maybe_table("C", isc.c)
     + maybe_table("Carp", isc.carp)
-    + maybe_table("C Header", isc.header)
-    + maybe_table("C++ cpp_header", isc.cpp_header)
+    + maybe_table("C--", isc.cmm)
+    + maybe_table("C++ Header", isc.cpp_header)
     + maybe_table("C++", isc.cpp)
     + maybe_table("C#", isc.csharp)
+    + maybe_table("C Header", isc.header)
     + maybe_table("Cabal", isc.cabal)
     + maybe_table("Cabal Project", isc.cabal_project)
     + maybe_table("Cassius", isc.cassius)
@@ -532,10 +533,11 @@ fun make_output(isc : source_contents) : string =
                  + maybe_string("Brainfuck", isc.brainfuck.lines)
                  + maybe_string("C", isc.c.lines)
                  + maybe_string("Carp", isc.carp.lines)
-                 + maybe_string("C Header", isc.header.lines)
                  + maybe_string("C++", isc.cpp.lines)
+                 + maybe_string("C--", isc.cmm.lines)
                  + maybe_string("C++ Header", isc.cpp_header.lines)
                  + maybe_string("C#", isc.csharp.lines)
+                 + maybe_string("C Header", isc.header.lines)
                  + maybe_string("COBOL", isc.cobol.lines)
                  + maybe_string("Coq", isc.coq.lines)
                  + maybe_string("Elixir", isc.elixir.lines)
@@ -710,6 +712,7 @@ fun add_contents(x : source_contents, y : source_contents) : source_contents =
                 , carp = x.carp + y.carp
                 , shen = x.shen + y.shen
                 , greencard = x.greencard + y.greencard
+                , cmm = x.cmm + y.cmm
                 } : source_contents
   in
     next
@@ -804,6 +807,7 @@ fun adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~carp n => sc_r -> carp := prev.carp + n
       | ~shen n => sc_r -> shen := prev.shen + n
       | ~greencard n => sc_r -> greencard := prev.greencard + n
+      | ~cmm n => sc_r -> cmm := prev.cmm + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -896,6 +900,7 @@ fun free_pl(pl : pl_type) : void =
     | ~carp _ => ()
     | ~shen _ => ()
     | ~greencard _ => ()
+    | ~cmm _ => ()
 
 fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
@@ -1124,6 +1129,7 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "vhdl" => vhdl(line_count(s, None_vt))
       | "vhd" => vhdl(line_count(s, None_vt))
       | "c" => c(line_count(s, Some_vt("//")))
+      | "cmm" => cmm(line_count(s, Some_vt("//")))
       | "b" => brainfuck(line_count(s, None_vt))
       | "bf" => brainfuck(line_count(s, None_vt))
       | "rb" => ruby(line_count(s, None_vt))
@@ -1342,6 +1348,7 @@ fun empty_contents() : source_contents =
                , carp = empty_file()
                , shen = empty_file()
                , greencard = empty_file()
+               , cmm = empty_file()
                } : source_contents
   in
     isc

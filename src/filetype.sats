@@ -86,6 +86,7 @@ vtypedef source_contents = @{ rust = file
                             , carp = file
                             , shen = file
                             , greencard = file
+                            , cmm = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -178,3 +179,4 @@ datavtype pl_type =
   | carp of file
   | shen of file
   | greencard of file
+  | cmm of file
