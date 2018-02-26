@@ -453,6 +453,7 @@ fun make_table(isc : source_contents) : string =
     + maybe_table("F#", isc.fsharp)
     + maybe_table("Fortran", isc.fortran)
     + maybe_table("Go", isc.go)
+    + maybe_table("Greencard", isc.greencard)
     + maybe_table("Hamlet", isc.hamlet)
     + maybe_table("Happy", isc.happy)
     + maybe_table("Haskell", isc.haskell)
@@ -617,6 +618,7 @@ fun make_output(isc : source_contents) : string =
     + with_nonempty( "\n\33[33mOther:\33[0m\n"
                    , maybe_string("Autoconf", isc.autoconf.lines)
                    + maybe_string("Automake", isc.automake.lines)
+                   + maybe_string("Greencard", isc.greencard.lines)
                    + maybe_string("Justfile", isc.justfile.lines)
                    + maybe_string("LLVM", isc.llvm.lines)
                    + maybe_string("M4", isc.m4.lines)
