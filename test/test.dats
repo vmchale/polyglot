@@ -26,7 +26,7 @@ implement main0 () =
     var t3_expected = verilog(e)
     var b3 = test_file("verilog.v", t3_expected)
     var n3 = @{ fst = "verilog", snd = b3 }
-    var xs = list_vt_cons(n0, list_vt_cons(n1, list_vt_cons(n2, list_vt_cons(n3, list_vt_nil))))
+    var xs = n0 :: n1 :: n2 :: n3 :: nil
     var total = list_vt_length(xs)
     val g = @{ group = "Overlaps", leaves = xs } : test_tree
     val _ = iterate_list(g, 0, total)

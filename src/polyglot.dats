@@ -8,7 +8,7 @@
 %}
 
 #include "src/shared.dats"
-#include "$PATSHOMELOCS/ats-concurrency-0.4.1/mylibies.hats"
+#include "$PATSHOMELOCS/ats-concurrency-0.4.3/mylibies.hats"
 #include "libats/DATS/deqarray.dats"
 
 staload "libats/SATS/athread.sats"
