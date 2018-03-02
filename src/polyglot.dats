@@ -12,10 +12,10 @@
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/ats-concurrency-0.4.3/mylibies.hats"
 
-staload "libats/DATS/deqarray.dats"
 staload "libats/SATS/deqarray.sats"
 staload "libats/SATS/athread.sats"
-staload "libats/DATS/athread.dats"
+staload _ = "libats/DATS/deqarray.dats"
+staload _ = "libats/DATS/athread.dats"
 
 #define NCPU 4
 
