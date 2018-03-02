@@ -1,5 +1,6 @@
 staload "libats/ML/SATS/string.sats"
-staload "libats/ML/DATS/string.dats"
+staload _ = "libats/ML/DATS/string.dats"
+staload UN = "prelude/SATS/unsafe.sats"
 
 // Type for the parsed command-line arguments.
 vtypedef command_line = @{ version = bool

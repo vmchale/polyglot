@@ -3,14 +3,14 @@
 
 staload "src/filetype.sats"
 staload "libats/ML/SATS/atspre.sats"
-staload "libats/ML/DATS/atspre.dats"
-staload "libats/ML/DATS/list0.dats"
 staload "libats/ML/SATS/list0.sats"
 staload "libats/ML/SATS/basis.sats"
 staload EXTRA = "libats/ML/SATS/filebas.sats"
 staload "libats/ML/DATS/filebas_dirent.dats"
-staload "libats/ML/DATS/filebas.dats"
 staload "libats/libc/SATS/unistd.sats"
+staload _ = "libats/ML/DATS/atspre.dats"
+staload _ = "libats/ML/DATS/list0.dats"
+staload _ = "libats/ML/DATS/filebas.dats"
 
 fn eq_pl_type(x : !pl_type, y : !pl_type) : bool =
   case- (x, y) of
