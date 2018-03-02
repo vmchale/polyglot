@@ -10,7 +10,7 @@
 #include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
-#include "$PATSHOMELOCS/ats-concurrency-0.4.3/mylibies.hats"
+#include "$PATSHOMELOCS/ats-concurrency-0.4.6/mylibies.hats"
 
 staload "libats/SATS/deqarray.sats"
 staload "libats/SATS/athread.sats"
