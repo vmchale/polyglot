@@ -1,16 +1,15 @@
+#include "share/atspre_define.hats"
+#include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
-#include "libats/ML/DATS/filebas_dirent.dats"
-#include "libats/libc/DATS/dirent.dats"
 #include "src/cli.dats"
 #include "src/count-loop.dats"
 
-%{^
-#include "prelude/CATS/filebas.cats"
-%}
-
+staload "libats/ML/DATS/filebas_dirent.dats"
 staload "prelude/SATS/stream_vt.sats"
 staload "libats/ML/DATS/list0.dats"
 staload "libats/ML/DATS/string.dats"
+staload "libats/ML/SATS/list0.sats"
+staload "libats/ML/SATS/basis.sats"
 staload "prelude/SATS/filebas.sats"
 staload "src/filetype.sats"
 staload "libats/ML/DATS/filebas.dats"
@@ -1247,7 +1246,7 @@ fnx step_stream( acc : source_contents
 and flow_stream(s : string, init : source_contents, excludes : List0(string)) :
   source_contents =
   let
-    var files = streamize_dirname_fname(s)
+    var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
   in
     if s != "." then
@@ -1369,7 +1368,7 @@ fun map_stream(acc : source_contents, includes : List0(string), excludes : List0
 
 fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
-    var files = streamize_dirname_fname(s)
+    var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)
                                         && test_file_isdir(s + "/" + x) > 0))
     
@@ -1383,7 +1382,7 @@ fun step_list(s : string, excludes : List0(string)) : List0(string) =
 
 fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
   let
-    var files = streamize_dirname_fname(s)
+    var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes))
                                         && test_file_isdir(s + "/" + x) = 0)
     

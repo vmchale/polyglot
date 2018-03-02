@@ -7,6 +7,8 @@ staload "libats/libc/SATS/stdio.sats"
 staload "src/filetype.sats"
 staload "prelude/SATS/string.sats"
 
+#define BUFSZ (32*1024)
+
 %{^
 extern void *rawmemchr(const void *s, int c);
 #define atslib_rawmemchr rawmemchr
@@ -30,8 +32,6 @@ extern
 fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) :
   [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2) | ptr(l2)) =
   "mac#atslib_rawmemchr"
-
-#define BUFSZ (32*1024)
 
 extern
 fun freadc {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : size_t
@@ -67,10 +67,8 @@ fun get_chars(s : string) : Option(pair) =
     else
       None
 
-fun compare_bytes {l:addr}{m:int}( pf : !bytes_v(l, m) | p : ptr(l)
-                                 , compare : char
-                                 , comment : Option(pair)
-                                 ) : (bool, bool) =
+fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m)
+                                 | p : ptr(l), compare : char, comment : Option(pair)) : (bool, bool) =
   let
     var s2 = $UN.ptr0_get<char>(p)
     var s3 = $UN.ptr0_get<char>(ptr_succ<byte>(p))
@@ -83,12 +81,8 @@ fun compare_bytes {l:addr}{m:int}( pf : !bytes_v(l, m) | p : ptr(l)
   end
 
 extern
-fun wclbuf {l:addr}{n:int} ( pf : !bytes_v(l, n) | p : ptr(l)
-                           , pz : ptr
-                           , c : int
-                           , res : file
-                           , comment : Option(pair)
-                           ) : file
+fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n)
+                           | p : ptr(l), pz : ptr, c : int, res : file, comment : Option(pair)) : file
 
 fun match_acc_file(b : bool, b2 : bool) : file =
   case+ (b, b2) of
@@ -121,11 +115,8 @@ implement wclbuf (pf | p, pz, c, res, comment) =
   end
 
 extern
-fun wclfil {l:addr} ( pf : !bytes_v(l, BUFSZ) | inp : FILEref
-                    , p : ptr(l)
-                    , c : int
-                    , comment : Option(pair)
-                    ) : file
+fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ)
+                    | inp : FILEref, p : ptr(l), c : int, comment : Option(pair)) : file
 
 implement wclfil {l} (pf | inp, p, c, comment) =
   let

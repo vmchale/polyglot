@@ -9,8 +9,9 @@
 
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/ats-concurrency-0.4.3/mylibies.hats"
-#include "libats/DATS/deqarray.dats"
 
+staload "libats/DATS/deqarray.dats"
+staload "libats/SATS/deqarray.sats"
 staload "libats/SATS/athread.sats"
 staload "libats/DATS/athread.dats"
 
@@ -197,7 +198,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
         end
     
     var r = loop_return(NCPU, chan)
-    val () = ignoret(usleep(3u))
+    val () = ignoret(usleep(4u))
     val () = while(channel_refcount(chan) >= 2)()
     val () = handle_unref(chan)
   in
