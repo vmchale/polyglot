@@ -19,7 +19,7 @@ in prelude.default //
     ]
   , man = [ "man/poly.md" ] : Optional Text
   , completions = [ "compleat/poly.usage" ] : Optional Text
-  , compiler = [0,3,9]
+  , compiler = [0,3,10]
   , dependencies = prelude.mapPlainDeps [ "specats", "concurrency" ]
   , cflags = [ "-flto", "-O2", "-mtune=native" ]
   }
