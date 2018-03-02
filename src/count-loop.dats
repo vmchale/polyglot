@@ -1,7 +1,5 @@
 // adapted from the book. You can find the original here:
 // https://github.com/githwxi/ATS-Postiats/blob/master/doc/EXAMPLE/MISC/wclines.dats
-#include "share/atspre_staload.hats"
-
 staload "src/filetype.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 staload "prelude/SATS/string.sats"

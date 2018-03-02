@@ -1,9 +1,8 @@
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
-#include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/cli.dats"
 #include "src/count-loop.dats"
 
+staload "libats/ML/SATS/atspre.sats"
+staload "libats/ML/DATS/atspre.dats"
 staload "libats/ML/DATS/filebas_dirent.dats"
 staload "prelude/SATS/stream_vt.sats"
 staload "libats/ML/DATS/list0.dats"
