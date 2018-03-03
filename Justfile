@@ -1,3 +1,6 @@
+all:
+    atspkg build --target=s390x-linux-gnu --rebuild
+
 ci:
     tomlcheck --file .atsfmt.toml
     yamllint .travis.yml
