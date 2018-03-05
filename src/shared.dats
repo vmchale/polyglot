@@ -446,6 +446,7 @@ fun make_table(isc : source_contents) : string =
     + maybe_table("Emacs Lisp", isc.elisp)
     + maybe_table("Erlang", isc.erlang)
     + maybe_table("F#", isc.fsharp)
+    + maybe_table("FLTK Data", isc.fluid)
     + maybe_table("Fortran", isc.fortran)
     + maybe_table("Go", isc.go)
     + maybe_table("Greencard", isc.greencard)
@@ -609,6 +610,7 @@ fun make_output(isc : source_contents) : string =
                    , maybe_string("Verilog", isc.verilog.lines)
                    + maybe_string("VHDL", isc.vhdl.lines)
                    )
+    + with_nonempty("\n\33[33mGUIs:\33[0m\n", maybe_string("FLTK Data", isc.fluid.lines))
     + with_nonempty("\n\33[33mNotebooks:\33[0m\n", maybe_string("Jupyter", isc.jupyter.lines))
     + with_nonempty( "\n\33[33mOther:\33[0m\n"
                    , maybe_string("Autoconf", isc.autoconf.lines)
@@ -710,6 +712,7 @@ fun add_contents(x : source_contents, y : source_contents) : source_contents =
                 , shen = x.shen + y.shen
                 , greencard = x.greencard + y.greencard
                 , cmm = x.cmm + y.cmm
+                , fluid = x.fluid + y.fluid
                 } : source_contents
   in
     next
@@ -805,6 +808,7 @@ fun adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~shen n => sc_r -> shen := prev.shen + n
       | ~greencard n => sc_r -> greencard := prev.greencard + n
       | ~cmm n => sc_r -> cmm := prev.cmm + n
+      | ~fluid n => sc_r -> fluid := prev.fluid + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -898,6 +902,7 @@ fun free_pl(pl : pl_type) : void =
     | ~shen _ => ()
     | ~greencard _ => ()
     | ~cmm _ => ()
+    | ~fluid _ => ()
 
 fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
@@ -1135,6 +1140,7 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "cpy" => cobol(line_count(s, None_vt))
       | "ml" => ocaml(line_count(s, None_vt))
       | "tcl" => tcl(line_count(s, None_vt))
+      | "fl" => fluid(line_count(s, Some_vt("#")))
       | "r" => r(line_count(s, None_vt))
       | "R" => r(line_count(s, None_vt))
       | "lua" => lua(line_count(s, None_vt))
@@ -1215,7 +1221,6 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | "dist-newstyle" => true
     | "vendor" => true
     | "dist" => true
-    | "gen" => true
     | ".psc-package" => true
     | ".pulp-cache" => true
     | "output" => true
@@ -1346,6 +1351,7 @@ fun empty_contents() : source_contents =
                , shen = empty_file()
                , greencard = empty_file()
                , cmm = empty_file()
+               , fluid = empty_file()
                } : source_contents
   in
     isc

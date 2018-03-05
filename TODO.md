@@ -61,6 +61,7 @@
 - [ ] Prolog
 - [ ] modula
 - [ ] racket (`.rkt`)
+- [ ] LSL http://xahsl.org/sl/ls.html
 - [ ] TypeScript
 - [ ] CoffeeScript (`.coffee`)
 - [ ] clean
