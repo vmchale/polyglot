@@ -1,9 +1,9 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 
-in prelude.default //
+in prelude.default ⫽ 
   { bin =
     [
-      prelude.bin //
+      prelude.bin ⫽ 
       { src = "src/polyglot.dats"
       , target = "target/poly"
       , gcBin = True
@@ -11,7 +11,7 @@ in prelude.default //
       }
     ]
   , test =
-    [ prelude.bin //
+    [ prelude.bin ⫽ 
       { src = "test/test.dats"
       , target = "target/test"
       , gcBin = True
