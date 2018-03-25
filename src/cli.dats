@@ -66,6 +66,11 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
     fn witness(s : string) : [ s : nat | s > 0 ] string(s) =
       $UN.cast(s)
     
+    fn process(s : string) : string =
+      case+ s of
+        | ".." => "../"
+        | _ => s
+    
     var acc_r = ref<command_line>(acc)
     val () = if is_flag(s) then
       case+ s of
@@ -96,7 +101,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         end
     else
       if not(is_first) then
-        acc_r -> includes := list_cons(s, acc.includes)
+        acc_r -> includes := list_cons(process(s), acc.includes)
       else
         ()
   in

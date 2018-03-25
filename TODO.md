@@ -19,6 +19,7 @@
 # Bugs
 - [ ] doesn't disambiguate objective C/C headers
 - [ ] can't run on files when in parallel
+- [ ] `poly ..` doesn't work??
 # Code Maintenance
 - [ ] Test suite
 - [ ] builds for other systems
