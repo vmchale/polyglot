@@ -21,5 +21,5 @@ in prelude.default ⫽
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , compiler = [0,3,10]
   , dependencies = prelude.mapPlainDeps [ "specats", "concurrency" ]
-  , cflags = [ "-flto", "-O2", "-mtune=native" ]
+  , cflags = [ "-flto", "-O2"] --, "-mtune=native" ]
   }

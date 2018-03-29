@@ -4,8 +4,16 @@ matrix:
 
     # atspkg build --target=sparc64-linux-gnu --rebuild
 
+    - env: TARGET="arm-linux-gnueabihf"
+      addons:
+        apt:
+          packages:
+            - gcc-arm-linux-gnueabihf
     - env: TARGET="x86_64-unknown-linux"
       os: linux
+      language: python
+
+    # OS X
       language: python
 
     - env: TARGET="x86_64-apple-darwin"
@@ -14,6 +22,7 @@ matrix:
 
   allow_failures:
     - env: TARGET="x86_64-apple-darwin"
+    - env: TARGET="arm-linux-gnueabihf"
 
 cache:
   directories:
@@ -37,6 +46,12 @@ script:
       yamllint .yamllint
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
       atspkg build
+      mv target/poly poly-$TARGET
+    elif [ $TARGET = "arm-linux-gnueabihf" ]
+    then
+      atspkg clean
+      atspkg nuke
+      atspkg build --target=arm-linux-gnueabihf
       mv target/poly poly-$TARGET
     else
       travis_wait 45 atspkg build

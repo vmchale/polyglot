@@ -200,7 +200,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
         end
     
     var r = loop_return(NCPU, chan)
-    val () = ignoret(usleep(30u))
+    val () = ignoret(usleep(50u))
     val () = while(channel_refcount(chan) >= 2)()
     val () = handle_unref(chan)
   in
