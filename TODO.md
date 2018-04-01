@@ -17,6 +17,7 @@
   - [ ] `mfree_gc_v` to free allocated memory
   - [ ] `gfree_val`
 # Bugs
+- [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
 - [ ] can't run on files when in parallel
 - [ ] `poly ..` doesn't work??

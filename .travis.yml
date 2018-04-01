@@ -2,20 +2,17 @@
 matrix:
   include:
 
-    # atspkg build --target=sparc64-linux-gnu --rebuild
-
     - env: TARGET="arm-linux-gnueabihf"
       addons:
         apt:
           packages:
             - gcc-arm-linux-gnueabihf
+
     - env: TARGET="x86_64-unknown-linux"
       os: linux
       language: python
 
     # OS X
-      language: python
-
     - env: TARGET="x86_64-apple-darwin"
       os: osx
       language: c
