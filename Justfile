@@ -1,3 +1,6 @@
+poly:
+    poly -e data
+
 all:
     atspkg build --target=s390x-linux-gnu --rebuild
 

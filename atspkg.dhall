@@ -1,6 +1,9 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 in
 
+let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Prelude/Bool/not
+in
+
 let cross = False
 in
 
@@ -25,5 +28,5 @@ prelude.default ⫽
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , compiler = [0,3,10]
   , dependencies = prelude.mapPlainDeps [ "concurrency", "specats" ]
-  , cflags = [ "-flto", "-O2" ] # (if cross then [ "-mtune=native" ] else ([] : List Text))
+  , cflags = [ "-flto", "-O2" ] # (if not cross then [ "-mtune=native" ] else ([] : List Text))
   }

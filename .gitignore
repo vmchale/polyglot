@@ -1,4 +1,5 @@
 tags
+.pijul
 .atspkg
 build
 *.c
