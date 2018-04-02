@@ -119,6 +119,7 @@
 - [ ] SRecoder template
 - [ ] Cogent
 - [ ] emacs dev env
+- [ ] Zig
 - [ ] Xtend
 - [ ] less (fancy CSS)
 - [ ] haxe

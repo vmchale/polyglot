@@ -1,6 +1,10 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
+in
 
-in prelude.default ⫽ 
+let cross = False
+in
+
+prelude.default ⫽ 
   { bin =
     [
       prelude.bin ⫽ 
@@ -20,6 +24,6 @@ in prelude.default ⫽
   , man = [ "man/poly.md" ] : Optional Text
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , compiler = [0,3,10]
-  , dependencies = prelude.mapPlainDeps [ "specats", "concurrency" ]
-  , cflags = [ "-flto", "-O2"] --, "-mtune=native" ]
+  , dependencies = prelude.mapPlainDeps [ "concurrency", "specats" ]
+  , cflags = [ "-flto", "-O2" ] # (if cross then [ "-mtune=native" ] else ([] : List Text))
   }

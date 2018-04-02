@@ -10,7 +10,7 @@
 #include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
-#include "$PATSHOMELOCS/ats-concurrency-0.4.6/mylibies.hats"
+#include "$PATSHOMELOCS/ats-concurrency-0.4.7/mylibies.hats"
 
 staload "libats/SATS/deqarray.sats"
 staload "libats/SATS/athread.sats"
@@ -200,7 +200,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
         end
     
     var r = loop_return(NCPU, chan)
-    val () = ignoret(usleep(2u))
+    val () = ignoret(usleep(50u))
     val () = while(channel_refcount(chan) >= 2)()
     val () = handle_unref(chan)
   in
