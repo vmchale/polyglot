@@ -48,6 +48,7 @@
 - [ ] D (`.d`)
 - [ ] DDoc
 - [ ] Dockerfile
+- [ ] LilyPond
 - [ ] Jenkinsfile (groovy?)
 - [ ] mustache
 - [ ] jinja

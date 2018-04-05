@@ -1123,6 +1123,7 @@ fun prune_extension(s : string, file_proper : string) : pl_type =
       | "yl" => happy(line_count(s, Some_vt("--")))
       | "ypp" => yacc(line_count(s, Some_vt("//")))
       | "x" => alex(line_count(s, Some_vt("--")))
+      | "lx" => alex(line_count(s, Some_vt("--")))
       | "l" => lex(line_count(s, None_vt))
       | "lpp" => lex(line_count(s, None_vt))
       | "html" => html(line_count(s, None_vt))
