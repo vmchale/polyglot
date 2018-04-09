@@ -2,7 +2,7 @@ poly:
     poly -e data
 
 all:
-    atspkg build --target=s390x-linux-gnu --rebuild
+    atspkg clean ; atspkg nuke ; atspkg build --target=arm-linux-gnueabihf
 
 ci:
     tomlcheck --file .atsfmt.toml
@@ -13,12 +13,13 @@ ci:
 bench:
     bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust"
 
-release:
+release: all
     git tag "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     git push origin --tags
     git tag -d "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     git push origin master
     github-release release -s $(cat ~/.git-token) -u vmchale -r polyglot -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r poly-arm-linux-gnueabihf -n poly.1 -f target/poly -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
 
