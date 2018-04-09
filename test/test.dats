@@ -1,7 +1,6 @@
 #include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
-#include "src/utils.dats"
 #include "$PATSHOMELOCS/specats-0.2.2/mylibies.hats"
 
 fn test_file(s : string, expected : pl_type) : bool =
@@ -16,7 +15,7 @@ fn test_file(s : string, expected : pl_type) : bool =
 
 implement main0 () =
   {
-    var e = empty_file()
+    var e = empty_file
     var t0_expected = happy(e)
     var b0 = test_file("Python.y", t0_expected)
     var n0 = @{ fst = "happy", snd = b0 }
