@@ -30,13 +30,13 @@ fun to_file(s : string, pre : Option(string)) : file =
         @{ lines = 1, blanks = 0, comments = 0, files = 0 }
   end
 
-val empty_file: file = let
+val empty_file = let
   var f = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
 in
   f
 end
 
-fun add_contents(x : source_contents, y : source_contents) : source_contents =
+fn add_contents(x : source_contents, y : source_contents) : source_contents =
   let
     var next = @{ rust = x.rust + y.rust
                 , haskell = x.haskell + y.haskell
@@ -130,7 +130,7 @@ fun add_contents(x : source_contents, y : source_contents) : source_contents =
   end
 
 // This is the step function used when streaming directory contents. 
-fun adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
+fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
   let
     var sc_r = ref<source_contents>(prev)
     val _ = case+ scf of
@@ -232,7 +232,7 @@ fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) 
 
 // TODO use list_vt{int}(0, 1, 2, 3, 4) instead?
 // helper function for check_keywords
-fun step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_type =
+fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_type =
   case+ pre of
     | unknown _ => let
       
@@ -321,7 +321,7 @@ fun step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_t
 // Function to disambiguate extensions such as .v (Coq and Verilog) and .m
 // (Mercury and Objective C). This should only be called when extensions are in
 // conflict, as it reads the whole file.
-fun check_keywords(s : string, size : file, ext : string) : pl_type =
+fn check_keywords(s : string, size : file, ext : string) : pl_type =
   let
     var ref = fileref_open_opt(s, file_mode_r)
   in
@@ -345,7 +345,7 @@ fun check_keywords(s : string, size : file, ext : string) : pl_type =
 //
 // TODO flexible parser that drops spaces as appropriate
 // TODO check magic number so as to avoid checking shebang of binary file
-fun check_shebang(s : string) : pl_type =
+fn check_shebang(s : string) : pl_type =
   let
     var ref = fileref_open_opt(s, file_mode_r)
     val str: string = case+ ref of
@@ -397,7 +397,7 @@ fun match_filename(s : string) : pl_type =
 
 // Match based on file extension (assuming the file name is passed in as an
 // argument).
-fun prune_extension(s : string, file_proper : string) : pl_type =
+fn prune_extension(s : string, file_proper : string) : pl_type =
   let
     val (prf | str) = filename_get_ext(s)
     val match: string = if strptr2ptr(str) > 0 then
