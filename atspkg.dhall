@@ -7,11 +7,32 @@ in
 let cross = True
 in
 
+let parallel = True
+in
+
+let srcFile = 
+  if parallel 
+    then "polyglot" 
+    else "compat"
+in
+
+let deps =
+  if parallel 
+    then [ "concurrency", "specats" ] 
+    else [ "specats" ]
+in
+
+let native =
+  if not cross
+    then [ "-mtune=native" ]
+    else ([] : List Text)
+in
+
 prelude.default ⫽ 
   { bin =
     [
       prelude.bin ⫽ 
-      { src = "src/polyglot.dats"
+      { src = "src/${srcFile}.dats"
       , target = "target/poly"
       , gcBin = True
       , libs = [ "pthread" ]
@@ -27,6 +48,6 @@ prelude.default ⫽
   , man = [ "man/poly.md" ] : Optional Text
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , compiler = [0,3,10]
-  , dependencies = prelude.mapPlainDeps [ "concurrency", "specats" ]
-  , cflags = [ "-flto", "-O2" ] # (if not cross then [ "-mtune=native" ] else ([] : List Text))
+  , dependencies = prelude.mapPlainDeps deps
+  , cflags = [ "-flto", "-O2" ] # native
   }
