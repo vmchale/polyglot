@@ -1,5 +1,5 @@
 # Features
-- [ ] `.poly.toml` project file
+- [ ] `.poly.toml` project file?
 - [ ] per-file output like `tokei`
 - [ ] parse directories on the command line starting with a `-` by using escapes
 - [ ] detect documentation comments
@@ -10,12 +10,9 @@
 # Performance
 - [x] parallelism
   - [ ] better parallelism
+- [ ] make sure everything is tail recursive
 - [ ] linear types everywhere!!
-  - [ ] fork common functions?
 - [ ] get rid of GC
-  - [ ] `ptr_alloc<t@ype>()` to allocate appropriately sized pointer
-  - [ ] `mfree_gc_v` to free allocated memory
-  - [ ] `gfree_val`
 # Bugs
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
@@ -37,6 +34,7 @@
 - [ ] `.gitattributes`
 - [ ] `.poly.toml` project file
 ### Language Support
+- [ ] `.sed` files
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
 - [ ] hsc2hs (`.hsc`), greencard (`.gc`), c2hs (`.chs`), cpphs (`.cpphs`)

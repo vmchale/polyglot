@@ -3,15 +3,17 @@
 [![Build Status](https://travis-ci.org/vmchale/polyglot.svg?branch=master)](https://travis-ci.org/vmchale/polyglot)
 
 `poly` is a command-line tool that determines project contents.
+The goal is to able to point it to any directory and get an accurate,
+complete, and informative summary of its contents.
 
 <img alt="Screenshot of sample output" src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
 
-## Features
+## Pitch
 
 Reasons to use polyglot:
 
-  * Fast: polyglot is faster than all other tools
   * Accurate: won't confuse Coq and Verilog
+  * Fast: polyglot is faster than all other tools
   * Pretty: magenta output
 
 Reasons not to use polyglot:
