@@ -2,7 +2,7 @@ poly:
     poly -e data
 
 all:
-    atspkg clean ; atspkg nuke ; atspkg build --target=arm-linux-gnueabihf
+    atspkg clean ; atspkg nuke ; atspkg build --target=arm-linux-gnueabihf ; exit 0
 
 ci:
     tomlcheck --file .atsfmt.toml
@@ -19,7 +19,7 @@ release: all
     git tag -d "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     git push origin master
     github-release release -s $(cat ~/.git-token) -u vmchale -r polyglot -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
-    github-release upload -s $(cat ~/.git-token) -u vmchale -r poly-arm-linux-gnueabihf -n poly.1 -f target/poly -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-arm-linux-gnueabihf -f target/poly -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
 
