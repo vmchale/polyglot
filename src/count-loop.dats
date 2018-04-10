@@ -85,16 +85,16 @@ extern
 fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n)
                            | p : ptr(l), pz : ptr, c : int, res : file, comment : !Option_vt(pair)) : file
 
-fn match_acc_file(b : bool, b2 : bool) : file =
-  case+ (b, b2) of
-    | (true, true) => @{ files = 0, blanks = 1, comments = 1, lines = 1 }
-    | (true, false) => @{ files = 0, blanks = 1, comments = 0, lines = 1 }
-    | (false, true) => @{ files = 0, blanks = 0, comments = 1, lines = 1 }
-    | (false, false) => @{ files = 0, blanks = 0, comments = 0, lines = 1 }
-
 implement wclbuf (pf | p, pz, c, res, comment) =
   let
     val (pf1, pf2 | p2) = rawmemchr(pf | p, c)
+    
+    fn match_acc_file(b : bool, b2 : bool) : file =
+      case+ (b, b2) of
+        | (true, true) => @{ files = 0, blanks = 1, comments = 1, lines = 1 }
+        | (true, false) => @{ files = 0, blanks = 1, comments = 0, lines = 1 }
+        | (false, true) => @{ files = 0, blanks = 0, comments = 1, lines = 1 }
+        | (false, false) => @{ files = 0, blanks = 0, comments = 0, lines = 1 }
   in
     if p2 < pz then
       let
