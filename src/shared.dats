@@ -15,6 +15,9 @@ staload _ = "libats/ML/DATS/atspre.dats"
 staload _ = "libats/ML/DATS/list0.dats"
 staload _ = "libats/ML/DATS/filebas.dats"
 
+#define nil list_nil
+#define :: list_cons
+
 fun to_file(s : string, pre : Option(string)) : file =
   let
     var is_comment = case+ pre of
@@ -240,79 +243,45 @@ fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_ty
       case+ ext of
         | "y" => let
           val _ = free_pl(pre)
-          var happy_keywords = list_cons("module", list_nil())
+          var happy_keywords = "module" :: nil
         in
-          if match_keywords(happy_keywords, word) then
-            happy(size)
-          else
-            if let
-              var yacc_keywords = list_cons("struct", list_cons("char", list_cons("int", list_nil())))
+          ifcase
+            | match_keywords(happy_keywords, word) => happy(size)
+            | let
+              var yacc_keywords = "struct" :: "char" :: "int" :: nil
             in
               match_keywords(yacc_keywords, word)
-            end then
-              yacc(size)
-            else
-              unknown
+            end => yacc(size)
+            | _ => unknown
         end
         | "v" => let
           var _ = free_pl(pre)
-          var verilog_keywords = list_cons( "endmodule"
-                                          , list_cons( "posedge"
-                                                     , list_cons( "edge"
-                                                                , list_cons("always", list_cons("wire", list_nil()))
-                                                                )
-                                                     )
-                                          )
+          var verilog_keywords = "endmodule" :: "posedge" :: "edge" :: "always" :: "wire" :: nil
         in
-          if match_keywords( verilog_keywords
-                           , word
-                           ) then
-            verilog(size)
-          else
-            if let
-              var coq_keywords = list_cons( "Qed"
-                                          , list_cons( "Require"
-                                                     , list_cons( "Hypothesis"
-                                                                , list_cons( "Inductive"
-                                                                           , list_cons( "Remark"
-                                                                                      , list_cons( "Lemma"
-                                                                                                 , list_cons( "Proof"
-                                                                                                            , list_cons( "Definition"
-                                                                                                                       , list_cons( "Theorem"
-                                                                                                                                  , list_nil()
-                                                                                                                                  )
-                                                                                                                       )
-                                                                                                            )
-                                                                                                 )
-                                                                                      )
-                                                                           )
-                                                                )
-                                                     )
-                                          )
+          ifcase
+            | match_keywords(verilog_keywords, word) => verilog(size)
+            | let
+              var coq_keywords = "Qed"
+              :: "Require"
+              :: "Hypothesis"
+              :: "Inductive" :: "Remark" :: "Lemma" :: "Proof" :: "Definition" :: "Theorem" :: nil
             in
               match_keywords(coq_keywords, word)
-            end then
-              coq(size)
-            else
-              unknown
+            end => coq(size)
+            | _ => unknown
         end
         | "m" => let
           val _ = free_pl(pre)
-          var mercury_keywords = list_cons("module", list_cons("pred", list_cons("mode", list_nil())))
+          var mercury_keywords = "module" :: "pred" :: "mode" :: nil
         in
-          if match_keywords(mercury_keywords, word) then
-            mercury(size)
-          else
-            if let
-              var objective_c_keywords = list_cons( "nil"
-                                                  , list_cons("nullable", list_cons("nonnull", list_nil()))
-                                                  )
+          ifcase
+            | match_keywords(mercury_keywords, word) => mercury(size)
+            | let
+              var objective_c_keywords = "nil" :: "nullable" :: "nonnull" :: nil
             in
               match_keywords(objective_c_keywords, word)
-            end then
-              objective_c(size)
-            else
-              unknown
+            end => objective_c(size)
+            | _ => unknown
         end
         | _ => pre
     end
@@ -557,6 +526,7 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | ".sass-cache" => true
     | _ => list_exists_cloref(excludes, lam x => x = s || x = s + "/")
 
+// TODO make this a library function
 fnx step_stream( acc : source_contents
                , full_name : string
                , file_proper : string

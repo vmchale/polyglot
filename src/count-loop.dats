@@ -12,7 +12,7 @@ extern void *rawmemchr(const void *s, int c);
 %}
 
 // monoidal addition for 'file' type
-fun add_results(x : file, y : file) : file =
+fn add_results(x : file, y : file) : file =
   let
     var next = @{ lines = x.lines + y.lines
                 , blanks = x.blanks + y.blanks
