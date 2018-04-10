@@ -11,10 +11,10 @@ vtypedef command_line = @{ version = bool
                          , includes = [m:nat] list(string, m)
                          }
 
-fun version() : void =
+fn version() : void =
   println!("polygot version 0.4.28\nCopyright (c) 2018 Vanessa McHale")
 
-fun help() : void =
+fn help() : void =
   print("polyglot - Count lines of code quickly.
 \33[36mUSAGE:\33[0m poly [DIRECTORY] ... [OPTION] ...
 \33[36mFLAGS:\33[0m
@@ -29,7 +29,7 @@ fun help() : void =
                                                                                                                                                                   
     Bug reports and updates: github.com/vmchale/polyglot\n")
 
-fun is_flag(s : string) : bool =
+fn is_flag(s : string) : bool =
   string_is_prefix("-", s)
 
 fn bad_exclude(s : string) : void =
@@ -108,7 +108,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
     !acc_r
   end
 
-fun process_excludes(s : string, acc : command_line) : command_line =
+fn process_excludes(s : string, acc : command_line) : command_line =
   let
     var acc_r = ref<command_line>(acc)
     val () = if is_flag(s) then
@@ -123,7 +123,7 @@ fun process_excludes(s : string, acc : command_line) : command_line =
   end
 
 // TODO minor problem in how exclusions are handled with short flags
-fnx get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n-m>. ( argc : int(n)
+fun get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n-m>. ( argc : int(n)
                                                             , argv : !argv(n)
                                                             , current : int(m)
                                                             , prev_is_exclude : bool

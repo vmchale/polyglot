@@ -41,47 +41,51 @@ implement freadc (pf | inp, p, c) =
     n
   end
 
-vtypedef pair = @{ f = char, s = char }
+vtypedef pair = @{ f = char, s = Option_vt(char) }
 
 // TODO refactor the '?' stuff out
 // FIXME we shouldn't use unsafe in various places.
-fun get_chars(s : string) : Option(pair) =
+fun get_chars(s : string) : Option_vt(pair) =
   if length(s) >= 2 then
     let
-      var p = @{ f = $UN.ptr1_get<char>(string2ptr(s))
-               , s = $UN.ptr1_get<char>(add_ptr_bsz(string2ptr(s), i2sz(1)))
+      val p = @{ f = $UN.ptr1_get<char>(string2ptr(s))
+               , s = Some_vt($UN.ptr1_get<char>(add_ptr_bsz(string2ptr(s), i2sz(1))))
                }
     in
-      Some(p)
+      Some_vt(p)
     end
   else
     if length(s) >= 1 then
       let
-        var p = @{ f = $UN.ptr1_get<char>(string2ptr(s)), s = '?' }
+        val p = @{ f = $UN.ptr1_get<char>(string2ptr(s)), s = None_vt }
       in
-        Some(p)
+        Some_vt(p)
       end
     else
-      None
+      None_vt
 
 fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m)
-                                 | p : ptr(l), compare : char, comment : Option(pair)) : (bool, bool) =
+                                 | p : ptr(l), compare : char, comment : !Option_vt(pair)) : (bool, bool) =
   let
+    var match = lam@ (x : char, y : !Option_vt(char)) : bool =>
+      case+ y of
+        | Some_vt (z) => x = z
+        | None_vt() => false
     var s2 = $UN.ptr0_get<char>(p)
     var s3 = $UN.ptr0_get<char>(ptr_succ<byte>(p))
     var b = s2 = compare
     var b2 = case+ comment of
-      | None() => false
-      | Some (p) => s2 = p.f && (s3 = p.s || p.s = '?')
+      | None_vt() => false
+      | Some_vt (p) => s2 = p.f && match(s3, p.s)
   in
     (b, b2)
   end
 
 extern
 fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n)
-                           | p : ptr(l), pz : ptr, c : int, res : file, comment : Option(pair)) : file
+                           | p : ptr(l), pz : ptr, c : int, res : file, comment : !Option_vt(pair)) : file
 
-fun match_acc_file(b : bool, b2 : bool) : file =
+fn match_acc_file(b : bool, b2 : bool) : file =
   case+ (b, b2) of
     | (true, true) => @{ files = 0, blanks = 1, comments = 1, lines = 1 }
     | (true, false) => @{ files = 0, blanks = 1, comments = 0, lines = 1 }
@@ -113,13 +117,14 @@ implement wclbuf (pf | p, pz, c, res, comment) =
 
 extern
 fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ)
-                    | inp : FILEref, p : ptr(l), c : int, comment : Option(pair)) : file
+                    | inp : FILEref, p : ptr(l), c : int, comment : !Option_vt(pair)) : file
 
 implement wclfil {l} (pf | inp, p, c, comment) =
   let
     var acc_file = @{ files = 1, blanks = ~1, comments = 0, lines = 0 } : file
     
-    fun loop(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, res : file) : file =
+    fun loop(pf : !bytes_v(l, BUFSZ)
+            | inp : FILEref, p : ptr(l), c : int, res : file, comment : !Option_vt(pair)) : file =
       let
         val n = freadc(pf | inp, p, $UN.cast{char}(c))
       in
@@ -128,17 +133,29 @@ implement wclfil {l} (pf | inp, p, c, comment) =
             var pz = ptr_add<char>(p, n)
             var res = wclbuf(pf | p, pz, c, res, comment)
           in
-            loop(pf | inp, p, c, res)
+            loop(pf | inp, p, c, res, comment)
           end
         else
           res
       end
   in
-    loop(pf | inp, p, c, acc_file)
+    loop(pf | inp, p, c, acc_file, comment)
   end
 
+fn clear_opt(x : Option_vt(char)) : void =
+  case+ x of
+    | ~None_vt() => ()
+    | ~Some_vt (_) => ()
+
+overload free with clear_opt
+
+fn clear_function(x : Option_vt(pair)) : void =
+  case+ x of
+    | ~None_vt() => ()
+    | ~Some_vt (x) => free(x.s)
+
 // TODO don't use _exn here 
-fn count_char(s : string, c : char, comment : Option(pair)) : file =
+fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
     var inp: FILEref = fopen_ref_exn(s, file_mode_r)
     val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
@@ -146,6 +163,7 @@ fn count_char(s : string, c : char, comment : Option(pair)) : file =
     var res = wclfil(pfat | inp, p, $UN.cast2int(c), comment)
     val () = mfree_gc(pfat, pfgc | p)
     val _ = fclose_exn(inp)
+    val _ = clear_function(comment)
   in
     res
   end
@@ -155,4 +173,4 @@ typedef small_string = [ m : nat | m <= 2 && m > 0 ] string(m)
 fun line_count(s : string, pre : Option_vt(small_string)) : file =
   case+ pre of
     | ~Some_vt (x) => count_char(s, '\n', get_chars(x))
-    | ~None_vt() => count_char(s, '\n', None)
+    | ~None_vt() => count_char(s, '\n', None_vt)

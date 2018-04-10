@@ -2,7 +2,6 @@ poly:
     poly -e data
 
 
-# attempted: s390x-linux-gnu, powerpc64-linux-gnu, h8300-hms, powerpc-linux-gnu; gcc-mips-linux-gnu; gcc-mips64-linux-gnuabi64; gcc-mingw-w64-x86-64; arm-linux-gnueabi; msp430; hhpa-linux-gnu
 all:
     atspkg clean ; atspkg nuke ; atspkg build --target=arm-linux-gnueabihf ; exit 0
 
