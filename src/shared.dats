@@ -526,7 +526,6 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | ".sass-cache" => true
     | _ => list_exists_cloref(excludes, lam x => x = s || x = s + "/")
 
-// TODO make this a library function
 fnx step_stream( acc : source_contents
                , full_name : string
                , file_proper : string
