@@ -2,6 +2,8 @@ staload "libats/ML/SATS/string.sats"
 staload _ = "libats/ML/DATS/string.dats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+#include "src/error.dats"
+
 // Type for the parsed command-line arguments.
 vtypedef command_line = @{ version = bool
                          , help = bool
@@ -32,20 +34,21 @@ fn help() : void =
 fn is_flag(s : string) : bool =
   string_is_prefix("-", s)
 
-fn bad_exclude(s : string) : void =
-  (println!("\33[31mError:\33[0m flag "
-  + s
-  + " must be followed by an argument and must occur alone") ; exit(0) ; ())
-
 fun process_short { s : int | s > 0 }(s : string(s), acc : command_line) : command_line =
   let
     var str = string_make_substring(s, i2sz(0), i2sz(1))
     var acc_r = ref<command_line>(acc)
     val () = case+ str of
       | "h" => acc_r -> help := true
-      | "p" => acc_r -> no_parallel := true
-      | "t" => acc_r -> no_table := true
-      | "e" => bad_exclude(s)
+      | "p" => if not(acc.no_parallel) then
+        acc_r -> no_parallel := true
+      else
+        bad_flag("-p")
+      | "t" => if not(acc.no_table) then
+        acc_r -> no_table := true
+      else
+        bad_flag("-t")
+      | "e" => bad_exclude("-e")
       | "V" => acc_r -> version := true
       | "-" => ()
       | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
@@ -79,13 +82,19 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "--no-table" => if not(acc.no_table) then
           acc_r -> no_table := true
         else
-          (println!("\33[31mError:\33[0m flag " + s + " cannot appear twice") ; exit(0) ; ())
+          bad_flag(s)
         | "-t" => if not(acc.no_table) then
           acc_r -> no_table := true
         else
-          (println!("\33[31mError:\33[0m flag " + s + " cannot appear twice") ; exit(0) ; ())
-        | "--no-parallel" => acc_r -> no_parallel := true
-        | "-p" => acc_r -> no_parallel := true
+          bad_flag(s)
+        | "--no-parallel" => if not(acc.no_parallel) then
+          acc_r -> no_parallel := true
+        else
+          bad_flag(s)
+        | "-p" => if not(acc.no_parallel) then
+          acc_r -> no_parallel := true
+        else
+          bad_flag(s)
         | "--version" => acc_r -> version := true
         | "-V" => acc_r -> version := true
         | "-e" => bad_exclude(s)
@@ -112,10 +121,7 @@ fn process_excludes(s : string, acc : command_line) : command_line =
   let
     var acc_r = ref<command_line>(acc)
     val () = if is_flag(s) then
-      ( println!("\33[31mError:\33[0m flag " + s + " found where a directory name was expected")
-      ; exit(0)
-      ; ()
-      )
+      bad_directory(s)
     else
       acc_r -> excludes := list_cons(s, acc.excludes)
   in

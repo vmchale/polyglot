@@ -50,4 +50,15 @@ prelude.default ⫽
   , compiler = [0,3,10]
   , dependencies = prelude.mapPlainDeps deps
   , cflags = [ "-flto", "-O2" ] # native
+  , debPkg =
+    [
+      { package = "polyglot"
+      , version = [0,4,29]
+      , maintainer = "Vanessa McHale <vamchale@gmail.com>"
+      , description = "Determine project contents"
+      , target = "target/polyglot.deb"
+      , manpage = "man/poly.1"
+      , binaries = [ "target/poly" ]
+      }
+    ] : Optional prelude.Debian
   }

@@ -2,7 +2,6 @@
 #include "src/count-loop.dats"
 #include "src/print.dats"
 #include "src/utils.dats"
-#include "src/error.dats"
 
 staload "src/filetype.sats"
 staload "libats/ML/SATS/atspre.sats"
@@ -229,9 +228,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
   end
 
 fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
-  list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string( next
-                                                                                , word
-                                                                                ), false)
+  list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string(next, word), false)
 
 // TODO use list_vt{int}(0, 1, 2, 3, 4) instead?
 // helper function for check_keywords
@@ -298,11 +295,7 @@ fn check_keywords(s : string, size : file, ext : string) : pl_type =
       | ~Some_vt (x) => let
         var init: pl_type = unknown
         var viewstream = $EXTRA.streamize_fileref_word(x)
-        var result = stream_vt_foldleft_cloptr(viewstream, init, lam (acc, next) => step_keyword( size
-                                                                                                , acc
-                                                                                                , next
-                                                                                                , ext
-                                                                                                ))
+        var result = stream_vt_foldleft_cloptr(viewstream, init, lam (acc, next) => step_keyword(size, acc, next, ext))
         val _ = fileref_close(x)
       in
         result
@@ -526,33 +519,21 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | ".sass-cache" => true
     | _ => list_exists_cloref(excludes, lam x => x = s || x = s + "/")
 
-fnx step_stream( acc : source_contents
-               , full_name : string
-               , file_proper : string
-               , excludes : List0(string)
-               ) : source_contents =
+fnx step_stream(acc : source_contents, full_name : string, file_proper : string, excludes : List0(string)) :
+  source_contents =
   if test_file_isdir(full_name) > 0 then
     flow_stream(full_name, acc, excludes)
   else
     adjust_contents(acc, prune_extension(full_name, file_proper))
-and flow_stream(s : string, init : source_contents, excludes : List0(string)) :
-  source_contents =
+and flow_stream(s : string, init : source_contents, excludes : List0(string)) : source_contents =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
   in
     if s != "." then
-      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
-                                                                            , s + "/" + next
-                                                                            , next
-                                                                            , excludes
-                                                                            ))
+      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream(acc, s + "/" + next, next, excludes))
     else
-      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
-                                                                            , next
-                                                                            , next
-                                                                            , excludes
-                                                                            ))
+      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream(acc, next, next, excludes))
   end
 
 fun empty_contents() : source_contents =
@@ -648,10 +629,9 @@ fun empty_contents() : source_contents =
     isc
   end
 
-fun map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) :
-  source_contents =
-  list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next)
-                      || test_file_isdir(next) < 0 || next = "" then
+fun map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) : source_contents =
+  list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next) || test_file_isdir(next) < 0
+                      || next = "" then
                         step_stream(acc, next, next, excludes)
                       else
                         (maybe_err(next) ; acc))
@@ -659,8 +639,7 @@ fun map_stream(acc : source_contents, includes : List0(string), excludes : List0
 fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
-    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)
-                                        && test_file_isdir(s + "/" + x) > 0))
+    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes) && test_file_isdir(s + "/" + x) > 0))
     
     fun stream2list(x : stream_vt(string)) : List0(string) =
       case+ !x of
@@ -673,8 +652,7 @@ fun step_list(s : string, excludes : List0(string)) : List0(string) =
 fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
-    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes))
-                                        && test_file_isdir(s + "/" + x) = 0)
+    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)) && test_file_isdir(s + "/" + x) = 0)
     
     fun stream2list(x : stream_vt(string)) : List0(string) =
       case+ !x of

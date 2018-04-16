@@ -1,12 +1,15 @@
 // This file contains various functions for printing generated output
 staload "src/filetype.sats"
 staload "libats/ML/SATS/string.sats"
+staload UN = "prelude/SATS/unsafe.sats"
 
-fun right_pad { k : int | k >= 0 }{ m : int | m <= k } .<k>. (s : string(m), n : int(k)) :
-  string =
-  case+ length(s) < n of
-    | true when n > 0 => right_pad(s, n - 1) + " "
-    | _ => s
+// Optimized right pad function. In the future, it could return string(k) but
+// that would require a different string append function.
+fun right_pad { k : int | k >= 0 }{ m : int | m <= k && m >= 0 } .<k>. (s : string(m), n : int(k)) : string =
+  if length(s) < n then
+    right_pad(s, n - 1) + " "
+  else
+    s
 
 // Pad a string on the left by adding spaces.
 fun left_pad { k : int | k >= 0 } .<k>. (s : string, n : int(k)) : string =

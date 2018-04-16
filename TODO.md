@@ -7,17 +7,24 @@
 - [ ] block comments
 - [ ] Allow generation of HTML tables from output.
 - [ ] JSON output? Or alternately some other form of output?
+- [ ] HTML pretty-printer would be nice.
+- [ ] Detailed help on how to use a type?
+- [ ] Allow/disallow symlinks
+- [ ] Library for semantic analysis?
 # Performance
 - [x] parallelism
   - [ ] better parallelism
 - [ ] make sure everything is tail recursive
 - [ ] linear types everywhere!!
 - [ ] get rid of GC
+# Distribution
+- [ ] Make a debianization?
 # Bugs
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
-- [ ] can't run on files when in parallel
-- [ ] `poly ..` doesn't work??
+- [ ] `poly -t README.md` adds spurious line
+- [ ] handle `\-dir` for directories
+- [ ] `./target/poly --hlp` yields wrong error.
 # Code Maintenance
 - [ ] Test suite
 - [ ] builds for other systems

@@ -1,5 +1,5 @@
 poly:
-    poly -e data
+    @poly -e data
 
 
 all:

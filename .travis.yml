@@ -43,6 +43,7 @@ script:
       yamllint .yamllint
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
       atspkg build
+      atspkg build target/polyglot.deb
       mv target/poly poly-$TARGET
     elif [ $TARGET = "arm-linux-gnueabihf" ]
     then

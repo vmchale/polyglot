@@ -26,8 +26,9 @@ fn add_results(x : file, y : file) : file =
 overload + with add_results
 
 extern
-fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) :
-  [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2) | ptr(l2)) =
+fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) : [ l2 : addr | l+m > l2 ] ( bytes_v(l, l2-l)
+                                                                                                   , bytes_v(l2, l+m-l2)
+                                                                                                    | ptr(l2)) =
   "mac#atslib_rawmemchr"
 
 extern
@@ -64,8 +65,8 @@ fun get_chars(s : string) : Option_vt(pair) =
     else
       None_vt
 
-fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m)
-                                 | p : ptr(l), compare : char, comment : !Option_vt(pair)) : (bool, bool) =
+fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : char, comment : !Option_vt(pair)) :
+  (bool, bool) =
   let
     var match = lam@ (x : char, y : !Option_vt(char)) : bool =>
       case+ y of
@@ -116,15 +117,14 @@ implement wclbuf (pf | p, pz, c, res, comment) =
   end
 
 extern
-fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ)
-                    | inp : FILEref, p : ptr(l), c : int, comment : !Option_vt(pair)) : file
+fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, comment : !Option_vt(pair)) : file
 
 implement wclfil {l} (pf | inp, p, c, comment) =
   let
     var acc_file = @{ files = 1, blanks = ~1, comments = 0, lines = 0 } : file
     
-    fun loop(pf : !bytes_v(l, BUFSZ)
-            | inp : FILEref, p : ptr(l), c : int, res : file, comment : !Option_vt(pair)) : file =
+    fun loop(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, res : file, comment : !Option_vt(pair)) :
+      file =
       let
         val n = freadc(pf | inp, p, $UN.cast{char}(c))
       in
@@ -168,6 +168,7 @@ fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
     res
   end
 
+// This ensures safety.
 typedef small_string = [ m : nat | m <= 2 && m > 0 ] string(m)
 
 fun line_count(s : string, pre : Option_vt(small_string)) : file =

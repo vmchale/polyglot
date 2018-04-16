@@ -22,8 +22,7 @@ staload _ = "libats/DATS/athread.dats"
 fun step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
-    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)
-                                        && test_file_isdir(s + "/" + x) > 0))
+    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes) && test_file_isdir(s + "/" + x) > 0))
     
     fun stream2list(x : stream_vt(string)) : List0(string) =
       case+ !x of
@@ -36,8 +35,7 @@ fun step_list(s : string, excludes : List0(string)) : List0(string) =
 fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
-    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes))
-                                        && test_file_isdir(s + "/" + x) = 0)
+    var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)) && test_file_isdir(s + "/" + x) = 0)
     
     fun stream2list(x : stream_vt(string)) : List0(string) =
       case+ !x of
@@ -135,10 +133,7 @@ fun handle(x : Option_vt(List0(string))) : (source_contents, List0(string)) =
   case- x of
     | ~None_vt() => (empty_contents(), list_nil)
 
-fun worker( excludes : List0(string)
-          , send : channel(Option_vt(List0(string)))
-          , chan : channel(source_contents)
-          ) : void =
+fun worker(excludes : List0(string), send : channel(Option_vt(List0(string))), chan : channel(source_contents)) : void =
   {
     val- (xs) = channel_remove(send)
     val (sc, ls) = handle(xs)
@@ -146,10 +141,7 @@ fun worker( excludes : List0(string)
     val () = handle_unref(chan)
   }
 
-fun work( excludes : List0(string)
-        , send : channel(List0(string))
-        , chan : channel(source_contents)
-        ) : void =
+fun work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
   {
     val- (n) = channel_remove(send)
     var x = map_stream(empty_contents(), n, excludes)
