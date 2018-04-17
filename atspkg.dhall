@@ -4,7 +4,7 @@ in
 let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Prelude/Bool/not
 in
 
-let cross = False
+let cross = True
 in
 
 let parallel = True
