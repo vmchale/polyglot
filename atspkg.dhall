@@ -57,7 +57,8 @@ prelude.default ⫽
       , maintainer = "Vanessa McHale <vamchale@gmail.com>"
       , description = "Determine project contents"
       , target = "target/polyglot.deb"
-      , manpage = "man/poly.1"
+      , manpage = [ "man/poly.1" ]
+        : Optional Text
       , binaries = [ "target/poly" ]
       }
     ] : Optional prelude.Debian
