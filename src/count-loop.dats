@@ -116,6 +116,18 @@ implement wclbuf (pf | p, pz, c, res, comment) =
       end
   end
 
+// FIXME time-consuming?
+fun postproc(acc : file) : file =
+  let
+    var acc_r = ref<file>(acc)
+    val _ = if acc.blanks = ~1 then
+      acc_r -> blanks := 0
+    else
+      ()
+  in
+    !acc_r
+  end
+
 extern
 fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, comment : !Option_vt(pair)) : file
 
@@ -136,7 +148,7 @@ implement wclfil {l} (pf | inp, p, c, comment) =
             loop(pf | inp, p, c, res, comment)
           end
         else
-          res
+          postproc(res)
       end
   in
     loop(pf | inp, p, c, acc_file, comment)

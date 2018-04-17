@@ -27,6 +27,8 @@
 - [ ] Figure out Windows
 - [ ] Figure out cross compilation
 # Bugs
+- [ ] `-3` lines of Jupyter? Fix w.r.t. code/lines
+- [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
 - [ ] `poly -t README.md` adds spurious line

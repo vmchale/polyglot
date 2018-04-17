@@ -240,7 +240,7 @@ fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_ty
       case+ ext of
         | "y" => let
           val _ = free_pl(pre)
-          var happy_keywords = "module" :: nil
+          var happy_keywords = "module" :: "import" :: nil
         in
           ifcase
             | match_keywords(happy_keywords, word) => happy(size)
@@ -269,12 +269,12 @@ fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_ty
         end
         | "m" => let
           val _ = free_pl(pre)
-          var mercury_keywords = "module" :: "pred" :: "mode" :: nil
+          var mercury_keywords = "module" :: "pred" :: nil
         in
           ifcase
             | match_keywords(mercury_keywords, word) => mercury(size)
             | let
-              var objective_c_keywords = "nil" :: "nullable" :: "nonnull" :: nil
+              var objective_c_keywords = "unsigned" :: "nil" :: "nullable" :: "nonnull" :: nil
             in
               match_keywords(objective_c_keywords, word)
             end => objective_c(size)

@@ -35,17 +35,17 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>142.0 ms</td>
+    <td>139.9 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>166.0 ms</td>
+    <td>171.4 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>385.4 ms</td>
+    <td>383.0 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
