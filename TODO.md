@@ -11,6 +11,7 @@
 - [ ] Detailed help on how to use a type?
 - [ ] Allow/disallow symlinks
 - [ ] Library for semantic analysis?
+- [ ] Avoid overlaps when subdirectories passed as arguments?
 # Performance
 - [x] parallelism
   - [ ] better parallelism
@@ -19,6 +20,12 @@
 - [ ] get rid of GC
 # Distribution
 - [ ] Make a debianization?
+  - [ ] Make it downloadable
+  - [ ] Package `compleat`
+- [ ] Compress via travis
+# Portability
+- [ ] Figure out Windows
+- [ ] Figure out cross compilation
 # Bugs
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
@@ -30,6 +37,10 @@
 - [ ] builds for other systems
 - [ ] linear types to ensure each field gets printed at the end?
   - [ ] or alternately a macro
+# Libraries
+- [ ] TOML parser for ATS (or sufficient bindings)
+- [ ] Library for `.gitignore` files etc.
+- [ ] Parallel directory traversal (templates?)
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parent directory (`.cargo/config`)
@@ -53,7 +64,7 @@
 - [ ] D (`.d`)
 - [ ] DDoc
 - [ ] Dockerfile
-- [ ] LilyPond
+- [ ] LilyPond (`.ly`)
 - [ ] Jenkinsfile (groovy?)
 - [ ] mustache
 - [ ] jinja
