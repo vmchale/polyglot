@@ -60,6 +60,8 @@ prelude.default ⫽
       , manpage = [ "man/poly.1" ]
         : Optional Text
       , binaries = [ "target/poly" ]
+      , libraries = []
+        : List Text
       }
     ] : Optional prelude.Debian
   }
