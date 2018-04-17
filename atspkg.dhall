@@ -53,7 +53,7 @@ prelude.default ⫽
   , debPkg =
     [
       { package = "polyglot"
-      , version = [0,4,29]
+      , version = [0,4,32]
       , maintainer = "Vanessa McHale <vamchale@gmail.com>"
       , description = "Determine project contents"
       , target = "target/polyglot.deb"
