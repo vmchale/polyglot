@@ -18,9 +18,10 @@
 - [ ] make sure everything is tail recursive
 - [ ] linear types everywhere!!
 - [ ] get rid of GC
+  - [ ] Currently would require fixing standard library
 # Distribution
 - [ ] Make a debianization?
-  - [ ] Make it downloadable
+  - [ ] Add to debian
   - [ ] Package `compleat`
 - [ ] Compress via travis
 - [ ] `pkg-config` stuff for library
@@ -28,11 +29,10 @@
 - [ ] Figure out Windows
 - [ ] Figure out cross compilation
 # Bugs
-- [ ] `-3` lines of Jupyter? Fix w.r.t. code/lines
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
-- [ ] `poly -t README.md` adds spurious line
+- [ ] `poly -t README.md` adds spurious line of output
 - [ ] handle `\-dir` for directories
 - [ ] `./target/poly --hlp` yields wrong error.
 # Code Maintenance
