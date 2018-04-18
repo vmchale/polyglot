@@ -23,6 +23,7 @@
   - [ ] Make it downloadable
   - [ ] Package `compleat`
 - [ ] Compress via travis
+- [ ] `pkg-config` stuff for library
 # Portability
 - [ ] Figure out Windows
 - [ ] Figure out cross compilation
@@ -35,6 +36,10 @@
 - [ ] handle `\-dir` for directories
 - [ ] `./target/poly --hlp` yields wrong error.
 # Code Maintenance
+- [ ] Library for this
+  - [ ] `.sats` files
+  - [ ] Library stanza & Haskell bindings
+  - [ ] Executable that depends on the library
 - [ ] Test suite
 - [ ] builds for other systems
 - [ ] linear types to ensure each field gets printed at the end?
@@ -100,6 +105,7 @@
 - [ ] Bison (`.yy` among others)
 - [ ] Flex
 - [ ] Felix
+- [ ] `.jats` (enriched JSON)
 - [ ] Sass
 - [ ] gemfile
 - [ ] gemspec
@@ -160,3 +166,7 @@
 - [ ] Stylus
 - [ ] haddock interface
 - [ ] Vagrantfile
+- [ ] NAnt script
+- [ ] RobotFramework
+- [ ] QML
+- [ ] xBase

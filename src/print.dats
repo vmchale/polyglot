@@ -24,14 +24,14 @@ fn maybe_full(a : string, b : string, c : string) : string =
     ""
 
 // helper function for make_table
-fun maybe_table { k : int | k >= 0 && k < 20 }(s : string(k), f : file) : string =
+fun maybe_table { k : int | k >= 0 && k < 19 }(s : string(k), f : file) : string =
   let
     var code = f.lines - f.comments - f.blanks
   in
     if f.files > 0 then
       " "
-      + right_pad(s, 19)
-      + left_pad(tostring_int(f.files), 7)
+      + right_pad(s, 18)
+      + left_pad(tostring_int(f.files), 6)
       + left_pad(tostring_int(f.lines), 12)
       + left_pad(tostring_int(code), 13)
       + left_pad(tostring_int(f.comments), 13)

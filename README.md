@@ -8,6 +8,9 @@ complete, and informative summary of its contents.
 
 <img alt="Screenshot of sample output" src=https://github.com/vmchale/polyglot/raw/master/screenshot.png>
 
+It also has the secondary goal of advancing the state-of-the art for ATS, by
+writing practical, distributable software.
+
 ## Pitch
 
 Reasons to use polyglot:
