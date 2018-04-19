@@ -50,7 +50,6 @@ prelude.default ⫽
     ]
   , man = [ "man/poly.md" ] : Optional Text
   , completions = [ "compleat/poly.usage" ] : Optional Text
-  , compiler = [0,3,10]
   , dependencies = prelude.mapPlainDeps deps
   , cflags = [ "-flto", "-O2" ] # native
   , debPkg =
