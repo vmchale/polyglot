@@ -31,7 +31,7 @@ fun maybe_table { k : int | k >= 0 && k < 19 }(s : string(k), f : file) : string
     if f.files > 0 then
       " "
       + right_pad(s, 18)
-      + left_pad(tostring_int(f.files), 6)
+      + left_pad(tostring_int(f.files), 8)
       + left_pad(tostring_int(f.lines), 12)
       + left_pad(tostring_int(code), 13)
       + left_pad(tostring_int(f.comments), 13)
