@@ -1,24 +1,27 @@
+{- Imports -}
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 in
 
 let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Prelude/Bool/not
 in
 
+{- Configuration -}
 let cross = True
 in
 
 let parallel = True
 in
 
-let srcFile = 
-  if parallel 
-    then "polyglot" 
+{- Configuration helpers -}
+let srcFile =
+  if parallel
+    then "polyglot"
     else "compat"
 in
 
 let deps =
-  if parallel 
-    then [ "concurrency", "specats" ] 
+  if parallel
+    then [ "concurrency", "specats" ]
     else [ "specats" ]
 in
 
@@ -28,10 +31,10 @@ let native =
     else ([] : List Text)
 in
 
-prelude.default ⫽ 
+prelude.default ⫽
   { bin =
     [
-      prelude.bin ⫽ 
+      prelude.bin ⫽
       { src = "src/${srcFile}.dats"
       , target = "target/poly"
       , gcBin = True
@@ -39,7 +42,7 @@ prelude.default ⫽
       }
     ]
   , test =
-    [ prelude.bin ⫽ 
+    [ prelude.bin ⫽
       { src = "test/test.dats"
       , target = "target/test"
       , gcBin = True
