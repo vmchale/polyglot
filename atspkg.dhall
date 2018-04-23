@@ -12,6 +12,9 @@ in
 let parallel = True
 in
 
+let icc = True
+in
+
 {- Configuration helpers -}
 let srcFile =
   if parallel
@@ -29,6 +32,11 @@ let native =
   if not cross
     then [ "-mtune=native" ]
     else ([] : List Text)
+in
+
+let cc = if icc
+  then "icc"
+  else "gcc"
 in
 
 prelude.default ⫽
@@ -52,6 +60,7 @@ prelude.default ⫽
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , dependencies = prelude.mapPlainDeps deps
   , cflags = [ "-flto", "-O2" ] # native
+  , ccompiler = cc
   , debPkg =
       [
         prelude.debian "polyglot" ⫽

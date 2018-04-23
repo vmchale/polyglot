@@ -1,7 +1,7 @@
 poly:
     @poly -e data
 
-
+# TODO upload icc version
 all:
     atspkg clean ; atspkg nuke ; atspkg build --target=arm-linux-gnueabihf ; exit 0
 
