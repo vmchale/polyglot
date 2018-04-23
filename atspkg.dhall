@@ -12,7 +12,7 @@ in
 let parallel = True
 in
 
-let icc = True
+let icc = False
 in
 
 {- Configuration helpers -}
