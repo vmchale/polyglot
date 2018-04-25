@@ -124,6 +124,7 @@ fun sum_fields(sc : source_contents) : file =
                      + sc.m4.lines
                      + sc.objective_c.lines
                      + sc.automake.lines
+                     + sc.plutus.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -204,6 +205,7 @@ fun sum_fields(sc : source_contents) : file =
                       + sc.m4.blanks
                       + sc.objective_c.blanks
                       + sc.automake.blanks
+                      + sc.plutus.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -284,6 +286,7 @@ fun sum_fields(sc : source_contents) : file =
                         + sc.m4.comments
                         + sc.objective_c.comments
                         + sc.automake.comments
+                        + sc.plutus.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -364,6 +367,7 @@ fun sum_fields(sc : source_contents) : file =
                      + sc.m4.files
                      + sc.objective_c.files
                      + sc.automake.files
+                     + sc.plutus.files
              }
   in
     f
@@ -438,6 +442,7 @@ fun make_table(isc : source_contents) : string =
     + maybe_table("Perl", isc.perl)
     + maybe_table("PHP", isc.php)
     + maybe_table("Plaintext", isc.plaintext)
+    + maybe_table("Plutus", isc.plutus)
     + maybe_table("PowerShell", isc.powershell)
     + maybe_table("Pony", isc.pony)
     + maybe_table("Python", isc.python)
@@ -569,6 +574,7 @@ fun make_output(isc : source_contents) : string =
                    )
     + with_nonempty("\n\33[33mGUIs:\33[0m\n", maybe_string("FLTK Data", isc.fluid.lines))
     + with_nonempty("\n\33[33mNotebooks:\33[0m\n", maybe_string("Jupyter", isc.jupyter.lines))
+    + with_nonempty("\n\33[33mContract Languages:\33[0m\n", maybe_string("Plutus", isc.plutus.lines))
     + with_nonempty( "\n\33[33mOther:\33[0m\n"
                    , maybe_string("Autoconf", isc.autoconf.lines)
                    + maybe_string("Automake", isc.automake.lines)

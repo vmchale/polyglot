@@ -6,13 +6,13 @@ let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Pr
 in
 
 {- Configuration -}
-let cross = True
+let cross = False
 in
 
 let parallel = True
 in
 
-let icc = False
+let cc = "icc"
 in
 
 {- Configuration helpers -}
@@ -32,11 +32,6 @@ let native =
   if not cross
     then [ "-mtune=native" ]
     else ([] : List Text)
-in
-
-let cc = if icc
-  then "icc"
-  else "gcc"
 in
 
 prelude.default ⫽

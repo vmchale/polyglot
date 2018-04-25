@@ -98,3 +98,4 @@ fun free_pl(pl : pl_type) : void =
     | ~greencard _ => ()
     | ~cmm _ => ()
     | ~fluid _ => ()
+    | ~plutus _ => ()

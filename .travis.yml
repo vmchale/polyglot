@@ -50,7 +50,7 @@ script:
       arm-linux-gnueabihf-gcc -v
       atspkg clean
       atspkg nuke
-      atspkg build --target=arm-linux-gnueabihf ; exit 0
+      atspkg build --target=arm-linux-gnueabihf
       mv target/poly poly-$TARGET
     else
       travis_wait 45 atspkg build

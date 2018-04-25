@@ -126,6 +126,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , greencard = x.greencard + y.greencard
                 , cmm = x.cmm + y.cmm
                 , fluid = x.fluid + y.fluid
+                , plutus = x.plutus + y.plutus
                 } : source_contents
   in
     next
@@ -222,6 +223,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~greencard n => sc_r -> greencard := prev.greencard + n
       | ~cmm n => sc_r -> cmm := prev.cmm + n
       | ~fluid n => sc_r -> fluid := prev.fluid + n
+      | ~plutus n => sc_r -> plutus := prev.plutus + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -482,6 +484,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "am" => automake(line_count(s, Some_vt("#")))
       | "mgt" => margaret(line_count(s, Some_vt("--")))
       | "carp" => carp(line_count(s, Some_vt(";")))
+      | "pls" => plutus(line_count(s, None_vt))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -624,6 +627,7 @@ fun empty_contents() : source_contents =
                , greencard = empty_file
                , cmm = empty_file
                , fluid = empty_file
+               , plutus = empty_file
                } : source_contents
   in
     isc
