@@ -106,7 +106,7 @@ fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
     outer(n, list)
   end
 
-// FIXME This is unnecessarily slow because of the List0
+// FIXME this is unnecessarily slow because of the List0
 fun apportion(includes : List0(string), excludes : List0(string)) :
   '(List0(string), List0(string), List0(string), List0(string)) =
   let
@@ -190,6 +190,8 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
     
     var r = loop_return(NCPU, chan)
     val () = ignoret(usleep(50u))
+    
+    // FIXME this
     val () = while(channel_refcount(chan) >= 2)()
     val () = handle_unref(chan)
   in
