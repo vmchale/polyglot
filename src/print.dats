@@ -124,6 +124,12 @@ fun sum_fields(sc : source_contents) : file =
                      + sc.m4.lines
                      + sc.objective_c.lines
                      + sc.automake.lines
+                     + sc.margaret.lines
+                     + sc.carp.lines
+                     + sc.shen.lines
+                     + sc.greencard.lines
+                     + sc.cmm.lines
+                     + sc.fluid.lines
                      + sc.plutus.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
@@ -205,6 +211,12 @@ fun sum_fields(sc : source_contents) : file =
                       + sc.m4.blanks
                       + sc.objective_c.blanks
                       + sc.automake.blanks
+                      + sc.margaret.blanks
+                      + sc.carp.blanks
+                      + sc.shen.blanks
+                      + sc.greencard.blanks
+                      + sc.cmm.blanks
+                      + sc.fluid.blanks
                       + sc.plutus.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
@@ -286,6 +298,12 @@ fun sum_fields(sc : source_contents) : file =
                         + sc.m4.comments
                         + sc.objective_c.comments
                         + sc.automake.comments
+                        + sc.margaret.comments
+                        + sc.carp.comments
+                        + sc.shen.comments
+                        + sc.greencard.comments
+                        + sc.cmm.comments
+                        + sc.fluid.comments
                         + sc.plutus.comments
              , files = sc.rust.files
                      + sc.haskell.files
@@ -367,6 +385,12 @@ fun sum_fields(sc : source_contents) : file =
                      + sc.m4.files
                      + sc.objective_c.files
                      + sc.automake.files
+                     + sc.margaret.files
+                     + sc.carp.files
+                     + sc.shen.files
+                     + sc.greencard.files
+                     + sc.cmm.files
+                     + sc.fluid.files
                      + sc.plutus.files
              }
   in

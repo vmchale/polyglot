@@ -6,14 +6,16 @@ let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Pr
 in
 
 {- Configuration -}
-let cross = False
+let cross = True
 in
 
 let parallel = True
 in
 
-let cc = "gcc"
+let cc = "icc"
 in
+
+-- TODO figure out icc configuration options
 
 {- Configuration helpers -}
 let srcFile =
