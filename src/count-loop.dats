@@ -66,7 +66,7 @@ fun get_chars(s : string) : Option_vt(pair) =
       None_vt
 
 fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : char, comment : !Option_vt(pair)) :
-  (bool, bool) =
+  '(bool, bool) =
   let
     var match = lam@ (x : char, y : !Option_vt(char)) : bool =>
       case+ y of
@@ -79,7 +79,7 @@ fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : ch
       | None_vt() => false
       | Some_vt (p) => s2 = p.f && match(s3, p.s)
   in
-    (b, b2)
+    '(b, b2)
   end
 
 extern
@@ -100,7 +100,7 @@ implement wclbuf (pf | p, pz, c, res, comment) =
     if p2 < pz then
       let
         prval (pf21, pf22) = array_v_uncons(pf2)
-        val (cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n', comment)
+        val '(cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n', comment)
         var acc_file = match_acc_file(cmp1, cmp2)
         var res = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file, comment)
         prval () = pf2 := array_v_cons(pf21, pf22)

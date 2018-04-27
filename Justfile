@@ -1,4 +1,5 @@
 poly:
+    @rm -f *_dats.c
     @poly -e data
 
 # TODO upload icc version

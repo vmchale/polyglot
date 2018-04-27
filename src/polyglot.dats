@@ -82,20 +82,20 @@ fun get_or_nothing(n : intGte(0), xs : List0(List0(string))) : List0(string) =
 // FIXME needs to use actual pointers or something idk
 fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
   let
-    fnx loop(k : int, acc : List0(string)) : (List0(string), List0(string)) =
+    fun loop(k : int, acc : List0(string)) : '(List0(string), List0(string)) =
       case+ k of
-        | 0 => (acc, list_nil)
+        | 0 => '(acc, list_nil)
         | _ => case+ acc of
-          | list_nil() => (list_nil, acc)
+          | list_nil() => '(list_nil, acc)
           | list_cons (x, xs) => let
-            val (p, q) = loop(k - 1, xs)
+            val '(p, q) = loop(k - 1, xs)
           in
-            (list_cons(x, p), q)
+            '(list_cons(x, p), q)
           end
     
-    fnx outer(i : int, acc : List0(string)) : List0(List0(string)) =
+    fun outer(i : int, acc : List0(string)) : List0(List0(string)) =
       let
-        val (p, q) = loop(length(acc) / n, acc)
+        val '(p, q) = loop(length(acc) / n, acc)
       in
         if i > 0 then
           list_cons(p, outer(i - 1, q))
@@ -108,7 +108,7 @@ fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
 
 // FIXME This is unnecessarily slow because of the List0
 fun apportion(includes : List0(string), excludes : List0(string)) :
-  (List0(string), List0(string), List0(string), List0(string)) =
+  '(List0(string), List0(string), List0(string), List0(string)) =
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
     var deep = map_depth(includes, excludes) + g1ofg0(ys)
@@ -117,7 +117,7 @@ fun apportion(includes : List0(string), excludes : List0(string)) :
     val (q, pre_r) = list_split_at(pre_q, n)
     val (r, s) = list_split_at(pre_r, n)
   in
-    (list_vt2t(p), list_vt2t(q), list_vt2t(r), s)
+    '(list_vt2t(p), list_vt2t(q), list_vt2t(r), s)
   end
 
 fn handle_unref(x : channel(string)) : void =
@@ -125,25 +125,22 @@ fn handle_unref(x : channel(string)) : void =
     | ~None_vt() => ()
     | ~Some_vt (q) => queue_free<List0(string)>(q)
 
-// return directory's summed contents + a list
-fun tiny_loop(xs : List0(string), exludes : List0(string)) : (source_contents, List0(string)) =
-  (empty_contents(), xs)
-
-fun handle(x : Option_vt(List0(string))) : (source_contents, List0(string)) =
-  case- x of
-    | ~None_vt() => (empty_contents(), list_nil)
+fun handle(x : Option_vt(List0(string))) : '(source_contents, List0(string)) =
+  case+ x of
+    | ~None_vt() => '(empty_contents(), list_nil)
+    | ~Some_vt _ => (internal_error() ; '(empty_contents(), list_nil))
 
 fun worker(excludes : List0(string), send : channel(Option_vt(List0(string))), chan : channel(source_contents)) : void =
   {
-    val- (xs) = channel_remove(send)
-    val (sc, ls) = handle(xs)
+    val xs = channel_remove(send)
+    val '(sc, ls) = handle(xs)
     val () = handle_unref(send)
     val () = handle_unref(chan)
   }
 
 fun work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
   {
-    val- (n) = channel_remove(send)
+    val n = channel_remove(send)
     var x = map_stream(empty_contents(), n, excludes)
     val () = channel_insert(chan, x)
     val _ = handle_unref(chan)
@@ -158,14 +155,14 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
       includes
     else
       list_cons(".", list_nil())
-    val (fst, snd, thd, fth) = apportion(new_includes, excludes)
+    val '(fst, snd, thd, fth) = apportion(new_includes, excludes)
     
-    fun loop {i:nat} .<i>. (i : int(i), chan : !channel(source_contents)) : void =
+    fun loop { i : nat | i > 0 && i <= 4 } .<i>. (i : int(i), chan : !channel(source_contents)) : void =
       {
         val chan_ = channel_ref(chan)
         val send = channel_make<List0(string)>(1)
         val send_r = channel_ref(send)
-        val _ = case- i of
+        val _ = case+ i of
           | 1 => channel_insert(send, fst)
           | 2 => channel_insert(send, snd)
           | 3 => channel_insert(send, thd)
@@ -185,7 +182,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
       case+ i of
         | 0 => empty_contents()
         | _ => let
-          val- (n) = channel_remove(chan)
+          val n = channel_remove(chan)
           var m = loop_return(i - 1, chan)
         in
           add_contents(m, n)
