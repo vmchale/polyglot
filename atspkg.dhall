@@ -6,7 +6,7 @@ let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Pr
 in
 
 {- Configuration -}
-let cross = True
+let cross = False
 in
 
 let parallel = True
@@ -58,15 +58,13 @@ prelude.default ⫽
   , dependencies = prelude.mapPlainDeps deps
   , cflags = [ "-flto", "-O2" ] # native
   , ccompiler = cc
-  , debPkg =
-      [
-        prelude.debian "polyglot" ⫽
-          { version = [0,4,32]
-          , maintainer = "Vanessa McHale <vamchale@gmail.com>"
-          , description = "Determine project contents"
-          , manpage = [ "man/poly.1" ]
-            : Optional Text
-          , binaries = [ "target/poly" ]
-          }
-      ] : Optional prelude.Debian
+  , debPkg = prelude.mkDeb
+      (prelude.debian "polyglot" ⫽
+        { version = [0,4,32]
+        , maintainer = "Vanessa McHale <vamchale@gmail.com>"
+        , description = "Determine project contents"
+        , manpage = [ "man/poly.1" ]
+          : Optional Text
+        , binaries = [ "target/poly" ]
+        })
   }
