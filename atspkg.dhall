@@ -12,7 +12,7 @@ in
 let parallel = True
 in
 
-let cc = "gcc"
+let cc = "icc"
 in
 
 -- TODO figure out icc configuration options
