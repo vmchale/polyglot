@@ -53,7 +53,7 @@ script:
       atspkg build --target=arm-linux-gnueabihf
       mv target/poly poly-$TARGET
     else
-      sed -i '12s/True/False' atspkg.dhall
+      sed -i'' '12s/True/False' atspkg.dhall
       atspkg build -vv
       mv target/poly poly-$TARGET
     fi
