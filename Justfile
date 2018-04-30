@@ -1,6 +1,3 @@
-lines:
-    perl -0777 -i -pe 's/```\n----.*```/```\n'"$(just poly | ac -s)"'\n```/igs' README.md
-
 poly:
     @rm -f *_dats.c
     @poly -e data
