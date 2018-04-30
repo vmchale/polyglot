@@ -204,6 +204,7 @@ implement main0 (argc, argv) =
                , help = false
                , no_table = false
                , no_parallel = false
+               , no_colorize = false
                , excludes = list_nil()
                , includes = list_nil()
                } : command_line
@@ -227,6 +228,6 @@ implement main0 (argc, argv) =
           if parsed.no_table then
             print(make_output(result))
           else
-            print(make_table(result))
+            print(make_table(result, not(parsed.no_colorize)))
         end
   end

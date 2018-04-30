@@ -398,9 +398,12 @@ fun sum_fields(sc : source_contents) : file =
   end
 
 // function to print tabular output at the end
-fun make_table(isc : source_contents) : string =
+fun make_table(isc : source_contents, colorize : bool) : string =
   let
-    var a = "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m             \33[35mFiles\33[0m       \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
+    var a = if colorize then
+      "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m             \33[35mFiles\33[0m       \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
+    else
+      "-------------------------------------------------------------------------------\n Language             Files       Lines         Code     Comments       Blanks\n-------------------------------------------------------------------------------\n"
     var b: string = maybe_table("Alex", isc.alex)
     + maybe_table("Agda", isc.agda)
     + maybe_table("Assembly", isc.assembly)

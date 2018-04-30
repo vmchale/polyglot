@@ -9,6 +9,7 @@ vtypedef command_line = @{ version = bool
                          , help = bool
                          , no_table = bool
                          , no_parallel = bool
+                         , no_colorize = bool
                          , excludes = [m:nat] list(string, m)
                          , includes = [m:nat] list(string, m)
                          }
@@ -23,6 +24,7 @@ fn help() : void =
     -V, --version            show version information
     -h, --help               display this help and exit
     -e, --exclude            exclude a directory
+    -c, --no-color           do not colorize output
     -p, --no-parallel        do not execute in parallel
     -t, --no-table           display results in alternate format
                                                                                                                                                                   
@@ -49,6 +51,7 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line) : comma
       else
         bad_flag("-t")
       | "e" => bad_exclude("-e")
+      | "c" => acc_r -> no_colorize := true
       | "V" => acc_r -> version := true
       | "-" => ()
       | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
@@ -97,6 +100,8 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
           bad_flag(s)
         | "--version" => acc_r -> version := true
         | "-V" => acc_r -> version := true
+        | "--no-color" => acc_r -> no_colorize := true
+        | "-c" => acc_r -> no_colorize := true
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
         | _ => let

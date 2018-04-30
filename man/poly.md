@@ -29,6 +29,8 @@ disabled on some platforms.
 
 **-t**, **-\-no-table** Show results in an alternate format.
 
+**-p**, **-\-no-color** Don't colorize output
+
 # EXAMPLES
 
 Show the contents of ~/programming
