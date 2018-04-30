@@ -110,6 +110,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
           val _ = acc_r -> no_parallel := new_acc.no_parallel
           val _ = acc_r -> version := new_acc.version
           val _ = acc_r -> no_table := new_acc.no_table
+          val _ = acc_r -> no_colorize := new_acc.no_colorize
         in
           ()
         end
