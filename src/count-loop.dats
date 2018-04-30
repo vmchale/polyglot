@@ -6,6 +6,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 #define BUFSZ (32*1024)
 
+// TODO alternate implementation for Mac?
 %{^
 extern void *rawmemchr(const void *s, int c);
 #define atslib_rawmemchr rawmemchr
