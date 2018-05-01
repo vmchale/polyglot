@@ -350,6 +350,7 @@ fun match_filename(s : string) : pl_type =
     case+ match of
       | "Makefile" => makefile(line_count(s, Some_vt("#")))
       | "Makefile.tc" => makefile(line_count(s, Some_vt("#")))
+      | "Makefile.common" => makefile(line_count(s, Some_vt("#")))
       | "makefile" => makefile(line_count(s, Some_vt("#")))
       | "GNUmakefile" => makefile(line_count(s, Some_vt("#")))
       | "Justfile" => justfile(line_count(s, Some_vt("#")))
@@ -431,6 +432,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "R" => r(line_count(s, None_vt))
       | "lua" => lua(line_count(s, Some_vt("--")))
       | "cpp" => cpp(line_count(s, Some_vt("//")))
+      | "ino" => cpp(line_count(s, Some_vt("//")))
       | "cc" => cpp(line_count(s, Some_vt("//")))
       | "lalrpop" => lalrpop(line_count(s, Some_vt("//")))
       | "h" => header(line_count(s, None_vt))

@@ -59,6 +59,8 @@
 - [ ] `.gitattributes`
 - [ ] `.poly.toml` project file
 ### Language Support
+- [ ] `dappfile`
+- [ ] Solidity (`.sol`)
 - [ ] `.sed` files
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
@@ -170,3 +172,4 @@
 - [ ] RobotFramework
 - [ ] QML
 - [ ] xBase
+- [ ] XML/`<?xml version="1.0" encoding="utf-8"?>`
