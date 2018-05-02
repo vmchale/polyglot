@@ -351,6 +351,7 @@ fun match_filename(s : string) : pl_type =
       | "Makefile" => makefile(line_count(s, Some_vt("#")))
       | "Makefile.tc" => makefile(line_count(s, Some_vt("#")))
       | "Makefile.common" => makefile(line_count(s, Some_vt("#")))
+      | "Makefile.common_c" => makefile(line_count(s, Some_vt("#")))
       | "makefile" => makefile(line_count(s, Some_vt("#")))
       | "GNUmakefile" => makefile(line_count(s, Some_vt("#")))
       | "Justfile" => justfile(line_count(s, Some_vt("#")))
