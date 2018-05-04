@@ -11,7 +11,7 @@ fn bad_directory(s : string) : void =
   (prerr!("\33[31mError:\33[0m flag " + s + " found where a directory name was expected\n") ; exit(1))
 
 fn bad_flag(s : string) : void =
-  (prerr!("\33[31mError:\33[0m flag " + s + " must appear can occur at most once\n") ; exit(1))
+  (prerr!("\33[31mError:\33[0m flag " + s + " must appear occur at most once\n") ; exit(1))
 
 fn internal_error() : void =
   (prerr!("\33[31mError:\33[0m internal error\n") ; exit(1))
