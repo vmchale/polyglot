@@ -4,7 +4,9 @@ poly:
 
 # TODO upload icc version
 all:
-    atspkg clean ; atspkg nuke ; atspkg build --target=arm-linux-gnueabihf
+    atspkg clean ; atspkg build --target=powerpc-linux-gnu
+    atspkg clean ; atspkg build --target=aarch64-linux-gnu
+    atspkg clean ; atspkg build --target=arm-linux-gnueabihf
 
 ci:
     tomlcheck --file .atsfmt.toml

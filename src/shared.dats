@@ -325,6 +325,7 @@ fn check_shebang(s : string) : pl_type =
       | "#!/usr/bin/env ion" => ion(line_count(s, Some_vt("#")))
       | "#!/usr/bin/env bash" => bash(line_count(s, Some_vt("#")))
       | "#!/bin/bash" => bash(line_count(s, Some_vt("#")))
+      // | "#!/usr/bin/env nix-shell" => nix(line_count(s, None_vt))
       | "#!python" => python(line_count(s, Some_vt("#")))
       | "#!python2" => python(line_count(s, Some_vt("#")))
       | "#!python3" => python(line_count(s, Some_vt("#")))

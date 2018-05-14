@@ -6,7 +6,7 @@ let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Pr
 in
 
 {- Configuration -}
-let cross = False
+let cross = True
 in
 
 let parallel = True
@@ -36,6 +36,10 @@ let native =
     else ([] : List Text)
 in
 
+let iccFlags =
+    [ "-D__PURE_INTEL_C99_HEADERS__" ]
+in
+
 prelude.default ⫽
   { bin =
     [
@@ -56,7 +60,7 @@ prelude.default ⫽
   , man = [ "man/poly.md" ] : Optional Text
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , dependencies = prelude.mapPlainDeps deps
-  , cflags = [ "-flto", "-O2" ] # native
+  , cflags = [ "-flto", "-O2" ] # native # iccFlags
   , ccompiler = cc
   , debPkg = prelude.mkDeb
       (prelude.debian "polyglot" ⫽

@@ -20,7 +20,7 @@ main() {
     mkdir -p "$HOME/.local/share/man/man1/"
     mkdir -p "$HOME/.compleat"
     local dest=$HOME/.local/bin/poly
-    local man_dest=~$HOME/.local/share/man/man1/poly.1
+    local man_dest=$HOME/.local/share/man/man1/poly.1
     local compleat_dest=$HOME/.compleat/poly.usage
     if which duma > /dev/null ; then
         duma https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -O "$dest"
