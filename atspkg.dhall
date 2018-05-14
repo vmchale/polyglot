@@ -2,7 +2,7 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 in
 
-let not = https://ipfs.io/ipfs/QmdtKd5Q7tebdo6rXfZed4kN6DXmErRQHJ4PsNCtca9GbB/Prelude/Bool/not
+let not = https://raw.githubusercontent.com/dhall-lang/dhall-haskell/master/Prelude/Bool/not
 in
 
 {- Configuration -}
