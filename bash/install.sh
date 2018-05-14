@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -e
 set pipefail
 
-function getTarget {
+getTarget() {
     if [ "$(uname)" = "Darwin" ]
     then
         echo "poly-$(uname -m)-apple-darwin"
@@ -19,9 +19,9 @@ main() {
     mkdir -p "$HOME/.local/bin"
     mkdir -p "$HOME/.local/share/man/man1/"
     mkdir -p "$HOME/.compleat"
-    local dest=$HOME/.local/bin/poly
-    local man_dest=$HOME/.local/share/man/man1/poly.1
-    local compleat_dest=$HOME/.compleat/poly.usage
+    dest=$HOME/.local/bin/poly
+    man_dest=$HOME/.local/share/man/man1/poly.1
+    compleat_dest=$HOME/.compleat/poly.usage
     if which duma > /dev/null ; then
         duma https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -O "$dest"
         duma https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.1 -O "$man_dest"
