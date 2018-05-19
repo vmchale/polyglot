@@ -16,6 +16,7 @@ let cc = "icc"
 in
 
 -- TODO figure out icc configuration options
+-- also --disable-threads for redox? idk
 
 {- Configuration helpers -}
 let srcFile =
