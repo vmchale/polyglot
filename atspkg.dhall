@@ -12,7 +12,7 @@ in
 let parallel = True
 in
 
-let cc = "icc"
+let cc = "gcc"
 in
 
 -- TODO figure out icc configuration options
@@ -61,7 +61,7 @@ prelude.default ⫽
   , man = [ "man/poly.md" ] : Optional Text
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , dependencies = prelude.mapPlainDeps deps
-  , cflags = [ "-flto", "-O2" ] # native # iccFlags
+  , cflags = [ "-flto", "-O2", "-static" ] # native # iccFlags
   , ccompiler = cc
   , debPkg = prelude.mkDeb
       (prelude.debian "polyglot" ⫽
