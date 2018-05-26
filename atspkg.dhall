@@ -56,6 +56,7 @@ prelude.default ⫽
       { src = "test/test.dats"
       , target = "target/test"
       , gcBin = True
+      , libs = [ "pthread" ]
       }
     ]
   , man = [ "man/poly.md" ] : Optional Text
