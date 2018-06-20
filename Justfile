@@ -4,7 +4,7 @@ poly:
 
 # TODO upload icc version
 all:
-    atspkg clean ; atspkg build --target=powerpc-linux-gnu
+    atspkg clean ; atspkg build --target=powerpc64-linux-gnu
     atspkg clean ; atspkg build --target=aarch64-linux-gnu
     atspkg clean ; atspkg build --target=arm-linux-gnueabihf
 
@@ -23,7 +23,9 @@ release: all
     git tag -d "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     git push origin master
     github-release release -s $(cat ~/.git-token) -u vmchale -r polyglot -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
-    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-arm-linux-gnueabihf -f target/poly -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-arm-linux-gnueabihf -f target/poly-arm-linux-gnueabihf -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-aarch64-linux-gnu -f target/poly-aarch64-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-powerpc-linux-gnu -f target/poly-powerpc-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
 

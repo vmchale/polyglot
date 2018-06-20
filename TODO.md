@@ -59,6 +59,7 @@
 - [ ] `.gitattributes`
 - [ ] `.poly.toml` project file
 ### Language Support
+- [ ] Standard ML
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] `.sed` files
