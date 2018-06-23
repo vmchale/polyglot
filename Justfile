@@ -25,7 +25,7 @@ ci:
 bench:
     bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust"
 
-release:
+release: all
     git tag "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     git push origin --tags
     git tag -d "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
