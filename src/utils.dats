@@ -99,3 +99,4 @@ fun free_pl(pl : pl_type) : void =
     | ~cmm _ => ()
     | ~fluid _ => ()
     | ~plutus _ => ()
+    | ~j _ => ()

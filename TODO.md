@@ -35,6 +35,7 @@
 - [ ] `poly -t README.md` adds spurious line of output
 - [ ] handle `\-dir` for directories
 - [ ] `./target/poly --hlp` yields wrong error.
+- [ ] Allow three characters for comments (J's `NB.`)
 # Code Maintenance
 - [ ] Library for this
   - [ ] `.sats` files

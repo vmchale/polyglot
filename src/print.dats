@@ -131,6 +131,7 @@ fun sum_fields(sc : source_contents) : file =
                      + sc.cmm.lines
                      + sc.fluid.lines
                      + sc.plutus.lines
+                     + sc.j.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -218,6 +219,7 @@ fun sum_fields(sc : source_contents) : file =
                       + sc.cmm.blanks
                       + sc.fluid.blanks
                       + sc.plutus.blanks
+                      + sc.j.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -305,6 +307,7 @@ fun sum_fields(sc : source_contents) : file =
                         + sc.cmm.comments
                         + sc.fluid.comments
                         + sc.plutus.comments
+                        + sc.j.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -392,6 +395,7 @@ fun sum_fields(sc : source_contents) : file =
                      + sc.cmm.files
                      + sc.fluid.files
                      + sc.plutus.files
+                     + sc.j.files
              }
   in
     f
@@ -444,6 +448,7 @@ fun make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Idris", isc.idris)
     + maybe_table("iPKG", isc.ipkg)
     + maybe_table("Ion", isc.ion)
+    + maybe_table("J", isc.j)
     + maybe_table("Java", isc.java)
     + maybe_table("JavaScript", isc.javascript)
     + maybe_table("Julius", isc.julius)
@@ -535,6 +540,7 @@ fun make_output(isc : source_contents) : string =
                  + maybe_string("Haskell", isc.haskell.lines)
                  + maybe_string("Idris", isc.idris.lines)
                  + maybe_string("Kotline", isc.kotlin.lines)
+                 + maybe_string("J", isc.j.lines)
                  + maybe_string("Java", isc.java.lines)
                  + maybe_string("Julia", isc.julia.lines)
                  + maybe_string("Lua", isc.lua.lines)

@@ -127,6 +127,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , cmm = x.cmm + y.cmm
                 , fluid = x.fluid + y.fluid
                 , plutus = x.plutus + y.plutus
+                , j = x.j + y.j
                 } : source_contents
   in
     next
@@ -224,6 +225,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~cmm n => sc_r -> cmm := prev.cmm + n
       | ~fluid n => sc_r -> fluid := prev.fluid + n
       | ~plutus n => sc_r -> plutus := prev.plutus + n
+      | ~j n => sc_r -> j := prev.j + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -493,6 +495,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
+      | "ijs" => j(line_count(s, Some_vt("NB")))
       | _ => unknown
   end
 
@@ -633,6 +636,7 @@ fun empty_contents() : source_contents =
                , cmm = empty_file
                , fluid = empty_file
                , plutus = empty_file
+               , j = empty_file
                } : source_contents
   in
     isc
