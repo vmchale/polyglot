@@ -8,7 +8,7 @@ implement main0 (argc, argv) =
                , help = false
                , no_table = false
                , no_parallel = false
-               , no_colorize = bool
+               , no_colorize = false
                , excludes = list_nil()
                , includes = list_nil()
                } : command_line

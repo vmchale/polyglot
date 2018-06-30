@@ -1,8 +1,8 @@
 {- Imports -}
-let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
+let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 in
 
-let not = https://raw.githubusercontent.com/dhall-lang/dhall-haskell/master/Prelude/Bool/not
+let not = http://hackage.haskell.org/package/dhall/src/Prelude/Bool/not
 in
 
 {- Configuration -}
