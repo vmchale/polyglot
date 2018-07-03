@@ -72,7 +72,7 @@ fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : ch
     var match = lam@ (x : char, y : !Option_vt(char)) : bool =>
       case+ y of
         | Some_vt (z) => x = z
-        | None_vt() => false
+        | None_vt() => true
     var s2 = $UN.ptr0_get<char>(p)
     var s3 = $UN.ptr0_get<char>(ptr_succ<byte>(p))
     var b = s2 = compare
