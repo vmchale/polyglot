@@ -132,7 +132,7 @@ fun handle(x : Option_vt(List0(string))) : '(source_contents, List0(string)) =
 
 fun worker(excludes : List0(string), send : channel(Option_vt(List0(string))), chan : channel(source_contents)) : void =
   {
-    val xs = channel_remove(send)
+    var xs = channel_remove(send)
     val '(sc, ls) = handle(xs)
     val () = handle_unref(send)
     val () = handle_unref(chan)
@@ -140,7 +140,7 @@ fun worker(excludes : List0(string), send : channel(Option_vt(List0(string))), c
 
 fun work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
   {
-    val n = channel_remove(send)
+    var n = channel_remove(send)
     var x = map_stream(empty_contents(), n, excludes)
     val () = channel_insert(chan, x)
     val _ = handle_unref(chan)
@@ -182,7 +182,7 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
       case+ i of
         | 0 => empty_contents()
         | _ => let
-          val n = channel_remove(chan)
+          var n = channel_remove(chan)
           var m = loop_return(i - 1, chan)
         in
           add_contents(m, n)

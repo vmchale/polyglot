@@ -238,54 +238,53 @@ fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) 
 // helper function for check_keywords
 fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_type =
   case+ pre of
-    | unknown _ => let
-      
-    in
-      case+ ext of
-        | "y" => let
-          val _ = free_pl(pre)
-          var happy_keywords = "module" :: "import" :: nil
-        in
-          ifcase
-            | match_keywords(happy_keywords, word) => happy(size)
-            | let
-              var yacc_keywords = "struct" :: "char" :: "int" :: nil
-            in
-              match_keywords(yacc_keywords, word)
-            end => yacc(size)
-            | _ => unknown
-        end
-        | "v" => let
-          var _ = free_pl(pre)
-          var verilog_keywords = "endmodule" :: "posedge" :: "edge" :: "always" :: "wire" :: nil
-        in
-          ifcase
-            | match_keywords(verilog_keywords, word) => verilog(size)
-            | let
-              var coq_keywords = "Qed"
-              :: "Require"
-              :: "Hypothesis"
-              :: "Inductive" :: "Remark" :: "Lemma" :: "Proof" :: "Definition" :: "Theorem" :: nil
-            in
-              match_keywords(coq_keywords, word)
-            end => coq(size)
-            | _ => unknown
-        end
-        | "m" => let
-          val _ = free_pl(pre)
-          var mercury_keywords = "module" :: "pred" :: nil
-        in
-          ifcase
-            | match_keywords(mercury_keywords, word) => mercury(size)
-            | let
-              var objective_c_keywords = "unsigned" :: "nil" :: "nullable" :: "nonnull" :: nil
-            in
-              match_keywords(objective_c_keywords, word)
-            end => objective_c(size)
-            | _ => unknown
-        end
-        | _ => pre
-    end
+    | unknown _ => 
+      begin
+        case+ ext of
+          | "y" => let
+            val _ = free_pl(pre)
+            var happy_keywords = "module" :: "import" :: nil
+          in
+            ifcase
+              | match_keywords(happy_keywords, word) => happy(size)
+              | let
+                var yacc_keywords = "struct" :: "char" :: "int" :: nil
+              in
+                match_keywords(yacc_keywords, word)
+              end => yacc(size)
+              | _ => unknown
+          end
+          | "v" => let
+            var _ = free_pl(pre)
+            var verilog_keywords = "endmodule" :: "posedge" :: "edge" :: "always" :: "wire" :: nil
+          in
+            ifcase
+              | match_keywords(verilog_keywords, word) => verilog(size)
+              | let
+                var coq_keywords = "Qed"
+                :: "Require"
+                :: "Hypothesis"
+                :: "Inductive" :: "Remark" :: "Lemma" :: "Proof" :: "Definition" :: "Theorem" :: nil
+              in
+                match_keywords(coq_keywords, word)
+              end => coq(size)
+              | _ => unknown
+          end
+          | "m" => let
+            val _ = free_pl(pre)
+            var mercury_keywords = "module" :: "pred" :: nil
+          in
+            ifcase
+              | match_keywords(mercury_keywords, word) => mercury(size)
+              | let
+                var objective_c_keywords = "unsigned" :: "nil" :: "nullable" :: "nonnull" :: nil
+              in
+                match_keywords(objective_c_keywords, word)
+              end => objective_c(size)
+              | _ => unknown
+          end
+          | _ => pre
+      end
     | _ => pre
 
 // Function to disambiguate extensions such as .v (Coq and Verilog) and .m
@@ -327,7 +326,6 @@ fn check_shebang(s : string) : pl_type =
       | "#!/usr/bin/env ion" => ion(line_count(s, Some_vt("#")))
       | "#!/usr/bin/env bash" => bash(line_count(s, Some_vt("#")))
       | "#!/bin/bash" => bash(line_count(s, Some_vt("#")))
-      // | "#!/usr/bin/env nix-shell" => nix(line_count(s, None_vt))
       | "#!python" => python(line_count(s, Some_vt("#")))
       | "#!python2" => python(line_count(s, Some_vt("#")))
       | "#!python3" => python(line_count(s, Some_vt("#")))
@@ -423,6 +421,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "vhdl" => vhdl(line_count(s, None_vt))
       | "vhd" => vhdl(line_count(s, None_vt))
       | "c" => c(line_count(s, Some_vt("//")))
+      | "C" => cpp(line_count(s, Some_vt("//")))
       | "cmm" => cmm(line_count(s, Some_vt("//")))
       | "b" => brainfuck(line_count(s, None_vt))
       | "bf" => brainfuck(line_count(s, None_vt))
@@ -492,10 +491,10 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "mgt" => margaret(line_count(s, Some_vt("--")))
       | "carp" => carp(line_count(s, Some_vt(";")))
       | "pls" => plutus(line_count(s, None_vt))
+      | "ijs" => j(line_count(s, Some_vt("NB")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
-      | "ijs" => j(line_count(s, Some_vt("NB")))
       | _ => unknown
   end
 
@@ -512,18 +511,13 @@ fun bad_dir(s : string, excludes : List0(string)) : bool =
     | ".atspkg" => true
     | ".egg-info" => true
     | "nimcache" => true
-    | ".shake" => true
     | "dist-newstyle" => true
-    | "vendor" => true
     | "dist" => true
     | ".psc-package" => true
     | ".pulp-cache" => true
-    | "output" => true
     | "bower_components" => true
     | "elm-stuff" => true
     | ".stack-work" => true
-    | ".reco" => true
-    | ".reco-work" => true
     | ".cabal-sandbox" => true
     | "node_modules" => true
     | ".lein-plugins" => true

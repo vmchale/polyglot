@@ -19,6 +19,8 @@
 - [ ] linear types everywhere!!
 - [ ] get rid of GC
   - [ ] Currently would require fixing standard library
+- [ ] Make the loop call-by-reference?
+  - [ ] Might not actually be faster
 # Distribution
 - [ ] Make a debianization?
   - [ ] Add to debian
@@ -29,6 +31,8 @@
 - [ ] Figure out Windows
 - [ ] Figure out cross compilation
 # Bugs
+- [ ] "does not exist" should be an error when a directory passed on the command
+  line does not exist
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
