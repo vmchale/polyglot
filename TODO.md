@@ -1,6 +1,6 @@
 # Features
 - [ ] `.poly.toml` project file?
-- [ ] per-file output like `tokei`
+- [ ] per-file output like `tokei`/`loc`
 - [ ] parse directories on the command line starting with a `-` by using escapes
 - [ ] detect documentation comments
 - [ ] feature to use data from quasi-quotes (e.g. haskell)

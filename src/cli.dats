@@ -36,7 +36,7 @@ fn help() : void =
 fn is_flag(s : string) : bool =
   string_is_prefix("-", s)
 
-fun process_short { s : int | s > 0 }(s : string(s), acc : command_line) : command_line =
+fun process_short { s : int | s > 0 }(s : string(s), acc : command_line, fail : bool) : command_line =
   let
     var str = string_make_substring(s, i2sz(0), i2sz(1))
     var acc_r = ref<command_line>(acc)
@@ -53,8 +53,9 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line) : comma
       | "e" => bad_exclude("-e")
       | "c" => acc_r -> no_colorize := true
       | "V" => acc_r -> version := true
+      | "-" when fail => (println!("\33[31mError:\33[0m failed to parse command-line flags") ; exit(1) ; ())
       | "-" => ()
-      | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(0) ; ())
+      | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(1) ; ())
     
     fn witness(s : string) : [ n : nat | n > 0 ] string(n) =
       $UN.cast(s)
@@ -62,7 +63,7 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line) : comma
     val inter = !acc_r
   in
     if length(s) > 1 then
-      process_short(witness(string_make_substring(s, i2sz(1), length(s))), inter)
+      process_short(witness(string_make_substring(s, i2sz(1), length(s))), inter, true)
     else
       inter
   end
@@ -105,7 +106,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
         | _ => let
-          val new_acc = process_short(witness(s), acc)
+          val new_acc = process_short(witness(s), acc, false)
           val _ = acc_r -> help := new_acc.help
           val _ = acc_r -> no_parallel := new_acc.no_parallel
           val _ = acc_r -> version := new_acc.version
