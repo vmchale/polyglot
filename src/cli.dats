@@ -15,7 +15,7 @@ vtypedef command_line = @{ version = bool
                          }
 
 fn version() : void =
-  println!("polygot version 0.4.46\nCopyright (c) 2018 Vanessa McHale")
+  println!("polygot version 0.4.47\nCopyright (c) 2018 Vanessa McHale")
 
 fn help() : void =
   print("polyglot - Count lines of code quickly.
@@ -53,7 +53,10 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line, fail : 
       | "e" => bad_exclude("-e")
       | "c" => acc_r -> no_colorize := true
       | "V" => acc_r -> version := true
-      | "-" when fail => (println!("\33[31mError:\33[0m failed to parse command-line flags") ; exit(1) ; ())
+      | "-" when fail => ( println!("\33[31mError:\33[0m failed to parse command-line flags. Try 'poly --help'.")
+                         ; exit(1)
+                         ; ()
+                         )
       | "-" => ()
       | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(1) ; ())
     

@@ -17,10 +17,8 @@
   - [ ] better parallelism
 - [ ] make sure everything is tail recursive
 - [ ] linear types everywhere!!
-- [ ] get rid of GC
-  - [ ] Currently would require fixing standard library
-- [ ] Make the loop call-by-reference?
-  - [ ] Might not actually be faster
+- [ ] get rid of GC (?)
+- [ ] Make loops call-by-reference?
 # Distribution
 - [ ] Make a debianization?
   - [ ] Add to debian
@@ -28,8 +26,7 @@
 - [ ] Compress via travis
 - [ ] `pkg-config` stuff for library
 # Portability
-- [ ] Figure out Windows
-- [ ] Figure out cross compilation
+- [ ] Figure out Windows (?)
 # Bugs
 - [ ] "does not exist" should be an error when a directory passed on the command
   line does not exist
@@ -38,15 +35,12 @@
 - [ ] doesn't disambiguate objective C/C headers
 - [ ] `poly -t README.md` adds spurious line of output
 - [ ] handle `\-dir` for directories
-- [ ] `./target/poly --hlp` yields wrong error.
 - [ ] Allow three characters for comments (J's `NB.`)
 # Code Maintenance
 - [ ] Library for this
   - [ ] `.sats` files
   - [ ] Library stanza & Haskell bindings
   - [ ] Executable that depends on the library
-- [ ] Test suite
-- [ ] builds for other systems
 - [ ] linear types to ensure each field gets printed at the end?
   - [ ] or alternately a macro
 # Libraries
@@ -58,7 +52,7 @@
 - [ ] parent directory (`.cargo/config`)
 - [ ] modeline
 - [ ] `.gitattributes`
-- [ ] `.poly.toml` project file
+- [ ] `.poly.dhall` project file
 ### Heuristics for determining file relevance:
 - [ ] `.gitignore`/darcs boringfile/`.ignore` file
 - [ ] `.gitattributes`
@@ -109,7 +103,6 @@
 - [ ] puppet (`.pp`)
 - [ ] forth
 - [ ] Objective C++
-- [ ] J
 - [ ] Bison (`.yy` among others)
 - [ ] Flex
 - [ ] Felix
@@ -130,6 +123,7 @@
 - [ ] ceylon
 - [ ] Dart
 - [ ] Korn shell
+- [ ] K
 - [ ] jsx
 - [ ] ColdFusion
 - [ ] Balsa
