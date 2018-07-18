@@ -3,7 +3,6 @@ staload _ = "libats/ML/DATS/string.dats"
 staload UN = "prelude/SATS/unsafe.sats"
 
 #include "src/error.dats"
-#include "$PATSHOMELOCS/edit-distance-0.1.0/DATS/edit-distance.dats"
 
 // Type for the parsed command-line arguments.
 vtypedef command_line = @{ version = bool
@@ -16,7 +15,7 @@ vtypedef command_line = @{ version = bool
                          }
 
 fn version() : void =
-  println!("polygot version 0.4.47\nCopyright (c) 2018 Vanessa McHale")
+  println!("polygot version 0.4.48\nCopyright (c) 2018 Vanessa McHale")
 
 fn help() : void =
   print("polyglot - Count lines of code quickly.

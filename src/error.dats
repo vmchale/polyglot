@@ -1,4 +1,6 @@
 // This file contains various error functions.
+#include "$PATSHOMELOCS/edit-distance-0.1.0/DATS/edit-distance.dats"
+
 staload "libats/ML/SATS/string.sats"
 
 fn bad_file(s : string) : void =
