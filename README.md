@@ -38,27 +38,27 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>133.7 ms</td>
+    <td>144.2 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>180.6 ms</td>
+    <td>172.6 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>384.6 ms</td>
+    <td>296.6 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>14.86 s</td>
+    <td>17.36 s</td>
   </tr>
   <tr>
     <td><code>linguist</code></td>
     <td>Ruby</td>
-    <td>15.17 s</td>
+    <td>17.73 s</td>
   </tr>
 </table>
 

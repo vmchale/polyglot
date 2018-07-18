@@ -12,6 +12,7 @@
 - [ ] Allow/disallow symlinks
 - [ ] Library for semantic analysis?
 - [ ] Avoid overlaps when subdirectories passed as arguments?
+- [ ] Make intelligent guesses also work w/ `thefuck`? Write python idk.
 # Performance
 - [x] parallelism
   - [ ] better parallelism
