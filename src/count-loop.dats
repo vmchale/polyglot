@@ -45,7 +45,6 @@ implement freadc (pf | inp, p, c) =
 
 vtypedef pair = @{ f = char, s = Option_vt(char) }
 
-// TODO refactor the '?' stuff out
 // FIXME we shouldn't use unsafe in various places.
 fun get_chars(s : string) : Option_vt(pair) =
   if length(s) >= 2 then

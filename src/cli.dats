@@ -3,6 +3,7 @@ staload _ = "libats/ML/DATS/string.dats"
 staload UN = "prelude/SATS/unsafe.sats"
 
 #include "src/error.dats"
+#include "$PATSHOMELOCS/edit-distance-0.1.0/DATS/edit-distance.dats"
 
 // Type for the parsed command-line arguments.
 vtypedef command_line = @{ version = bool
@@ -81,6 +82,9 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | ".." => "../"
         | _ => s
     
+    fn unrecognized(s : string, flag : string) : void =
+      (println!("\33[31mError:\33[0m flag '" + s + "' not recognized. Did you mean '" + flag + "'?") ; exit(1) ; ())
+    
     var acc_r = ref<command_line>(acc)
     val () = if is_flag(s) then
       case+ s of
@@ -108,6 +112,10 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-c" => acc_r -> no_colorize := true
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
+        | _ when levenshtein(s, "--exclude") <= 2 => unrecognized(s, "--exclude")
+        | _ when levenshtein(s, "--help") <= 2 => unrecognized(s, "--help")
+        | _ when levenshtein(s, "--no-parallel") <= 3 => unrecognized(s, "--no-parallel")
+        | _ when levenshtein(s, "--no-table") <= 3 => unrecognized(s, "--no-table")
         | _ => let
           val new_acc = process_short(witness(s), acc, false)
           val _ = acc_r -> help := new_acc.help

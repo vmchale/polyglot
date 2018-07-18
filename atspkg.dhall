@@ -27,8 +27,8 @@ in
 
 let deps =
   if parallel
-    then [ "concurrency", "specats" ]
-    else [ "specats" ]
+    then [ "concurrency", "specats", "edit-distance" ]
+    else [ "specats", "edit-distance" ]
 in
 
 let native =
