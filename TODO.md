@@ -21,7 +21,7 @@
 - [ ] get rid of GC (?)
 - [ ] Make loops call-by-reference?
 # Distribution
-- [ ] Make a debianization?
+- [x] Make a debianization?
   - [ ] Add to debian
   - [ ] Package `compleat`
 - [ ] Compress via travis
