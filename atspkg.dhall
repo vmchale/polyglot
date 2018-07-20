@@ -62,7 +62,7 @@ prelude.default ⫽
   , man = [ "man/poly.md" ] : Optional Text
   , completions = [ "compleat/poly.usage" ] : Optional Text
   , dependencies = (prelude.mapPlainDeps deps)
-    # [ prelude.upperDeps { name = "specats", version = [0,2,3] }, prelude.upperDeps { name = "edit-distance", version = [0,1,0] }]
+    # [ prelude.upperDeps { name = "specats", version = [0,2,3] }, prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }]
   , cflags = [ "-flto", "-O2", "-static" ] # native # iccFlags
   , ccompiler = cc
   , debPkg = prelude.mkDeb

@@ -111,10 +111,10 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-c" => acc_r -> no_colorize := true
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
-        | _ when levenshtein(s, "--exclude") <= 2 => unrecognized(s, "--exclude")
-        | _ when levenshtein(s, "--help") <= 2 => unrecognized(s, "--help")
-        | _ when levenshtein(s, "--no-parallel") <= 3 => unrecognized(s, "--no-parallel")
-        | _ when levenshtein(s, "--no-table") <= 3 => unrecognized(s, "--no-table")
+        | _ when levenshtein_(s, "--exclude") <= 2 => unrecognized(s, "--exclude")
+        | _ when levenshtein_(s, "--help") <= 2 => unrecognized(s, "--help")
+        | _ when levenshtein_(s, "--no-parallel") <= 3 => unrecognized(s, "--no-parallel")
+        | _ when levenshtein_(s, "--no-table") <= 3 => unrecognized(s, "--no-table")
         | _ => let
           val new_acc = process_short(witness(s), acc, false)
           val _ = acc_r -> help := new_acc.help
