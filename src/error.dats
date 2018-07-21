@@ -1,5 +1,5 @@
 // This file contains various error functions.
-#include "$PATSHOMELOCS/edit-distance-0.3.0/DATS/edit-distance.dats"
+#include "$PATSHOMELOCS/edit-distance-0.3.1/DATS/edit-distance.dats"
 
 staload "libats/ML/SATS/string.sats"
 
