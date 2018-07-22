@@ -138,6 +138,7 @@
 - [ ] QML
 - [ ] `.ini`
 - [ ] roff/troff/groff
+- [ ] Limbo
 - [ ] Terra
 - [ ] logos (also `.x`)
 - [ ] PureBasic

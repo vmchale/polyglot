@@ -83,6 +83,11 @@ You may need to add `$HOME/.local/bin` to your `PATH` and
 You can optionally install [compleat](https://github.com/mbrubeck/compleat) for
 shell completions as well.
 
+### Vim Plugin
+
+There is a [vim plugin](https://github.com/vmchale/polyglot-vim) available which
+can count lines of code in a project.
+
 ## From Source
 
 You can install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
