@@ -141,7 +141,7 @@ implement wclfil {l} (pf | inp, p, c, comment) =
     fun loop(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : int, res : file, comment : !Option_vt(pair)) :
       file =
       let
-        val n = freadc(pf | inp, p, $UN.cast{char}(c))
+        var n = freadc(pf | inp, p, $UN.cast{char}(c))
       in
         if n > 0 then
           let
