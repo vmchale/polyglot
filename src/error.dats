@@ -1,5 +1,4 @@
 // This file contains various error functions.
-#define ALLOCA
 #include "$PATSHOMELOCS/edit-distance-0.3.3/DATS/edit-distance.dats"
 
 staload "libats/ML/SATS/string.sats"
