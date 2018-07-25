@@ -53,7 +53,7 @@ On the Rust repo:
   <tr>
     <td><code>scc</code></td>
     <td>Rust</td>
-    <td>551.7 ms</td>
+    <td>452.0 ms</td>
   </tr>
   <tr>
     <td><code>gocloc</code></td>
