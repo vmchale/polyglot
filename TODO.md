@@ -178,3 +178,4 @@
 - [ ] Diderot (`.diderot`)
 - [ ] Egison (`.egi`)
 - [ ] Everything supported by `cloc --show-lang`
+- [ ] Also `gocloc --show-lang`

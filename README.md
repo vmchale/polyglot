@@ -52,7 +52,7 @@ On the Rust repo:
   </tr>
   <tr>
     <td><code>scc</code></td>
-    <td>Rust</td>
+    <td>Go</td>
     <td>452.0 ms</td>
   </tr>
   <tr>
