@@ -3,9 +3,7 @@
 staload "src/filetype.sats"
 staload "libats/libc/SATS/stdio.sats"
 staload UN = "prelude/SATS/unsafe.sats"
-
 #define BUFSZ (32*1024)
-
 // TODO alternate implementation for Mac?
 %{^
 extern void *rawmemchr(const void *s, int c);
@@ -33,11 +31,14 @@ fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) : [ l2 :
   "mac#atslib_rawmemchr"
 
 extern
-fun freadc {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : size_t
+fun freadc {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t
 
 implement freadc (pf | inp, p, c) =
   let
-    var n = $extfcall(size_t, "fread", p, sizeof<char>, BUFSZ - 1, inp)
+    extern
+    castfn as_fileref(x : !FILEptr1) : FILEref
+    
+    var n = $extfcall(size_t, "fread", p, sizeof<char>, BUFSZ - 1, as_fileref(inp))
     val () = $UN.ptr0_set<char>(ptr_add<char>(p, n), c)
   in
     n
@@ -129,13 +130,13 @@ fun postproc(acc : file) : file =
   end
 
 extern
-fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, comment : !Option_vt(pair)) : file
+fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : int, comment : !Option_vt(pair)) : file
 
 implement wclfil {l} (pf | inp, p, c, comment) =
   let
     var acc_file = @{ files = 1, blanks = ~1, comments = 0, lines = 0 } : file
     
-    fun loop(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, res : file, comment : !Option_vt(pair)) :
+    fun loop(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : int, res : file, comment : !Option_vt(pair)) :
       file =
       let
         val n = freadc(pf | inp, p, $UN.cast{char}(c))
@@ -166,15 +167,15 @@ fn clear_function(x : Option_vt(pair)) : void =
     | ~None_vt() => ()
     | ~Some_vt (x) => free(x.s)
 
-// TODO don't use _exn here 
 fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
-    var inp: FILEref = fopen_ref_exn(s, file_mode_r)
+    // TODO: use a dataview to make this safe??
+    var inp: FILEptr1 = fopen_exn(s, file_mode_r)
     val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
     prval () = pfat := b0ytes2bytes_v(pfat)
     var res = wclfil(pfat | inp, p, $UN.cast2int(c), comment)
     val () = mfree_gc(pfat, pfgc | p)
-    val _ = fclose_exn(inp)
+    val _ = fclose1_exn(inp)
     val _ = clear_function(comment)
   in
     res
