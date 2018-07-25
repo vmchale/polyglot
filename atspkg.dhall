@@ -60,7 +60,7 @@ pkg = λ(x : { cross : Bool, parallel : Bool }) →
     , dependencies = (prelude.mapPlainDeps deps)
         # [ prelude.upperDeps { name = "specats", version = [0,2,3] }, prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }]
     , cflags = [ "-flto", "-O2", "-static" ] # native # iccFlags
-    -- , ccompiler = cc
+    , ccompiler = cc
     , debPkg = prelude.mkDeb
         (prelude.debian "polyglot" ⫽
             { version = [0,4,45]
