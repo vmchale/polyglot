@@ -25,7 +25,7 @@ ci:
     atspkg test
 
 bench:
-    bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust"
+    bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust" "gocloc ~/git-builds/rust" "scc ~/git-builds/rust"
 
 release: all
     git tag "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"

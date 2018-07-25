@@ -51,6 +51,16 @@ On the Rust repo:
     <td>297.8 ms</td>
   </tr>
   <tr>
+    <td><code>scc</code></td>
+    <td>Rust</td>
+    <td>551.7 ms</td>
+  </tr>
+  <tr>
+    <td><code>gocloc</code></td>
+    <td>Go</td>
+    <td>844.2 ms</td>
+  </tr>
+  <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
     <td>17.36 s</td>
