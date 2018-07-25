@@ -4,7 +4,7 @@ poly:
 
 # TODO arm-linux-gnueabi sh4-linux-gnu hppa-linux-gnu hppa64-linux-gnu etc.
 all:
-    atspkg build --pkg-args "./default.dhall" target/polyglot.deb
+    atspkg build --pkg-args "./native.dhall" target/polyglot.deb
     atspkg build --pkg-args "./travis.dhall" --target=s390x-linux-gnu
     atspkg build --pkg-args "./travis.dhall" --target=arm-linux-gnueabihf
     atspkg build --pkg-args "./travis.dhall" --target=powerpc64-linux-gnu
