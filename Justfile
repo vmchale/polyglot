@@ -4,19 +4,19 @@ poly:
 
 # TODO arm-linux-gnueabi sh4-linux-gnu hppa-linux-gnu hppa64-linux-gnu etc.
 all:
-    atspkg build target/polyglot.deb
-    atspkg build --target=s390x-linux-gnu
-    atspkg build --target=arm-linux-gnueabihf
-    atspkg build --target=powerpc64-linux-gnu
-    atspkg build --target=powerpc64le-linux-gnu
-    atspkg build --target=powerpc-linux-gnu
-    atspkg build --target=aarch64-linux-gnu
-    atspkg build --target=alpha-linux-gnu
-    atspkg build --target=m68k-linux-gnu
-    atspkg build --target=mips-linux-gnu
-    atspkg build --target=mipsel-linux-gnu
-    atspkg build --target=mips64-linux-gnuabi64
-    atspkg build --target=mips64el-linux-gnuabi64
+    atspkg build --pkg-args "./default.dhall" target/polyglot.deb
+    atspkg build --pkg-args "./travis.dhall" --target=s390x-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=arm-linux-gnueabihf
+    atspkg build --pkg-args "./travis.dhall" --target=powerpc64-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=powerpc64le-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=powerpc-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=aarch64-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=alpha-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=m68k-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=mips-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=mipsel-linux-gnu
+    atspkg build --pkg-args "./travis.dhall" --target=mips64-linux-gnuabi64
+    atspkg build --pkg-args "./travis.dhall" --target=mips64el-linux-gnuabi64
 
 ci:
     tomlcheck --file .atsfmt.toml

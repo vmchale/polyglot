@@ -36,15 +36,14 @@ script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
-      sed -i '15s/icc/gcc/' atspkg.dhall
-      atspkg test
+      atspkg test --pkg-args "./travis.dhall"
       pip install yamllint
       yamllint .travis.yml
       yamllint .hlint.yml
       yamllint .yamllint
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-      atspkg build
-      atspkg build target/polyglot.deb
+      atspkg build --pkg-args "./travis.dhall"
+      atspkg build --pkg-args "./travis.dhall" target/polyglot.deb
       mv target/poly poly-$TARGET
     elif [ $TARGET = "arm-linux-gnueabihf" ]
     then
@@ -54,9 +53,7 @@ script:
       atspkg build --target=arm-linux-gnueabihf
       mv target/poly poly-$TARGET
     else
-      sed -i '.bak' '15s/icc/gcc/' atspkg.dhall
-      sed -i '.bak' '12s/True/False/' atspkg.dhall
-      atspkg build -vv
+      atspkg build --pkg-args "./travis-mac.dhall" -vv
       mv target/poly poly-$TARGET
     fi
 
