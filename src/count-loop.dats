@@ -25,7 +25,7 @@ fun rawmemchr {l:addr}{m:nat}(pf : bytes_v(l, m) | p : ptr(l), c : char) :
   [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2)| ptr(l2)) =
   "mac#"
 
-fun freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t =
+fn freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t =
   let
     extern
     castfn as_fileref(x : !FILEptr1) : FILEref
@@ -38,7 +38,7 @@ fun freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : c
 
 vtypedef pair = @{ f = char, s = Option_vt(char) }
 
-fun get_chars {m:nat}(s : string(m)) : Option_vt(pair) =
+fn get_chars {m:nat}(s : string(m)) : Option_vt(pair) =
   if length(s) >= 2 then
     let
       val p = @{ f = string_head(s), s = Some_vt(s[1]) }
@@ -62,7 +62,7 @@ fn read_bytes {l:addr}{ m : nat | m > 0 }(pf : !bytes_v(l, m) | p : ptr(l)) : ch
 fn read_bytes_succ {l:addr}{ m : nat | m > 1 }(pf : !bytes_v(l, m) | p : ptr(l)) : char =
   $UN.ptr0_get<char>(ptr_succ<char>(p))
 
-fun compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : char, comment : !Option_vt(pair)) :
+fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : char, comment : !Option_vt(pair)) :
   '(bool, bool) =
   let
     var match = lam@ (x : char, y : !Option_vt(char)) : bool =>
