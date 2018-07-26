@@ -6,12 +6,6 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 #define BUFSZ (32*1024)
 
-// TODO alternate implementation for Mac?
-%{^
-extern void *rawmemchr(const void *s, int c);
-#define atslib_rawmemchr rawmemchr
-%}
-
 // monoidal addition for 'file' type
 fn add_results(x : file, y : file) : file =
   let
@@ -27,15 +21,12 @@ fn add_results(x : file, y : file) : file =
 overload + with add_results
 
 extern
-fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) : [ l2 : addr | l+m > l2 ] ( bytes_v(l, l2-l)
+fun rawmemchr {l:addr}{m:nat}(pf : bytes_v(l, m) | p : ptr(l), c : int) : [ l2 : addr | l+m > l2 ] ( bytes_v(l, l2-l)
                                                                                                    , bytes_v(l2, l+m-l2)
                                                                                                    | ptr(l2)) =
-  "mac#atslib_rawmemchr"
+  "mac#"
 
-extern
-fun freadc {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t
-
-implement freadc (pf | inp, p, c) =
+fun freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t =
   let
     extern
     castfn as_fileref(x : !FILEptr1) : FILEref
@@ -48,35 +39,41 @@ implement freadc (pf | inp, p, c) =
 
 vtypedef pair = @{ f = char, s = Option_vt(char) }
 
-// FIXME we shouldn't use unsafe in various places.
-fun get_chars(s : string) : Option_vt(pair) =
+fun get_chars {m:nat}(s : string(m)) : Option_vt(pair) =
   if length(s) >= 2 then
     let
-      val p = @{ f = $UN.ptr1_get<char>(string2ptr(s))
-               , s = Some_vt($UN.ptr1_get<char>(add_ptr_bsz(string2ptr(s), i2sz(1))))
-               }
+      val p = @{ f = string_head(s), s = Some_vt(s[1]) }
     in
       Some_vt(p)
     end
   else
     if length(s) >= 1 then
       let
-        val p = @{ f = $UN.ptr1_get<char>(string2ptr(s)), s = None_vt }
+        val p = @{ f = string_head(s), s = None_vt }
       in
         Some_vt(p)
       end
     else
       None_vt
 
-fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : char, comment : !Option_vt(pair)) :
+// safely read bytes at a pointer
+fn read_bytes {l:addr}{ m : nat | m > 0 }(pf : !bytes_v(l, m) | p : ptr(l)) : char =
+  $UN.ptr0_get<char>(p)
+
+fn read_bytes_succ {l:addr}{ m : nat | m > 1 }(pf : !bytes_v(l, m) | p : ptr(l)) : char =
+  $UN.ptr0_get<char>(ptr_succ<char>(p))
+
+fun compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : char, comment : !Option_vt(pair)) :
   '(bool, bool) =
   let
     var match = lam@ (x : char, y : !Option_vt(char)) : bool =>
       case+ y of
         | Some_vt (z) => x = z
         | None_vt() => true
+    
+    // FIXME: this is unsafe and in fact immoral
     var s2 = $UN.ptr0_get<char>(p)
-    var s3 = $UN.ptr0_get<char>(ptr_succ<byte>(p))
+    var s3 = $UN.ptr0_get<char>(ptr_succ<char>(p))
     var b = s2 = compare
     var b2 = case+ comment of
       | None_vt() => false
@@ -85,15 +82,11 @@ fun compare_bytes {l:addr}{m:int}(pf : !bytes_v(l, m) | p : ptr(l), compare : ch
     '(b, b2)
   end
 
-extern
-fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n)
-                           | p : ptr(l), pz : ptr, c : int, res : file, comment : !Option_vt(pair)) : file
-
-implement wclbuf (pf | p, pz, c, res, comment) =
+fun wclbuf {l:addr}{n:nat}(pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : int, res : file, comment : !Option_vt(pair)) 
+  : file =
   let
     val (pf1, pf2 | p2) = rawmemchr(pf | p, c)
-    
-    fn match_acc_file(b : bool, b2 : bool) : file =
+    var match_acc_file = lam@ (b : bool, b2 : bool) : file =>
       case+ (b, b2) of
         | (true, true) => @{ files = 0, blanks = 1, comments = 1, lines = 1 }
         | (true, false) => @{ files = 0, blanks = 1, comments = 0, lines = 1 }
@@ -119,39 +112,42 @@ implement wclbuf (pf | p, pz, c, res, comment) =
       end
   end
 
-// FIXME time-consuming?
-fun postproc(acc : file) : file =
-  let
-    var acc_r = ref<file>(acc)
-    val _ = if acc.blanks = ~1 then
-      acc_r -> blanks := 0
-    else
-      ()
-  in
-    !acc_r
-  end
-
-extern
-fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : int, comment : !Option_vt(pair)) : file
-
-implement wclfil {l} (pf | inp, p, c, comment) =
+fn wclfil {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : int, comment : !Option_vt(pair)) : file =
   let
     var acc_file = @{ files = 1, blanks = ~1, comments = 0, lines = 0 } : file
     
     fun loop(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : int, res : file, comment : !Option_vt(pair)) :
       file =
       let
-        var n = freadc(pf | inp, p, $UN.cast{char}(c))
+        extern
+        castfn int2char(int) : char
+        
+        var n = freadc(pf | inp, p, int2char(c))
       in
         if n > 0 then
           let
+            // TODO: make ptr_add take appropriate type??
             var pz = ptr_add<char>(p, n)
             var res = wclbuf(pf | p, pz, c, res, comment)
           in
             loop(pf | inp, p, c, res, comment)
           end
         else
-          postproc(res)
+          let
+            // FIXME time-consuming?
+            fn postproc(acc : file) : file =
+              let
+                var acc_r = ref<file>(acc)
+                val () = if acc.blanks = ~1 then
+                  acc_r -> blanks := 0
+                else
+                  ()
+              in
+                !acc_r
+              end
+          in
+            postproc(res)
+          end
       end
   in
     loop(pf | inp, p, c, acc_file, comment)
@@ -169,16 +165,21 @@ fn clear_function(x : Option_vt(pair)) : void =
     | ~None_vt() => ()
     | ~Some_vt (x) => free(x.s)
 
+overload free with clear_function
+
 fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
+    extern
+    castfn char2int(c : char) : int
+    
     // TODO: use a dataview to make this safe??
     var inp: FILEptr1 = fopen_exn(s, file_mode_r)
     val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
     prval () = pfat := b0ytes2bytes_v(pfat)
-    var res = wclfil(pfat | inp, p, $UN.cast2int(c), comment)
+    var res = wclfil(pfat | inp, p, char2int(c), comment)
     val () = mfree_gc(pfat, pfgc | p)
-    val _ = fclose1_exn(inp)
-    val _ = clear_function(comment)
+    val () = fclose1_exn(inp)
+    val () = free(comment)
   in
     res
   end
@@ -186,7 +187,7 @@ fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
 // This ensures safety.
 typedef small_string = [ m : nat | m <= 2 && m > 0 ] string(m)
 
-fun line_count(s : string, pre : Option_vt(small_string)) : file =
+fn line_count(s : string, pre : Option_vt(small_string)) : file =
   case+ pre of
     | ~Some_vt (x) => count_char(s, '\n', get_chars(x))
     | ~None_vt() => count_char(s, '\n', None_vt)

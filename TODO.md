@@ -20,6 +20,7 @@
 - [ ] linear types everywhere!!
 - [ ] get rid of GC (?)
 - [ ] Make loops call-by-reference?
+- [ ] Look at https://github.com/llogiq/bytecount (beat it?)
 # Distribution
 - [x] Make a debianization?
   - [ ] Add to debian
