@@ -24,7 +24,7 @@ fn maybe_full(a : string, b : string, c : string) : string =
     ""
 
 // helper function for make_table
-fun maybe_table { k : int | k >= 0 && k < 19 }(s : string(k), f : file) : string =
+fn maybe_table { k : int | k >= 0 && k < 19 }(s : string(k), f : file) : string =
   let
     var code = f.lines - f.comments - f.blanks
   in
@@ -42,7 +42,7 @@ fun maybe_table { k : int | k >= 0 && k < 19 }(s : string(k), f : file) : string
   end
 
 // helper function to make totals for tabular output.
-fun sum_fields(sc : source_contents) : file =
+fn sum_fields(sc : source_contents) : file =
   let
     var f = @{ lines = sc.rust.lines
                      + sc.haskell.lines
@@ -402,7 +402,7 @@ fun sum_fields(sc : source_contents) : file =
   end
 
 // function to print tabular output at the end
-fun make_table(isc : source_contents, colorize : bool) : string =
+fn make_table(isc : source_contents, colorize : bool) : string =
   let
     var a = if colorize then
       "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m             \33[35mFiles\33[0m       \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
@@ -503,7 +503,7 @@ fun make_table(isc : source_contents, colorize : bool) : string =
   end
 
 // Function to print output sorted by type of language.
-fun make_output(isc : source_contents) : string =
+fn make_output(isc : source_contents) : string =
   let
     var maybe_string = lam@ (s : string, n : int) : string =>
       if n > 0 then

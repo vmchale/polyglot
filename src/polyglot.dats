@@ -19,7 +19,7 @@ staload _ = "libats/DATS/athread.dats"
 
 #define NCPU 4
 
-fun step_list(s : string, excludes : List0(string)) : List0(string) =
+fn step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes) && test_file_isdir(s + "/" + x) > 0))
@@ -32,7 +32,7 @@ fun step_list(s : string, excludes : List0(string)) : List0(string) =
     stream2list(ffiles)
   end
 
-fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
+fn step_list_files(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)) && test_file_isdir(s + "/" + x) = 0)
@@ -46,7 +46,7 @@ fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
     stream2list(ffiles)
   end
 
-fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
+fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   let
     fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
       let
@@ -74,13 +74,13 @@ fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
     loop(3, xs, excludes)
   end
 
-fun get_or_nothing(n : intGte(0), xs : List0(List0(string))) : List0(string) =
+fn get_or_nothing(n : intGte(0), xs : List0(List0(string))) : List0(string) =
   case+ list_get_at_opt(xs, n) of
     | ~Some_vt (x) => x
     | ~None_vt() => list_nil
 
 // FIXME needs to use actual pointers or something idk
-fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
+fn apportion_list { n : nat | n > 0 }(n : int(n), list : List0(string)) : List0(List0(string)) =
   let
     fun loop(k : int, acc : List0(string)) : '(List0(string), List0(string)) =
       case+ k of
@@ -93,7 +93,7 @@ fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
             '(list_cons(x, p), q)
           end
     
-    fun outer(i : int, acc : List0(string)) : List0(List0(string)) =
+    fun outer { i : nat | i >= 0 } .<i>. (i : int(i), acc : List0(string)) : List0(List0(string)) =
       let
         val '(p, q) = loop(length(acc) / n, acc)
       in
@@ -107,7 +107,7 @@ fun apportion_list(n : int, list : List0(string)) : List0(List0(string)) =
   end
 
 // FIXME this is unnecessarily slow because of the List0
-fun apportion(includes : List0(string), excludes : List0(string)) :
+fn apportion(includes : List0(string), excludes : List0(string)) :
   '(List0(string), List0(string), List0(string), List0(string)) =
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
@@ -125,12 +125,12 @@ fn handle_unref(x : channel(string)) : void =
     | ~None_vt() => ()
     | ~Some_vt (q) => queue_free<List0(string)>(q)
 
-fun handle(x : Option_vt(List0(string))) : '(source_contents, List0(string)) =
+fn handle(x : Option_vt(List0(string))) : '(source_contents, List0(string)) =
   case+ x of
     | ~None_vt() => '(empty_contents(), list_nil)
     | ~Some_vt _ => (internal_error() ; '(empty_contents(), list_nil))
 
-fun worker(excludes : List0(string), send : channel(Option_vt(List0(string))), chan : channel(source_contents)) : void =
+fn worker(excludes : List0(string), send : channel(Option_vt(List0(string))), chan : channel(source_contents)) : void =
   {
     var xs = channel_remove(send)
     val '(sc, ls) = handle(xs)
@@ -138,7 +138,7 @@ fun worker(excludes : List0(string), send : channel(Option_vt(List0(string))), c
     val () = handle_unref(chan)
   }
 
-fun work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
+fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
   {
     var n = channel_remove(send)
     var x = map_stream(empty_contents(), n, excludes)
@@ -148,7 +148,7 @@ fun work(excludes : List0(string), send : channel(List0(string)), chan : channel
   }
 
 // ideally we want one "large" channel that will handle back-and-forth communication between threads.
-fun threads(includes : List0(string), excludes : List0(string)) : source_contents =
+fn threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
     val chan = channel_make<source_contents>(NCPU)
     var new_includes = if length(includes) > 0 then
@@ -178,10 +178,10 @@ fun threads(includes : List0(string), excludes : List0(string)) : source_content
     
     val _ = loop(NCPU, chan)
     
-    fun loop_return(i : int, chan : !channel(source_contents)) : source_contents =
+    fun loop_return { i : nat | i >= 0 } .<i>. (i : int(i), chan : !channel(source_contents)) : source_contents =
       case+ i of
         | 0 => empty_contents()
-        | _ => let
+        | _ =>> let
           var n = channel_remove(chan)
           var m = loop_return(i - 1, chan)
         in

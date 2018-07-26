@@ -17,7 +17,7 @@ staload _ = "libats/ML/DATS/filebas.dats"
 #define nil list_nil
 #define :: list_cons
 
-fun to_file(s : string, pre : Option(string)) : file =
+fn to_file(s : string, pre : Option(string)) : file =
   let
     var is_comment = case+ pre of
       | Some (x) => string_is_prefix(x, s)
@@ -342,7 +342,7 @@ fn check_shebang(s : string) : pl_type =
   end
 
 // Match based on filename (for makefiles, etc.)
-fun match_filename(s : string) : pl_type =
+fn match_filename(s : string) : pl_type =
   let
     val (prf | str) = filename_get_base(s)
     var match = $UN.strptr2string(str)
@@ -499,7 +499,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
   end
 
 // filter out directories containing artifacts
-fun bad_dir(s : string, excludes : List0(string)) : bool =
+fn bad_dir(s : string, excludes : List0(string)) : bool =
   case+ s of
     | "." => true
     | ".." => true
@@ -541,7 +541,7 @@ and flow_stream(s : string, init : source_contents, excludes : List0(string)) : 
       stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream(acc, next, next, excludes))
   end
 
-fun empty_contents() : source_contents =
+fn empty_contents() : source_contents =
   let
     var isc = @{ rust = empty_file
                , haskell = empty_file
@@ -636,14 +636,14 @@ fun empty_contents() : source_contents =
     isc
   end
 
-fun map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) : source_contents =
+fn map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) : source_contents =
   list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next) || test_file_isdir(next) < 0
                       || next = "" then
                         step_stream(acc, next, next, excludes)
                       else
                         (maybe_err(next) ; acc))
 
-fun step_list(s : string, excludes : List0(string)) : List0(string) =
+fn step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes) && test_file_isdir(s + "/" + x) > 0))
@@ -656,7 +656,7 @@ fun step_list(s : string, excludes : List0(string)) : List0(string) =
     stream2list(ffiles)
   end
 
-fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
+fn step_list_files(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)) && test_file_isdir(s + "/" + x) = 0)
@@ -670,7 +670,7 @@ fun step_list_files(s : string, excludes : List0(string)) : List0(string) =
     stream2list(ffiles)
   end
 
-fun map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
+fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   let
     fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
       let
