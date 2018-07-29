@@ -189,7 +189,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
         end
     
     var r = loop_return(NCPU, chan)
-    val () = ignoret(usleep(60u))
+    val () = ignoret(usleep(70u))
     
     // FIXME this
     val () = while(channel_refcount(chan) >= 2)()
