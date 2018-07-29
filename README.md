@@ -74,7 +74,7 @@ On the Rust repo:
 
 ### Heuristics
 
-Polyglot distinguishes itself from `tokei` and `loc` by being able to disambiguate file names.
+Polyglot distinguishes itself from `tokei`, `gocloc`, `scc`, and `loc` by being able to disambiguate file names.
 Thus, `poly` will not confuse Happy for Yacc (for instance).
 
 ## Installation
