@@ -48,7 +48,7 @@ fn step_list_files(s : string, excludes : List0(string)) : List0(string) =
 
 fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   let
-    fun loop(i : int, xs : List0(string), excludes : List0(string)) : List0(string) =
+    fun loop {i:nat} .<i>. (i : int(i), xs : List0(string), excludes : List0(string)) : List0(string) =
       let
         var xs0 = list0_filter(g0ofg1(xs), lam x => test_file_isdir(x) > 0)
       in
@@ -57,18 +57,18 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
                                        g0ofg1(step_list(x, excludes))
                                      else
                                        list0_nil))
-          | _ => g1ofg0(list0_mapjoin(xs0, lam x => let
-                                       var ys = step_list(x, excludes)
-                                       var zs = step_list_files(x, excludes)
-                                     in
-                                       if not(bad_dir(x, excludes)) then
-                                         g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
-                                       else
-                                         if x = "." && i = 3 then
-                                           g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
-                                         else
-                                           list0_nil
-                                     end))
+          | _ =>> g1ofg0(list0_mapjoin(xs0, lam x => let
+                                        var ys = step_list(x, excludes)
+                                        var zs = step_list_files(x, excludes)
+                                      in
+                                        if not(bad_dir(x, excludes)) then
+                                          g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
+                                        else
+                                          if x = "." && i = 3 then
+                                            g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
+                                          else
+                                            list0_nil
+                                      end))
       end
   in
     loop(3, xs, excludes)
@@ -150,6 +150,7 @@ fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(
 // ideally we want one "large" channel that will handle back-and-forth communication between threads.
 fn threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
+    // this will hold the results sent back
     val chan = channel_make<source_contents>(NCPU)
     var new_includes = if length(includes) > 0 then
       includes
@@ -157,9 +158,11 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
       list_cons(".", list_nil())
     val '(fst, snd, thd, fth) = apportion(new_includes, excludes)
     
-    fun loop { i : nat | i > 0 && i <= 4 } .<i>. (i : int(i), chan : !channel(source_contents)) : void =
+    fun loop { i : nat | i > 0 && i <= NCPU } .<i>. (i : int(i), chan : !channel(source_contents)) : void =
       {
         val chan_ = channel_ref(chan)
+        
+        // this will simply communicate the work to be 
         val send = channel_make<List0(string)>(1)
         val send_r = channel_ref(send)
         val _ = case+ i of
@@ -178,21 +181,22 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
     
     val _ = loop(NCPU, chan)
     
-    fun loop_return { i : nat | i >= 0 } .<i>. (i : int(i), chan : !channel(source_contents)) : source_contents =
+    fun loop_return { i : nat | i >= 0 && i <= NCPU } .<i>. (i : int(i), chan : !channel(source_contents)) :
+      source_contents =
       case+ i of
         | 0 => empty_contents()
         | _ =>> let
           var n = channel_remove(chan)
           var m = loop_return(i - 1, chan)
         in
-          add_contents(m, n)
+          m + n
         end
     
     var r = loop_return(NCPU, chan)
-    val () = ignoret(usleep(70u))
     
     // FIXME this
-    val () = while(channel_refcount(chan) >= 2)()
+    val () = ignoret(usleep(70u))
+    val () = while(channel_refcount(chan) > 1)()
     val () = handle_unref(chan)
   in
     r

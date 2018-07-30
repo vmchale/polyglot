@@ -48,7 +48,8 @@
   - [ ] or alternately a macro
 # Libraries
 - [ ] TOML parser for ATS (or sufficient bindings)
-- [ ] Library for `.gitignore` files etc.
+- [ ] Library for `.gitignore` files (and `.ignore` or `_darcs/boring` files)
+- [ ] Chase-levenshtein work-stealing queue
 - [ ] Parallel directory traversal (templates?)
 ## Heuristics
 ### Heuristics for determining file type:
@@ -181,3 +182,4 @@
 - [ ] Egison (`.egi`)
 - [ ] Everything supported by `cloc --show-lang`
 - [ ] Also `gocloc --show-lang`, `scc --languages`
+- [ ] `.clang-format` files??
