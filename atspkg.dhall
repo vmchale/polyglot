@@ -5,15 +5,8 @@ in
 let not = http://hackage.haskell.org/package/dhall/src/Prelude/Bool/not
 in
 
--- TODO figure out icc configuration options
-
-{- Configuration helpers -}
-let iccFlags =
-    [ "-D__PURE_INTEL_C99_HEADERS__" ]
-in
-
 let
-pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool }) →
+pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
 
     let native =
         if not x.cross
@@ -40,36 +33,45 @@ pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool }) →
         in
 
     let cc =
-        if not x.cross then "icc" else "gcc"
+        if x.icc
+            then "icc"
+            else "gcc"
+    in
+
+    let iccFlags =
+        if x.icc
+            then [ "-D__PURE_INTEL_C99_HEADERS__" ]
+            else ([] : List Text)
     in
 
     prelude.default ⫽
     { bin =
-        [
-        prelude.bin ⫽
-        { src = "src/${srcFile}.dats"
-        , target = "${prelude.atsProject}/poly"
-        , gcBin = True
-        , libs = [ "pthread" ]
-        }
+        [ prelude.bin ⫽
+            { src = "src/${srcFile}.dats"
+            , target = "${prelude.atsProject}/poly"
+            , gcBin = True
+            , libs = [ "pthread" ]
+            }
         ]
     , test =
         [ prelude.bin ⫽
-        { src = "test/test.dats"
-        , target = "${prelude.atsProject}/test"
-        , gcBin = True
-        , libs = [ "pthread" ]
-        }
+            { src = "test/test.dats"
+            , target = "${prelude.atsProject}/test"
+            , gcBin = True
+            , libs = [ "pthread" ]
+            }
         ]
     , man = [ "man/poly.md" ] : Optional Text
     , completions = [ "compleat/poly.usage" ] : Optional Text
-    , dependencies = (prelude.mapPlainDeps deps)
-        # [ prelude.upperDeps { name = "specats", version = [0,2,3] }, prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }]
+    , dependencies = (prelude.mapPlainDeps deps) #
+        [ prelude.upperDeps { name = "specats", version = [0,2,3] }
+        , prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }
+        ]
     , cflags = [ "-flto", "-O2" ] # staticFlag # native # iccFlags
     , ccompiler = cc
     , debPkg = prelude.mkDeb
         (prelude.debian "polyglot" ⫽
-            { version = [0,4,45]
+            { version = [0,4,52]
             , maintainer = "Vanessa McHale <vamchale@gmail.com>"
             , description = "Determine project contents"
             , manpage = [ "man/poly.1" ]

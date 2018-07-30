@@ -110,7 +110,7 @@ curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.s
 And install `poly` with
 
 ```bash
-atspkg remote https://github.com/vmchale/polyglot/archive/master.zip --pkg-args '{ cross = True, parallel = True, static = False }'
+atspkg remote https://github.com/vmchale/polyglot/archive/master.zip --pkg-args '{ cross = True, parallel = True, static = False, icc = False }'
 ```
 
 ### Documentation
@@ -128,12 +128,12 @@ man poly
  Language             Files       Lines         Code     Comments       Blanks
 -------------------------------------------------------------------------------
  ATS                     10        2272         2157           32           83
- Dhall                    4          90           75            1           14
+ Dhall                    4          92           79            0           13
  Justfile                 1          53           47            1            5
  Markdown                 4         426          359            0           67
  TOML                     1           3            3            0            0
  YAML                     1          67           59            0            8
 -------------------------------------------------------------------------------
- Total                   21        2911         2700           34          177
+ Total                   21        2913         2704           33          176
 -------------------------------------------------------------------------------
 ```
