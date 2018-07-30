@@ -73,7 +73,7 @@ pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool }) →
             , maintainer = "Vanessa McHale <vamchale@gmail.com>"
             , description = "Determine project contents"
             , manpage = [ "man/poly.1" ]
-            : Optional Text
+                : Optional Text
             , binaries = [ "${prelude.atsProject}/poly" ]
             })
     }
