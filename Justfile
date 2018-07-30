@@ -42,12 +42,12 @@ release: all
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-alpha-linux-gnu -f target/poly-alpha-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips-linux-gnu -f target/poly-mips-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mipsel-linux-gnu -f target/poly-mipsel-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
-    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64-linux-gnuabi64 -f target/poly-mipsel-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
-    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64el-linux-gnuabi64 -f target/poly-mipsel-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64-linux-gnuabi64 -f target/poly-mips64-linux-gnuabi64 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64el-linux-gnuabi64 -f target/poly-mips64el-linux-gnuabi64 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n polyglot.deb -f target/polyglot.deb -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
 
 next:
-    @export VERSION=$(cat src/polyglot.dats | grep -P -o '\d+\.\d+\.\d+' src/cli.dats | awk -F. '{$NF+=1; print $0}' | sed 's/ /\./g') && echo $VERSION && sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+\+/$VERSION/" src/cli.dats
+    @export VERSION=$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats | awk -F. '{$NF+=1; print $0}' | sed 's/ /\./g') && echo $VERSION && sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+\+/$VERSION/" src/cli.dats
     @git commit -am "version bump"

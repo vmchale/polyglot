@@ -23,7 +23,7 @@ Reasons not to use polyglot:
 
   * It's written in ATS
   * No regex-based exclusions
-  * Only supported on Linux
+  * Best on Linux
 
 ### Benchmarks
 
