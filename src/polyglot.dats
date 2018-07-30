@@ -98,19 +98,6 @@ fn handle_unref(x : channel(string)) : void =
     | ~None_vt() => ()
     | ~Some_vt (q) => queue_free<List0(string)>(q)
 
-fn handle(x : Option_vt(List0(string))) : '(source_contents, List0(string)) =
-  case+ x of
-    | ~None_vt() => '(empty_contents(), list_nil)
-    | ~Some_vt _ => (internal_error() ; '(empty_contents(), list_nil))
-
-fn worker(excludes : List0(string), send : channel(Option_vt(List0(string))), chan : channel(source_contents)) : void =
-  {
-    var xs = channel_remove(send)
-    val '(_, _) = handle(xs)
-    val () = handle_unref(send)
-    val () = handle_unref(chan)
-  }
-
 fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
   {
     var n = channel_remove(send)
