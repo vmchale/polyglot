@@ -71,4 +71,5 @@ pkg = λ(x : { cross : Bool, parallel : Bool }) →
             , binaries = [ "${prelude.atsProject}/poly" ]
             })
     }
+
 in pkg
