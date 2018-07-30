@@ -79,34 +79,7 @@ fn get_or_nothing(n : intGte(0), xs : List0(List0(string))) : List0(string) =
     | ~Some_vt (x) => x
     | ~None_vt() => list_nil
 
-// FIXME needs to use actual pointers or something idk
-fn apportion_list { n : nat | n > 0 }(n : int(n), list : List0(string)) : List0(List0(string)) =
-  let
-    fun loop(k : int, acc : List0(string)) : '(List0(string), List0(string)) =
-      case+ k of
-        | 0 => '(acc, list_nil)
-        | _ => case+ acc of
-          | list_nil() => '(list_nil, acc)
-          | list_cons (x, xs) => let
-            val '(p, q) = loop(k - 1, xs)
-          in
-            '(list_cons(x, p), q)
-          end
-    
-    fun outer { i : nat | i >= 0 } .<i>. (i : int(i), acc : List0(string)) : List0(List0(string)) =
-      let
-        val '(p, q) = loop(length(acc) / n, acc)
-      in
-        if i > 0 then
-          list_cons(p, outer(i - 1, q))
-        else
-          list_nil
-      end
-  in
-    outer(n, list)
-  end
-
-// FIXME this is unnecessarily slow because of the List0
+// FIXME this is slow because of the List0
 fn apportion(includes : List0(string), excludes : List0(string)) :
   '(List0(string), List0(string), List0(string), List0(string)) =
   let
@@ -133,7 +106,7 @@ fn handle(x : Option_vt(List0(string))) : '(source_contents, List0(string)) =
 fn worker(excludes : List0(string), send : channel(Option_vt(List0(string))), chan : channel(source_contents)) : void =
   {
     var xs = channel_remove(send)
-    val '(sc, ls) = handle(xs)
+    val '(_, _) = handle(xs)
     val () = handle_unref(send)
     val () = handle_unref(chan)
   }
@@ -143,8 +116,8 @@ fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(
     var n = channel_remove(send)
     var x = map_stream(empty_contents(), n, excludes)
     val () = channel_insert(chan, x)
-    val _ = handle_unref(chan)
-    val _ = handle_unref(send)
+    val () = handle_unref(chan)
+    val () = handle_unref(send)
   }
 
 // ideally we want one "large" channel that will handle back-and-forth communication between threads.
