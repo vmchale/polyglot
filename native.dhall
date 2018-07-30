@@ -1,3 +1,3 @@
-let cfg = { cross = False, parallel = True, static = False, icc = True }
+let cfg = { cross = False, parallel = True, static = True, icc = True }
 
 in cfg
