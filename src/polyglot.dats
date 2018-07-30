@@ -132,10 +132,8 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
           | 4 => channel_insert(send, fth)
         val _ = athread_create_cloptr_exn(llam () =>
             work(excludes, send_r, chan_))
-        val _ = handle_unref(send)
-        val _ = if i < 2 then
-          ()
-        else
+        val () = handle_unref(send)
+        val () = if i >= 2 then
           loop(i - 1, chan)
       }
     

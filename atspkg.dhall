@@ -13,7 +13,7 @@ let iccFlags =
 in
 
 let
-pkg = λ(x : { cross : Bool, parallel : Bool }) →
+pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool }) →
 
     let native =
         if not x.cross
@@ -24,6 +24,12 @@ pkg = λ(x : { cross : Bool, parallel : Bool }) →
     let deps =
         if x.parallel
             then [ "concurrency" ]
+            else ([] : List Text)
+        in
+
+    let staticFlag =
+        if x.static
+            then [ "-static" ]
             else ([] : List Text)
         in
 
@@ -59,7 +65,7 @@ pkg = λ(x : { cross : Bool, parallel : Bool }) →
     , completions = [ "compleat/poly.usage" ] : Optional Text
     , dependencies = (prelude.mapPlainDeps deps)
         # [ prelude.upperDeps { name = "specats", version = [0,2,3] }, prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }]
-    , cflags = [ "-flto", "-O2", "-static" ] # native # iccFlags
+    , cflags = [ "-flto", "-O2" ] # staticFlag # native # iccFlags
     , ccompiler = cc
     , debPkg = prelude.mkDeb
         (prelude.debian "polyglot" ⫽
