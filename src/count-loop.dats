@@ -1,10 +1,27 @@
 // adapted from the book. You can find the original here:
 // https://github.com/githwxi/ATS-Postiats/blob/master/doc/EXAMPLE/MISC/wclines.dats
+#include "src/utils.dats"
+
 staload "src/filetype.sats"
 staload "libats/libc/SATS/stdio.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
 #define BUFSZ (32*1024)
+
+%{^
+#include <stdbool.h>
+
+bool is_link(char* path) {
+    struct stat buf;
+    int x;
+    x = lstat (path, &buf);
+    return S_ISLNK(buf.st_mode);
+}
+%}
+
+extern
+fn is_link(string) : bool =
+  "mac#"
 
 // monoidal addition for 'file' type
 fn add_results(x : file, y : file) : file =
@@ -166,6 +183,7 @@ overload free with clear_function
 fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
     // TODO: use a dataview to make this safe??
+    // fails on a bad symlink, which is bad
     var inp: FILEptr1 = fopen_exn(s, file_mode_r)
     val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
     prval () = pfat := b0ytes2bytes_v(pfat)

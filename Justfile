@@ -2,7 +2,6 @@ poly:
     @rm -f *_dats.c
     @poly -e data
 
-# TODO arm-linux-gnueabi sh4-linux-gnu hppa-linux-gnu hppa64-linux-gnu etc.
 all:
     atspkg build --pkg-args "./travis.dhall" target/polyglot.deb
     atspkg build --pkg-args "./travis.dhall" --target=s390x-linux-gnu

@@ -32,12 +32,6 @@ fn to_file(s : string, pre : Option(string)) : file =
         @{ lines = 1, blanks = 0, comments = 0, files = 0 }
   end
 
-val empty_file = let
-  var f = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
-in
-  f
-end
-
 fn add_contents(x : source_contents, y : source_contents) : source_contents =
   let
     var next = @{ rust = x.rust + y.rust
