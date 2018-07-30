@@ -21,7 +21,7 @@ fn add_results(x : file, y : file) : file =
 overload + with add_results
 
 extern
-fun rawmemchr {l:addr}{m:nat}(pf : bytes_v(l, m) | p : ptr(l), c : char) :
+fun memchr {l:addr}{m:nat}(pf : bytes_v(l, m) | p : ptr(l), c : char, size_t) :
   [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2)| ptr(l2)) =
   "mac#"
 
@@ -84,7 +84,7 @@ fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : cha
 fun wclbuf {l:addr}{n:nat}(pf : !bytes_v(l, n)
                           | p : ptr(l), pz : ptr, c : char, res : file, comment : !Option_vt(pair)) : file =
   let
-    val (pf1, pf2 | p2) = rawmemchr(pf | p, c)
+    val (pf1, pf2 | p2) = memchr(pf | p, c, i2sz(BUFSZ))
     var match_acc_file = lam@ (b : bool, b2 : bool) : file =>
       case+ (b, b2) of
         | (true, true) => @{ files = 0, blanks = 1, comments = 1, lines = 1 }
