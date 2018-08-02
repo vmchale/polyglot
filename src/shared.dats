@@ -1,7 +1,6 @@
 #include "src/cli.dats"
 #include "src/count-loop.dats"
 #include "src/print.dats"
-#include "src/utils.dats"
 
 staload "src/filetype.sats"
 staload "libats/ML/SATS/atspre.sats"
@@ -16,6 +15,12 @@ staload _ = "libats/ML/DATS/filebas.dats"
 
 #define nil list_nil
 #define :: list_cons
+
+val empty_file = let
+  var f = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
+in
+  f
+end
 
 fn to_file(s : string, pre : Option(string)) : file =
   let

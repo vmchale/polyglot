@@ -100,9 +100,3 @@ fn free_pl(pl : pl_type) : void =
     | ~fluid _ => ()
     | ~plutus _ => ()
     | ~j _ => ()
-
-val empty_file = let
-  var f = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
-in
-  f
-end
