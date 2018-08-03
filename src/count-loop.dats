@@ -186,13 +186,6 @@ in
   f
 end
 
-%{
-bool fp_is_null(FILE* fp) {
-    if (!fp) return false;
-    return true;
-}
-%}
-
 fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
     // TODO: use a dataview to make this safe??
