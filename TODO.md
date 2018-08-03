@@ -21,6 +21,7 @@
 - [ ] get rid of GC (?)
 - [ ] Make loops call-by-reference?
 - [ ] Look at https://github.com/llogiq/bytecount (beat it?)
+- [ ] also maybe https://github.com/boyerjohn/rapidstring
 # Distribution
 - [x] Make a debianization?
   - [ ] Add to debian
@@ -186,3 +187,4 @@
 - [ ] Grain: https://github.com/grain-lang/grain ??
 - [ ] Hy https://github.com/hylang/hy
 - [ ] coconut http://coconut-lang.org/
+- [ ] Doxyfile
