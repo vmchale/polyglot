@@ -180,19 +180,46 @@ fn clear_function(x : Option_vt(pair)) : void =
 
 overload free with clear_function
 
+val empty_file = let
+  var f = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
+in
+  f
+end
+
+%{
+bool fp_is_null(FILE* fp) {
+    if (!fp) return false;
+    return true;
+}
+%}
+
 fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
     // TODO: use a dataview to make this safe??
     // fails on a bad symlink, which is bad
-    var inp: FILEptr1 = fopen_exn(s, file_mode_r)
-    val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
-    prval () = pfat := b0ytes2bytes_v(pfat)
-    var res = wclfil(pfat | inp, p, c, comment)
-    val () = mfree_gc(pfat, pfgc | p)
-    val () = fclose1_exn(inp)
-    val () = free(comment)
+    var inp = fopen(s, file_mode_r)
   in
-    res
+    if FILEptr_is_null(inp) then
+      let
+        extern
+        castfn fp_is_null { l : addr | l == null }{m:fm} (FILEptr(l,m)) :<> void
+        
+        val () = fp_is_null(inp)
+        val () = bad_file(s)
+      in
+        (free(comment) ; empty_file)
+      end
+    else
+      let
+        val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
+        prval () = pfat := b0ytes2bytes_v(pfat)
+        var res = wclfil(pfat | inp, p, c, comment)
+        val () = mfree_gc(pfat, pfgc | p)
+        val () = fclose1_exn(inp)
+        val () = free(comment)
+      in
+        res
+      end
   end
 
 // This ensures safety.

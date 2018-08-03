@@ -100,3 +100,5 @@ fn free_pl(pl : pl_type) : void =
     | ~fluid _ => ()
     | ~plutus _ => ()
     | ~j _ => ()
+
+overload free with free_pl

@@ -7,8 +7,8 @@ fn test_file(s : string, expected : pl_type) : bool =
   let
     var t0_actual = prune_extension("test/data/" + s, s)
     val b = expected = t0_actual
-    val _ = free_pl(expected)
-    val _ = free_pl(t0_actual)
+    val _ = free(expected)
+    val _ = free(t0_actual)
   in
     b
   end

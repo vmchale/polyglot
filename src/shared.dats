@@ -243,7 +243,7 @@ fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_ty
       begin
         case+ ext of
           | "y" => let
-            val _ = free_pl(pre)
+            val _ = free(pre)
             var happy_keywords = "module" :: "import" :: nil
           in
             ifcase
@@ -256,7 +256,7 @@ fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_ty
               | _ => unknown
           end
           | "v" => let
-            var _ = free_pl(pre)
+            var _ = free(pre)
             var verilog_keywords = "endmodule" :: "posedge" :: "edge" :: "always" :: "wire" :: nil
           in
             ifcase
@@ -272,7 +272,7 @@ fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_ty
               | _ => unknown
           end
           | "m" => let
-            val _ = free_pl(pre)
+            val _ = free(pre)
             var mercury_keywords = "module" :: "pred" :: nil
           in
             ifcase
