@@ -31,8 +31,6 @@
 # Portability
 - [ ] Figure out Windows (?)
 # Bugs
-- [ ] "does not exist" should be an error when a directory passed on the command
-  line does not exist
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
