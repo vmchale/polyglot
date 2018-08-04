@@ -1,4 +1,6 @@
 # Features
+- [ ] Generate build reports in the format of `cloc` (`gocloc
+  --output-type=sloccount .`)
 - [ ] `.poly.toml` project file?
 - [ ] per-file output like `tokei`/`loc`
 - [ ] parse directories on the command line starting with a `-` by using escapes
@@ -50,6 +52,9 @@
 - [ ] Library for `.gitignore` files (and `.ignore` or `_darcs/boring` files)
 - [ ] Chase-levenshtein work-stealing queue
 - [ ] Parallel directory traversal (templates?)
+- [ ] Library for cross-platform directory access?
+# Documentation
+- [ ] Benchmark against sloccount?
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parent directory (`.cargo/config`)
@@ -186,3 +191,5 @@
 - [ ] Hy https://github.com/hylang/hy
 - [ ] coconut http://coconut-lang.org/
 - [ ] Doxyfile
+- [ ] See this list: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+  - [ ] Also think of a better way to add new languages
