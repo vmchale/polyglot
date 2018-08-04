@@ -14,7 +14,10 @@ getTarget() {
             "aarch64") MACHINE="linux-gnu";;
             "alpha") MACHINE="linux-gnu";;
             "arm") MACHINE="linux-gnueabihf";;
-            "mips") MACHINE="linux-gnu";;
+            "mips64"*) MACHINE="linux-gnuabi64";;
+            "mips"*) MACHINE="linux-gnu";;
+            "powerpc"*) MACHINE="linux-gnu";;
+            "s390x") MACHINE="linux-gnu";;
         esac
         echo "poly-$(uname -m)-$MACHINE"
     fi
