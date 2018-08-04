@@ -98,7 +98,15 @@ shell completions as well.
 There is a [vim plugin](https://github.com/vmchale/polyglot-vim) available which
 can count lines of code in a project.
 
-## From Source
+### Documentation
+
+You can view manpages for `poly` with
+
+```
+man poly
+```
+
+## Building for Hacking
 
 You can install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
 with
@@ -107,18 +115,18 @@ with
 curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
 ```
 
-And install `poly` with
+And then build `poly` with
 
 ```bash
-atspkg remote https://github.com/vmchale/polyglot/archive/master.zip --pkg-args '{ cross = False, parallel = True, static = True, icc = False }'
+git clone git@github.com:vmchale/polyglot.git
+cd polyglot
+atspkg build --pkg-args '{ cross = False, parallel = True, static = True, icc = False }'
 ```
 
-### Documentation
+If you are on Mac, you may have to replace the last line with
 
-You can view manpages for `poly` with
-
-```
-man poly
+```bash
+atspkg build --pkg-args '{ cross = False, parallel = False, static = True, icc = False }'
 ```
 
 ## Contents
