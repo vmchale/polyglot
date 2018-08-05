@@ -4,19 +4,24 @@ poly:
 
 all:
     atspkg build --pkg-args "./native.dhall" target/polyglot.deb
-    atspkg build --pkg-args "./travis.dhall" --target=s390x-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=arm-linux-gnueabihf
-    atspkg build --pkg-args "./travis.dhall" --target=powerpc64-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=powerpc64le-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=powerpc-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=aarch64-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=alpha-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=m68k-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=mips-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=mipsel-linux-gnu
-    atspkg build --pkg-args "./travis.dhall" --target=mips64-linux-gnuabi64
-    atspkg build --pkg-args "./travis.dhall" --target=mips64el-linux-gnuabi64
-    atspkg build --pkg-args "./travis.dhall" --target=i686-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=s390x-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=arm-linux-gnueabihf
+    atspkg build --pkg-args "./gc.dhall" --target=powerpc64-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=powerpc64le-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=powerpc-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=aarch64-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=alpha-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=m68k-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=mips-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=mipsel-linux-gnu
+    atspkg build --pkg-args "./gc.dhall" --target=mips64-linux-gnuabi64
+    atspkg build --pkg-args "./gc.dhall" --target=mips64el-linux-gnuabi64
+    atspkg build --pkg-args "./gc.dhall" --target=i686-linux-gnu
+    atspkg build --pkg-args "./no-gc.dhall" --target=riscv64-linux-gnu
+    atspkg build --pkg-args "./no-gc.dhall" --target=sh4-linux-gnu
+    atspkg build --pkg-args "./no-gc.dhall" --target=hppa-linux-gnu
+    atspkg build --pkg-args "./no-gc.dhall" --target=sparc64-linux-gnu
+    atspkg build --pkg-args "./no-gc.dhall" --target=arm-linux-gnueabi
 
 ci:
     tomlcheck --file .atsfmt.toml
@@ -46,6 +51,10 @@ release: all
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64-linux-gnuabi64 -f target/poly-mips64-linux-gnuabi64 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64el-linux-gnuabi64 -f target/poly-mips64el-linux-gnuabi64 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-i686-linux-gnu -f target/poly-i686-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-sh4-linux-gnu -f target/poly-sh4-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-riscv64-linux-gnu -f target/poly-riscv64-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-hppa-linux-gnu -f target/poly-hppa-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-arm-linux-gnueabi -f target/poly-arm-linux-gnueabi -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n polyglot.deb -f target/polyglot.deb -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
