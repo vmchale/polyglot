@@ -18,7 +18,6 @@ matrix:
       language: c
 
   allow_failures:
-    - env: TARGET="x86_64-apple-darwin"
     - env: TARGET="arm-linux-gnueabihf"
 
 cache:
