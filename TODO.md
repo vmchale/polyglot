@@ -195,3 +195,5 @@
 - [ ] Doxyfile
 - [ ] See this list: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
   - [ ] Also think of a better way to add new languages
+- [ ] Brig PL: https://github.com/klevinism/Brig
+- [ ] `.sin`: https://github.com/jemalloc/jemalloc/blob/dev/msvc/jemalloc_vc2015.sln

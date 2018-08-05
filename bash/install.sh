@@ -4,6 +4,8 @@ set -e
 set pipefail
 
 # TODO: if we're on debian just use the `.deb`
+# Also stream directory contents better and possibly get redox working?
+# Also also maybe even Windows or FreeBSD or Solaris
 getTarget() {
     if [ "$(uname)" = "Darwin" ]
     then
