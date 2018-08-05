@@ -11,14 +11,9 @@ getTarget() {
     else
         case $(uname -m) in
             "x86_64") MACHINE="unknown-linux";;
-            "aarch64") MACHINE="linux-gnu";;
-            "alpha") MACHINE="linux-gnu";;
             "arm") MACHINE="linux-gnueabihf";;
             "mips64"*) MACHINE="linux-gnuabi64";;
-            "mips"*) MACHINE="linux-gnu";;
-            "powerpc"*) MACHINE="linux-gnu";;
-            "s390x") MACHINE="linux-gnu";;
-            "i686") MACHINE="linux-gnu";;
+            *) MACHINE="linux-gnu";;
         esac
         echo "poly-$(uname -m)-$MACHINE"
     fi

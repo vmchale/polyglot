@@ -35,7 +35,7 @@ script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
-      atspkg test --pkg-args "./travis.dhall"
+      atspkg test --pkg-args "./gc.dhall"
       pip install yamllint
       yamllint .travis.yml
       yamllint .hlint.yml
@@ -52,7 +52,7 @@ script:
       atspkg build --target=arm-linux-gnueabihf
       mv target/poly poly-$TARGET
     else
-      atspkg build --pkg-args "./travis-mac.dhall" -vv
+      atspkg build --pkg-args "./mac.dhall" -vv
       mv target/poly poly-$TARGET
     fi
 

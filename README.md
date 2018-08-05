@@ -120,13 +120,13 @@ And then build `poly` with
 ```bash
 git clone git@github.com:vmchale/polyglot.git
 cd polyglot
-atspkg build --pkg-args './travis.dhall'
+atspkg build --pkg-args './gc.dhall'
 ```
 
 If you are on Mac, you may have to replace the last line with
 
 ```bash
-atspkg build --pkg-args './travis-mac.dhall'
+atspkg build --pkg-args './mac.dhall'
 ```
 
 This will put a binary at `target/poly`.
@@ -145,13 +145,13 @@ atspkg test --pkg-args './travis.dhall'
 -------------------------------------------------------------------------------
  Language             Files       Lines         Code     Comments       Blanks
 -------------------------------------------------------------------------------
- ATS                     10        2272         2157           32           83
- Dhall                    4          92           79            0           13
- Justfile                 1          53           47            1            5
- Markdown                 4         426          359            0           67
+ ATS                     11        2334         2210           32           92
+ Dhall                    5          94           84            0           10
+ Justfile                 1          55           50            0            5
+ Markdown                 4         456          383            0           73
  TOML                     1           3            3            0            0
- YAML                     1          67           59            0            8
+ YAML                     1          66           58            0            8
 -------------------------------------------------------------------------------
- Total                   21        2913         2704           33          176
+ Total                   23        3008         2788           32          188
 -------------------------------------------------------------------------------
 ```

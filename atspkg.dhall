@@ -6,40 +6,40 @@ let not = http://hackage.haskell.org/package/dhall/src/Prelude/Bool/not
 in
 
 let
-pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
+pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
 
     let native =
-        if not x.cross
+        if not cfg.cross
             then [ "-mtune=native" ]
             else ([] : List Text)
         in
 
     let deps =
-        if x.parallel
+        if cfg.parallel
             then [ "concurrency" ]
             else ([] : List Text)
         in
 
     let staticFlag =
-        if x.static
+        if cfg.static
             then [ "-static" ]
             else ([] : List Text)
         in
 
     let srcFile =
-        if x.parallel
+        if cfg.parallel
             then "polyglot"
             else "compat"
         in
 
     let cc =
-        if x.icc
+        if cfg.icc
             then "icc"
             else "gcc"
     in
 
     let iccFlags =
-        if x.icc
+        if cfg.icc
             then [ "-D__PURE_INTEL_C99_HEADERS__" ]
             else ([] : List Text)
     in
@@ -49,7 +49,7 @@ pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
         [ prelude.bin ⫽
             { src = "src/${srcFile}.dats"
             , target = "${prelude.atsProject}/poly"
-            , gcBin = True
+            , gcBin = cfg.gc
             , libs = [ "pthread" ]
             }
         ]
@@ -57,13 +57,13 @@ pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
         [ prelude.bin ⫽
             { src = "test/test.dats"
             , target = "${prelude.atsProject}/test"
-            , gcBin = True
+            , gcBin = cfg.gc
             , libs = [ "pthread" ]
             }
         , prelude.bin ⫽
             { src = "test/bench.dats"
             , target = "${prelude.atsProject}/bench"
-            , gcBin = True
+            , gcBin = cfg.gc
             , libs = [ "pthread" ]
             }
         ]
