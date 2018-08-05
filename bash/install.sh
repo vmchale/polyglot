@@ -18,6 +18,7 @@ getTarget() {
             "mips"*) MACHINE="linux-gnu";;
             "powerpc"*) MACHINE="linux-gnu";;
             "s390x") MACHINE="linux-gnu";;
+            "i686") MACHINE="linux-gnu";;
         esac
         echo "poly-$(uname -m)-$MACHINE"
     fi

@@ -16,6 +16,7 @@ all:
     atspkg build --pkg-args "./travis.dhall" --target=mipsel-linux-gnu
     atspkg build --pkg-args "./travis.dhall" --target=mips64-linux-gnuabi64
     atspkg build --pkg-args "./travis.dhall" --target=mips64el-linux-gnuabi64
+    atspkg build --pkg-args "./travis.dhall" --target=i686-linux-gnu
 
 ci:
     tomlcheck --file .atsfmt.toml
@@ -44,6 +45,7 @@ release: all
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mipsel-linux-gnu -f target/poly-mipsel-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64-linux-gnuabi64 -f target/poly-mips64-linux-gnuabi64 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-mips64el-linux-gnuabi64 -f target/poly-mips64el-linux-gnuabi64 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+    github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly-i686-linux-gnu -f target/poly-i686-linux-gnu -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
     github-release upload -s $(cat ~/.git-token) -u vmchale -r polyglot -n polyglot.deb -f target/polyglot.deb -t "$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"

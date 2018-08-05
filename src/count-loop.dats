@@ -11,11 +11,11 @@ staload UN = "prelude/SATS/unsafe.sats"
 %{^
 #include <stdbool.h>
 
-bool is_link(char* path) {
-    struct stat buf;
-    int x;
-    x = lstat (path, &buf);
-    return S_ISLNK(buf.st_mode);
+bool is_link(char *path) {
+  struct stat buf;
+  int x;
+  x = lstat(path, &buf);
+  return S_ISLNK(buf.st_mode);
 }
 %}
 
@@ -180,12 +180,6 @@ fn clear_function(x : Option_vt(pair)) : void =
 
 overload free with clear_function
 
-val empty_file = let
-  var f = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
-in
-  f
-end
-
 fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
     // TODO: use a dataview to make this safe??
@@ -199,6 +193,7 @@ fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
         
         val () = fp_is_null(inp)
         val () = bad_file(s)
+        var empty_file = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
       in
         (free(comment) ; empty_file)
       end
