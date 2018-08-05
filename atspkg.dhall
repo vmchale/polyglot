@@ -64,13 +64,14 @@ pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
             { src = "test/bench.dats"
             , target = "${prelude.atsProject}/bench"
             , gcBin = True
+            }
         ]
     , man = [ "man/poly.md" ] : Optional Text
     , completions = [ "compleat/poly.usage" ] : Optional Text
     , dependencies = (prelude.mapPlainDeps deps) #
         [ prelude.upperDeps { name = "specats", version = [0,2,3] }
         , prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }
-        , prelude.mapPlainDeps [ "ats-bench" ]
+        , prelude.plainDeps "ats-bench"
         ]
     , cflags = [ "-flto", "-O2" ] # staticFlag # native # iccFlags
     , ccompiler = cc
