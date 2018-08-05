@@ -45,10 +45,10 @@ Count lines of source code in the current directory, skipping any directory call
 poly -e forks
 ```
 
-Show the contents of ./project/src, displaying a table in the terminal
+Show the contents of ./project/src, displaying an alternate output in the terminal
 
 ```
-poly ./project/src --table
+poly ./project/src --no-table
 ```
 
 # BUG REPORTS
