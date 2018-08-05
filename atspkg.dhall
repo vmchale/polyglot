@@ -64,6 +64,7 @@ pkg = λ(x : { cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
             { src = "test/bench.dats"
             , target = "${prelude.atsProject}/bench"
             , gcBin = True
+            , libs = [ "pthread" ]
             }
         ]
     , man = [ "man/poly.md" ] : Optional Text
