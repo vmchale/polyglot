@@ -3,7 +3,7 @@ poly:
     @poly -e data
 
 all:
-    atspkg build --pkg-args "./travis.dhall" target/polyglot.deb
+    atspkg build --pkg-args "./native.dhall" target/polyglot.deb
     atspkg build --pkg-args "./travis.dhall" --target=s390x-linux-gnu
     atspkg build --pkg-args "./travis.dhall" --target=arm-linux-gnueabihf
     atspkg build --pkg-args "./travis.dhall" --target=powerpc64-linux-gnu
