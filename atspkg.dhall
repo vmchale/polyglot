@@ -40,7 +40,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
 
     let iccFlags =
         if cfg.icc
-            then [ "-D__PURE_INTEL_C99_HEADERS__", "-ipp" ]
+            then [ "-D__PURE_INTEL_C99_HEADERS__" ]
             else ([] : List Text)
     in
 
