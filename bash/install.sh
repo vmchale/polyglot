@@ -3,7 +3,7 @@
 set -e
 set pipefail
 
-# FIXME - this should work for other/obscure architectures
+# TODO: if we're on debian just use the `.deb`
 getTarget() {
     if [ "$(uname)" = "Darwin" ]
     then

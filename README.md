@@ -120,13 +120,23 @@ And then build `poly` with
 ```bash
 git clone git@github.com:vmchale/polyglot.git
 cd polyglot
-atspkg build --pkg-args '{ cross = False, parallel = True, static = True, icc = False }'
+atspkg build --pkg-args './travis.dhall'
 ```
 
 If you are on Mac, you may have to replace the last line with
 
 ```bash
-atspkg build --pkg-args '{ cross = False, parallel = False, static = True, icc = False }'
+atspkg build --pkg-args './travis-mac.dhall'
+```
+
+This will put a binary at `target/poly`.
+
+### Testing
+
+To run the test suite
+
+```bash
+atspkg test --pkg-args './travis.dhall'
 ```
 
 ## Contents

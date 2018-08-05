@@ -55,6 +55,7 @@
 - [ ] Library for cross-platform directory access?
 # Documentation
 - [ ] Benchmark against sloccount?
+- [ ] Document build/configuration options
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parent directory (`.cargo/config`)
