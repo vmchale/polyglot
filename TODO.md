@@ -41,6 +41,7 @@
 - [ ] handle `\-dir` for directories
 - [ ] Allow three characters for comments (J's `NB.`)
 # Code Maintenance
+- [ ] Add benchmark suite
 - [ ] Library for this
   - [ ] `.sats` files
   - [ ] Library stanza & Haskell bindings
