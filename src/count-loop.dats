@@ -185,6 +185,12 @@ fn clear_function(x : Option_vt(pair)) : void =
 
 overload free with clear_function
 
+val empty_file: file = let
+  var f = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
+in
+  f
+end
+
 fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
   let
     // TODO: use a dataview to make this safe??
@@ -198,7 +204,6 @@ fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
         
         val () = fp_is_null(inp)
         val () = bad_file(s)
-        var empty_file = @{ files = 0, blanks = 0, comments = 0, lines = 0 } : file
       in
         (free(comment) ; empty_file)
       end
@@ -217,6 +222,16 @@ fn count_char(s : string, c : char, comment : Option_vt(pair)) : file =
 
 // This ensures safety.
 typedef small_string = [ m : nat | m <= 2 && m > 0 ] string(m)
+
+fn line_count_skip_links(s : string, pre : Option_vt(small_string)) : file =
+  if is_link(s) then
+    case+ pre of
+      | ~Some_vt (_) => empty_file
+      | ~None_vt() => empty_file
+  else
+    case+ pre of
+      | ~Some_vt (x) => count_char(s, '\n', get_chars(x))
+      | ~None_vt() => count_char(s, '\n', None_vt)
 
 fn line_count(s : string, pre : Option_vt(small_string)) : file =
   case+ pre of
