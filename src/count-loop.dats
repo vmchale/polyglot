@@ -39,7 +39,7 @@ overload + with add_results
 
 extern
 fun memchr {l:addr}{m:nat}(pf : bytes_v(l, m) | p : ptr(l), c : char, size_t) :
-  [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2)| ptr(l2)) =
+  [ l0 : addr | l+m > l0 ] (bytes_v(l, l0-l), bytes_v(l0, l+m-l0)| ptr(l0)) =
   "mac#"
 
 fn freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t =
@@ -139,8 +139,13 @@ fn wclfil {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : ch
       in
         if n > 0 then
           let
-            // TODO: make ptr_add take appropriate type??
-            var pz = ptr_add<char>(p, n)
+            fn {a:vt@ype} ptr_add_pf {l:addr}{m:nat}(p : ptr(l), ofs : size_t(m)) : ptr(l+m) =
+              $UN.cast(ptr_add<a>(p, ofs))
+            
+            extern
+            castfn witness(x : size_t) : [m:nat] size_t(m)
+            
+            var pz = ptr_add_pf<char>(p, witness(n))
             var res = wclbuf(pf | p, pz, c, res, comment)
           in
             loop(pf | inp, p, c, res, comment)
