@@ -45,7 +45,7 @@ fun memchr {l:addr}{m:nat}(pf : bytes_v(l, m) | p : ptr(l), c : char, size_t) :
 fn freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t =
   let
     extern
-    castfn as_fileref(x : !FILEptr1) : FILEref
+    castfn as_fileref(x : !FILEptr1) :<> FILEref
     
     var n = $extfcall(size_t, "fread", p, sizeof<char>, BUFSZ - 1, as_fileref(inp))
     val () = $UN.ptr0_set<char>(ptr_add<char>(p, n), c)
@@ -143,7 +143,7 @@ fn wclfil {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : ch
               $UN.cast(ptr_add<a>(p, ofs))
             
             extern
-            castfn witness(x : size_t) : [m:nat] size_t(m)
+            castfn witness(x : size_t) :<> [m:nat] size_t(m)
             
             var pz = ptr_add_pf<char>(p, witness(n))
             var res = wclbuf(pf | p, pz, c, res, comment)
