@@ -9,6 +9,7 @@ implement main0 (argc, argv) =
                , no_table = false
                , no_parallel = false
                , no_colorize = false
+               , skip_links = false
                , excludes = list_nil()
                , includes = list_nil()
                } : command_line

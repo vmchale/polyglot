@@ -10,6 +10,7 @@ vtypedef command_line = @{ version = bool
                          , no_table = bool
                          , no_parallel = bool
                          , no_colorize = bool
+                         , skip_links = bool
                          , excludes = [m:nat] list(string, m)
                          , includes = [m:nat] list(string, m)
                          }
@@ -27,10 +28,10 @@ fn help() : void =
     -c, --no-color           do not colorize output
     -p, --no-parallel        do not execute in parallel
     -t, --no-table           display results in alternate format
-                                                                                                                                                                  
+ 
     When no directory is provided poly will execute in the
     current directory.
-                                                                                                                                                                  
+ 
     Bug reports and updates: github.com/vmchale/polyglot\n")
 
 fn is_flag(s : string) : bool =
