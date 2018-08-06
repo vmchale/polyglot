@@ -74,7 +74,7 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
     loop(3, xs, excludes)
   end
 
-// FIXME this is slow because of the List0
+// FIXME this is slower than it should be because of the List0
 // also it's stupid
 fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(string)) =
   let
