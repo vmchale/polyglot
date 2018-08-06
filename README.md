@@ -61,6 +61,11 @@ On the Rust repo:
     <td>844.2 ms</td>
   </tr>
   <tr>
+    <td><code>enry</code></td>
+    <td>Go</td>
+    <td>6.220 s</td>
+  </tr>
+  <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
     <td>17.36 s</td>
