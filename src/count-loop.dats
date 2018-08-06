@@ -152,7 +152,6 @@ fn wclfil {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : ch
           end
         else
           let
-            // FIXME time-consuming?
             fn postproc(acc : file) : file =
               let
                 var acc_r = ref<file>(acc)

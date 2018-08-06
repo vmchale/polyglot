@@ -33,6 +33,8 @@
 # Portability
 - [ ] Figure out Windows (?)
 # Bugs
+- [ ] Figure out why it occasionally hangs indefinitely
+- [ ] Comments on borders between buffers
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
