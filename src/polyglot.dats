@@ -74,14 +74,9 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
     loop(3, xs, excludes)
   end
 
-fn get_or_nothing(n : intGte(0), xs : List0(List0(string))) : List0(string) =
-  case+ list_get_at_opt(xs, n) of
-    | ~Some_vt (x) => x
-    | ~None_vt() => list_nil
-
 // FIXME this is slow because of the List0
-fn apportion(includes : List0(string), excludes : List0(string)) :
-  '(List0(string), List0(string), List0(string), List0(string)) =
+// also it's stupid
+fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(string)) =
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
     var deep = map_depth(includes, excludes) + g1ofg0(ys)
@@ -90,7 +85,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) :
     val (q, pre_r) = list_split_at(pre_q, n)
     val (r, s) = list_split_at(pre_r, n)
   in
-    '(list_vt2t(p), list_vt2t(q), list_vt2t(r), s)
+    list_vt2t(p) :: list_vt2t(q) :: list_vt2t(r) :: s :: nil
   end
 
 fn handle_unref(x : channel(string)) : void =
@@ -116,20 +111,22 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
       includes
     else
       list_cons(".", list_nil())
-    val '(fst, snd, thd, fth) = apportion(new_includes, excludes)
+    val portions = apportion(new_includes, excludes)
     
     fun loop { i : nat | i > 0 && i <= NCPU } .<i>. (i : int(i), chan : !channel(source_contents)) : void =
       {
         val chan_ = channel_ref(chan)
         
-        // this will simply communicate the work to be 
+        // this will simply communicate the work to be done
         val send = channel_make<List0(string)>(1)
         val send_r = channel_ref(send)
-        val _ = case+ i of
-          | 1 => channel_insert(send, fst)
-          | 2 => channel_insert(send, snd)
-          | 3 => channel_insert(send, thd)
-          | 4 => channel_insert(send, fth)
+        
+        fun maybe_insert {m:nat}(xs : List0(List0(string)), n : int(m), send : !channel(List0(string))) : void =
+          case+ list_get_at_opt(xs, n) of
+            | ~Some_vt (x) => channel_insert(send, x)
+            | ~None_vt() => ()
+        
+        val () = maybe_insert(portions, i - 1, send)
         val _ = athread_create_cloptr_exn(llam () =>
             work(excludes, send_r, chan_))
         val () = handle_unref(send)
