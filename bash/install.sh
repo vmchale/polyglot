@@ -12,7 +12,7 @@ getTarget() {
         echo "poly-$(uname -m)-apple-darwin"
     else
         case $(uname -m) in
-            "x86_64") MACHINE="unknown-linux";;
+            "x86_64") MACHINE="unknown-linux-icc";;
             "arm") MACHINE="linux-gnueabihf";;
             "mips64"*) MACHINE="linux-gnuabi64";;
             *) MACHINE="linux-gnu";;
