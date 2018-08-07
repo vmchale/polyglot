@@ -112,7 +112,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
             else
               nil
         in
-          acc :: fill_nil(ncpu - 1)
+          acc :: fill_nil(ncpu)
         end
   in
     loop(ncpu, deep)
