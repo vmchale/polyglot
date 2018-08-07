@@ -125,8 +125,7 @@ fn handle_unref(x : channel(string)) : void =
 fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
   {
     var n = channel_remove(send)
-    var x: source_contents
-    val () = map_stream(empty_contents(), n, excludes, x)
+    var x = map_stream(empty_contents(), n, excludes)
     val () = channel_insert(chan, x)
     val () = handle_unref(chan)
     val () = handle_unref(send)
@@ -207,19 +206,9 @@ implement main0 (argc, argv) =
             threads(parsed.includes, parsed.excludes)
           else
             if length(parsed.includes) > 0 then
-              let
-                var ret: source_contents
-                val () = map_stream(empty_contents(), parsed.includes, parsed.excludes, ret)
-              in
-                ret
-              end
+              map_stream(empty_contents(), parsed.includes, parsed.excludes)
             else
-              let
-                var ret: source_contents
-                val () = map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes, ret)
-              in
-                ret
-              end
+              map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes)
         in
           if parsed.no_table then
             print(make_output(result))
