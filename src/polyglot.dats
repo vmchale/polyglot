@@ -12,6 +12,7 @@
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/ats-concurrency-0.4.8/mylibies.hats"
 
+staload ML = "libats/ML/SATS/list0.sats"
 staload "libats/SATS/deqarray.sats"
 staload "libats/SATS/athread.sats"
 staload _ = "libats/DATS/deqarray.dats"
@@ -78,28 +79,42 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
     loop(3, xs, excludes)
   end
 
-// FIXME this is slower than it should be because of the List0
+// FIXME this is slow because of the List0
 fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(string)) =
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
     var deep = map_depth(includes, excludes) + g1ofg0(ys)
     val n = length(deep) / ncpu
     
-    fun loop(acc : List0(string)) : List0(List0(string)) =
-      if n < length(acc) then
-        let
-          extern
-          castfn cast_list {a:t@ype} (x : a) : List0(List0(string))
-          
-          val (p, q) = list_split_at(acc, n)
-          var res = loop(q)
-        in
-          list_vt2t(p) :: cast_list(res)
-        end
+    fun loop { i : nat | i > 0 } .<i>. (i : int(i), acc : List0(string)) :<!wrt> List0(List0(string)) =
+      if n > 0 then
+        if n < length(acc) then
+          let
+            extern
+            castfn cast_list {a:t@ype} (x : a) :<> List0(List0(string))
+            
+            val (p, q) = list_split_at(acc, n)
+            var res = if i > 1 then
+              loop(i - 1, q)
+            else
+              nil
+          in
+            list_vt2t(p) :: cast_list(res)
+          end
+        else
+          acc :: nil
       else
-        acc :: nil
+        let
+          fun fill_nil { j : nat | j > 0 } .<j>. (j : int(j)) :<> List0(List0(string)) =
+            if j > 1 then
+              nil :: fill_nil(j - 1)
+            else
+              nil
+        in
+          acc :: fill_nil(ncpu)
+        end
   in
-    loop(deep)
+    loop(ncpu, deep)
   end
 
 fn handle_unref(x : channel(string)) : void =
