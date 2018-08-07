@@ -20,6 +20,7 @@ fn free_pl(pl : pl_type) : void =
     | ~hamlet _ => ()
     | ~julius _ => ()
     | ~bash _ => ()
+    | ~dash _ => ()
     | ~coq _ => ()
     | ~justfile _ => ()
     | ~makefile _ => ()

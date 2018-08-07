@@ -87,6 +87,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.justfile.lines
                      + sc.ion.lines
                      + sc.bash.lines
+                     + sc.dash.lines
                      + sc.hamlet.lines
                      + sc.cassius.lines
                      + sc.lucius.lines
@@ -175,6 +176,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.justfile.blanks
                       + sc.ion.blanks
                       + sc.bash.blanks
+                      + sc.dash.blanks
                       + sc.hamlet.blanks
                       + sc.cassius.blanks
                       + sc.lucius.blanks
@@ -263,6 +265,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.justfile.comments
                         + sc.ion.comments
                         + sc.bash.comments
+                        + sc.dash.comments
                         + sc.hamlet.comments
                         + sc.cassius.comments
                         + sc.lucius.comments
@@ -351,6 +354,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.justfile.files
                      + sc.ion.files
                      + sc.bash.files
+                     + sc.dash.files
                      + sc.hamlet.files
                      + sc.cassius.files
                      + sc.lucius.files
@@ -430,6 +434,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("COBOL", isc.cobol)
     + maybe_table("Coq", isc.coq)
     + maybe_table("CSS", isc.css)
+    + maybe_table("Dash", isc.dash)
     + maybe_table("Dhall", isc.dhall)
     + maybe_table("Elixir", isc.elixir)
     + maybe_table("Elm", isc.elm)
@@ -582,6 +587,7 @@ fn make_output(isc : source_contents) : string =
     + with_nonempty( "\n\33[33mShell:\33[0m\n"
                    , maybe_string("Bash", isc.bash.lines)
                    + maybe_string("Batch", isc.batch.lines)
+                   + maybe_string("Dash", isc.dash.lines)
                    + maybe_string("Ion", isc.ion.lines)
                    + maybe_string("PowerShell", isc.powershell.lines)
                    )

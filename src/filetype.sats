@@ -45,6 +45,7 @@ vtypedef source_contents = @{ rust = file
                             , justfile = file
                             , ion = file
                             , bash = file
+                            , dash = file
                             , hamlet = file
                             , cassius = file
                             , lucius = file
@@ -141,6 +142,7 @@ datavtype pl_type =
   | justfile of file
   | ion of file
   | bash of file
+  | dash of file
   | hamlet of file
   | cassius of file
   | lucius of file

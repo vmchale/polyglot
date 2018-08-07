@@ -82,6 +82,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , justfile = x.justfile + y.justfile
                 , ion = x.ion + y.ion
                 , bash = x.bash + y.bash
+                , dash = x.dash + y.dash
                 , hamlet = x.hamlet + y.hamlet
                 , cassius = x.cassius + y.cassius
                 , lucius = x.lucius + y.lucius
@@ -182,6 +183,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~makefile n => sc_r -> makefile := prev.makefile + n
       | ~ion n => sc_r -> ion := prev.ion + n
       | ~bash n => sc_r -> bash := prev.bash + n
+      | ~dash n => sc_r -> dash := prev.dash + n
       | ~hamlet n => sc_r -> hamlet := prev.hamlet + n
       | ~cassius n => sc_r -> cassius := prev.cassius + n
       | ~lucius n => sc_r -> lucius := prev.lucius + n
@@ -326,7 +328,9 @@ fn check_shebang(s : string) : pl_type =
     case+ str of
       | "#!/usr/bin/env ion" => ion(line_count(s, Some_vt("#")))
       | "#!/usr/bin/env bash" => bash(line_count(s, Some_vt("#")))
+      | "#!/usr/bin/env sh" => dash(line_count(s, Some_vt("#")))
       | "#!/bin/bash" => bash(line_count(s, Some_vt("#")))
+      | "#!/bin/sh" => dash(line_count(s, Some_vt("#")))
       | "#!python" => python(line_count(s, Some_vt("#")))
       | "#!python2" => python(line_count(s, Some_vt("#")))
       | "#!python3" => python(line_count(s, Some_vt("#")))
@@ -587,6 +591,7 @@ fn empty_contents() : source_contents =
                , justfile = empty_file
                , ion = empty_file
                , bash = empty_file
+               , dash = empty_file
                , hamlet = empty_file
                , cassius = empty_file
                , lucius = empty_file
