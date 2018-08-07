@@ -80,12 +80,26 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
     var deep = map_depth(includes, excludes) + g1ofg0(ys)
-    var n = length(deep) / 4
-    val (p, pre_q) = list_split_at(deep, n)
-    val (q, pre_r) = list_split_at(pre_q, n)
-    val (r, s) = list_split_at(pre_r, n)
+    val n = length(deep) / NCPU
+    
+    fun loop {i:nat}(i : int(i), acc : List0(string)) : List0(List0(string)) =
+      if n < length(acc) then
+        let
+          extern
+          castfn cast_list {a:t@ype} (x : a) : List0(List0(string))
+          
+          val (p, q) = list_split_at(acc, n)
+          val res = if i > 1 then
+            loop(i - 1, q)
+          else
+            nil
+        in
+          list_vt2t(p) :: cast_list(res)
+        end
+      else
+        acc :: nil
   in
-    list_vt2t(p) :: list_vt2t(q) :: list_vt2t(r) :: s :: nil
+    loop(NCPU, deep)
   end
 
 fn handle_unref(x : channel(string)) : void =

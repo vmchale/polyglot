@@ -98,13 +98,14 @@ fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : cha
     '(b, b2)
   end
 
-fun wclbuf {l:addr}{n:nat}( pf : !bytes_v(l, n) | p : ptr(l)
-                          , pz : ptr
-                          , c : char
-                          , res : file
-                          , comment : !Option_vt(pair)
-                          , ret : &file? >> file
-                          ) : void =
+// this uses call-by-reference to go extra fast
+fun wclbuf {l:addr}{n:nat}{l1:addr}( pf : !bytes_v(l, n) | p : ptr(l)
+                                   , pz : ptr(l1)
+                                   , c : char
+                                   , res : file
+                                   , comment : !Option_vt(pair)
+                                   , ret : &file? >> file
+                                   ) : void =
   let
     val (pf1, pf2 | p2) = memchr(pf | p, c, i2sz(BUFSZ))
     var match_acc_file = lam@ (b : bool, b2 : bool) : file =>
