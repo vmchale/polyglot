@@ -637,12 +637,16 @@ fn empty_contents() : source_contents =
     isc
   end
 
-fn map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) : source_contents =
-  list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next) || test_file_isdir(next) < 0
-                      || next = "" then
-                        step_stream(acc, next, next, excludes)
-                      else
-                        (maybe_err(next) ; acc))
+fn map_stream( acc : source_contents
+             , includes : List0(string)
+             , excludes : List0(string)
+             , sc_r : &source_contents? >> source_contents
+             ) : void =
+  sc_r := list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next) || test_file_isdir(next) < 0
+                              || next = "" then
+                                step_stream(acc, next, next, excludes)
+                              else
+                                (maybe_err(next) ; acc))
 
 fn step_list(s : string, excludes : List0(string)) : List0(string) =
   let
