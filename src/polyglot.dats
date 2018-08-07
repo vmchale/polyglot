@@ -94,10 +94,10 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
             castfn cast_list {a:t@ype} (x : a) :<> List0(List0(string))
             
             val (p, q) = list_split_at(acc, n)
-            var res = if i > 1 then
+            var res = if i > 2 then
               loop(i - 1, q)
             else
-              nil
+              q :: nil
           in
             list_vt2t(p) :: cast_list(res)
           end

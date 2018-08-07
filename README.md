@@ -38,7 +38,7 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>138.5 ms</td>
+    <td>142.5 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
@@ -153,10 +153,10 @@ atspkg test --pkg-args './travis.dhall'
  ATS                     11        2383         2255           33           95
  Dhall                    5          94           84            0           10
  Justfile                 1          13           11            0            2
- Markdown                 3         265          192            0           73
+ Markdown                 4         466          393            0           73
  TOML                     1           3            3            0            0
  YAML                     1          66           58            0            8
 -------------------------------------------------------------------------------
- Total                   22        2824         2603           33          188
+ Total                   23        3025         2804           33          188
 -------------------------------------------------------------------------------
 ```
