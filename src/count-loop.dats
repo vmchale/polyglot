@@ -98,8 +98,13 @@ fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : cha
     '(b, b2)
   end
 
-fun wclbuf {l:addr}{n:nat}(pf : !bytes_v(l, n)
-                          | p : ptr(l), pz : ptr, c : char, res : file, comment : !Option_vt(pair)) : file =
+fun wclbuf {l:addr}{n:nat}( pf : !bytes_v(l, n) | p : ptr(l)
+                          , pz : ptr
+                          , c : char
+                          , res : file
+                          , comment : !Option_vt(pair)
+                          , ret : &file? >> file
+                          ) : void =
   let
     val (pf1, pf2 | p2) = memchr(pf | p, c, i2sz(BUFSZ))
     var match_acc_file = lam@ (b : bool, b2 : bool) : file =>
@@ -114,17 +119,15 @@ fun wclbuf {l:addr}{n:nat}(pf : !bytes_v(l, n)
         prval (pf21, pf22) = array_v_uncons(pf2)
         val '(cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n', comment)
         var acc_file = match_acc_file(cmp1, cmp2)
-        var res = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file, comment)
+        val () = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file, comment, ret)
         prval () = pf2 := array_v_cons(pf21, pf22)
         prval () = pf := bytes_v_unsplit(pf1, pf2)
-      in
-        res
-      end
+      in end
     else
       let
         prval () = pf := bytes_v_unsplit(pf1, pf2)
       in
-        res
+        ret := res
       end
   end
 
@@ -146,9 +149,10 @@ fn wclfil {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : ch
             castfn witness(x : size_t) :<> [m:nat] size_t(m)
             
             var pz = ptr_add_pf<char>(p, witness(n))
-            var res = wclbuf(pf | p, pz, c, res, comment)
+            var ret: file
+            val () = wclbuf(pf | p, pz, c, res, comment, ret)
           in
-            loop(pf | inp, p, c, res, comment)
+            loop(pf | inp, p, c, ret, comment)
           end
         else
           let
