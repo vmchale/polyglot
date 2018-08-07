@@ -6,7 +6,7 @@ ci:
     tomlcheck --file .atsfmt.toml
     yamllint .travis.yml
     yamllint .yamllint
-    atspkg test
+    atspkg test --pkg-args "./native.dhall"
 
 bench:
     bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust" "scc -c ~/git-builds/rust" "gocloc ~/git-builds/rust" "enry -mode=line ~/git-builds/rust" "linguist ~/git-builds/rust" "cloc ~/git-builds/rust"

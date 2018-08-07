@@ -3,7 +3,7 @@
 set -ex pipefail
 
 VERSION="$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
-TOKEN="$(cat ~/.git-token)"
+TOKEN="$(cat "$HOME"/.git-token)"
 
 git tag "$VERSION"
 git push origin --tags
