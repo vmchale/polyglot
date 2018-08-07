@@ -20,4 +20,4 @@ done
 github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$VERSION"
 github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$VERSION"
 github-release upload -s "$TOKEN" -u vmchale -r polyglot -n polyglot.deb -f target/polyglot.deb -t "$VERSION"
-github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly-x86_64-unknown-linux-icc -f target/polyglot -t "$VERSION"
+github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly-x86_64-unknown-linux-icc -f target/poly -t "$VERSION"
