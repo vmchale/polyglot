@@ -2,7 +2,6 @@ poly:
     @rm -f *_dats.c
     @poly -e data
 
-
 ci:
     tomlcheck --file .atsfmt.toml
     yamllint .travis.yml
