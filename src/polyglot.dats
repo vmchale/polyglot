@@ -79,31 +79,27 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
   end
 
 // FIXME this is slower than it should be because of the List0
-// also it's stupid
 fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(string)) =
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
     var deep = map_depth(includes, excludes) + g1ofg0(ys)
     val n = length(deep) / ncpu
     
-    fun loop {i:nat}(i : int(i), acc : List0(string)) : List0(List0(string)) =
+    fun loop(acc : List0(string)) : List0(List0(string)) =
       if n < length(acc) then
         let
           extern
           castfn cast_list {a:t@ype} (x : a) : List0(List0(string))
           
           val (p, q) = list_split_at(acc, n)
-          var res = if i > 1 then
-            loop(i - 1, q)
-          else
-            nil
+          var res = loop(q)
         in
           list_vt2t(p) :: cast_list(res)
         end
       else
         acc :: nil
   in
-    loop(ncpu, deep)
+    loop(deep)
   end
 
 fn handle_unref(x : channel(string)) : void =

@@ -50,6 +50,7 @@
   - [ ] Executable that depends on the library
 - [ ] linear types to ensure each field gets printed at the end?
   - [ ] or alternately a macro
+- [ ] Use a `Makefile` rather than a `Justfile`
 # Libraries
 - [ ] TOML parser for ATS (or sufficient bindings)
 - [ ] Library for `.gitignore` files (and `.ignore` or `_darcs/boring` files)
