@@ -75,8 +75,16 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
                                             list0_nil
                                       end))
       end
+    
+    var depth = if ncpu > 8 then
+      4
+    else
+      3
+    
+    extern
+    castfn witness(x : int) : [m:nat] int(m)
   in
-    loop(3, xs, excludes)
+    loop(witness(depth), xs, excludes)
   end
 
 // FIXME this is slow because of the List0
