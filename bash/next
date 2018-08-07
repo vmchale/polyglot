@@ -11,6 +11,6 @@ NEW_VERSION_COMMA="$(echo "$NEW_VERSION_SP" | sed 's/ /,/g')"
 echo "$NEW_VERSION"
 
 sed -i "s/$VERSION/$NEW_VERSION/" src/cli.dats
-sed -i "s/$VERSION/$NEW_VERSION_COMMA/" atspkg.dhall
+sed -i "s/$VERSION_COMMA/$NEW_VERSION_COMMA/" atspkg.dhall
 
 git commit -am "version bump"
