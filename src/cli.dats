@@ -61,8 +61,8 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line, fail : 
       | "-" => ()
       | _ => (println!("\33[31mError:\33[0m flag '" + s + "' not recognized") ; exit(1) ; ())
     
-    fn witness(s : string) : [ n : nat | n > 0 ] string(n) =
-      $UN.cast(s)
+    extern
+    castfn witness(s : string) : [ n : nat | n > 0 ] string(n)
     
     val inter = !acc_r
   in
@@ -74,8 +74,8 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line, fail : 
 
 fun process(s : string, acc : command_line, is_first : bool) : command_line =
   let
-    fn witness(s : string) : [ s : nat | s > 0 ] string(s) =
-      $UN.cast(s)
+    extern
+    castfn witness(s : string) : [ s : nat | s > 0 ] string(s)
     
     fn process(s : string) : string =
       case+ s of

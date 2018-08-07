@@ -75,19 +75,12 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
                                             list0_nil
                                       end))
       end
-    
-    var depth = if ncpu > 8 then
-      4
-    else
-      3
-    
-    extern
-    castfn witness(x : int) : [m:nat] int(m)
   in
-    loop(witness(depth), xs, excludes)
+    loop(3, xs, excludes)
   end
 
 // FIXME this is slow because of the List0
+// Also this approach is just silly in general
 fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(string)) =
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
@@ -119,7 +112,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
             else
               nil
         in
-          acc :: fill_nil(ncpu)
+          acc :: fill_nil(ncpu - 1)
         end
   in
     loop(ncpu, deep)
@@ -158,7 +151,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
         val send = channel_make<List0(string)>(1)
         val send_r = channel_ref(send)
         
-        fun maybe_insert {m:nat}(xs : List0(List0(string)), n : int(m), send : !channel(List0(string))) : void =
+        fn maybe_insert {m:nat}(xs : List0(List0(string)), n : int(m), send : !channel(List0(string))) : void =
           case+ list_get_at_opt(xs, n) of
             | ~Some_vt (x) => channel_insert(send, x)
             | ~None_vt() => ()

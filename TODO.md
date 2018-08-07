@@ -33,6 +33,7 @@
 # Portability
 - [ ] Figure out Windows (?)
 # Bugs
+- [ ] `poly te` hangs indefinitely
 - [ ] Figure out why it occasionally hangs indefinitely
 - [ ] Comments on borders between buffers
 - [ ] `.bf` could be befunge
@@ -200,3 +201,4 @@
   - [ ] Also think of a better way to add new languages
 - [ ] Brig PL: https://github.com/klevinism/Brig
 - [ ] `.sin`: https://github.com/jemalloc/jemalloc/blob/dev/msvc/jemalloc_vc2015.sln
+- [ ] This list: https://github.com/BurntSushi/ripgrep/blob/1d09d4d31ba3ac2eb09edf31e8ec46b2b5cec388/ignore/src/types.rs#L99
