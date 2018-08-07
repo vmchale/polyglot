@@ -3,6 +3,7 @@
 set -e
 set pipefail
 
+# from: https://stackoverflow.com/a/4024263
 verlte() {
     [  "$1" = "$(printf "%s\\n%s" "$1" "$2" | sort -V | head -n1)" ]
 }
