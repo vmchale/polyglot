@@ -135,7 +135,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
 overload + with add_contents
 
 // This is the step function used when streaming directory contents. 
-fn adjust_contents(prev : &source_contents >> source_contents, scf : pl_type) : void =
+fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
   let
     var sc_r = ref<source_contents>(prev)
     val _ = case+ scf of
@@ -229,7 +229,7 @@ fn adjust_contents(prev : &source_contents >> source_contents, scf : pl_type) : 
       | ~j n => sc_r -> j := prev.j + n
       | ~unknown _ => ()
   in
-    prev := !sc_r
+    !sc_r
   end
 
 fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
