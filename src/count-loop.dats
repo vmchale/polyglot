@@ -56,18 +56,22 @@ fn freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : ch
 vtypedef pair = @{ f = char, s = Option_vt(char) }
 
 fn get_chars {m:nat}(s : string(m)) : Option_vt(pair) =
-  ifcase
-    | length(s) >= 2 => let
-      val p = @{ f = string_head(s), s = Some_vt(s[1]) }
-    in
-      Some_vt(p)
-    end
-    | length(s) >= 1 => let
-      val p = @{ f = string_head(s), s = None_vt }
-    in
-      Some_vt(p)
-    end
-    | _ => None_vt
+  let
+    var l = length(s)
+  in
+    ifcase
+      | l >= 2 => let
+        val p = @{ f = string_head(s), s = Some_vt(s[1]) }
+      in
+        Some_vt(p)
+      end
+      | l >= 1 => let
+        val p = @{ f = string_head(s), s = None_vt }
+      in
+        Some_vt(p)
+      end
+      | _ => None_vt
+  end
 
 // safely read bytes at a pointer
 fn read_bytes {l:addr}{ m : nat | m > 0 }(pf : !bytes_v(l, m) | p : ptr(l)) : char =
