@@ -3,26 +3,13 @@
 set -e
 set pipefail
 
-# from: https://stackoverflow.com/a/4024263
-verlte() {
-    [  "$1" = "$(printf "%s\\n%s" "$1" "$2" | sort -V | head -n1)" ]
-}
-
-libcVersion() {
-    ldd --version | head -n1 | awk 'NF>1{print $NF}'
-}
-
 getTarget() {
     if [ "$(uname)" = "Darwin" ]
     then
         echo "poly-$(uname -m)-apple-darwin"
     else
         case $(uname -m) in
-            "x86_64") verlte 2.27 "$(libcVersion)"
-                case $? in
-                    1) MACHINE="unknown-linux";;
-                    0) MACHINE="unknown-linux-icc";;
-                esac;;
+            "x86_64") MACHINE="unknown-linux-icc";;
             "arm") MACHINE="linux-gnueabihf";;
             "mips64"*) MACHINE="linux-gnuabi64";;
             *) MACHINE="linux-gnu";;
