@@ -17,7 +17,11 @@ staload "libats/SATS/athread.sats"
 staload _ = "libats/DATS/deqarray.dats"
 staload _ = "libats/DATS/athread.dats"
 
-#define NCPU 4
+extern
+fn get_nprocs { m : nat | m != 0 }() : int(m) =
+  "mac#"
+
+val ncpu = get_nprocs{4}()
 
 fn step_list(s : string, excludes : List0(string)) : List0(string) =
   let
@@ -80,7 +84,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
   let
     var ys = list0_filter(g0ofg1(includes), lam x => test_file_isdir(x) != 1)
     var deep = map_depth(includes, excludes) + g1ofg0(ys)
-    val n = length(deep) / NCPU
+    val n = length(deep) / ncpu
     
     fun loop {i:nat}(i : int(i), acc : List0(string)) : List0(List0(string)) =
       if n < length(acc) then
@@ -99,7 +103,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
       else
         acc :: nil
   in
-    loop(NCPU, deep)
+    loop(ncpu, deep)
   end
 
 fn handle_unref(x : channel(string)) : void =
@@ -120,14 +124,14 @@ fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(
 fn threads(includes : List0(string), excludes : List0(string)) : source_contents =
   let
     // this will hold the results sent back
-    val chan = channel_make<source_contents>(NCPU)
+    val chan = channel_make<source_contents>(ncpu)
     var new_includes = if length(includes) > 0 then
       includes
     else
       list_cons(".", list_nil())
     val portions = apportion(new_includes, excludes)
     
-    fun loop { i : nat | i > 0 && i <= NCPU } .<i>. (i : int(i), chan : !channel(source_contents)) : void =
+    fun loop { i : nat | i > 0 } .<i>. (i : int(i), chan : !channel(source_contents)) : void =
       {
         val chan_ = channel_ref(chan)
         
@@ -148,10 +152,9 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
           loop(i - 1, chan)
       }
     
-    val _ = loop(NCPU, chan)
+    val _ = loop(ncpu, chan)
     
-    fun loop_return { i : nat | i >= 0 && i <= NCPU } .<i>. (i : int(i), chan : !channel(source_contents)) :
-      source_contents =
+    fun loop_return { i : nat | i >= 0 } .<i>. (i : int(i), chan : !channel(source_contents)) : source_contents =
       case+ i of
         | 0 => empty_contents()
         | _ =>> let
@@ -161,7 +164,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
           m + n
         end
     
-    var r = loop_return(NCPU, chan)
+    var r = loop_return(ncpu, chan)
     val () = while(channel_refcount(chan) > 1)()
     val () = handle_unref(chan)
   in
