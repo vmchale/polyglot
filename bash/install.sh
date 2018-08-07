@@ -18,7 +18,6 @@ getTarget() {
         echo "poly-$(uname -m)-apple-darwin"
     else
         case $(uname -m) in
-            # FIXME: use ldd --version
             "x86_64") verlte 2.27 "$(libcVersion)"
                 case $? in
                     1) MACHINE="unknown-linux";;
