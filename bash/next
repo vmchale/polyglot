@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+set -e pipefail
+
+VERSION="$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+VERSION_COMMA="$(echo "$VERSION" | sed 's/\./,/g')"
+NEW_VERSION_SP="$(echo "$VERSION" | awk -F. '{$NF+=1; print $0}')"
+NEW_VERSION="$(echo "$NEW_VERSION_SP" | sed 's/ /\./g')"
+NEW_VERSION_COMMA="$(echo "$NEW_VERSION_SP" | sed 's/ /,/g')"
+
+echo "$VERSION"
+echo "$VERSION_COMMA"
+echo "$NEW_VERSION"
+echo "$NEW_VERSION_COMMA"
+
+sed -i "s/$VERSION/$NEW_VERSION/" src/cli.dats
+sed -i "s/$VERSION/$NEW_VERSION_COMMA/" atspkg.dhall
+
+git commit -am "version bump"
