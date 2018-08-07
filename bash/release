@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-set -e pipefail
+set -ex pipefail
 
 VERSION="$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
 TOKEN="$(cat ~/.git-token)"
