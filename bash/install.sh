@@ -3,16 +3,26 @@
 set -e
 set pipefail
 
-# TODO: if we're on debian just use the `.deb`
-# Also stream directory contents better and possibly get redox working?
-# Also also maybe even Windows or FreeBSD or Solaris
+verlte() {
+    [  "$1" = "$(printf "%s\\n%s" "$1" "$2" | sort -V | head -n1)" ]
+}
+
+libcVersion() {
+    ldd --version | head -n1 | awk 'NF>1{print $NF}'
+}
+
 getTarget() {
     if [ "$(uname)" = "Darwin" ]
     then
         echo "poly-$(uname -m)-apple-darwin"
     else
         case $(uname -m) in
-            "x86_64") MACHINE="unknown-linux-icc";;
+            # FIXME: use ldd --version
+            "x86_64") verlte 2.27 "$(libcVersion)"
+                case $? in
+                    1) MACHINE="unknown-linux";;
+                    0) MACHINE="unknown-linux-icc";;
+                esac;;
             "arm") MACHINE="linux-gnueabihf";;
             "mips64"*) MACHINE="linux-gnuabi64";;
             *) MACHINE="linux-gnu";;
