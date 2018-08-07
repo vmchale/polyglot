@@ -18,7 +18,7 @@ staload _ = "libats/DATS/deqarray.dats"
 staload _ = "libats/DATS/athread.dats"
 
 extern
-fn get_nprocs { m : nat | m != 0 }() : int(m) =
+fn get_nprocs { m : nat | m > 0 }() : int(m) =
   "mac#"
 
 val ncpu = get_nprocs{4}()
@@ -93,7 +93,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
           castfn cast_list {a:t@ype} (x : a) : List0(List0(string))
           
           val (p, q) = list_split_at(acc, n)
-          val res = if i > 1 then
+          var res = if i > 1 then
             loop(i - 1, q)
           else
             nil
@@ -152,7 +152,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
           loop(i - 1, chan)
       }
     
-    val _ = loop(ncpu, chan)
+    val () = loop(ncpu, chan)
     
     fun loop_return { i : nat | i >= 0 } .<i>. (i : int(i), chan : !channel(source_contents)) : source_contents =
       case+ i of
