@@ -7,6 +7,10 @@ ci:
     yamllint .travis.yml
     yamllint .yamllint
     atspkg test --pkg-args "./native.dhall"
+    shellcheck bash/install.sh
+    shellcheck bash/build
+    shellcheck bash/next
+    shellcheck bash/release
 
 bench:
     bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust" "scc -c ~/git-builds/rust" "gocloc ~/git-builds/rust" "enry -mode=line ~/git-builds/rust" "linguist ~/git-builds/rust" "cloc ~/git-builds/rust"
