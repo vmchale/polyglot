@@ -24,6 +24,7 @@
 - [ ] Make loops call-by-reference?
 - [ ] Look at https://github.com/llogiq/bytecount (beat it?)
 - [ ] also maybe https://github.com/boyerjohn/rapidstring
+- [ ] Use `strpbrk` during parsing comments?
 # Distribution
 - [x] Make a debianization?
   - [ ] Add to debian
@@ -61,6 +62,7 @@
 # Documentation
 - [ ] Benchmark against sloccount?
 - [ ] Document build/configuration options
+- [ ] Compare to http://hackage.haskell.org/package/cantor ?
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parent directory (`.cargo/config`)
@@ -202,3 +204,6 @@
 - [ ] Brig PL: https://github.com/klevinism/Brig
 - [ ] `.sin`: https://github.com/jemalloc/jemalloc/blob/dev/msvc/jemalloc_vc2015.sln
 - [ ] This list: https://github.com/BurntSushi/ripgrep/blob/1d09d4d31ba3ac2eb09edf31e8ec46b2b5cec388/ignore/src/types.rs#L99
+- [ ] Clafer http://www.clafer.org/
+- [ ] Discus https://github.com/discus-lang/ddc/blob/master/test/ddc-regress/source/01-Discus/10-Parser/Test.dsx
+- [ ] Gleam https://github.com/lpil/gleam/blob/51ca433d0f10beab4010d3ba389a27755c71282d/examples/PingPong.gleam

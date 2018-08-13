@@ -99,6 +99,7 @@ fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : cha
     '(b, b2)
   end
 
+// TODO: try to do call-by-reference but also stack allocate?
 // this uses call-by-reference to go extra fast
 fun wclbuf {l:addr}{n:nat}{l1:addr}( pf : !bytes_v(l, n) | p : ptr(l)
                                    , pz : ptr(l1)

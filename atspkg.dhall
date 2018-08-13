@@ -34,13 +34,13 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
 
     let cc =
         if cfg.icc
-            then "icc"
-            else "gcc"
+            then prelude.icc
+            else prelude.gcc
     in
 
     let iccFlags =
         if cfg.icc
-            then [ "-D__PURE_INTEL_C99_HEADERS__" ]
+            then prelude.iccFlags
             else ([] : List Text)
     in
 
@@ -75,7 +75,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         , prelude.plainDeps "ats-bench"
         ]
     , cflags = [ "-flto", "-O2" ] # staticFlag # native # iccFlags
-    , ccompiler = cc
+    , ccompiler = prelude.printCompiler cc
     , debPkg = prelude.mkDeb
         (prelude.debian "polyglot" ⫽
             { version = [0,4,60]

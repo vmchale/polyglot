@@ -508,7 +508,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
   end
 
 // Function to print output sorted by type of language.
-fn make_output(isc : source_contents) : string =
+fn make_output(isc : source_contents, color : bool) : string =
   let
     var maybe_string = lam@ (s : string, n : int) : string =>
       if n > 0 then
@@ -520,8 +520,56 @@ fn make_output(isc : source_contents) : string =
         s1 + s2
       else
         ""
+    var pl_string = if color then
+      "\33[33mProgramming Languages:\33[0m\n"
+    else
+      "Programming Languages:\n"
+    var editor_string = if color then
+      "\n\33[33mEditor Plugins:\33[0m\n"
+    else
+      "\nEditor Plugins:\n"
+    var doc_string = if color then
+      "\n\33[33mDocumentation:\33[0m\n"
+    else
+      "\nDocumentation:\n"
+    var cfg_string = if color then
+      "\n\33[33mConfiguration:\33[0m\n"
+    else
+      "\nConfiguration:\n"
+    var sh_string = if color then
+      "\n\33[33mShell:\33[0m\n"
+    else
+      "\nShell:\n"
+    var parser_string = if color then
+      "\n\33[33mParser Generators:\33[0m\n"
+    else
+      "\nParser Generators:\n"
+    var web_string = if color then
+      "\n\33[33mWeb:\33[0m\n"
+    else
+      "\nWeb\n:"
+    var hw_string = if color then
+      "\n\33[33mHardware:\33[0m\n"
+    else
+      "\nHardware:\n"
+    var gui_string = if color then
+      "\n\33[33mGUIs:\33[0m\n"
+    else
+      "\nGUIs:\n"
+    var nb_string = if color then
+      "\n\33[33mNotebooks:\33[0m\n"
+    else
+      "\nNotebooks:\n"
+    var contract_string = if color then
+      "\n\33[33mContract Languages:\33[0m\n"
+    else
+      "\nContract Languages:\n"
+    var other = if color then
+      "\n\33[33mOther:\33[0m\n"
+    else
+      "\nOther:\n"
   in
-    with_nonempty( "\33[33mProgramming Languages:\33[0m\n"
+    with_nonempty( pl_string
                  , maybe_string("Agda", isc.agda.lines)
                  + maybe_string("Assembly", isc.assembly.lines)
                  + maybe_string("ATS", isc.ats.lines)
@@ -567,16 +615,16 @@ fn make_output(isc : source_contents) : string =
                  + maybe_string("Swift", isc.swift.lines)
                  + maybe_string("TCL", isc.tcl.lines)
                  )
-    + with_nonempty( "\n\33[33mEditor Plugins:\33[0m\n"
+    + with_nonempty( editor_string
                    , maybe_string("Emacs Lisp", isc.elisp.lines)
                    + maybe_string("Vimscript", isc.vimscript.lines)
                    )
-    + with_nonempty( "\n\33[33mDocumentation:\33[0m\n"
+    + with_nonempty( doc_string
                    , maybe_string("Markdown", isc.markdown.lines)
                    + maybe_string("Plaintext", isc.plaintext.lines)
                    + maybe_string("TeX", isc.tex.lines)
                    )
-    + with_nonempty( "\n\33[33mConfiguration:\33[0m\n"
+    + with_nonempty( cfg_string
                    , maybe_string("Cabal", isc.cabal.lines)
                    + maybe_string("Cabal Project", isc.cabal_project.lines)
                    + maybe_string("Dhall", isc.dhall.lines)
@@ -584,21 +632,21 @@ fn make_output(isc : source_contents) : string =
                    + maybe_string("TOML", isc.toml.lines)
                    + maybe_string("YAML", isc.yaml.lines)
                    )
-    + with_nonempty( "\n\33[33mShell:\33[0m\n"
+    + with_nonempty( sh_string
                    , maybe_string("Bash", isc.bash.lines)
                    + maybe_string("Batch", isc.batch.lines)
                    + maybe_string("Dash", isc.dash.lines)
                    + maybe_string("Ion", isc.ion.lines)
                    + maybe_string("PowerShell", isc.powershell.lines)
                    )
-    + with_nonempty( "\n\33[33mParser Generators:\33[0m\n"
+    + with_nonempty( parser_string
                    , maybe_string("Alex", isc.alex.lines)
                    + maybe_string("Happy", isc.happy.lines)
                    + maybe_string("LALRPOP", isc.lalrpop.lines)
                    + maybe_string("Lex", isc.lex.lines)
                    + maybe_string("Yacc", isc.yacc.lines)
                    )
-    + with_nonempty( "\n\33[33mWeb:\33[0m\n"
+    + with_nonempty( web_string
                    , maybe_string("Cassius", isc.cassius.lines)
                    + maybe_string("CSS", isc.css.lines)
                    + maybe_string("Hamlet", isc.hamlet.lines)
@@ -607,14 +655,11 @@ fn make_output(isc : source_contents) : string =
                    + maybe_string("Julius", isc.julius.lines)
                    + maybe_string("Lucius", isc.lucius.lines)
                    )
-    + with_nonempty( "\n\33[33mHardware:\33[0m\n"
-                   , maybe_string("Verilog", isc.verilog.lines)
-                   + maybe_string("VHDL", isc.vhdl.lines)
-                   )
-    + with_nonempty("\n\33[33mGUIs:\33[0m\n", maybe_string("FLTK Data", isc.fluid.lines))
-    + with_nonempty("\n\33[33mNotebooks:\33[0m\n", maybe_string("Jupyter", isc.jupyter.lines))
-    + with_nonempty("\n\33[33mContract Languages:\33[0m\n", maybe_string("Plutus", isc.plutus.lines))
-    + with_nonempty( "\n\33[33mOther:\33[0m\n"
+    + with_nonempty(hw_string, maybe_string("Verilog", isc.verilog.lines) + maybe_string("VHDL", isc.vhdl.lines))
+    + with_nonempty(gui_string, maybe_string("FLTK Data", isc.fluid.lines))
+    + with_nonempty(nb_string, maybe_string("Jupyter", isc.jupyter.lines))
+    + with_nonempty(contract_string, maybe_string("Plutus", isc.plutus.lines))
+    + with_nonempty( other
                    , maybe_string("Autoconf", isc.autoconf.lines)
                    + maybe_string("Automake", isc.automake.lines)
                    + maybe_string("Greencard", isc.greencard.lines)
