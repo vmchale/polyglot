@@ -117,7 +117,7 @@ You can install [ats-pkg](http://hackage.haskell.org/package/ats-pkg)
 with
 
 ```bash
-curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
+curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | sh -s
 ```
 
 And then build `poly` with
@@ -141,7 +141,7 @@ This will put a binary at `target/poly`.
 To run the test suite
 
 ```bash
-atspkg test --pkg-args './travis.dhall'
+atspkg test --pkg-args './gc.dhall'
 ```
 
 ## Contents
