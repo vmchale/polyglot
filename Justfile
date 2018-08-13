@@ -6,7 +6,7 @@ ci:
     tomlcheck --file .atsfmt.toml
     yamllint .travis.yml
     yamllint .yamllint
-    atspkg test --pkg-args "./native.dhall"
+    atspkg test --pkg-args "./native.dhall" target/test
     shellcheck bash/install.sh
     shellcheck bash/build
     shellcheck bash/next

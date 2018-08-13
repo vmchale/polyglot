@@ -28,7 +28,7 @@ implement main0 (argc, argv) =
             map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes)
         in
           if parsed.no_table then
-            print(make_output(result))
+            print(make_output(result, not(cli.no_colorize)))
           else
             print(make_table(result, not(cli.no_colorize)))
         end
