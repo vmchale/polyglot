@@ -133,6 +133,8 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , crystal = x.crystal + y.crystal
                 , racket = x.racket + y.racket
                 , ada = x.ada + y.ada
+                , isabelle = x.isabelle + y.isabelle
+                , fstar = x.fstar + y.fstar
                 } : source_contents
   in
     next
@@ -239,6 +241,8 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~crystal n => sc_r -> crystal := prev.crystal + n
       | ~racket n => sc_r -> racket := prev.racket + n
       | ~ada n => sc_r -> ada := prev.ada + n
+      | ~isabelle n => sc_r -> isabelle := prev.isabelle + n
+      | ~fstar n => sc_r -> fstar := prev.fstar + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -660,6 +664,8 @@ fn empty_contents() : source_contents =
                , crystal = empty_file
                , racket = empty_file
                , ada = empty_file
+               , isabelle = empty_file
+               , fstar = empty_file
                } : source_contents
   in
     isc

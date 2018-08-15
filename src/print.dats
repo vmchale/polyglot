@@ -138,6 +138,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.racket.lines
                      + sc.ada.lines
                      + sc.sml.lines
+                     + sc.isabelle.lines
+                     + sc.fstar.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -232,6 +234,8 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.racket.blanks
                       + sc.ada.blanks
                       + sc.sml.blanks
+                      + sc.isabelle.blanks
+                      + sc.fstar.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -326,6 +330,8 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.racket.comments
                         + sc.ada.comments
                         + sc.sml.comments
+                        + sc.isabelle.comments
+                        + sc.fstar.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -420,6 +426,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.racket.files
                      + sc.ada.files
                      + sc.sml.files
+                     + sc.isabelle.files
+                     + sc.fstar.files
              }
   in
     f
@@ -464,6 +472,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Emacs Lisp", isc.elisp)
     + maybe_table("Erlang", isc.erlang)
     + maybe_table("F#", isc.fsharp)
+    + maybe_table("F*", isc.fstar)
     + maybe_table("FLTK Data", isc.fluid)
     + maybe_table("Fortran", isc.fortran)
     + maybe_table("Futhark", isc.futhark)
@@ -476,6 +485,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Idris", isc.idris)
     + maybe_table("iPKG", isc.ipkg)
     + maybe_table("Ion", isc.ion)
+    + maybe_table("Isabelle", isc.isabelle)
     + maybe_table("J", isc.j)
     + maybe_table("Java", isc.java)
     + maybe_table("JavaScript", isc.javascript)
@@ -593,6 +603,10 @@ fn make_output(isc : source_contents, color : bool) : string =
       "\n\33[33mOther:\33[0m\n"
     else
       "\nOther:\n"
+    var thm_string = if color then
+      "\n\33[33mTheorem Provers:\33[0m\n"
+    else
+      "\nTheorem Provers\n"
   in
     with_nonempty( pl_string
                  , maybe_string("Ada", isc.ada.lines)
@@ -609,7 +623,6 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("C#", isc.csharp.lines)
                  + maybe_string("C Header", isc.header.lines)
                  + maybe_string("COBOL", isc.cobol.lines)
-                 + maybe_string("Coq", isc.coq.lines)
                  + maybe_string("Crystal", isc.crystal.lines)
                  + maybe_string("Elixir", isc.elixir.lines)
                  + maybe_string("Elm", isc.elm.lines)
@@ -689,6 +702,11 @@ fn make_output(isc : source_contents, color : bool) : string =
     + with_nonempty(gui_string, maybe_string("FLTK Data", isc.fluid.lines))
     + with_nonempty(nb_string, maybe_string("Jupyter", isc.jupyter.lines))
     + with_nonempty(contract_string, maybe_string("Plutus", isc.plutus.lines))
+    + with_nonempty( thm_string
+                   , maybe_string("Coq", isc.coq.lines)
+                   + maybe_string("F*", isc.fstar.lines)
+                   + maybe_string("Isabelle", isc.isabelle.lines)
+                   )
     + with_nonempty( other
                    , maybe_string("Autoconf", isc.autoconf.lines)
                    + maybe_string("Automake", isc.automake.lines)

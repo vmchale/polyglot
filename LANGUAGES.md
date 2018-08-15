@@ -93,6 +93,8 @@
 - [x] Racket
 - [x] Ada
 - [x] Standard ML
+- [x] F\* (`.fst`)
+- [x] Isabelle (`.thy`)
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] `.sed` files
@@ -112,8 +114,6 @@
 - [ ] Agda library
 - [ ] RED
 - [ ] groovy
-- [ ] F\* (`.fst`)
-- [ ] Isabelle (`.thy`)
 - [ ] REBOL
 - [ ] Intel hex (`.ihex`)
 - [ ] occam

@@ -106,5 +106,7 @@ fn free_pl(pl : pl_type) : void =
     | ~racket _ => ()
     | ~ada _ => ()
     | ~sml _ => ()
+    | ~isabelle _ => ()
+    | ~fstar _ => ()
 
 overload free with free_pl
