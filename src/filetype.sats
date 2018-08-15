@@ -98,6 +98,7 @@ vtypedef source_contents = @{ rust = file
                             , sml = file
                             , isabelle = file
                             , fstar = file
+                            , d = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -202,3 +203,4 @@ datavtype pl_type =
   | sml of file
   | isabelle of file
   | fstar of file
+  | d of file

@@ -98,9 +98,10 @@
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] `.sed` files
+- [ ] Chapel (`.chpl`)
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
-- [ ] hsc2hs (`.hsc`), greencard (`.gc`), c2hs (`.chs`), cpphs (`.cpphs`)
+- [ ] hsc2hs (`.hsc`), c2hs (`.chs`)
 - [ ] literate Haskell
   - [ ] literate happy?
 - [ ] literate Idris

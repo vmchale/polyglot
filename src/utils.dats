@@ -108,5 +108,6 @@ fn free_pl(pl : pl_type) : void =
     | ~sml _ => ()
     | ~isabelle _ => ()
     | ~fstar _ => ()
+    | ~d _ => ()
 
 overload free with free_pl

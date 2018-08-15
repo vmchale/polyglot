@@ -135,6 +135,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , ada = x.ada + y.ada
                 , isabelle = x.isabelle + y.isabelle
                 , fstar = x.fstar + y.fstar
+                , d = x.d + y.d
                 } : source_contents
   in
     next
@@ -243,6 +244,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~ada n => sc_r -> ada := prev.ada + n
       | ~isabelle n => sc_r -> isabelle := prev.isabelle + n
       | ~fstar n => sc_r -> fstar := prev.fstar + n
+      | ~d n => sc_r -> d := prev.d + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -519,6 +521,9 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "rkt" => racket(line_count(s, Some_vt("#")))
       | "adb" => ada(line_count(s, Some_vt("--")))
       | "ads" => ada(line_count(s, Some_vt("--")))
+      | "thy" => isabelle(line_count(s, None_vt))
+      | "fst" => fstar(line_count(s, Some_vt("//")))
+      | "d" => d(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -666,6 +671,7 @@ fn empty_contents() : source_contents =
                , ada = empty_file
                , isabelle = empty_file
                , fstar = empty_file
+               , d = empty_file
                } : source_contents
   in
     isc

@@ -22,7 +22,7 @@ extern
 fn get_nprocs { m : nat | m > 0 }() : int(m) =
   "mac#"
 
-val ncpu = get_nprocs{4}()
+val ncpu = get_nprocs{4}(())
 
 fn step_list(s : string, excludes : List0(string)) : List0(string) =
   let
