@@ -509,6 +509,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "cr" => crystal(line_count(s, Some_vt("#")))
       | "rkt" => racket(line_count(s, Some_vt("#")))
       | "adb" => ada(line_count(s, Some_vt("--")))
+      | "ads" => ada(line_count(s, Some_vt("--")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
