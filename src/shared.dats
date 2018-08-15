@@ -66,6 +66,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , ruby = x.ruby + y.ruby
                 , julia = x.julia + y.julia
                 , perl = x.perl + y.perl
+                , sml = x.sml + y.sml
                 , ocaml = x.ocaml + y.ocaml
                 , agda = x.agda + y.agda
                 , cobol = x.cobol + y.cobol
@@ -171,6 +172,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~julia n => sc_r -> julia := prev.julia + n
       | ~tex n => sc_r -> tex := prev.tex + n
       | ~perl n => sc_r -> perl := prev.perl + n
+      | ~sml n => sc_r -> sml := prev.sml + n
       | ~ocaml n => sc_r -> ocaml := prev.ocaml + n
       | ~agda n => sc_r -> agda := prev.agda + n
       | ~cobol n => sc_r -> cobol := prev.cobol + n
@@ -413,7 +415,10 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "vhd" => vhdl(line_count(s, None_vt))
       | "go" => go(line_count(s, Some_vt("//")))
       | "vim" => vimscript(line_count(s, Some_vt("\"")))
+      | "sml" => sml(line_count(s, None_vt))
+      | "sig" => sml(line_count(s, None_vt))
       | "ml" => ocaml(line_count(s, None_vt))
+      | "mli" => ocaml(line_count(s, None_vt))
       | "purs" => purescript(line_count(s, None_vt))
       | "elm" => elm(line_count(s, Some_vt("--")))
       | "mad" => madlang(line_count(s, Some_vt("#")))
@@ -443,7 +448,6 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "cob" => cobol(line_count(s, None_vt))
       | "cbl" => cobol(line_count(s, None_vt))
       | "cpy" => cobol(line_count(s, None_vt))
-      | "ml" => ocaml(line_count(s, None_vt))
       | "tcl" => tcl(line_count(s, None_vt))
       | "fl" => fluid(line_count(s, Some_vt("#")))
       | "r" => r(line_count(s, None_vt))
@@ -588,6 +592,7 @@ fn empty_contents() : source_contents =
                , ruby = empty_file
                , julia = empty_file
                , perl = empty_file
+               , sml = empty_file
                , ocaml = empty_file
                , agda = empty_file
                , cobol = empty_file
