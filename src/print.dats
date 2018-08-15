@@ -133,6 +133,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.fluid.lines
                      + sc.plutus.lines
                      + sc.j.lines
+                     + sc.blowden.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -222,6 +223,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.fluid.blanks
                       + sc.plutus.blanks
                       + sc.j.blanks
+                      + sc.blowden.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -311,6 +313,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.fluid.comments
                         + sc.plutus.comments
                         + sc.j.comments
+                        + sc.blowden.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -400,6 +403,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.fluid.files
                      + sc.plutus.files
                      + sc.j.files
+                     + sc.blowden.files
              }
   in
     f
@@ -420,6 +424,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Automake", isc.automake)
     + maybe_table("Bash", isc.bash)
     + maybe_table("Batch", isc.batch)
+    + maybe_table("Blowden", isc.blowden)
     + maybe_table("Brainfuck", isc.brainfuck)
     + maybe_table("C", isc.c)
     + maybe_table("Carp", isc.carp)
@@ -573,6 +578,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  , maybe_string("Agda", isc.agda.lines)
                  + maybe_string("Assembly", isc.assembly.lines)
                  + maybe_string("ATS", isc.ats.lines)
+                 + maybe_string("Blowden", isc.blowden.lines)
                  + maybe_string("Brainfuck", isc.brainfuck.lines)
                  + maybe_string("C", isc.c.lines)
                  + maybe_string("Carp", isc.carp.lines)

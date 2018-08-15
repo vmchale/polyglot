@@ -128,6 +128,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , fluid = x.fluid + y.fluid
                 , plutus = x.plutus + y.plutus
                 , j = x.j + y.j
+                , blowden = x.blowden + y.blowden
                 } : source_contents
   in
     next
@@ -229,6 +230,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~fluid n => sc_r -> fluid := prev.fluid + n
       | ~plutus n => sc_r -> plutus := prev.plutus + n
       | ~j n => sc_r -> j := prev.j + n
+      | ~blowden n => sc_r -> blowden := prev.blowden + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -398,6 +400,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "pl" => perl(line_count(s, None_vt))
       | "agda" => agda(line_count(s, Some_vt("--")))
       | "idr" => idris(line_count(s, Some_vt("--")))
+      | "blod" => blowden(line_count(s, Some_vt("--")))
       | "v" => check_keywords(s, line_count(s, Some_vt("--")), match)
       | "m" => check_keywords(s, line_count(s, None_vt), match)
       | "vhdl" => vhdl(line_count(s, None_vt))
@@ -637,6 +640,7 @@ fn empty_contents() : source_contents =
                , fluid = empty_file
                , plutus = empty_file
                , j = empty_file
+               , blowden = empty_file
                } : source_contents
   in
     isc
