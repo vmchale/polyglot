@@ -95,6 +95,7 @@ vtypedef source_contents = @{ rust = file
                             , crystal = file
                             , racket = file
                             , ada = file
+                            , sml = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -196,3 +197,4 @@ datavtype pl_type =
   | crystal of file
   | racket of file
   | ada of file
+  | sml of file

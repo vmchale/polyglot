@@ -137,6 +137,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.crystal.lines
                      + sc.racket.lines
                      + sc.ada.lines
+                     + sc.sml.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -230,6 +231,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.crystal.blanks
                       + sc.racket.blanks
                       + sc.ada.blanks
+                      + sc.sml.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -323,6 +325,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.crystal.comments
                         + sc.racket.comments
                         + sc.ada.comments
+                        + sc.sml.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -416,6 +419,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.crystal.files
                      + sc.racket.files
                      + sc.ada.files
+                     + sc.sml.files
              }
   in
     f
@@ -511,6 +515,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Scala", isc.scala)
     + maybe_table("Shen", isc.shen)
     + maybe_table("Sixten", isc.sixten)
+    + maybe_table("Standard ML", isc.sml)
     + maybe_table("Swift", isc.swift)
     + maybe_table("TCL", isc.tcl)
     + maybe_table("TeX", isc.tex)
@@ -636,6 +641,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("Scala", isc.scala.lines)
                  + maybe_string("Shen", isc.shen.lines)
                  + maybe_string("Sixten", isc.sixten.lines)
+                 + maybe_string("Standard ML", isc.sml.lines)
                  + maybe_string("Swift", isc.swift.lines)
                  + maybe_string("TCL", isc.tcl.lines)
                  )

@@ -417,6 +417,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "vim" => vimscript(line_count(s, Some_vt("\"")))
       | "sml" => sml(line_count(s, None_vt))
       | "sig" => sml(line_count(s, None_vt))
+      | "fun" => sml(line_count(s, None_vt))
       | "ml" => ocaml(line_count(s, None_vt))
       | "mli" => ocaml(line_count(s, None_vt))
       | "purs" => purescript(line_count(s, None_vt))
