@@ -133,9 +133,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.fluid.lines
                      + sc.plutus.lines
                      + sc.j.lines
-                     + sc.blowden.lines
+                     + sc.blodwen.lines
                      + sc.crystal.lines
                      + sc.racket.lines
+                     + sc.ada.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -225,9 +226,10 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.fluid.blanks
                       + sc.plutus.blanks
                       + sc.j.blanks
-                      + sc.blowden.blanks
+                      + sc.blodwen.blanks
                       + sc.crystal.blanks
                       + sc.racket.blanks
+                      + sc.ada.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -317,9 +319,10 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.fluid.comments
                         + sc.plutus.comments
                         + sc.j.comments
-                        + sc.blowden.comments
+                        + sc.blodwen.comments
                         + sc.crystal.comments
                         + sc.racket.comments
+                        + sc.ada.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -409,9 +412,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.fluid.files
                      + sc.plutus.files
                      + sc.j.files
-                     + sc.blowden.files
+                     + sc.blodwen.files
                      + sc.crystal.files
                      + sc.racket.files
+                     + sc.ada.files
              }
   in
     f
@@ -424,7 +428,8 @@ fn make_table(isc : source_contents, colorize : bool) : string =
       "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m             \33[35mFiles\33[0m       \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
     else
       "-------------------------------------------------------------------------------\n Language             Files       Lines         Code     Comments       Blanks\n-------------------------------------------------------------------------------\n"
-    var b: string = maybe_table("Alex", isc.alex)
+    var b: string = maybe_table("Ada", isc.ada)
+    + maybe_table("Alex", isc.alex)
     + maybe_table("Agda", isc.agda)
     + maybe_table("Assembly", isc.assembly)
     + maybe_table("ATS", isc.ats)
@@ -432,7 +437,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Automake", isc.automake)
     + maybe_table("Bash", isc.bash)
     + maybe_table("Batch", isc.batch)
-    + maybe_table("Blowden", isc.blowden)
+    + maybe_table("blodwen", isc.blodwen)
     + maybe_table("Brainfuck", isc.brainfuck)
     + maybe_table("C", isc.c)
     + maybe_table("Carp", isc.carp)
@@ -585,10 +590,11 @@ fn make_output(isc : source_contents, color : bool) : string =
       "\nOther:\n"
   in
     with_nonempty( pl_string
-                 , maybe_string("Agda", isc.agda.lines)
+                 , maybe_string("Ada", isc.ada.lines)
+                 + maybe_string("Agda", isc.agda.lines)
                  + maybe_string("Assembly", isc.assembly.lines)
                  + maybe_string("ATS", isc.ats.lines)
-                 + maybe_string("Blowden", isc.blowden.lines)
+                 + maybe_string("blodwen", isc.blodwen.lines)
                  + maybe_string("Brainfuck", isc.brainfuck.lines)
                  + maybe_string("C", isc.c.lines)
                  + maybe_string("Carp", isc.carp.lines)

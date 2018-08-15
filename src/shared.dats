@@ -128,9 +128,10 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , fluid = x.fluid + y.fluid
                 , plutus = x.plutus + y.plutus
                 , j = x.j + y.j
-                , blowden = x.blowden + y.blowden
+                , blodwen = x.blodwen + y.blodwen
                 , crystal = x.crystal + y.crystal
                 , racket = x.racket + y.racket
+                , ada = x.ada + y.ada
                 } : source_contents
   in
     next
@@ -232,9 +233,10 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~fluid n => sc_r -> fluid := prev.fluid + n
       | ~plutus n => sc_r -> plutus := prev.plutus + n
       | ~j n => sc_r -> j := prev.j + n
-      | ~blowden n => sc_r -> blowden := prev.blowden + n
+      | ~blodwen n => sc_r -> blodwen := prev.blodwen + n
       | ~crystal n => sc_r -> crystal := prev.crystal + n
       | ~racket n => sc_r -> racket := prev.racket + n
+      | ~ada n => sc_r -> ada := prev.ada + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -404,7 +406,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "pl" => perl(line_count(s, None_vt))
       | "agda" => agda(line_count(s, Some_vt("--")))
       | "idr" => idris(line_count(s, Some_vt("--")))
-      | "blod" => blowden(line_count(s, Some_vt("--")))
+      | "blod" => blodwen(line_count(s, Some_vt("--")))
       | "v" => check_keywords(s, line_count(s, Some_vt("--")), match)
       | "m" => check_keywords(s, line_count(s, None_vt), match)
       | "vhdl" => vhdl(line_count(s, None_vt))
@@ -506,6 +508,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "ijs" => j(line_count(s, Some_vt("NB")))
       | "cr" => crystal(line_count(s, Some_vt("#")))
       | "rkt" => racket(line_count(s, Some_vt("#")))
+      | "adb" => ada(line_count(s, Some_vt("--")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -646,9 +649,10 @@ fn empty_contents() : source_contents =
                , fluid = empty_file
                , plutus = empty_file
                , j = empty_file
-               , blowden = empty_file
+               , blodwen = empty_file
                , crystal = empty_file
                , racket = empty_file
+               , ada = empty_file
                } : source_contents
   in
     isc
