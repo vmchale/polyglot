@@ -85,7 +85,6 @@
 - [ ] literate Haskell
   - [ ] literate happy?
 - [ ] literate Idris
-- [ ] crystal (`.cr`)
 - [ ] D (`.d`)
 - [ ] DDoc
 - [ ] Dockerfile
@@ -104,7 +103,6 @@
 - [ ] Pascal
 - [ ] Prolog
 - [ ] modula
-- [ ] racket (`.rkt`)
 - [ ] LSL http://xahsl.org/sl/ls.html
 - [ ] TypeScript
 - [ ] CoffeeScript (`.coffee`)
@@ -161,9 +159,9 @@
 - [ ] MSBuild
 - [ ] Ur
 - [ ] SRecoder template
-- [ ] Cogent
 - [ ] emacs dev env
 - [ ] Zig
+- [ ] Jai
 - [ ] Xtend
 - [ ] less (fancy CSS)
 - [ ] haxe
@@ -174,6 +172,8 @@
 - [ ] quack (`.qk`)
 - [ ] saltstack
 - [ ] plasma
+- [ ] Factor
+- [ ] everything here: http://www.rosettacode.org/wiki/Rosetta_Code
 - [ ] SISAL
 - [ ] G-code (`.mpt`, `.mpf`, `.nc`)
 - [ ] ALGOL

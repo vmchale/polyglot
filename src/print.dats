@@ -135,6 +135,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.j.lines
                      + sc.blowden.lines
                      + sc.crystal.lines
+                     + sc.racket.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -226,6 +227,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.j.blanks
                       + sc.blowden.blanks
                       + sc.crystal.blanks
+                      + sc.racket.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -317,6 +319,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.j.comments
                         + sc.blowden.comments
                         + sc.crystal.comments
+                        + sc.racket.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -408,6 +411,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.j.files
                      + sc.blowden.files
                      + sc.crystal.files
+                     + sc.racket.files
              }
   in
     f
@@ -495,6 +499,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Python", isc.python)
     + maybe_table("PureScript", isc.purescript)
     + maybe_table("R", isc.r)
+    + maybe_table("Racket", isc.racket)
     + maybe_table("Rakefile", isc.rakefile)
     + maybe_table("Ruby", isc.ruby)
     + maybe_table("Rust", isc.rust)
@@ -619,6 +624,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("PureScript", isc.purescript.lines)
                  + maybe_string("Python", isc.python.lines)
                  + maybe_string("R", isc.r.lines)
+                 + maybe_string("Racket", isc.racket.lines)
                  + maybe_string("Ruby", isc.ruby.lines)
                  + maybe_string("Rust", isc.rust.lines)
                  + maybe_string("Scala", isc.scala.lines)

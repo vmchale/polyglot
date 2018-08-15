@@ -130,6 +130,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , j = x.j + y.j
                 , blowden = x.blowden + y.blowden
                 , crystal = x.crystal + y.crystal
+                , racket = x.racket + y.racket
                 } : source_contents
   in
     next
@@ -233,6 +234,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~j n => sc_r -> j := prev.j + n
       | ~blowden n => sc_r -> blowden := prev.blowden + n
       | ~crystal n => sc_r -> crystal := prev.crystal + n
+      | ~racket n => sc_r -> racket := prev.racket + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -645,6 +647,7 @@ fn empty_contents() : source_contents =
                , j = empty_file
                , blowden = empty_file
                , crystal = empty_file
+               , racket = empty_file
                } : source_contents
   in
     isc
