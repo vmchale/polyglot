@@ -134,6 +134,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.plutus.lines
                      + sc.j.lines
                      + sc.blowden.lines
+                     + sc.crystal.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -224,6 +225,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.plutus.blanks
                       + sc.j.blanks
                       + sc.blowden.blanks
+                      + sc.crystal.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -314,6 +316,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.plutus.comments
                         + sc.j.comments
                         + sc.blowden.comments
+                        + sc.crystal.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -404,6 +407,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.plutus.files
                      + sc.j.files
                      + sc.blowden.files
+                     + sc.crystal.files
              }
   in
     f
@@ -438,6 +442,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Cassius", isc.cassius)
     + maybe_table("COBOL", isc.cobol)
     + maybe_table("Coq", isc.coq)
+    + maybe_table("Crystal", isc.crystal)
     + maybe_table("CSS", isc.css)
     + maybe_table("Dash", isc.dash)
     + maybe_table("Dhall", isc.dhall)
@@ -589,6 +594,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("C Header", isc.header.lines)
                  + maybe_string("COBOL", isc.cobol.lines)
                  + maybe_string("Coq", isc.coq.lines)
+                 + maybe_string("Crystal", isc.crystal.lines)
                  + maybe_string("Elixir", isc.elixir.lines)
                  + maybe_string("Elm", isc.elm.lines)
                  + maybe_string("Erlang", isc.erlang.lines)

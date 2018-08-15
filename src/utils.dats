@@ -102,5 +102,6 @@ fn free_pl(pl : pl_type) : void =
     | ~plutus _ => ()
     | ~j _ => ()
     | ~blowden _ => ()
+    | ~crystal _ => ()
 
 overload free with free_pl

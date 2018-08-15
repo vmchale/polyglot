@@ -129,6 +129,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , plutus = x.plutus + y.plutus
                 , j = x.j + y.j
                 , blowden = x.blowden + y.blowden
+                , crystal = x.crystal + y.crystal
                 } : source_contents
   in
     next
@@ -231,6 +232,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~plutus n => sc_r -> plutus := prev.plutus + n
       | ~j n => sc_r -> j := prev.j + n
       | ~blowden n => sc_r -> blowden := prev.blowden + n
+      | ~crystal n => sc_r -> crystal := prev.crystal + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -500,6 +502,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "carp" => carp(line_count(s, Some_vt(";")))
       | "pls" => plutus(line_count(s, None_vt))
       | "ijs" => j(line_count(s, Some_vt("NB")))
+      | "cr" => crystal(line_count(s, Some_vt("#")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -641,6 +644,7 @@ fn empty_contents() : source_contents =
                , plutus = empty_file
                , j = empty_file
                , blowden = empty_file
+               , crystal = empty_file
                } : source_contents
   in
     isc
