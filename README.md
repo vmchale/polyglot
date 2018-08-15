@@ -144,6 +144,11 @@ To run the test suite
 atspkg test --pkg-args './gc.dhall'
 ```
 
+## Languages
+
+For languages already supported, see
+[LANGUAGES.md](https://github.com/vmchale/polyglot/blob/master/LANGUAGES.md)
+
 ## Contents
 
 ```
