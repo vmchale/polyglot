@@ -1,0 +1,227 @@
+### Language Support
+- [x] Rust
+- [x] Haskell
+- [x] ATS
+- [x] Python
+- [x] Vimscript
+- [x] Elm
+- [x] Idris
+- [x] Madlang
+- [x] TeX
+- [x] Markdown
+- [x] YAML
+- [x] TOML
+- [x] Cabal
+- [x] Happy
+- [x] Alex
+- [x] Go
+- [x] HTML
+- [x] CSS
+- [x] Verilog
+- [x] VHDL
+- [x] C
+- [x] PureScript
+- [x] Futhark
+- [x] Brainfuck
+- [x] Ruby
+- [x] Julia
+- [x] Perl
+- [x] OCaml
+- [x] Agda
+- [x] COBOL
+- [x] TCL
+- [x] R
+- [x] Lua
+- [x] C++
+- [x] LALRPOP
+- [x] C header
+- [x] Sixten
+- [x] Dhall
+- [x] iPKG
+- [x] Makefile
+- [x] Justfile
+- [x] Ion
+- [x] Bash
+- [x] Dash
+- [x] Hamlet
+- [x] Cassius
+- [x] Lucius
+- [x] Julius
+- [x] Mercury
+- [x] Yacc
+- [x] Lex
+- [x] Coq
+- [x] Jupyter
+- [x] Java
+- [x] Scala
+- [x] Erlang
+- [x] Elixir
+- [x] Pony
+- [x] Clojure
+- [x] Cabal project
+- [x] Assembly
+- [x] Nix
+- [x] PHP
+- [x] JavaScript
+- [x] Kotlin
+- [x] F#
+- [x] FORTRAN
+- [x] Swift
+- [x] C#
+- [x] Nim
+- [x] C++ header
+- [x] Emacs Lisp
+- [x] Plaintext
+- [x] Rakefile
+- [x] LLVM
+- [x] Autoconf
+- [x] Batch
+- [x] Powershell
+- [x] M4
+- [x] Objective C
+- [x] Automake
+- [x] Margaret
+- [x] Carp
+- [x] Shen
+- [x] Greencard
+- [x] C--
+- [x] FLTK Data
+- [x] Plutus
+- [x] J
+- [x] Blodwen
+- [x] Crystal
+- [x] Racket
+- [x] Ada
+- [ ] Standard ML
+- [ ] `dappfile`
+- [ ] Solidity (`.sol`)
+- [ ] `.sed` files
+- [ ] ShaderLab (`.shader`)
+- [ ] HLSL (`.cginc`)
+- [ ] hsc2hs (`.hsc`), greencard (`.gc`), c2hs (`.chs`), cpphs (`.cpphs`)
+- [ ] literate Haskell
+  - [ ] literate happy?
+- [ ] literate Idris
+- [ ] D (`.d`)
+- [ ] DDoc
+- [ ] Dockerfile
+- [ ] LilyPond (`.ly`)
+- [ ] Jenkinsfile (groovy?)
+- [ ] mustache
+- [ ] jinja
+- [ ] Agda library
+- [ ] RED
+- [ ] groovy
+- [ ] F\* (`.fst`)
+- [ ] Isabelle (`.thy`)
+- [ ] REBOL
+- [ ] Intel hex (`.ihex`)
+- [ ] occam
+- [ ] Pascal
+- [ ] Prolog
+- [ ] modula
+- [ ] LSL http://xahsl.org/sl/ls.html
+- [ ] TypeScript
+- [ ] CoffeeScript (`.coffee`)
+- [ ] clean
+- [ ] lean
+- [ ] dash
+- [ ] fish
+- [ ] dyon
+- [ ] ketos
+- [ ] harlan (`.kfc`)
+- [ ] Ragel (`.rl`)
+- [ ] puppet (`.pp`)
+- [ ] forth
+- [ ] Objective C++
+- [ ] Bison (`.yy` among others)
+- [ ] Flex
+- [ ] Felix
+- [ ] `.jats` (enriched JSON)
+- [ ] Sass
+- [ ] gemfile
+- [ ] gemspec
+- [ ] rdoc
+- [ ] Scons
+- [ ] Vala
+- [ ] Cmake
+- [ ] shen
+- [ ] gradle
+- [ ] tulip (`.tlp`)
+- [ ] kitten (`.ktn`)
+- [ ] siren (`.siren`)
+- [ ] emily (`.em`)
+- [ ] ceylon
+- [ ] Dart
+- [ ] Korn shell
+- [ ] K
+- [ ] jsx
+- [ ] ColdFusion
+- [ ] Balsa
+- [ ] Teak
+- [ ] SQL
+- [ ] Dale
+- [ ] awk
+- [ ] microsoft module definition
+- [ ] XSLT
+- [ ] `.rst`
+- [ ] QML
+- [ ] `.ini`
+- [ ] roff/troff/groff
+- [ ] Limbo
+- [ ] Terra
+- [ ] logos (also `.x`)
+- [ ] PureBasic
+- [ ] visual basic
+- [ ] MSBuild
+- [ ] Ur
+- [ ] SRecoder template
+- [ ] emacs dev env
+- [ ] Zig
+- [ ] Jai
+- [ ] Xtend
+- [ ] less (fancy CSS)
+- [ ] haxe
+- [ ] HLSL
+- [ ] GNU plot (`.plt`)
+- [ ] dtrace
+- [ ] `pyf` - F2PY signature
+- [ ] quack (`.qk`)
+- [ ] saltstack
+- [ ] plasma
+- [ ] Factor
+- [ ] everything here: http://www.rosettacode.org/wiki/Rosetta_Code
+- [ ] SISAL
+- [ ] G-code (`.mpt`, `.mpf`, `.nc`)
+- [ ] ALGOL
+- [ ] flow-matic
+- [ ] B
+- [ ] delphi
+- [ ] Gherkin
+- [ ] Pyret
+- [ ] Stylus
+- [ ] haddock interface
+- [ ] Vagrantfile
+- [ ] NAnt script
+- [ ] RobotFramework
+- [ ] QML
+- [ ] xBase
+- [ ] XML/`<?xml version="1.0" encoding="utf-8"?>`
+- [ ] Diderot (`.diderot`)
+- [ ] Egison (`.egi`)
+- [ ] Everything supported by `cloc --show-lang`
+- [ ] Also `gocloc --show-lang`, `scc --languages`
+- [ ] `.clang-format` files??
+- [ ] Grain: https://github.com/grain-lang/grain ??
+- [ ] Hy https://github.com/hylang/hy
+- [ ] coconut http://coconut-lang.org/
+- [ ] Doxyfile
+- [ ] See this list: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+  - [ ] Also think of a better way to add new languages
+- [ ] Brig PL: https://github.com/klevinism/Brig
+- [ ] `.sin`: https://github.com/jemalloc/jemalloc/blob/dev/msvc/jemalloc_vc2015.sln
+- [ ] This list: https://github.com/BurntSushi/ripgrep/blob/1d09d4d31ba3ac2eb09edf31e8ec46b2b5cec388/ignore/src/types.rs#L99
+- [ ] Clafer http://www.clafer.org/
+- [ ] Discus https://github.com/discus-lang/ddc/blob/master/test/ddc-regress/source/01-Discus/10-Parser/Test.dsx
+- [ ] Gleam https://github.com/lpil/gleam/blob/51ca433d0f10beab4010d3ba389a27755c71282d/examples/PingPong.gleam
+- [ ] Cogent https://github.com/NICTA/cogent
