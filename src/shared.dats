@@ -505,6 +505,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "pls" => plutus(line_count(s, None_vt))
       | "ijs" => j(line_count(s, Some_vt("NB")))
       | "cr" => crystal(line_count(s, Some_vt("#")))
+      | "rkt" => racket(line_count(s, Some_vt("#")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
