@@ -35,6 +35,7 @@ script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
+      atspkg nuke
       atspkg test --pkg-args "./gc.dhall"
       pip install yamllint
       yamllint .travis.yml
