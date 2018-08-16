@@ -95,6 +95,9 @@
 - [x] Standard ML
 - [x] F\* (`.fst`)
 - [x] Isabelle (`.thy`)
+- [x] D (`.d`)
+- [ ] Chez (`.ss`)
+- [ ] Chicken (`.scm`)
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] `.sed` files
@@ -105,7 +108,6 @@
 - [ ] literate Haskell
   - [ ] literate happy?
 - [ ] literate Idris
-- [ ] D (`.d`)
 - [ ] DDoc
 - [ ] Dockerfile
 - [ ] LilyPond (`.ly`)
@@ -175,6 +177,8 @@
 - [ ] PureBasic
 - [ ] visual basic
 - [ ] MSBuild
+- [x] D (`.d`)
+- [x] D (`.d`)
 - [ ] Ur
 - [ ] SRecoder template
 - [ ] emacs dev env

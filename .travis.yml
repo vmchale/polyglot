@@ -41,8 +41,8 @@ script:
       yamllint .hlint.yml
       yamllint .yamllint
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-      atspkg build --pkg-args "./gc.dhall"
-      atspkg build --pkg-args "./gc.dhall" target/polyglot.deb
+      atspkg build --pkg-args "./gc.dhall" -vv
+      atspkg build --pkg-args "./gc.dhall" target/polyglot.deb -vv
       mv target/poly poly-$TARGET
     elif [ $TARGET = "arm-linux-gnueabihf" ]
     then
