@@ -35,7 +35,7 @@ script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
-      atspkg test --pkg-args "./gc.dhall"
+      travis_wait 40 atspkg test --pkg-args "./gc.dhall"
       pip install yamllint
       yamllint .travis.yml
       yamllint .hlint.yml
