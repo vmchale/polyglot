@@ -6,6 +6,7 @@ staload "src/filetype.sats"
 staload "libats/libc/SATS/stdio.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+// FIXME: changing BUFSZ changes the # of comments & the # of blanks
 #define BUFSZ (32*1024)
 
 %{^
@@ -88,13 +89,16 @@ fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : cha
         | Some_vt (z) => x = z
         | None_vt() => true
     
-    // FIXME: this is unsafe and in fact immoral
+    // FIXME: this will fail if we have a comment at the boundaries.
     var s2 = $UN.ptr0_get<char>(p)
-    var s3 = $UN.ptr0_get<char>(ptr_succ<char>(p))
     var b = s2 = compare
     var b2 = case+ comment of
       | None_vt() => false
-      | Some_vt (p) => s2 = p.f && match(s3, p.s)
+      | Some_vt (p0) => let
+        var s3 = $UN.ptr0_get<char>(ptr_succ<char>(p))
+      in
+        s2 = p0.f && match(s3, p0.s)
+      end
   in
     '(b, b2)
   end
@@ -123,12 +127,12 @@ fun wclbuf {l:addr}{n:nat}{l1:addr}( pf : !bytes_v(l, n) | p : ptr(l)
         val '(cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n', comment)
         var acc_file = match_acc_file(cmp1, cmp2)
         val () = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file, comment, ret)
-        prval () = pf2 := array_v_cons(pf21, pf22)
-        prval () = pf := bytes_v_unsplit(pf1, pf2)
+        prval () = pf2 := array_v_cons(pf21,pf22)
+        prval () = pf := bytes_v_unsplit(pf1,pf2)
       in end
     else
       let
-        prval () = pf := bytes_v_unsplit(pf1, pf2)
+        prval () = pf := bytes_v_unsplit(pf1,pf2)
       in
         ret := res
       end
