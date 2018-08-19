@@ -96,6 +96,7 @@
 - [x] F\* (`.fst`)
 - [x] Isabelle (`.thy`)
 - [x] D (`.d`)
+- [x] Factor
 - [ ] Chez (`.ss`)
 - [ ] Chicken (`.scm`)
 - [ ] `dappfile`
@@ -177,8 +178,6 @@
 - [ ] PureBasic
 - [ ] visual basic
 - [ ] MSBuild
-- [x] D (`.d`)
-- [x] D (`.d`)
 - [ ] Ur
 - [ ] SRecoder template
 - [ ] emacs dev env
@@ -194,7 +193,6 @@
 - [ ] quack (`.qk`)
 - [ ] saltstack
 - [ ] plasma
-- [ ] Factor
 - [ ] everything here: http://www.rosettacode.org/wiki/Rosetta_Code
 - [ ] SISAL
 - [ ] G-code (`.mpt`, `.mpf`, `.nc`)
@@ -232,3 +230,5 @@
 - [ ] Cogent https://github.com/NICTA/cogent
 - [ ] BNFC: https://github.com/Cubesoup/Crates/blob/master/parser/tracks.bnfc
 - [ ] Unison: http://unisonweb.org/
+- [ ] Alms: http://users.eecs.northwestern.edu/~jesse/pubs/alms/
+- [ ] This list: https://en.wikipedia.org/wiki/List_of_programming_languages

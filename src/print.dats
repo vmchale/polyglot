@@ -141,6 +141,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.isabelle.lines
                      + sc.fstar.lines
                      + sc.d.lines
+                     + sc.factor.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -238,6 +239,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.isabelle.blanks
                       + sc.fstar.blanks
                       + sc.d.blanks
+                      + sc.factor.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -335,6 +337,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.isabelle.comments
                         + sc.fstar.comments
                         + sc.d.comments
+                        + sc.factor.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -432,6 +435,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.isabelle.files
                      + sc.fstar.files
                      + sc.d.files
+                     + sc.factor.files
              }
   in
     f
@@ -478,6 +482,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Erlang", isc.erlang)
     + maybe_table("F#", isc.fsharp)
     + maybe_table("F*", isc.fstar)
+    + maybe_table("Factor", isc.factor)
     + maybe_table("FLTK Data", isc.fluid)
     + maybe_table("Fortran", isc.fortran)
     + maybe_table("Futhark", isc.futhark)
@@ -634,6 +639,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("Elm", isc.elm.lines)
                  + maybe_string("Erlang", isc.erlang.lines)
                  + maybe_string("F#", isc.fsharp.lines)
+                 + maybe_string("Factor", isc.factor.lines)
                  + maybe_string("Fortran", isc.fortran.lines)
                  + maybe_string("Futhark", isc.futhark.lines)
                  + maybe_string("Go", isc.go.lines)
