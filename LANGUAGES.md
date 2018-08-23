@@ -97,8 +97,7 @@
 - [x] Isabelle (`.thy`)
 - [x] D (`.d`)
 - [x] Factor
-- [ ] Chez (`.ss`)
-- [ ] Chicken (`.scm`)
+- [ ] Scheme (`.ss`, `.scm`)
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] `.sed` files

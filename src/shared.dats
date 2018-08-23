@@ -137,6 +137,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , fstar = x.fstar + y.fstar
                 , d = x.d + y.d
                 , factor = x.factor + y.factor
+                , scheme = x.scheme + y.scheme
                 } : source_contents
   in
     next
@@ -247,6 +248,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~fstar n => sc_r -> fstar := prev.fstar + n
       | ~d n => sc_r -> d := prev.d + n
       | ~factor n => sc_r -> factor := prev.factor + n
+      | ~scheme n => sc_r -> scheme := prev.scheme + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -527,6 +529,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "fst" => fstar(line_count(s, Some_vt("//")))
       | "d" => d(line_count(s, Some_vt("//")))
       | "factor" => factor(line_count(s, Some_vt("!")))
+      | "scm" => scheme(line_count(s, Some_vt(";")))
+      | "ss" => scheme(line_count(s, Some_vt(";")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -676,6 +680,7 @@ fn empty_contents() : source_contents =
                , fstar = empty_file
                , d = empty_file
                , factor = empty_file
+               , scheme = empty_file
                } : source_contents
   in
     isc

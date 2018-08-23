@@ -100,6 +100,7 @@ vtypedef source_contents = @{ rust = file
                             , fstar = file
                             , d = file
                             , factor = file
+                            , scheme = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -206,3 +207,4 @@ datavtype pl_type =
   | fstar of file
   | d of file
   | factor of file
+  | scheme of file

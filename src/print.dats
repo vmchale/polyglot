@@ -142,6 +142,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.fstar.lines
                      + sc.d.lines
                      + sc.factor.lines
+                     + sc.scheme.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -240,6 +241,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.fstar.blanks
                       + sc.d.blanks
                       + sc.factor.blanks
+                      + sc.scheme.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -338,6 +340,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.fstar.comments
                         + sc.d.comments
                         + sc.factor.comments
+                        + sc.scheme.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -436,6 +439,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.fstar.files
                      + sc.d.files
                      + sc.factor.files
+                     + sc.scheme.files
              }
   in
     f
@@ -533,6 +537,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Ruby", isc.ruby)
     + maybe_table("Rust", isc.rust)
     + maybe_table("Scala", isc.scala)
+    + maybe_table("Scheme", isc.scheme)
     + maybe_table("Shen", isc.shen)
     + maybe_table("Sixten", isc.sixten)
     + maybe_table("Standard ML", isc.sml)
@@ -664,6 +669,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("Ruby", isc.ruby.lines)
                  + maybe_string("Rust", isc.rust.lines)
                  + maybe_string("Scala", isc.scala.lines)
+                 + maybe_string("Scheme", isc.scheme.lines)
                  + maybe_string("Shen", isc.shen.lines)
                  + maybe_string("Sixten", isc.sixten.lines)
                  + maybe_string("Standard ML", isc.sml.lines)

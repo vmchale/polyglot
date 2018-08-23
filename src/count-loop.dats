@@ -124,6 +124,8 @@ fun wclbuf {l:addr}{n:nat}{l1:addr}( pf : !bytes_v(l, n) | p : ptr(l)
     if p2 < pz then
       let
         prval (pf21, pf22) = array_v_uncons(pf2)
+        
+        // FIXME: this will always ignore a comment in the first line of a file...
         val '(cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n', comment)
         var acc_file = match_acc_file(cmp1, cmp2)
         val () = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file, comment, ret)

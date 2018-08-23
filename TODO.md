@@ -23,6 +23,7 @@
 - [ ] get rid of GC (?)
 - [ ] Make loops call-by-reference?
 - [ ] Look at https://github.com/llogiq/bytecount (beat it?)
+  - [ ] count lines with SIMD? not just search for stuff
 - [ ] also maybe https://github.com/boyerjohn/rapidstring
 - [ ] Use `strpbrk` during parsing comments?
 # Distribution
@@ -44,6 +45,7 @@
 - [ ] `poly -tc` still adds colors
 - [ ] handle `\-dir` for directories
 - [ ] Allow three characters for comments (J's `NB.`)
+- [ ] Bug w/ comments: https://www.reddit.com/r/rust/comments/99e4tq/reading_files_quickly_in_rust/e4nh5nf
 # Code Maintenance
 - [ ] Add benchmark suite
 - [ ] Library for this
