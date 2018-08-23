@@ -36,9 +36,9 @@ main() {
         wget https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.1 -O "$man_dest"
         wget https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.usage -O "$compleat_dest"
     else
-        curl https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -o "$dest"
-        curl https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.1 -o "$man_dest"
-        curl https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.usage -o "$compleat_dest"
+        curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -o "$dest"
+        curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.1 -o "$man_dest"
+        curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.usage -o "$compleat_dest"
     fi
     chmod +x "$dest"
 

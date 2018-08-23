@@ -232,3 +232,5 @@
 - [ ] Unison: http://unisonweb.org/
 - [ ] Alms: http://users.eecs.northwestern.edu/~jesse/pubs/alms/
 - [ ] This list: https://en.wikipedia.org/wiki/List_of_programming_languages
+- [ ] Dale: https://github.com/tomhrr/dale
+- [ ] Pikelet: https://github.com/pikelet-lang/pikelet
