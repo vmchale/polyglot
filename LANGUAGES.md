@@ -97,11 +97,11 @@
 - [x] Isabelle (`.thy`)
 - [x] D (`.d`)
 - [x] Factor
-- [ ] Scheme (`.ss`, `.scm`)
+- [x] Scheme (`.ss`, `.scm`)
+- [ ] Chapel (`.chpl`)
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] `.sed` files
-- [ ] Chapel (`.chpl`)
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
 - [ ] hsc2hs (`.hsc`), c2hs (`.chs`)
