@@ -52,7 +52,6 @@ script:
       atspkg build --target=arm-linux-gnueabihf
       mv target/poly poly-$TARGET
     else
-      brew install gcc
       atspkg build --pkg-args "./mac.dhall" -vv
       mv target/poly poly-$TARGET
     fi
