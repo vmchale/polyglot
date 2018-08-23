@@ -31,16 +31,28 @@ main() {
     man_dest=$HOME/.local/share/man/man1/poly.1
     compleat_dest=$HOME/.compleat/poly.usage
 
+    # install manpages + compleat usage
     if command -v wget > /dev/null ; then
-        wget https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -O "$dest"
         wget https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.1 -O "$man_dest"
         wget https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.usage -O "$compleat_dest"
     else
-        curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -o "$dest"
         curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.1 -o "$man_dest"
         curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.usage -o "$compleat_dest"
     fi
-    chmod +x "$dest"
+
+    # if we're on mac, use atspkg to install, otherwise download binaries
+    if [ "$(uname)" = "Darwin" ]
+    then
+        curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | sh -s
+        atspkg remote https://github.com/vmchale/polyglot/archive/master.zip --pkg-args '{ gc = True, cross = True, parallel = False, static = False, icc = False }'
+    else
+        if command -v wget > /dev/null ; then
+            wget https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -O "$dest"
+        else
+            curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/"$binname" -o "$dest"
+        fi
+        chmod +x "$dest"
+    fi
 
 }
 
