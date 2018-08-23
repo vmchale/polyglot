@@ -43,6 +43,7 @@ main() {
     # if we're on mac, use atspkg to install, otherwise download binaries
     if [ "$(uname)" = "Darwin" ]
     then
+        export PATH="$HOME"/.local/bin:"$PATH"
         curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | sh -s
         atspkg remote https://github.com/vmchale/polyglot/archive/master.zip --pkg-args '{ gc = True, cross = True, parallel = False, static = False, icc = False }'
     else
