@@ -20,6 +20,18 @@ staload "libats/SATS/athread.sats"
 staload _ = "libats/DATS/deqarray.dats"
 staload _ = "libats/DATS/athread.dats"
 
+%{
+// from here: https://stackoverflow.com/a/22330309
+#ifdef __APPLE__
+int get_nprocs() {
+    int count;
+    size_t count_len = sizeof(count);
+    sysctlbyname("hw.logicalcpu", &count, &count_len, NULL, 0);
+    return count;
+}
+#endif
+%}
+
 extern
 fn get_nprocs { m : nat | m > 0 }() : int(m) =
   "mac#"
