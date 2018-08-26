@@ -52,7 +52,7 @@ main() {
     then
 
         curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | sh -s
-        atspkg remote https://github.com/vmchale/polyglot/archive/master.zip --pkg-args '{ gc = True, cross = True, parallel = True, static = False, icc = False }'
+        atspkg remote https://github.com/vmchale/polyglot/archive/master.zip --pkg-args '{ gc = True, cross = True, parallel = False, static = False, icc = False }'
 
     else
 
