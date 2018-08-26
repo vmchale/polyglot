@@ -177,6 +177,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
         end
     
     var r = loop_return(ncpu, chan)
+    val () = ignoret(usleep(70u))
     val () = while(channel_refcount(chan) > 1)()
     val () = handle_unref(chan)
   in

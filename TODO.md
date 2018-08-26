@@ -40,8 +40,6 @@
 - [ ] Figure out Windows (?)
 # Bugs
 - [ ] Allow multiple syntaxes for comments, e.g. `#` for assembly
-- [ ] `poly te` hangs indefinitely
-  - [ ] Figure out why it occasionally hangs indefinitely
 - [ ] First comment in a file is ignored
 - [ ] Handle `sed`-style multiline comments
 - [ ] Comments on borders between buffers

@@ -3,6 +3,7 @@
 ## 0.4.74
 
   * Add support for K
+  * Fix minor bug with threading
 
 ## 0.4.73
 
