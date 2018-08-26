@@ -1,5 +1,6 @@
 poly:
     @rm -f *_dats.c
+    @rm -f *_sats.c
     @poly -e data
 
 ci:
