@@ -240,3 +240,6 @@
 - [ ] https://github.com/juju2143/flufflepuff
 - [ ] https://github.com/SRL/SRL-5/blob/master/SRL/core/color.simba
 - [ ] Figure out `.dpr` and `.dfm` file extensions
+- [ ] This list: https://github.com/Aaronepower/tokei/blob/master/languages.json
+- [ ] GdScript: https://github.com/trending/gdscript
+- [ ] Frege (`.fr`)
