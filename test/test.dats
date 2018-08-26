@@ -2,6 +2,8 @@
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/specats-0.2.3/mylibies.hats"
+#include "DATS/utils.dats"
+#include "DATS/error.dats"
 
 fn test_file(s : string, expected : pl_type) : bool =
   let

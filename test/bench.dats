@@ -2,6 +2,8 @@
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/ats-bench-0.3.3/bench.dats"
+#include "DATS/utils.dats"
+#include "DATS/error.dats"
 
 fun linecount_bench() : void =
   { val _ = line_count("src/cli.dats", Some_vt("//")) }

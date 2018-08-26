@@ -1,6 +1,9 @@
 #include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
+#include "$PATSHOMELOCS/edit-distance-0.4.0/DATS/edit-distance.dats"
+#include "DATS/error.dats"
+#include "DATS/utils.dats"
 
 implement main0 (argc, argv) =
   let
