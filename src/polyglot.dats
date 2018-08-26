@@ -162,7 +162,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
         val () = maybe_insert(portions, i - 1, send)
         
         // If we use something lower-level we might get finer control of when things exit?
-        // Thread pool is looking v. attractive right now...
+        // Thread pool might be faster (?)
         val _ = athread_create_cloptr_exn(llam () =>
             work(excludes, send_r, chan_))
         val () = handle_unref(send)

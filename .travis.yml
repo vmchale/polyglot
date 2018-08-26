@@ -36,7 +36,6 @@ script:
       yamllint .hlint.yml
       yamllint .yamllint
       atspkg build --pkg-args "./gc.dhall" -vv
-      atspkg build --pkg-args "./gc.dhall" target/polyglot.deb -vv
     else
       atspkg build --pkg-args "./mac.dhall" -vv
       mv target/poly poly-$TARGET
