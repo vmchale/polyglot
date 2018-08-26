@@ -1,4 +1,3 @@
-{- Imports -}
 let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 in
 
