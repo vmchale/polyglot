@@ -70,7 +70,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         , completions = [ "compleat/poly.usage" ] : Optional Text
         , dependencies = (prelude.mapPlainDeps deps) #
             [ prelude.upperDeps { name = "specats", version = [0,2,3] }
-            , prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }
+            , prelude.lowerDeps { name = "edit-distance", version = [0,4,0] }
             , prelude.plainDeps "ats-bench"
             ]
         -- TODO: make a mapIncludes function?

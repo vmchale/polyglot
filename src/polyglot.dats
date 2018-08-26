@@ -14,6 +14,7 @@
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/ats-concurrency-0.4.8/mylibies.hats"
+#include "$PATSHOMELOCS/edit-distance-0.4.0/DATS/edit-distance.dats"
 #include "DATS/utils.dats"
 #include "DATS/error.dats"
 
