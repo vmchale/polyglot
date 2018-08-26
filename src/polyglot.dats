@@ -7,13 +7,15 @@
 #endif
 
 #include "CATS/nproc.cats"
-#include "src/pthread.h"
+#include "pthread_mac.h"
 %}
 
 #include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "src/shared.dats"
 #include "$PATSHOMELOCS/ats-concurrency-0.4.8/mylibies.hats"
+#include "DATS/utils.dats"
+#include "DATS/error.dats"
 
 staload ML = "libats/ML/SATS/list0.sats"
 staload "libats/SATS/deqarray.sats"

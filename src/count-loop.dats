@@ -1,8 +1,8 @@
 // adapted from the book. You can find the original here:
 // https://github.com/githwxi/ATS-Postiats/blob/master/doc/EXAMPLE/MISC/wclines.dats
-#include "src/utils.dats"
-
-staload "src/filetype.sats"
+staload "SATS/utils.sats"
+staload "SATS/filetype.sats"
+staload "SATS/error.sats"
 staload "libats/libc/SATS/stdio.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 

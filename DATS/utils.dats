@@ -1,15 +1,14 @@
-staload "src/filetype.sats"
+staload "SATS/filetype.sats"
+staload "SATS/utils.sats"
 
-fn eq_pl_type(x : !pl_type, y : !pl_type) : bool =
+implement eq_pl_type (x, y) =
   case- (x, y) of
     | (happy (_), happy (_)) => true
     | (yacc (_), yacc (_)) => true
     | (coq (_), coq (_)) => true
     | (verilog (_), verilog (_)) => true
 
-overload = with eq_pl_type
-
-fn free_pl(pl : pl_type) : void =
+implement free_pl (pl) =
   case+ pl of
     | ~unknown _ => ()
     | ~rust _ => ()
@@ -118,5 +117,3 @@ fn free_pl(pl : pl_type) : void =
     | ~awk _ => ()
     | ~sed _ => ()
     | ~k _ => ()
-
-overload free with free_pl

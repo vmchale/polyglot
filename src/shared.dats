@@ -2,7 +2,7 @@
 #include "src/count-loop.dats"
 #include "src/print.dats"
 
-staload "src/filetype.sats"
+staload "SATS/filetype.sats"
 staload "libats/ML/SATS/atspre.sats"
 staload "libats/ML/SATS/list0.sats"
 staload "libats/ML/SATS/basis.sats"

@@ -1,5 +1,5 @@
 // This file contains various functions for printing generated output
-staload "src/filetype.sats"
+staload "SATS/filetype.sats"
 staload "libats/ML/SATS/string.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 

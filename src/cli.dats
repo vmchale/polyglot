@@ -1,8 +1,9 @@
 staload "libats/ML/SATS/string.sats"
 staload _ = "libats/ML/DATS/string.dats"
 staload UN = "prelude/SATS/unsafe.sats"
+staload "SATS/error.sats"
 
-#include "src/error.dats"
+#include "$PATSHOMELOCS/edit-distance-0.3.3/DATS/edit-distance.dats"
 
 // Type for the parsed command-line arguments.
 vtypedef command_line = @{ version = bool
