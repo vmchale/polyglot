@@ -49,7 +49,7 @@ script:
       arm-linux-gnueabihf-gcc -v
       atspkg clean
       atspkg nuke
-      atspkg build --target=arm-linux-gnueabihf
+      atspkg build --target=arm-linux-gnueabihf --pkg-args "./gc.dhall" -vv
       mv target/poly poly-$TARGET
     else
       atspkg build --pkg-args "./mac.dhall" -vv
