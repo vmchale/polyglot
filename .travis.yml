@@ -2,12 +2,6 @@
 matrix:
   include:
 
-    - env: TARGET="arm-linux-gnueabihf"
-      addons:
-        apt:
-          packages:
-            - gcc-arm-linux-gnueabihf
-
     - env: TARGET="x86_64-unknown-linux"
       os: linux
       language: python
@@ -16,9 +10,6 @@ matrix:
     - env: TARGET="x86_64-apple-darwin"
       os: osx
       language: c
-
-  allow_failures:
-    - env: TARGET="arm-linux-gnueabihf"
 
 cache:
   directories:
@@ -36,6 +27,7 @@ install:
     fi
 
 script:
+  - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
@@ -43,15 +35,8 @@ script:
       yamllint .travis.yml
       yamllint .hlint.yml
       yamllint .yamllint
-      curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
       atspkg build --pkg-args "./gc.dhall" -vv
       atspkg build --pkg-args "./gc.dhall" target/polyglot.deb -vv
-      mv target/poly poly-$TARGET
-    elif [ $TARGET = "arm-linux-gnueabihf" ]
-    then
-      arm-linux-gnueabihf-gcc -v
-      atspkg build --target=arm-linux-gnueabihf --pkg-args "./gc.dhall" -vv
-      mv target/poly poly-$TARGET
     else
       atspkg build --pkg-args "./mac.dhall" -vv
       mv target/poly poly-$TARGET
