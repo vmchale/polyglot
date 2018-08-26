@@ -143,6 +143,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.d.lines
                      + sc.factor.lines
                      + sc.scheme.lines
+                     + sc.chapel.lines
+                     + sc.pascal.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -242,6 +244,8 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.d.blanks
                       + sc.factor.blanks
                       + sc.scheme.blanks
+                      + sc.chapel.blanks
+                      + sc.pascal.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -341,6 +345,8 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.d.comments
                         + sc.factor.comments
                         + sc.scheme.comments
+                        + sc.chapel.comments
+                        + sc.pascal.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -440,6 +446,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.d.files
                      + sc.factor.files
                      + sc.scheme.files
+                     + sc.chapel.files
+                     + sc.pascal.files
              }
   in
     f
@@ -473,6 +481,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Cabal", isc.cabal)
     + maybe_table("Cabal Project", isc.cabal_project)
     + maybe_table("Cassius", isc.cassius)
+    + maybe_table("Chapel", isc.chapel)
     + maybe_table("COBOL", isc.cobol)
     + maybe_table("Coq", isc.coq)
     + maybe_table("Crystal", isc.crystal)
@@ -523,6 +532,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Nix", isc.nix)
     + maybe_table("Objective C", isc.objective_c)
     + maybe_table("OCaml", isc.ocaml)
+    + maybe_table("Pascal", isc.pascal)
     + maybe_table("Perl", isc.perl)
     + maybe_table("PHP", isc.php)
     + maybe_table("Plaintext", isc.plaintext)
@@ -637,6 +647,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("C++ Header", isc.cpp_header.lines)
                  + maybe_string("C#", isc.csharp.lines)
                  + maybe_string("C Header", isc.header.lines)
+                 + maybe_string("Chapel", isc.header.lines)
                  + maybe_string("COBOL", isc.cobol.lines)
                  + maybe_string("Crystal", isc.crystal.lines)
                  + maybe_string("D", isc.d.lines)
@@ -660,6 +671,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("Nim", isc.nim.lines)
                  + maybe_string("Objective C", isc.objective_c.lines)
                  + maybe_string("OCaml", isc.ocaml.lines)
+                 + maybe_string("Pascal", isc.pascal.lines)
                  + maybe_string("Perl", isc.perl.lines)
                  + maybe_string("Pony", isc.pony.lines)
                  + maybe_string("PureScript", isc.purescript.lines)

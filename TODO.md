@@ -1,7 +1,8 @@
 # Features
 - [ ] Generate build reports in the format of `cloc` (`gocloc
   --output-type=sloccount .`)
-- [ ] `.poly.toml` project file?
+- [ ] Split on lines with `memchr` and then count comments?
+- [ ] `.poly.dhall` project file?
 - [ ] per-file output like `tokei`/`loc`
 - [ ] parse directories on the command line starting with a `-` by using escapes
 - [ ] detect documentation comments
@@ -10,7 +11,6 @@
 - [ ] Allow generation of HTML tables from output.
 - [ ] JSON output? Or alternately some other form of output?
 - [ ] HTML pretty-printer would be nice.
-- [ ] Detailed help on how to use a type?
 - [ ] Allow/disallow symlinks
 - [ ] Library for semantic analysis?
 - [ ] Avoid overlaps when subdirectories passed as arguments?
@@ -21,11 +21,14 @@
 - [ ] make sure everything is tail recursive
 - [ ] linear types everywhere!!
 - [ ] get rid of GC (?)
-- [ ] Make loops call-by-reference?
+  - [ ] Write my own dirstream??
+- [x] Make loops call-by-reference?
 - [ ] Look at https://github.com/llogiq/bytecount (beat it?)
   - [ ] count lines with SIMD? not just search for stuff
 - [ ] also maybe https://github.com/boyerjohn/rapidstring
 - [ ] Use `strpbrk` during parsing comments?
+- [ ] Try to use `alloca` instead of `malloc` (lol)
+- [ ] Benchmark memory footprint!
 # Distribution
 - [x] Make a debianization?
   - [ ] Add to debian
@@ -35,8 +38,10 @@
 # Portability
 - [ ] Figure out Windows (?)
 # Bugs
+- [ ] Allow multiple syntaxes for comments, e.g. `#` for assembly
 - [ ] `poly te` hangs indefinitely
-- [ ] Figure out why it occasionally hangs indefinitely
+  - [ ] Figure out why it occasionally hangs indefinitely
+- [ ] First comment in a file is ignored
 - [ ] Comments on borders between buffers
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
@@ -57,15 +62,18 @@
   - [ ] or alternately a macro
 - [ ] Use a `Makefile` rather than a `Justfile`
 # Libraries
-- [ ] TOML parser for ATS (or sufficient bindings)
+- [ ] Dhall library for ATS (or sufficient bindings)
 - [ ] Library for `.gitignore` files (and `.ignore` or `_darcs/boring` files)
-- [ ] Chase-levenshtein work-stealing queue
 - [ ] Parallel directory traversal (templates?)
 - [ ] Library for cross-platform directory access?
 # Documentation
 - [ ] Benchmark against sloccount?
 - [ ] Document build/configuration options
 - [ ] Compare to http://hackage.haskell.org/package/cantor ?
+# Research
+- [ ] Look into state machines and how to actually make a parser
+- [ ] Look into parallel directory traversals & data structures for such
+  - [ ] Atomics?? See what I can write for atomics in ATS
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parent directory (`.cargo/config`)
@@ -75,4 +83,4 @@
 ### Heuristics for determining file relevance:
 - [ ] `.gitignore`/darcs boringfile/`.ignore` file
 - [ ] `.gitattributes`
-- [ ] `.poly.toml` project file
+- [ ] `.poly.dhall` project file

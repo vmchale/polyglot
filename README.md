@@ -22,8 +22,8 @@ Reasons to use polyglot:
 Reasons not to use polyglot:
 
   * It's written in ATS
-  * No regex-based exclusions
   * Best on Linux
+  * No regex-based exclusions
   * Doesn't count block comments
 
 ### Benchmarks
@@ -77,6 +77,9 @@ On the Rust repo:
     <td>17.46 s</td>
   </tr>
 </table>
+
+For more extensive benchmarks, see my [blog post](http://blog.vmchale.com/article/polyglot-comparisons) 
+with some additional data.
 
 ### Heuristics
 
@@ -156,14 +159,14 @@ For languages already supported, see
 -------------------------------------------------------------------------------
  Language             Files       Lines         Code     Comments       Blanks
 -------------------------------------------------------------------------------
- ATS                     11        2575         2444           36           95
- Dash                     4         109           87            0           22
+ ATS                     11        2606         2475           36           95
+ Dash                     4         138          106            0           32
  Dhall                    5          94           84            0           10
- Justfile                 1          17           15            0            2
- Markdown                 5         579          504            0           75
+ Justfile                 1          19           17            0            2
+ Markdown                 6         609          529            0           80
  TOML                     1           3            3            0            0
  YAML                     1          66           58            0            8
 -------------------------------------------------------------------------------
- Total                   28        3443         3195           36          212
+ Total                   29        3535         3272           36          227
 -------------------------------------------------------------------------------
 ```

@@ -138,6 +138,8 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , d = x.d + y.d
                 , factor = x.factor + y.factor
                 , scheme = x.scheme + y.scheme
+                , chapel = x.chapel + y.chapel
+                , pascal = x.pascal + y.pascal
                 } : source_contents
   in
     next
@@ -249,6 +251,8 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~d n => sc_r -> d := prev.d + n
       | ~factor n => sc_r -> factor := prev.factor + n
       | ~scheme n => sc_r -> scheme := prev.scheme + n
+      | ~chapel n => sc_r -> chapel := prev.chapel + n
+      | ~pascal n => sc_r -> pascal := prev.pascal + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -401,6 +405,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
     case+ match of
       | "hs" => haskell(line_count(s, Some_vt("--")))
       | "cpphs" => haskell(line_count(s, Some_vt("--")))
+      | "hsc2hs" => haskell(line_count(s, Some_vt("--")))
+      | "c2hs" => haskell(line_count(s, Some_vt("--")))
       | "hs-boot" => haskell(line_count(s, Some_vt("--")))
       | "hsig" => haskell(line_count(s, Some_vt("--")))
       | "gc" => greencard(line_count(s, Some_vt("--")))
@@ -531,6 +537,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "factor" => factor(line_count(s, Some_vt("!")))
       | "scm" => scheme(line_count(s, Some_vt(";")))
       | "ss" => scheme(line_count(s, Some_vt(";")))
+      | "chpl" => chapel(line_count(s, Some_vt("//")))
+      | "pas" => pascal(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -681,6 +689,8 @@ fn empty_contents() : source_contents =
                , d = empty_file
                , factor = empty_file
                , scheme = empty_file
+               , chapel = empty_file
+               , pascal = empty_file
                } : source_contents
   in
     isc

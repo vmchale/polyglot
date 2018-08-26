@@ -98,16 +98,16 @@
 - [x] D (`.d`)
 - [x] Factor
 - [x] Scheme (`.ss`, `.scm`)
-- [ ] Chapel (`.chpl`)
+- [x] Chapel (`.chpl`)
+- [ ] Pascal
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] `.sed` files
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
-- [ ] hsc2hs (`.hsc`), c2hs (`.chs`)
-- [ ] literate Haskell
-  - [ ] literate happy?
-- [ ] literate Idris
+- [ ] Literate Haskell
+  - [ ] Literate happy?
+- [ ] Literate Idris
 - [ ] DDoc
 - [ ] Dockerfile
 - [ ] LilyPond (`.ly`)
@@ -120,15 +120,14 @@
 - [ ] REBOL
 - [ ] Intel hex (`.ihex`)
 - [ ] occam
-- [ ] Pascal
 - [ ] Prolog
 - [ ] modula
 - [ ] LSL http://xahsl.org/sl/ls.html
 - [ ] TypeScript
 - [ ] CoffeeScript (`.coffee`)
 - [ ] clean
+- [ ] Spire https://github.com/spire/spire
 - [ ] lean
-- [ ] dash
 - [ ] fish
 - [ ] dyon
 - [ ] ketos
@@ -138,7 +137,6 @@
 - [ ] forth
 - [ ] Objective C++
 - [ ] Bison (`.yy` among others)
-- [ ] Flex
 - [ ] Felix
 - [ ] `.jats` (enriched JSON)
 - [ ] Sass
@@ -233,3 +231,11 @@
 - [ ] This list: https://en.wikipedia.org/wiki/List_of_programming_languages
 - [ ] Dale: https://github.com/tomhrr/dale
 - [ ] Pikelet: https://github.com/pikelet-lang/pikelet
+- [ ] Elvish: https://github.com/elves/elvish
+- [ ] Kakaoune script
+- [ ] Dreammaker (`.dm`)
+- [ ] BrightScript
+- [ ] Cosmos: https://github.com/mcsoto/cosmos/blob/master/src/string.cosmos
+- [ ] https://github.com/juju2143/flufflepuff
+- [ ] https://github.com/SRL/SRL-5/blob/master/SRL/core/color.simba
+- [ ] Figure out `.dpr` and `.dfm` file extensions
