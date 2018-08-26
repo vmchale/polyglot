@@ -99,10 +99,12 @@
 - [x] Factor
 - [x] Scheme (`.ss`, `.scm`)
 - [x] Chapel (`.chpl`)
+- [x] awk
+- [x] Ragel (`.rl`)
+- [x] `.sed` files
 - [ ] Pascal
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
-- [ ] `.sed` files
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
 - [ ] Literate Haskell
@@ -132,7 +134,6 @@
 - [ ] dyon
 - [ ] ketos
 - [ ] harlan (`.kfc`)
-- [ ] Ragel (`.rl`)
 - [ ] puppet (`.pp`)
 - [ ] forth
 - [ ] Objective C++
@@ -163,7 +164,6 @@
 - [ ] Teak
 - [ ] SQL
 - [ ] Dale
-- [ ] awk
 - [ ] microsoft module definition
 - [ ] XSLT
 - [ ] `.rst`
