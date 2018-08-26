@@ -1,12 +1,12 @@
 #include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
-#include "src/shared.dats"
+#include "DATS/shared.dats"
 #include "$PATSHOMELOCS/ats-bench-0.3.3/bench.dats"
 #include "DATS/utils.dats"
 #include "DATS/error.dats"
 
 fun linecount_bench() : void =
-  { val _ = line_count("src/cli.dats", Some_vt("//")) }
+  { val _ = line_count("DATS/cli.dats", Some_vt("//")) }
 
 fun flow_stream_bench() : void =
   { val _ = step_stream(empty_contents(), ".", ".", list_nil) }
@@ -24,7 +24,7 @@ val stream_delay = lam () => flow_stream_bench()
 
 implement main0 () =
   {
-    val _ = print_slope("linecount (src/cli.dats)", 10, linecount_delay)
+    val _ = print_slope("linecount (DATS/cli.dats)", 10, linecount_delay)
     val _ = print_slope("keyword check (test/data/Coq.v)", 8, keyword_delay)
     val _ = print_slope("step_stream", 5, stream_delay)
   }

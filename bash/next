@@ -2,7 +2,7 @@
 
 set -e pipefail
 
-VERSION="$(grep -P -o '\d+\.\d+\.\d+' src/cli.dats)"
+VERSION="$(grep -P -o '\d+\.\d+\.\d+' DATS/cli.dats | tail -n1)"
 VERSION_COMMA="$(echo "$VERSION" | sed 's/\./,/g')"
 NEW_VERSION_SP="$(echo "$VERSION" | awk -F. '{$NF+=1; print $0}')"
 NEW_VERSION="$(echo "$NEW_VERSION_SP" | sed 's/ /\./g')"
@@ -10,7 +10,7 @@ NEW_VERSION_COMMA="$(echo "$NEW_VERSION_SP" | sed 's/ /,/g')"
 
 echo "$NEW_VERSION"
 
-sed -i "s/$VERSION/$NEW_VERSION/" src/cli.dats
+sed -i "s/$VERSION/$NEW_VERSION/" DATS/cli.dats
 sed -i "s/$VERSION_COMMA/$NEW_VERSION_COMMA/" atspkg.dhall
 
 git commit -am "version bump"

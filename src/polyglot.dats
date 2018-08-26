@@ -12,7 +12,7 @@
 
 #include "share/atspre_staload.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
-#include "src/shared.dats"
+#include "DATS/shared.dats"
 #include "$PATSHOMELOCS/ats-concurrency-0.4.8/mylibies.hats"
 #include "$PATSHOMELOCS/edit-distance-0.4.0/DATS/edit-distance.dats"
 #include "DATS/utils.dats"

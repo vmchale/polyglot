@@ -1,6 +1,6 @@
-#include "src/cli.dats"
-#include "src/count-loop.dats"
-#include "src/print.dats"
+#include "DATS/cli.dats"
+#include "DATS/count-loop.dats"
+#include "DATS/print.dats"
 
 staload "libats/ML/SATS/string.sats"
 staload "SATS/filetype.sats"
