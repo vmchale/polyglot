@@ -56,6 +56,7 @@
 - [ ] Fix library linking for distributable Mac binaries
 - [ ] Bug w/ comments: https://www.reddit.com/r/rust/comments/99e4tq/reading_files_quickly_in_rust/e4nh5nf
 # Code Maintenance
+- [ ] Flag for printing debug info?
 - [ ] Add benchmark suite
 - [ ] Library for this
   - [ ] `.sats` files

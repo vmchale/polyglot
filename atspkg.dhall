@@ -84,6 +84,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
                 : Optional Text
             , binaries = [ "${prelude.atsProject}/poly" ]
             })
+    -- , atsLib = False
     }
 
 in pkg
