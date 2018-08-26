@@ -23,6 +23,9 @@ staload _ = "libats/DATS/athread.dats"
 %{
 // from here: https://stackoverflow.com/a/22330309
 #ifdef __APPLE__
+#include <sys/types.h>
+#include <sys/sysctl.h>
+
 int get_nprocs() {
     int count;
     size_t count_len = sizeof(count);
