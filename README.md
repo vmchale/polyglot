@@ -132,12 +132,6 @@ cd polyglot
 atspkg build --pkg-args './gc.dhall'
 ```
 
-If you are on Mac, you may have to replace the last line with
-
-```bash
-atspkg build --pkg-args './mac.dhall'
-```
-
 This will put a binary at `target/poly`.
 
 ### Testing
