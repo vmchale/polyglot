@@ -41,7 +41,6 @@ script:
       atspkg build --pkg-args "./mac.dhall" -vv
       mv target/poly poly-$TARGET
     fi
-  - ./poly-$TARGET
 
 deploy:
   api_key:
