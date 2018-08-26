@@ -102,6 +102,8 @@
 - [x] awk
 - [x] Ragel (`.rl`)
 - [x] `.sed` files
+- [x] K
+- [ ] TypeScript
 - [ ] Pascal
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
@@ -119,13 +121,11 @@
 - [ ] Agda library
 - [ ] RED
 - [ ] groovy
-- [ ] REBOL
 - [ ] Intel hex (`.ihex`)
 - [ ] occam
 - [ ] Prolog
 - [ ] modula
 - [ ] LSL http://xahsl.org/sl/ls.html
-- [ ] TypeScript
 - [ ] CoffeeScript (`.coffee`)
 - [ ] clean
 - [ ] Spire https://github.com/spire/spire
@@ -157,7 +157,6 @@
 - [ ] ceylon
 - [ ] Dart
 - [ ] Korn shell
-- [ ] K
 - [ ] jsx
 - [ ] ColdFusion
 - [ ] Balsa
@@ -255,3 +254,5 @@
 - [ ] Dao Script https://github.com/daokoder/dao
 - [ ] SparForte: https://github.com/kburtch/SparForte
 - [ ] SourcePawn
+- [ ] LOLCODE https://github.com/trending/lolcode
+- [ ] REBOL (`.r`, `.reb`)
