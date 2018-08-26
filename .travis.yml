@@ -52,7 +52,7 @@ script:
       atspkg build --target=arm-linux-gnueabihf --pkg-args "./gc.dhall" -vv
       mv target/poly poly-$TARGET
     else
-      atspkg build --pkg-args "./gc.dhall" -vv
+      atspkg build --pkg-args "./mac.dhall" -vv
       mv target/poly poly-$TARGET
     fi
 
