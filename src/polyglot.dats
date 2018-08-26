@@ -5,6 +5,8 @@
 #define GC_THREADS
 #include <gc/gc.h>
 #endif
+
+#include "src/pthread.h"
 %}
 
 #include "share/atspre_staload.hats"

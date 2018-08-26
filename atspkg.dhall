@@ -73,7 +73,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         , prelude.lowerDeps { name = "edit-distance", version = [0,3,0] }
         , prelude.plainDeps "ats-bench"
         ]
-    , cflags = [ "-flto", "-O2" ] # staticFlag # native # iccFlags
+    , cflags = [ "-I.", "-flto", "-O2" ] # staticFlag # native # iccFlags
     , ccompiler = prelude.printCompiler cc
     , debPkg = prelude.mkDeb
         (prelude.debian "polyglot" ⫽
