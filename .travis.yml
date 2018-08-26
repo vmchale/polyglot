@@ -28,8 +28,6 @@ install:
   - export PATH=$HOME/.local/bin:$PATH
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
   - atspkg -V
-  - atspkg clean
-  - atspkg nuke
 
 script:
   - |
@@ -47,8 +45,6 @@ script:
     elif [ $TARGET = "arm-linux-gnueabihf" ]
     then
       arm-linux-gnueabihf-gcc -v
-      atspkg clean
-      atspkg nuke
       atspkg build --target=arm-linux-gnueabihf --pkg-args "./gc.dhall" -vv
       mv target/poly poly-$TARGET
     else

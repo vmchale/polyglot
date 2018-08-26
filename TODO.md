@@ -39,6 +39,7 @@
 # Portability
 - [ ] Figure out Windows (?)
 # Bugs
+- [ ] Fortran `c` comments
 - [ ] Parallelism fails on Mac because mac does not support spinlocks, only
   mutexes (which should be slower?)
   - [ ] Ideally we would get rid of channels/locks altogether?
