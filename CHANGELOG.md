@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.4.75
+
+  * Fix FORTRAN comments
+
 ## 0.4.74
 
   * Add support for K

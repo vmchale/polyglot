@@ -23,18 +23,23 @@ matrix:
 cache:
   directories:
     - $HOME/.atspkg
+    - $HOME/.local
 
 install:
   - export PATH=$HOME/.local/bin:$PATH
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
   - atspkg -V
+  - |
+    if [ $TARGET = "x86_64-unknown-linux" ]
+    then
+      pip install yamllint
+    fi
 
 script:
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
       travis_wait 40 atspkg test --pkg-args "./gc.dhall"
-      pip install yamllint
       yamllint .travis.yml
       yamllint .hlint.yml
       yamllint .yamllint

@@ -103,8 +103,10 @@
 - [x] Ragel (`.rl`)
 - [x] `.sed` files
 - [x] K
+- [x] Pascal
 - [ ] TypeScript
-- [ ] Pascal
+- [ ] CoffeeScript (`.coffee`)
+- [ ] Dart
 - [ ] `dappfile`
 - [ ] Solidity (`.sol`)
 - [ ] ShaderLab (`.shader`)
@@ -126,7 +128,6 @@
 - [ ] Prolog
 - [ ] modula
 - [ ] LSL http://xahsl.org/sl/ls.html
-- [ ] CoffeeScript (`.coffee`)
 - [ ] clean
 - [ ] Spire https://github.com/spire/spire
 - [ ] lean
@@ -155,7 +156,6 @@
 - [ ] siren (`.siren`)
 - [ ] emily (`.em`)
 - [ ] ceylon
-- [ ] Dart
 - [ ] Korn shell
 - [ ] jsx
 - [ ] ColdFusion
