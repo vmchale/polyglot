@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.4.74
+
+  * Add support for K
+
 ## 0.4.73
 
   * Add support for Ragel

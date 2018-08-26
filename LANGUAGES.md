@@ -174,6 +174,7 @@
 - [ ] Terra
 - [ ] logos (also `.x`)
 - [ ] PureBasic
+- [ ] Pure https://agraef.github.io/pure-lang/
 - [ ] visual basic
 - [ ] MSBuild
 - [ ] Ur
@@ -243,3 +244,14 @@
 - [ ] This list: https://github.com/Aaronepower/tokei/blob/master/languages.json
 - [ ] GdScript: https://github.com/trending/gdscript
 - [ ] Frege (`.fr`)
+- [ ] See: https://github.com/MakeNowJust/quine
+- [ ] List: https://esolangs.org/wiki/Language_list
+- [ ] https://github.com/dzaima/Canvas
+- [ ] https://github.com/kite-lang/kite
+- [ ] Miranda language
+- [ ] Gofer (?)
+- [ ] SNOBOL (`.sbl`)
+- [ ] Zimbu (`.zu`)
+- [ ] Dao Script https://github.com/daokoder/dao
+- [ ] SparForte: https://github.com/kburtch/SparForte
+- [ ] SourcePawn

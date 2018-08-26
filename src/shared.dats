@@ -144,6 +144,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , xml = x.xml + y.xml
                 , awk = x.awk + y.awk
                 , sed = x.sed + y.sed
+                , k = x.k + y.k
                 } : source_contents
   in
     next
@@ -261,6 +262,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~xml n => sc_r -> xml := prev.xml + n
       | ~awk n => sc_r -> awk := prev.awk + n
       | ~sed n => sc_r -> sed := prev.sed + n
+      | ~k n => sc_r -> k := prev.k + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -552,6 +554,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "xml" => xml(line_count(s, None_vt))
       | "awk" => awk(line_count(s, Some_vt("#")))
       | "sed" => sed(line_count(s, Some_vt("#")))
+      | "k" => k(line_count(s, Some_vt("/")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -708,6 +711,7 @@ fn empty_contents() : source_contents =
                , xml = empty_file
                , awk = empty_file
                , sed = empty_file
+               , k = empty_file
                } : source_contents
   in
     isc

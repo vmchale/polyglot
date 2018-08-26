@@ -18,6 +18,7 @@
 # Performance
 - [x] parallelism
   - [ ] better parallelism
+- [ ] Use `memcmp` for string/comment comparisons?
 - [ ] make sure everything is tail recursive
 - [ ] linear types everywhere!!
 - [ ] get rid of GC (?)
@@ -72,6 +73,7 @@
 - [ ] Document build/configuration options
 - [ ] Compare to http://hackage.haskell.org/package/cantor ?
 # Research
+- [ ] Learn about `memcmp` and `memcpy`
 - [ ] Look into state machines and how to actually make a parser
 - [ ] Look into parallel directory traversals & data structures for such
   - [ ] Atomics?? See what I can write for atomics in ATS

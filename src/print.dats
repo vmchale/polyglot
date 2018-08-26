@@ -149,6 +149,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.xml.lines
                      + sc.awk.lines
                      + sc.sed.lines
+                     + sc.k.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -254,6 +255,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.xml.blanks
                       + sc.awk.blanks
                       + sc.sed.blanks
+                      + sc.k.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -359,6 +361,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.xml.comments
                         + sc.awk.comments
                         + sc.sed.comments
+                        + sc.k.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -464,6 +467,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.xml.files
                      + sc.awk.files
                      + sc.sed.files
+                     + sc.k.files
              }
   in
     f
@@ -533,6 +537,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Julia", isc.julia)
     + maybe_table("Jupyter", isc.jupyter)
     + maybe_table("Justfile", isc.justfile)
+    + maybe_table("K", isc.k)
     + maybe_table("Kotlin", isc.kotlin)
     + maybe_table("LALRPOP", isc.lalrpop)
     + maybe_table("Lex", isc.lex)
@@ -691,6 +696,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                  + maybe_string("J", isc.j.lines)
                  + maybe_string("Java", isc.java.lines)
                  + maybe_string("Julia", isc.julia.lines)
+                 + maybe_string("K", isc.k.lines)
                  + maybe_string("Lua", isc.lua.lines)
                  + maybe_string("Margaret", isc.margaret.lines)
                  + maybe_string("Mercury", isc.mercury.lines)

@@ -117,5 +117,6 @@ fn free_pl(pl : pl_type) : void =
     | ~xml _ => ()
     | ~awk _ => ()
     | ~sed _ => ()
+    | ~k _ => ()
 
 overload free with free_pl
