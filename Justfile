@@ -7,7 +7,7 @@ ci:
     yamllint .travis.yml
     yamllint .yamllint
     atspkg test --pkg-args "./native.dhall" target/test
-    shellcheck bash/install.sh
+    shellcheck bash/install.sh -e SC2016
     shellcheck bash/build
     shellcheck bash/next
     shellcheck bash/release
