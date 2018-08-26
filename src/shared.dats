@@ -140,6 +140,10 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , scheme = x.scheme + y.scheme
                 , chapel = x.chapel + y.chapel
                 , pascal = x.pascal + y.pascal
+                , ragel = x.ragel + y.ragel
+                , xml = x.xml + y.xml
+                , awk = x.awk + y.awk
+                , sed = x.sed + y.sed
                 } : source_contents
   in
     next
@@ -253,6 +257,10 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~scheme n => sc_r -> scheme := prev.scheme + n
       | ~chapel n => sc_r -> chapel := prev.chapel + n
       | ~pascal n => sc_r -> pascal := prev.pascal + n
+      | ~ragel n => sc_r -> ragel := prev.ragel + n
+      | ~xml n => sc_r -> xml := prev.xml + n
+      | ~awk n => sc_r -> awk := prev.awk + n
+      | ~sed n => sc_r -> sed := prev.sed + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -355,6 +363,7 @@ fn check_shebang(s : string) : pl_type =
       | "#!/usr/bin/env sh" => dash(line_count(s, Some_vt("#")))
       | "#!/bin/bash" => bash(line_count(s, Some_vt("#")))
       | "#!/bin/sh" => dash(line_count(s, Some_vt("#")))
+      | "#!/bin/sed" => sed(line_count(s, Some_vt("#")))
       | "#!python" => python(line_count(s, Some_vt("#")))
       | "#!python2" => python(line_count(s, Some_vt("#")))
       | "#!python3" => python(line_count(s, Some_vt("#")))
@@ -539,6 +548,10 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "ss" => scheme(line_count(s, Some_vt(";")))
       | "chpl" => chapel(line_count(s, Some_vt("//")))
       | "pas" => pascal(line_count(s, Some_vt("//")))
+      | "rl" => ragel(line_count(s, None_vt))
+      | "xml" => xml(line_count(s, None_vt))
+      | "awk" => awk(line_count(s, Some_vt("#")))
+      | "sed" => sed(line_count(s, Some_vt("#")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -691,6 +704,10 @@ fn empty_contents() : source_contents =
                , scheme = empty_file
                , chapel = empty_file
                , pascal = empty_file
+               , ragel = empty_file
+               , xml = empty_file
+               , awk = empty_file
+               , sed = empty_file
                } : source_contents
   in
     isc

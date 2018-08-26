@@ -145,6 +145,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.scheme.lines
                      + sc.chapel.lines
                      + sc.pascal.lines
+                     + sc.ragel.lines
+                     + sc.xml.lines
+                     + sc.awk.lines
+                     + sc.sed.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -246,6 +250,10 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.scheme.blanks
                       + sc.chapel.blanks
                       + sc.pascal.blanks
+                      + sc.ragel.blanks
+                      + sc.xml.blanks
+                      + sc.awk.blanks
+                      + sc.sed.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -347,6 +355,10 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.scheme.comments
                         + sc.chapel.comments
                         + sc.pascal.comments
+                        + sc.ragel.comments
+                        + sc.xml.comments
+                        + sc.awk.comments
+                        + sc.sed.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -448,6 +460,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.scheme.files
                      + sc.chapel.files
                      + sc.pascal.files
+                     + sc.ragel.files
+                     + sc.xml.files
+                     + sc.awk.files
+                     + sc.sed.files
              }
   in
     f
@@ -465,6 +481,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Agda", isc.agda)
     + maybe_table("Assembly", isc.assembly)
     + maybe_table("ATS", isc.ats)
+    + maybe_table("Awk", isc.awk)
     + maybe_table("Autoconf", isc.autoconf)
     + maybe_table("Automake", isc.automake)
     + maybe_table("Bash", isc.bash)
@@ -543,11 +560,13 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("PureScript", isc.purescript)
     + maybe_table("R", isc.r)
     + maybe_table("Racket", isc.racket)
+    + maybe_table("Ragel", isc.ragel)
     + maybe_table("Rakefile", isc.rakefile)
     + maybe_table("Ruby", isc.ruby)
     + maybe_table("Rust", isc.rust)
     + maybe_table("Scala", isc.scala)
     + maybe_table("Scheme", isc.scheme)
+    + maybe_table("Sed", isc.sed)
     + maybe_table("Shen", isc.shen)
     + maybe_table("Sixten", isc.sixten)
     + maybe_table("Standard ML", isc.sml)
@@ -560,6 +579,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
     + maybe_table("Vimscript", isc.vimscript)
     + maybe_table("Yacc", isc.yacc)
     + maybe_table("YAML", isc.yaml)
+    + maybe_table("XML", isc.xml)
     var c = "-------------------------------------------------------------------------------\n"
     + maybe_table("Total", sum_fields(isc))
     + "-------------------------------------------------------------------------------\n"
@@ -596,6 +616,10 @@ fn make_output(isc : source_contents, color : bool) : string =
       "\n\33[33mConfiguration:\33[0m\n"
     else
       "\nConfiguration:\n"
+    var txt_string = if color then
+      "\n\33[33mText processing:\33[0m\n"
+    else
+      "\nText processing:\n"
     var sh_string = if color then
       "\n\33[33mShell:\33[0m\n"
     else
@@ -632,6 +656,8 @@ fn make_output(isc : source_contents, color : bool) : string =
       "\n\33[33mTheorem Provers:\33[0m\n"
     else
       "\nTheorem Provers\n"
+    
+    // TODO: data formats?
   in
     with_nonempty( pl_string
                  , maybe_string("Ada", isc.ada.lines)
@@ -697,6 +723,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                    + maybe_string("Plaintext", isc.plaintext.lines)
                    + maybe_string("TeX", isc.tex.lines)
                    )
+    + with_nonempty(txt_string, maybe_string("Awk", isc.awk.lines) + maybe_string("Sed", isc.sed.lines))
     + with_nonempty( cfg_string
                    , maybe_string("Cabal", isc.cabal.lines)
                    + maybe_string("Cabal Project", isc.cabal_project.lines)
@@ -704,6 +731,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                    + maybe_string("iPKG", isc.ipkg.lines)
                    + maybe_string("TOML", isc.toml.lines)
                    + maybe_string("YAML", isc.yaml.lines)
+                   + maybe_string("XML", isc.xml.lines)
                    )
     + with_nonempty( sh_string
                    , maybe_string("Bash", isc.bash.lines)
@@ -717,6 +745,7 @@ fn make_output(isc : source_contents, color : bool) : string =
                    + maybe_string("Happy", isc.happy.lines)
                    + maybe_string("LALRPOP", isc.lalrpop.lines)
                    + maybe_string("Lex", isc.lex.lines)
+                   + maybe_string("Ragel", isc.ragel.lines)
                    + maybe_string("Yacc", isc.yacc.lines)
                    )
     + with_nonempty( web_string

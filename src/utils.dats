@@ -113,5 +113,9 @@ fn free_pl(pl : pl_type) : void =
     | ~scheme _ => ()
     | ~chapel _ => ()
     | ~pascal _ => ()
+    | ~ragel _ => ()
+    | ~xml _ => ()
+    | ~awk _ => ()
+    | ~sed _ => ()
 
 overload free with free_pl

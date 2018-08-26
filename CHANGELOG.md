@@ -1,5 +1,11 @@
 # polyglot
 
+## 0.4.73
+
+  * Add support for Ragel
+  * Add support for awk
+  * Add support for sed
+
 ## 0.4.72
 
   * Add language support for Chapel

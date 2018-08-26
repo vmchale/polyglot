@@ -103,6 +103,10 @@ vtypedef source_contents = @{ rust = file
                             , scheme = file
                             , chapel = file
                             , pascal = file
+                            , ragel = file
+                            , xml = file
+                            , awk = file
+                            , sed = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -212,3 +216,7 @@ datavtype pl_type =
   | scheme of file
   | chapel of file
   | pascal of file
+  | ragel of file
+  | xml of file
+  | awk of file
+  | sed of file

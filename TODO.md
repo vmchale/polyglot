@@ -42,6 +42,7 @@
 - [ ] `poly te` hangs indefinitely
   - [ ] Figure out why it occasionally hangs indefinitely
 - [ ] First comment in a file is ignored
+- [ ] Handle `sed`-style multiline comments
 - [ ] Comments on borders between buffers
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?

@@ -137,6 +137,7 @@
 - [ ] forth
 - [ ] Objective C++
 - [ ] Bison (`.yy` among others)
+- [ ] Flex (`.lex` among others)
 - [ ] Felix
 - [ ] `.jats` (enriched JSON)
 - [ ] Sass
