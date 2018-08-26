@@ -79,6 +79,7 @@
 - [ ] Look into state machines and how to actually make a parser
 - [ ] Look into parallel directory traversals & data structures for such
   - [ ] Atomics?? See what I can write for atomics in ATS
+  - [ ] Find out what mutexes/spinlocks do
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parent directory (`.cargo/config`)
