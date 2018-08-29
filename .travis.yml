@@ -33,7 +33,6 @@ script:
     then
       travis_wait 40 atspkg test --pkg-args "./gc.dhall"
       yamllint .travis.yml
-      yamllint .hlint.yml
       yamllint .yamllint
       atspkg build --pkg-args "./gc.dhall" -vv
     else
