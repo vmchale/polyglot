@@ -30,12 +30,15 @@
 - [ ] Use `strpbrk` during parsing comments?
 - [ ] Try to use `alloca` instead of `malloc` (lol)
 - [ ] Benchmark memory footprint!
+- [ ] `check_keywords` is very inefficient
 # Distribution
 - [x] Make a debianization?
   - [ ] Add to debian
   - [ ] Package `compleat`
 - [ ] Compress via travis
 - [ ] `pkg-config` stuff for library
+# CI
+- [ ] Figure out how to download/unpack/etc. https://github.com/jgm/pandoc/releases/download/2.2.3.2/pandoc-2.2.3.2-linux.tar.gz
 # Portability
 - [ ] Figure out Windows (?)
 # Bugs

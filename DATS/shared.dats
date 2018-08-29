@@ -272,7 +272,6 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
 fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string(next, word), false)
 
-// TODO use list_vt{int}(0, 1, 2, 3, 4) instead?
 // helper function for check_keywords
 fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_type =
   case+ pre of

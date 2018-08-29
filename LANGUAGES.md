@@ -256,3 +256,4 @@
 - [ ] SourcePawn
 - [ ] LOLCODE https://github.com/trending/lolcode
 - [ ] REBOL (`.r`, `.reb`)
+- [ ] Frenetic (https://github.com/frenetic-lang/frenetic)

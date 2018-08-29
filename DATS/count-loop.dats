@@ -81,8 +81,7 @@ fn read_bytes {l:addr}{ m : nat | m > 0 }(pf : !bytes_v(l, m) | p : ptr(l)) : ch
 fn read_bytes_succ {l:addr}{ m : nat | m > 1 }(pf : !bytes_v(l, m) | p : ptr(l)) : char =
   $UN.ptr0_get<char>(ptr_succ<char>(p))
 
-fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : char, comment : !Option_vt(pair)) :
-  '(bool, bool) =
+fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), comment : !Option_vt(pair)) : '(bool, bool) =
   let
     var match = lam@ (x : char, y : !Option_vt(char)) : bool =>
       case+ y of
@@ -91,7 +90,7 @@ fn compare_bytes {l:addr}{m:nat}(pf : !bytes_v(l, m) | p : ptr(l), compare : cha
     
     // FIXME: this will fail if we have a comment at the boundaries.
     var s2 = $UN.ptr0_get<char>(p)
-    var b = s2 = compare
+    var b = s2 = '\n'
     var b2 = case+ comment of
       | None_vt() => false
       | Some_vt (p0) => let
@@ -126,7 +125,7 @@ fun wclbuf {l:addr}{n:nat}{l1:addr}( pf : !bytes_v(l, n) | p : ptr(l)
         prval (pf21, pf22) = array_v_uncons(pf2)
         
         // FIXME: this will always ignore a comment in the first line of a file...
-        val '(cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), '\n', comment)
+        val '(cmp1, cmp2) = compare_bytes(pf22 | ptr_succ<byte>(p2), comment)
         var acc_file = match_acc_file(cmp1, cmp2)
         val () = wclbuf(pf22 | ptr_succ<byte>(p2), pz, c, res + acc_file, comment, ret)
         prval () = pf2 := array_v_cons(pf21,pf22)
