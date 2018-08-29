@@ -31,6 +31,8 @@ disabled on some platforms.
 
 **-p**, **-\-no-color** Don't colorize output
 
+**-v**, **-\-verbose** Enable per-file output
+
 # EXAMPLES
 
 Show the contents of ~/programming
