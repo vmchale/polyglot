@@ -13,6 +13,7 @@ staload "libats/libc/SATS/unistd.sats"
 staload _ = "libats/ML/DATS/atspre.dats"
 staload _ = "libats/ML/DATS/list0.dats"
 staload _ = "libats/ML/DATS/filebas.dats"
+staload "SATS/print.sats"
 
 #define nil list_nil
 #define :: list_cons

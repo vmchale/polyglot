@@ -1,20 +1,23 @@
 // This file contains various functions for printing generated output
 staload "SATS/filetype.sats"
+staload "SATS/print.sats"
 staload "libats/ML/SATS/string.sats"
-staload UN = "prelude/SATS/unsafe.sats"
 
 // Optimized right pad function. In the future, it could return string(k) but
 // that would require a different string append function.
-fun right_pad { k : int | k >= 0 } .<k>. (s : string, n : int(k), str : string(1)) : string =
-  case+ length(s) < n of
-    | true when n > 0 => right_pad(s, n - 1, str) + str
-    | _ => s
+fun right_pad { k : int | k >= 0 }{ m : int | m <= k && m >= 0 } .<k>. (s : string(m), n : int(k), str : string(1)) :
+  string =
+  if length(s) < n then
+    right_pad(s, n - 1, str) + str
+  else
+    s
 
 // Pad a string on the left by adding spaces.
-fun left_pad { k : int | k >= 0 } .<k>. (s : string, n : int(k)) : string =
-  case+ length(s) < n of
-    | true when n > 0 => " " + left_pad(s, n - 1)
-    | _ => s
+fun left_pad { k : int | k >= 0 }{ m : int | m <= k && m >= 0 } .<k>. (s : string(m), n : int(k)) : string =
+  if length(s) < n then
+    " " + left_pad(s, n - 1)
+  else
+    s
 
 fn maybe_full(a : string, b : string, c : string) : string =
   if b != "" then
@@ -26,15 +29,22 @@ fn maybe_full(a : string, b : string, c : string) : string =
 fn maybe_table { k : int | k >= 0 && k < 19 }(s : string(k), f : file) : string =
   let
     var code = f.lines - f.comments - f.blanks
+    
+    // probably true unless you have a LOT of files
+    extern
+    castfn witness(string) : [ m : nat | m >= 0 && m < 8 ] string(m)
+    
+    fun pr_int(n : int) : [ m : nat | m >= 0 && m < 8 ] string(m) =
+      witness(tostring_int(n))
   in
     if f.files > 0 then
       " "
       + right_pad(s, 18, " ")
-      + left_pad(tostring_int(f.files), 8)
-      + left_pad(tostring_int(f.lines), 12)
-      + left_pad(tostring_int(code), 13)
-      + left_pad(tostring_int(f.comments), 13)
-      + left_pad(tostring_int(f.blanks), 13)
+      + left_pad(pr_int(f.files), 8)
+      + left_pad(pr_int(f.lines), 12)
+      + left_pad(pr_int(code), 13)
+      + left_pad(pr_int(f.comments), 13)
+      + left_pad(pr_int(f.blanks), 13)
       + "\n"
     else
       ""
@@ -579,7 +589,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("YAML", isc.yaml)
   + maybe_table("XML", isc.xml)
 
-fun print_file(pt : !pl_type, filename : string) : string =
+implement print_file (pt, filename) =
   let
     var b = case+ pt of
       | unknown() => ""
@@ -689,14 +699,17 @@ fun print_file(pt : !pl_type, filename : string) : string =
       | awk (f) => maybe_table("Awk", f)
       | sed (f) => maybe_table("Sed", f)
       | k (f) => maybe_table("K", f)
+    
+    extern
+    castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
   in
-    right_pad(filename + " ", 79, "-")
+    right_pad(witness(filename + " "), 79, "-")
     + b
     + "-------------------------------------------------------------------------------"
   end
 
 // function to print tabular output at the end
-fn make_table(isc : source_contents, colorize : bool) : string =
+implement make_table (isc, colorize) =
   let
     var a = if colorize then
       "-------------------------------------------------------------------------------\n \33[35mLanguage\33[0m             \33[35mFiles\33[0m       \33[35mLines\33[0m         \33[35mCode\33[0m     \33[35mComments\33[0m       \33[35mBlanks\33[0m\n-------------------------------------------------------------------------------\n"
@@ -711,7 +724,7 @@ fn make_table(isc : source_contents, colorize : bool) : string =
   end
 
 // Function to print output sorted by type of language.
-fn make_output(isc : source_contents, color : bool) : string =
+implement make_output (isc, color) =
   let
     var maybe_string = lam@ (s : string, n : int) : string =>
       if n > 0 then
