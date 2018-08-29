@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.2
+
+  * Bug fixes
+
 ## 0.5.0
 
   * Add `-v`/`--verbose` flag for more detailed output
