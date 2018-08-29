@@ -11,6 +11,7 @@ vtypedef command_line = @{ version = bool
                          , no_parallel = bool
                          , no_colorize = bool
                          , skip_links = bool
+                         , verbose = bool
                          , excludes = [m:nat] list(string, m)
                          , includes = [m:nat] list(string, m)
                          }
@@ -28,6 +29,7 @@ fn help() : void =
     -c, --no-color           do not colorize output
     -p, --no-parallel        do not execute in parallel
     -t, --no-table           display results in alternate format
+    -v, --verbose            display per-file results
  
     When no directory is provided poly will execute in the
     current directory.
@@ -54,6 +56,7 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line, fail : 
       | "e" => bad_exclude("-e")
       | "c" => acc_r -> no_colorize := true
       | "V" => acc_r -> version := true
+      | "v" => acc_r -> verbose := true
       | "-" when fail => ( println!("\33[31mError:\33[0m failed to parse command-line flags. Try 'poly --help'.")
                          ; exit(1)
                          ; ()
@@ -108,6 +111,8 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
           bad_flag(s)
         | "--version" => acc_r -> version := true
         | "-V" => acc_r -> version := true
+        | "--verbose" => acc_r -> verbose := true
+        | "-v" => acc_r -> verbose := true
         | "--no-color" => acc_r -> no_colorize := true
         | "-c" => acc_r -> no_colorize := true
         | "-e" => bad_exclude(s)

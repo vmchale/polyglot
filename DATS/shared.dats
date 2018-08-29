@@ -588,25 +588,38 @@ fn bad_dir(s : string, excludes : List0(string)) : bool =
     | ".sass-cache" => true
     | _ => list_exists_cloref(excludes, lam x => x = s || x = s + "/")
 
-fnx step_stream(acc : source_contents, full_name : string, file_proper : string, excludes : List0(string)) :
-  source_contents =
+fnx step_stream( acc : source_contents
+               , full_name : string
+               , file_proper : string
+               , excludes : List0(string)
+               , verbose : bool
+               ) : source_contents =
   if test_file_isdir(full_name) > 0 then
-    flow_stream(full_name, acc, excludes)
+    flow_stream(full_name, acc, excludes, verbose)
   else
     let
-      var ft = prune_extension(full_name, file_proper)
+      val ft = prune_extension(full_name, file_proper)
+      val () = if verbose then
+        print!(print_file(ft, full_name))
+      else
+        ()
     in
       adjust_contents(acc, ft)
     end
-and flow_stream(s : string, init : source_contents, excludes : List0(string)) : source_contents =
+and flow_stream(s : string, init : source_contents, excludes : List0(string), verbose : bool) : source_contents =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
   in
     if s != "." then
-      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream(acc, s + "/" + next, next, excludes))
+      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
+                                                                            , s + "/" + next
+                                                                            , next
+                                                                            , excludes
+                                                                            , verbose
+                                                                            ))
     else
-      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream(acc, next, next, excludes))
+      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream(acc, next, next, excludes, verbose))
   end
 
 fn empty_contents() : source_contents =
@@ -722,10 +735,11 @@ fn empty_contents() : source_contents =
     isc
   end
 
-fn map_stream(acc : source_contents, includes : List0(string), excludes : List0(string)) : source_contents =
+fn map_stream(acc : source_contents, includes : List0(string), excludes : List0(string), verbose : bool) :
+  source_contents =
   list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next) || test_file_isdir(next) < 0
                       || next = "" then
-                        step_stream(acc, next, next, excludes)
+                        step_stream(acc, next, next, excludes, verbose)
                       else
                         (maybe_err(next) ; acc))
 

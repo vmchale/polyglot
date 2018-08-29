@@ -13,6 +13,7 @@ implement main0 (argc, argv) =
                , no_parallel = false
                , no_colorize = false
                , skip_links = false
+               , verbose = false
                , excludes = list_nil()
                , includes = list_nil()
                } : command_line
@@ -26,9 +27,9 @@ implement main0 (argc, argv) =
       else
         let
           var result = if length(parsed.includes) > 0 then
-            map_stream(empty_contents(), parsed.includes, parsed.excludes)
+            map_stream(empty_contents(), parsed.includes, parsed.excludes, parsed.verbose)
           else
-            map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes)
+            map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes, parsed.verbose)
         in
           if parsed.no_table then
             print(make_output(result, not(cli.no_colorize)))

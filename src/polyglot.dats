@@ -126,17 +126,18 @@ fn handle_unref(x : channel(string)) : void =
     | ~None_vt() => ()
     | ~Some_vt (q) => queue_free<List0(string)>(q)
 
-fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents)) : void =
+fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(source_contents), verbose : bool) :
+  void =
   {
     var n = channel_remove(send)
-    var x = map_stream(empty_contents(), n, excludes)
+    var x = map_stream(empty_contents(), n, excludes, verbose)
     val () = channel_insert(chan, x)
     val () = handle_unref(chan)
     val () = handle_unref(send)
   }
 
 // ideally we want one "large" channel that will handle back-and-forth communication between threads.
-fn threads(includes : List0(string), excludes : List0(string)) : source_contents =
+fn threads(includes : List0(string), excludes : List0(string), verbose : bool) : source_contents =
   let
     // this will hold the results sent back
     val chan = channel_make<source_contents>(ncpu)
@@ -164,7 +165,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
         // If we use something lower-level we might get finer control of when things exit?
         // Thread pool might be faster (?)
         val _ = athread_create_cloptr_exn(llam () =>
-            work(excludes, send_r, chan_))
+            work(excludes, send_r, chan_, verbose))
         val () = handle_unref(send)
         val () = if i >= 2 then
           loop(i - 1, chan)
@@ -183,7 +184,7 @@ fn threads(includes : List0(string), excludes : List0(string)) : source_contents
         end
     
     var r = loop_return(ncpu, chan)
-    val () = ignoret(usleep(70u))
+    val () = ignoret(usleep(80u))
     val () = while(channel_refcount(chan) > 1)()
     val () = handle_unref(chan)
   in
@@ -198,6 +199,7 @@ implement main0 (argc, argv) =
                , no_parallel = false
                , no_colorize = false
                , skip_links = false
+               , verbose = false
                , excludes = list_nil()
                , includes = list_nil()
                } : command_line
@@ -211,12 +213,12 @@ implement main0 (argc, argv) =
       else
         let
           var result = if not(parsed.no_parallel) then
-            threads(parsed.includes, parsed.excludes)
+            threads(parsed.includes, parsed.excludes, parsed.verbose)
           else
             if length(parsed.includes) > 0 then
-              map_stream(empty_contents(), parsed.includes, parsed.excludes)
+              map_stream(empty_contents(), parsed.includes, parsed.excludes, parsed.verbose)
             else
-              map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes)
+              map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes, parsed.verbose)
         in
           if parsed.no_table then
             print(make_output(result, not(parsed.no_colorize)))
