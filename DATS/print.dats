@@ -703,9 +703,13 @@ implement print_file (pt, filename) =
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
   in
-    right_pad(witness(filename + " "), 79, "-")
-    + b
-    + "-------------------------------------------------------------------------------"
+    if neq_string_string(b, "") then
+      right_pad(witness(filename + " "), 79, "-")
+      + "\n"
+      + b
+      + "-------------------------------------------------------------------------------\n"
+    else
+      ""
   end
 
 // function to print tabular output at the end

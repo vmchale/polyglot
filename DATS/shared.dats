@@ -593,7 +593,11 @@ fnx step_stream(acc : source_contents, full_name : string, file_proper : string,
   if test_file_isdir(full_name) > 0 then
     flow_stream(full_name, acc, excludes)
   else
-    adjust_contents(acc, prune_extension(full_name, file_proper))
+    let
+      var ft = prune_extension(full_name, file_proper)
+    in
+      adjust_contents(acc, ft)
+    end
 and flow_stream(s : string, init : source_contents, excludes : List0(string)) : source_contents =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
