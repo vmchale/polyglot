@@ -257,3 +257,6 @@
 - [ ] LOLCODE https://github.com/trending/lolcode
 - [ ] REBOL (`.r`, `.reb`)
 - [ ] Frenetic (https://github.com/frenetic-lang/frenetic)
+- [ ] COMIT https://en.wikipedia.org/wiki/COMIT
+- [ ] TRAC https://en.wikipedia.org/wiki/TRAC_(programming_language)
+- [ ] intercal: http://catb.org/esr/intercal/
