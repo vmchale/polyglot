@@ -36,6 +36,7 @@ script:
       yamllint .yamllint
       atspkg build --pkg-args "./gc.dhall" -vv
     else
+      travis_wait 40 atspkg test --pkg-args "./mac.dhall"
       atspkg build --pkg-args "./mac.dhall" -vv
       mv target/poly poly-$TARGET
     fi
