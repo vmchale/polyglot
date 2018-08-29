@@ -2,7 +2,7 @@
 
 set -ex pipefail
 
-VERSION="$(grep -P -o '\d+\.\d+\.\d+' DATS/cli.dats)"
+VERSION="$(grep -P -o '\d+\.\d+\.\d+' DATS/cli.dats | tail -n1)"
 TOKEN="$(cat "$HOME"/.git-token)"
 
 git tag "$VERSION"
