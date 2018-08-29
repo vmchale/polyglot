@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.0
+
+  * Add `-v`/`--verbose` flag for more detailed output
+
 ## 0.4.75
 
   * Fix FORTRAN comments
