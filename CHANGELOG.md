@@ -1,5 +1,10 @@
 # polyglot
 
+## 0.5.3
+
+  * Add support for TypeScript
+  * Fix typo
+
 ## 0.5.2
 
   * Bug fixes

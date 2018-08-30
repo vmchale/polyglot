@@ -174,6 +174,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.awk.lines
                      + sc.sed.lines
                      + sc.k.lines
+                     + sc.typescript.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -280,6 +281,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.awk.blanks
                       + sc.sed.blanks
                       + sc.k.blanks
+                      + sc.typescript.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -386,6 +388,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.awk.comments
                         + sc.sed.comments
                         + sc.k.comments
+                        + sc.typescript.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -492,6 +495,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.awk.files
                      + sc.sed.files
                      + sc.k.files
+                     + sc.typescript.files
              }
   in
     f
@@ -597,6 +601,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("TCL", isc.tcl)
   + maybe_table("TeX", isc.tex)
   + maybe_table("TOML", isc.toml)
+  + maybe_table("TypeScript", isc.typescript)
   + maybe_table("Verilog", isc.verilog)
   + maybe_table("VHDL", isc.vhdl)
   + maybe_table("Vimscript", isc.vimscript)
@@ -714,6 +719,7 @@ implement print_file (pt, filename) =
       | awk (f) => maybe_file("Awk", f)
       | sed (f) => maybe_file("Sed", f)
       | k (f) => maybe_file("K", f)
+      | typescript (f) => maybe_file("Typescript", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -842,7 +848,7 @@ implement make_output (isc, color) =
                  + maybe_string("Go", isc.go.lines)
                  + maybe_string("Haskell", isc.haskell.lines)
                  + maybe_string("Idris", isc.idris.lines)
-                 + maybe_string("Kotline", isc.kotlin.lines)
+                 + maybe_string("Kotlin", isc.kotlin.lines)
                  + maybe_string("J", isc.j.lines)
                  + maybe_string("Java", isc.java.lines)
                  + maybe_string("Julia", isc.julia.lines)
@@ -912,6 +918,7 @@ implement make_output (isc, color) =
                    + maybe_string("JavaScript", isc.javascript.lines)
                    + maybe_string("Julius", isc.julius.lines)
                    + maybe_string("Lucius", isc.lucius.lines)
+                   + maybe_string("TypeScript", isc.typescript.lines)
                    )
     + with_nonempty(hw_string, maybe_string("Verilog", isc.verilog.lines) + maybe_string("VHDL", isc.vhdl.lines))
     + with_nonempty(gui_string, maybe_string("FLTK Data", isc.fluid.lines))

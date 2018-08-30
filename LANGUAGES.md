@@ -104,6 +104,7 @@
 - [x] `.sed` files
 - [x] K
 - [x] Pascal
+- [ ] RED
 - [ ] TypeScript
 - [ ] CoffeeScript (`.coffee`)
 - [ ] Dart
@@ -121,14 +122,13 @@
 - [ ] mustache
 - [ ] jinja
 - [ ] Agda library
-- [ ] RED
 - [ ] groovy
 - [ ] Intel hex (`.ihex`)
 - [ ] occam
 - [ ] Prolog
 - [ ] modula
 - [ ] LSL http://xahsl.org/sl/ls.html
-- [ ] clean
+- [ ] clean https://github.com/Ourous/curated-clean-linux
 - [ ] Spire https://github.com/spire/spire
 - [ ] lean
 - [ ] fish
@@ -260,3 +260,16 @@
 - [ ] COMIT https://en.wikipedia.org/wiki/COMIT
 - [ ] TRAC https://en.wikipedia.org/wiki/TRAC_(programming_language)
 - [ ] intercal: http://catb.org/esr/intercal/
+- [ ] stax: https://github.com/tomtheisen/stax
+- [ ] V: https://github.com/DJMcMayhem/V
+- [ ] SOGL: https://github.com/dzaima/SOGL
+- [ ] Retina: https://github.com/m-ender/retina
+- [ ] 05AB1E: https://github.com/Adriandmen/05AB1E
+- [ ] JsTx: https://github.com/Quantum64/Jstx
+- [ ] Pyth: https://esolangs.org/wiki/Pyth
+- [ ] Jelly: https://github.com/DennisMitchell/jellylanguage
+- [ ] https://github.com/somebody1234/Charcoal
+- [ ] Nawk
+- [ ] Gambit
+- [ ] Guile
+- [ ] Icon

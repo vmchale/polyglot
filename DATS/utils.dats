@@ -117,3 +117,4 @@ implement free_pl (pl) =
     | ~awk _ => ()
     | ~sed _ => ()
     | ~k _ => ()
+    | ~typescript _ => ()

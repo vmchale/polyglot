@@ -108,6 +108,7 @@ vtypedef source_contents = @{ rust = file
                             , awk = file
                             , sed = file
                             , k = file
+                            , typescript = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -222,3 +223,4 @@ datavtype pl_type =
   | awk of file
   | sed of file
   | k of file
+  | typescript of file

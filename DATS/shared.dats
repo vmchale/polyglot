@@ -147,6 +147,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , awk = x.awk + y.awk
                 , sed = x.sed + y.sed
                 , k = x.k + y.k
+                , typescript = x.typescript + y.typescript
                 } : source_contents
   in
     next
@@ -265,6 +266,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~awk n => sc_r -> awk := prev.awk + n
       | ~sed n => sc_r -> sed := prev.sed + n
       | ~k n => sc_r -> k := prev.k + n
+      | ~typescript n => sc_r -> typescript := prev.typescript + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -730,6 +732,7 @@ fn empty_contents() : source_contents =
                , awk = empty_file
                , sed = empty_file
                , k = empty_file
+               , typescript = empty_file
                } : source_contents
   in
     isc
