@@ -117,7 +117,11 @@
 - [x] SQL
 - [x] XML
 - [x] Felix
-- [ ] Q#
+- [x] Q#
+- [x] Oz
+- [x] Jai
+- [x] Zimpl
+- [x] Volt
 - [ ] `dappfile`
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
@@ -184,7 +188,6 @@
 - [ ] Ur
 - [ ] SRecoder template
 - [ ] emacs dev env
-- [ ] Jai
 - [ ] Xtend
 - [ ] less (fancy CSS)
 - [ ] haxe
@@ -249,6 +252,7 @@
 - [ ] https://github.com/dzaima/Canvas
 - [ ] https://github.com/kite-lang/kite
 - [ ] Miranda language
+- [ ] QCL
 - [ ] Gofer (?)
 - [ ] SNOBOL (`.sbl`)
 - [ ] Zimbu (`.zu`)
@@ -275,3 +279,10 @@
 - [ ] Guile
 - [ ] Icon
 - [ ] Hoon
+- [ ] Mint https://github.com/mint-lang/mint
+- [ ] TLA
+- [ ] SuperCollider (`.sc`)
+- [ ] Stan (`.stan`)
+- [ ] Squirrel (`.nut`)
+- [ ] Smali (`.smali`; `#`)
+- [ ] Self (`.self`)

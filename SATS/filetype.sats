@@ -121,6 +121,10 @@ vtypedef source_contents = @{ rust = file
                             , sql = file
                             , felix = file
                             , qsharp = file
+                            , oz = file
+                            , jai = file
+                            , zimpl = file
+                            , volt = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -248,3 +252,7 @@ datavtype pl_type =
   | sql of file
   | felix of file
   | qsharp of file
+  | oz of file
+  | jai of file
+  | zimpl of file
+  | volt of file

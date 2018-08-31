@@ -1,5 +1,10 @@
 # polyglot
 
+## 0.5.4
+
+  * Add support for Oz, Zimpl, Volt, and Jai
+  * Better fish detection
+
 ## 0.5.3
 
   * Add support for TypeScript, CoffeeScript, Red, Frege, Dart, Egison, Zig,

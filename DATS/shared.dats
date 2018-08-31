@@ -160,6 +160,10 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , sql = x.sql + y.sql
                 , felix = x.felix + y.felix
                 , qsharp = x.qsharp + y.qsharp
+                , oz = x.oz + y.oz
+                , jai = x.jai + y.jai
+                , zimpl = x.zimpl + y.zimpl
+                , volt = x.volt + y.volt
                 } : source_contents
   in
     next
@@ -291,6 +295,10 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~sql n => sc_r -> sql := prev.sql + n
       | ~felix n => sc_r -> felix := prev.felix + n
       | ~qsharp n => sc_r -> qsharp := prev.qsharp + n
+      | ~oz n => sc_r -> oz := prev.oz + n
+      | ~jai n => sc_r -> jai := prev.jai + n
+      | ~zimpl n => sc_r -> zimpl := prev.zimpl + n
+      | ~volt n => sc_r -> volt := prev.volt + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -595,6 +603,11 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "sql" => sql(line_count(s, Some_vt("--")))
       | "flx" => felix(line_count(s, Some_vt("//")))
       | "qs" => qsharp(line_count(s, Some_vt("//")))
+      | "fish" => fish(line_count(s, Some_vt("#")))
+      | "oz" => oz(line_count(s, Some_vt("%")))
+      | "jai" => jai(line_count(s, Some_vt("//")))
+      | "zpl" => zimpl(line_count(s, Some_vt("#")))
+      | "volt" => volt(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -782,6 +795,10 @@ fn empty_contents() : source_contents =
                , sql = empty_file
                , felix = empty_file
                , qsharp = empty_file
+               , oz = empty_file
+               , jai = empty_file
+               , zimpl = empty_file
+               , volt = empty_file
                } : source_contents
   in
     isc

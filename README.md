@@ -78,7 +78,7 @@ On the Rust repo:
   </tr>
 </table>
 
-For more extensive benchmarks, see my [blog post](http://blog.vmchale.com/article/polyglot-comparisons) 
+For more extensive benchmarks, see my [blog post](http://blog.vmchale.com/article/polyglot-comparisons)
 with some additional data.
 
 ### Heuristics
@@ -153,16 +153,16 @@ For languages already supported, see
 -------------------------------------------------------------------------------
  Language             Files       Lines         Code     Comments       Blanks
 -------------------------------------------------------------------------------
- ATS                     15        3103         2960           37          106
+ ATS                     15        3160         3017           37          106
  C                        1          24           22            0            2
  C Header                 1          43           35            0            8
  Dash                     4         138          106            0           32
  Dhall                    5          95           85            0           10
  Justfile                 1          20           18            0            2
- Markdown                 7         697          602            0           95
+ Markdown                 7         706          611            0           95
  TOML                     1           3            3            0            0
  YAML                     1          51           45            0            6
 -------------------------------------------------------------------------------
- Total                   36        4174         3876           37          261
+ Total                   36        4240         3942           37          261
 -------------------------------------------------------------------------------
 ```

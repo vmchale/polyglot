@@ -85,6 +85,8 @@
 - [ ] Look into parallel directory traversals & data structures for such
   - [ ] Atomics?? See what I can write for atomics in ATS
   - [ ] Find out what mutexes/spinlocks do
+# Build Tooling
+- [ ] Auto-generate functions related to file types?
 ## Heuristics
 ### Heuristics for determining file type:
 - [ ] parent directory (`.cargo/config`)

@@ -130,3 +130,7 @@ implement free_pl (pl) =
     | ~sql _ => ()
     | ~felix _ => ()
     | ~qsharp _ => ()
+    | ~oz _ => ()
+    | ~jai _ => ()
+    | ~zimpl _ => ()
+    | ~volt _ => ()
