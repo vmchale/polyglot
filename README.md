@@ -134,6 +134,12 @@ atspkg build --pkg-args './gc.dhall'
 
 This will put a binary at `target/poly`.
 
+If you are on Mac, you may have to replace the last line with
+
+```bash
+atspkg build --pkg-args './mac.dhall'
+```
+
 ### Testing
 
 To run the test suite
