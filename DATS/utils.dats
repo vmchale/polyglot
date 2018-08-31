@@ -137,3 +137,4 @@ implement free_pl (pl) =
     | ~cogent _ => ()
     | ~clean _ => ()
     | ~thrift _ => ()
+    | ~vala _ => ()

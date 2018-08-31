@@ -4,6 +4,8 @@
   
   * Add support for Cogent
   * Add support for Clean
+  * Add support for Thrift
+  * Add support for Vala
 
 ## 0.5.4
 

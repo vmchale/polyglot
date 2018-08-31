@@ -194,6 +194,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.cogent.lines
                      + sc.clean.lines
                      + sc.thrift.lines
+                     + sc.vala.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -320,6 +321,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.cogent.blanks
                       + sc.clean.blanks
                       + sc.thrift.blanks
+                      + sc.vala.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -446,6 +448,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.cogent.comments
                         + sc.clean.comments
                         + sc.thrift.comments
+                        + sc.vala.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -572,6 +575,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.cogent.files
                      + sc.clean.files
                      + sc.thrift.files
+                     + sc.vala.files
              }
   in
     f
@@ -693,6 +697,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Thrift", isc.thrift)
   + maybe_table("TOML", isc.toml)
   + maybe_table("TypeScript", isc.typescript)
+  + maybe_table("Vala", isc.vala)
   + maybe_table("Verilog", isc.verilog)
   + maybe_table("VHDL", isc.vhdl)
   + maybe_table("Vimscript", isc.vimscript)
@@ -834,6 +839,7 @@ implement print_file (pt, filename) =
       | cogent (f) => maybe_file("Cogent", f)
       | clean (f) => maybe_file("Clean", f)
       | thrift (f) => maybe_file("Thrift", f)
+      | vala (f) => maybe_file("Vala", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1008,6 +1014,7 @@ implement make_output (isc, color) =
                  + maybe_string("TCL", isc.tcl.lines)
                  + maybe_string("Thrift", isc.thrift.lines)
                  + maybe_string("Visual Basic", isc.vb.lines)
+                 + maybe_string("Vala", isc.vala.lines)
                  + maybe_string("Volt", isc.volt.lines)
                  + maybe_string("Zig", isc.zig.lines)
                  )

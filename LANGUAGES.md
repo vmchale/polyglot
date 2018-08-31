@@ -124,6 +124,9 @@
 - [x] Volt
 - [x] Cogent
 - [x] Clean
+- [x] Thrift
+- [ ] Vala
+- [ ] Boo https://github.com/boo-lang/boo
 - [ ] `dappfile`
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
@@ -159,7 +162,6 @@
 - [ ] gemspec
 - [ ] rdoc
 - [ ] Scons
-- [ ] Vala
 - [ ] Cmake
 - [ ] shen
 - [ ] gradle
