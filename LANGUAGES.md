@@ -286,3 +286,5 @@
 - [ ] Squirrel (`.nut`)
 - [ ] Smali (`.smali`; `#`)
 - [ ] Self (`.self`)
+- [ ] Rexx (`.rexx`)
+- [ ] https://github.com/joakimthun/Elsa
