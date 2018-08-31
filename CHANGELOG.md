@@ -1,6 +1,5 @@
 # polyglot
 
-
 ## 0.5.3
 
   * Add support for TypeScript, CoffeeScript, Red, Frege, Dart, Egison, Zig,

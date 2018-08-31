@@ -41,6 +41,7 @@
 - [ ] Figure out how to download/unpack/etc. https://github.com/jgm/pandoc/releases/download/2.2.3.2/pandoc-2.2.3.2-linux.tar.gz
 # Portability
 - [ ] Figure out Windows (?)
+  - [ ] Cross-compilation?
 # Bugs
 - [ ] Fortran `c` comments
 - [ ] Parallelism fails on Mac because mac does not support spinlocks, only
