@@ -290,3 +290,6 @@
 - [ ] Self (`.self`)
 - [ ] Rexx (`.rexx`)
 - [ ] https://github.com/joakimthun/Elsa
+- [ ] https://github.com/pugjs/pug
+- [ ] https://github.com/trending/piglatin
+- [ ] https://github.com/trending/stata
