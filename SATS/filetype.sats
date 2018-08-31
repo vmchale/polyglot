@@ -125,6 +125,8 @@ vtypedef source_contents = @{ rust = file
                             , jai = file
                             , zimpl = file
                             , volt = file
+                            , cogent = file
+                            , clean = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -256,3 +258,5 @@ datavtype pl_type =
   | jai of file
   | zimpl of file
   | volt of file
+  | cogent of file
+  | clean of file

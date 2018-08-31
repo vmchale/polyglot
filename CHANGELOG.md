@@ -1,5 +1,10 @@
 # polyglot
 
+## 0.5.5
+  
+  * Add support for Cogent
+  * Add support for Clean
+
 ## 0.5.4
 
   * Add support for Oz, Zimpl, Volt, and Jai

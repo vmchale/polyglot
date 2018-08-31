@@ -191,6 +191,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.jai.lines
                      + sc.zimpl.lines
                      + sc.volt.lines
+                     + sc.cogent.lines
+                     + sc.clean.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -314,6 +316,8 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.jai.blanks
                       + sc.zimpl.blanks
                       + sc.volt.blanks
+                      + sc.cogent.blanks
+                      + sc.clean.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -437,6 +441,8 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.jai.comments
                         + sc.zimpl.comments
                         + sc.volt.comments
+                        + sc.cogent.comments
+                        + sc.clean.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -560,6 +566,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.jai.files
                      + sc.zimpl.files
                      + sc.volt.files
+                     + sc.cogent.files
+                     + sc.clean.files
              }
   in
     f
@@ -589,8 +597,10 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Cabal Project", isc.cabal_project)
   + maybe_table("Cassius", isc.cassius)
   + maybe_table("Chapel", isc.chapel)
+  + maybe_table("Clean", isc.clean)
   + maybe_table("COBOL", isc.cobol)
   + maybe_table("CoffeeScript", isc.coffeescript)
+  + maybe_table("Cogent", isc.cogent)
   + maybe_table("Coq", isc.coq)
   + maybe_table("Crystal", isc.crystal)
   + maybe_table("CSS", isc.css)
@@ -816,6 +826,8 @@ implement print_file (pt, filename) =
       | jai (f) => maybe_file("Jai", f)
       | zimpl (f) => maybe_file("Zimpl", f)
       | volt (f) => maybe_file("Volt", f)
+      | cogent (f) => maybe_file("Cogent", f)
+      | clean (f) => maybe_file("clean", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -939,7 +951,9 @@ implement make_output (isc, color) =
                  + maybe_string("C#", isc.csharp.lines)
                  + maybe_string("C Header", isc.header.lines)
                  + maybe_string("Chapel", isc.header.lines)
+                 + maybe_string("Clean", isc.clean.lines)
                  + maybe_string("COBOL", isc.cobol.lines)
+                 + maybe_string("Cogent", isc.cogent.lines)
                  + maybe_string("Crystal", isc.crystal.lines)
                  + maybe_string("D", isc.d.lines)
                  + maybe_string("Egison", isc.egison.lines)

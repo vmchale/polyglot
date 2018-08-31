@@ -134,3 +134,5 @@ implement free_pl (pl) =
     | ~jai _ => ()
     | ~zimpl _ => ()
     | ~volt _ => ()
+    | ~cogent _ => ()
+    | ~clean _ => ()
