@@ -127,6 +127,7 @@ vtypedef source_contents = @{ rust = file
                             , volt = file
                             , cogent = file
                             , clean = file
+                            , thrift = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -260,3 +261,4 @@ datavtype pl_type =
   | volt of file
   | cogent of file
   | clean of file
+  | thrift of file

@@ -136,3 +136,4 @@ implement free_pl (pl) =
     | ~volt _ => ()
     | ~cogent _ => ()
     | ~clean _ => ()
+    | ~thrift _ => ()

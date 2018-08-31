@@ -166,6 +166,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , volt = x.volt + y.volt
                 , cogent = x.cogent + y.cogent
                 , clean = x.clean + y.clean
+                , thrift = x.thrift + y.thrift
                 } : source_contents
   in
     next
@@ -303,6 +304,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~volt n => sc_r -> volt := prev.volt + n
       | ~cogent n => sc_r -> cogent := prev.cogent + n
       | ~clean n => sc_r -> clean := prev.clean + n
+      | ~thrift n => sc_r -> thrift := prev.thrift + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -615,6 +617,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "cogent" => cogent(line_count(s, Some_vt("--")))
       | "icl" => clean(line_count(s, Some_vt("//")))
       | "dcl" => clean(line_count(s, Some_vt("//")))
+      | "thrift" => thrift(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -808,6 +811,7 @@ fn empty_contents() : source_contents =
                , volt = empty_file
                , cogent = empty_file
                , clean = empty_file
+               , thrift = empty_file
                } : source_contents
   in
     isc

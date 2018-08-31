@@ -193,6 +193,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.volt.lines
                      + sc.cogent.lines
                      + sc.clean.lines
+                     + sc.thrift.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -318,6 +319,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.volt.blanks
                       + sc.cogent.blanks
                       + sc.clean.blanks
+                      + sc.thrift.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -443,6 +445,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.volt.comments
                         + sc.cogent.comments
                         + sc.clean.comments
+                        + sc.thrift.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -568,6 +571,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.volt.files
                      + sc.cogent.files
                      + sc.clean.files
+                     + sc.thrift.files
              }
   in
     f
@@ -686,6 +690,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Swift", isc.swift)
   + maybe_table("TCL", isc.tcl)
   + maybe_table("TeX", isc.tex)
+  + maybe_table("Thrift", isc.thrift)
   + maybe_table("TOML", isc.toml)
   + maybe_table("TypeScript", isc.typescript)
   + maybe_table("Verilog", isc.verilog)
@@ -827,7 +832,8 @@ implement print_file (pt, filename) =
       | zimpl (f) => maybe_file("Zimpl", f)
       | volt (f) => maybe_file("Volt", f)
       | cogent (f) => maybe_file("Cogent", f)
-      | clean (f) => maybe_file("clean", f)
+      | clean (f) => maybe_file("Clean", f)
+      | thrift (f) => maybe_file("Thrift", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1000,6 +1006,7 @@ implement make_output (isc, color) =
                  + maybe_string("Standard ML", isc.sml.lines)
                  + maybe_string("Swift", isc.swift.lines)
                  + maybe_string("TCL", isc.tcl.lines)
+                 + maybe_string("Thrift", isc.thrift.lines)
                  + maybe_string("Visual Basic", isc.vb.lines)
                  + maybe_string("Volt", isc.volt.lines)
                  + maybe_string("Zig", isc.zig.lines)
