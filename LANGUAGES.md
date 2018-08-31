@@ -104,12 +104,21 @@
 - [x] `.sed` files
 - [x] K
 - [x] Pascal
-- [ ] RED
-- [ ] TypeScript
-- [ ] CoffeeScript (`.coffee`)
-- [ ] Dart
+- [x] TypeScript
+- [x] CoffeeScript (`.coffee`)
+- [x] RED
+- [x] fish
+- [x] visual basic
+- [x] Frege (`.fr`)
+- [x] Dart
+- [x] Solidity (`.sol`)
+- [x] Egison (`.egi`)
+- [x] Zig
+- [x] SQL
+- [x] XML
+- [x] Felix
+- [ ] Q#
 - [ ] `dappfile`
-- [ ] Solidity (`.sol`)
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
 - [ ] Literate Haskell
@@ -131,7 +140,6 @@
 - [ ] clean https://github.com/Ourous/curated-clean-linux
 - [ ] Spire https://github.com/spire/spire
 - [ ] lean
-- [ ] fish
 - [ ] dyon
 - [ ] ketos
 - [ ] harlan (`.kfc`)
@@ -140,7 +148,6 @@
 - [ ] Objective C++
 - [ ] Bison (`.yy` among others)
 - [ ] Flex (`.lex` among others)
-- [ ] Felix
 - [ ] `.jats` (enriched JSON)
 - [ ] Sass
 - [ ] gemfile
@@ -161,7 +168,6 @@
 - [ ] ColdFusion
 - [ ] Balsa
 - [ ] Teak
-- [ ] SQL
 - [ ] Dale
 - [ ] microsoft module definition
 - [ ] XSLT
@@ -174,12 +180,10 @@
 - [ ] logos (also `.x`)
 - [ ] PureBasic
 - [ ] Pure https://agraef.github.io/pure-lang/
-- [ ] visual basic
 - [ ] MSBuild
 - [ ] Ur
 - [ ] SRecoder template
 - [ ] emacs dev env
-- [ ] Zig
 - [ ] Jai
 - [ ] Xtend
 - [ ] less (fancy CSS)
@@ -207,9 +211,7 @@
 - [ ] RobotFramework
 - [ ] QML
 - [ ] xBase
-- [ ] XML/`<?xml version="1.0" encoding="utf-8"?>`
 - [ ] Diderot (`.diderot`)
-- [ ] Egison (`.egi`)
 - [ ] Everything supported by `cloc --show-lang`
 - [ ] Also `gocloc --show-lang`, `scc --languages`
 - [ ] `.clang-format` files??
@@ -242,7 +244,6 @@
 - [ ] Figure out `.dpr` and `.dfm` file extensions
 - [ ] This list: https://github.com/Aaronepower/tokei/blob/master/languages.json
 - [ ] GdScript: https://github.com/trending/gdscript
-- [ ] Frege (`.fr`)
 - [ ] See: https://github.com/MakeNowJust/quine
 - [ ] List: https://esolangs.org/wiki/Language_list
 - [ ] https://github.com/dzaima/Canvas
@@ -273,3 +274,4 @@
 - [ ] Gambit
 - [ ] Guile
 - [ ] Icon
+- [ ] Hoon

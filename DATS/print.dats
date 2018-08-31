@@ -175,6 +175,18 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.sed.lines
                      + sc.k.lines
                      + sc.typescript.lines
+                     + sc.coffeescript.lines
+                     + sc.red.lines
+                     + sc.fish.lines
+                     + sc.vb.lines
+                     + sc.frege.lines
+                     + sc.dart.lines
+                     + sc.solidity.lines
+                     + sc.egison.lines
+                     + sc.zig.lines
+                     + sc.sql.lines
+                     + sc.felix.lines
+                     + sc.qsharp.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -282,6 +294,18 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.sed.blanks
                       + sc.k.blanks
                       + sc.typescript.blanks
+                      + sc.coffeescript.blanks
+                      + sc.red.blanks
+                      + sc.fish.blanks
+                      + sc.vb.blanks
+                      + sc.frege.blanks
+                      + sc.dart.blanks
+                      + sc.solidity.blanks
+                      + sc.egison.blanks
+                      + sc.zig.blanks
+                      + sc.sql.blanks
+                      + sc.felix.blanks
+                      + sc.qsharp.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -389,6 +413,18 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.sed.comments
                         + sc.k.comments
                         + sc.typescript.comments
+                        + sc.coffeescript.comments
+                        + sc.red.comments
+                        + sc.fish.comments
+                        + sc.vb.comments
+                        + sc.frege.comments
+                        + sc.dart.comments
+                        + sc.solidity.comments
+                        + sc.egison.comments
+                        + sc.zig.comments
+                        + sc.sql.comments
+                        + sc.felix.comments
+                        + sc.qsharp.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -496,6 +532,18 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.sed.files
                      + sc.k.files
                      + sc.typescript.files
+                     + sc.coffeescript.files
+                     + sc.red.files
+                     + sc.fish.files
+                     + sc.vb.files
+                     + sc.frege.files
+                     + sc.dart.files
+                     + sc.solidity.files
+                     + sc.egison.files
+                     + sc.zig.files
+                     + sc.sql.files
+                     + sc.felix.files
+                     + sc.qsharp.files
              }
   in
     f
@@ -526,12 +574,15 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Cassius", isc.cassius)
   + maybe_table("Chapel", isc.chapel)
   + maybe_table("COBOL", isc.cobol)
+  + maybe_table("CoffeeScript", isc.coffeescript)
   + maybe_table("Coq", isc.coq)
   + maybe_table("Crystal", isc.crystal)
   + maybe_table("CSS", isc.css)
   + maybe_table("D", isc.d)
+  + maybe_table("Dart", isc.dart)
   + maybe_table("Dash", isc.dash)
   + maybe_table("Dhall", isc.dhall)
+  + maybe_table("Egison", isc.egison)
   + maybe_table("Elixir", isc.elixir)
   + maybe_table("Elm", isc.elm)
   + maybe_table("Emacs Lisp", isc.elisp)
@@ -539,8 +590,11 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("F#", isc.fsharp)
   + maybe_table("F*", isc.fstar)
   + maybe_table("Factor", isc.factor)
+  + maybe_table("Felix", isc.felix)
+  + maybe_table("Fish", isc.fish)
   + maybe_table("FLTK Data", isc.fluid)
   + maybe_table("Fortran", isc.fortran)
+  + maybe_table("Frege", isc.frege)
   + maybe_table("Futhark", isc.futhark)
   + maybe_table("Go", isc.go)
   + maybe_table("Greencard", isc.greencard)
@@ -585,10 +639,12 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Pony", isc.pony)
   + maybe_table("Python", isc.python)
   + maybe_table("PureScript", isc.purescript)
+  + maybe_table("Q#", isc.qsharp)
   + maybe_table("R", isc.r)
   + maybe_table("Racket", isc.racket)
   + maybe_table("Ragel", isc.ragel)
   + maybe_table("Rakefile", isc.rakefile)
+  + maybe_table("Red", isc.red)
   + maybe_table("Ruby", isc.ruby)
   + maybe_table("Rust", isc.rust)
   + maybe_table("Scala", isc.scala)
@@ -596,6 +652,8 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Sed", isc.sed)
   + maybe_table("Shen", isc.shen)
   + maybe_table("Sixten", isc.sixten)
+  + maybe_table("Solidity", isc.solidity)
+  + maybe_table("SQL", isc.sql)
   + maybe_table("Standard ML", isc.sml)
   + maybe_table("Swift", isc.swift)
   + maybe_table("TCL", isc.tcl)
@@ -605,9 +663,11 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Verilog", isc.verilog)
   + maybe_table("VHDL", isc.vhdl)
   + maybe_table("Vimscript", isc.vimscript)
+  + maybe_table("Visual Basic", isc.vb)
   + maybe_table("Yacc", isc.yacc)
   + maybe_table("YAML", isc.yaml)
   + maybe_table("XML", isc.xml)
+  + maybe_table("Zig", isc.zig)
 
 implement print_file (pt, filename) =
   let
@@ -720,6 +780,18 @@ implement print_file (pt, filename) =
       | sed (f) => maybe_file("Sed", f)
       | k (f) => maybe_file("K", f)
       | typescript (f) => maybe_file("Typescript", f)
+      | coffeescript (f) => maybe_file("CoffeeScript", f)
+      | red (f) => maybe_file("Red", f)
+      | fish (f) => maybe_file("Fish", f)
+      | vb (f) => maybe_file("Visual Basic", f)
+      | frege (f) => maybe_file("Frege", f)
+      | dart (f) => maybe_file("Dart", f)
+      | solidity (f) => maybe_file("Solidity", f)
+      | egison (f) => maybe_file("Egison", f)
+      | zig (f) => maybe_file("Zig", f)
+      | sql (f) => maybe_file("SQL", f)
+      | felix (f) => maybe_file("Felix", f)
+      | qsharp (f) => maybe_file("Q#", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -797,6 +869,10 @@ implement make_output (isc, color) =
       "\n\33[33mHardware:\33[0m\n"
     else
       "\nHardware:\n"
+    var query_string = if color then
+      "\n\33[33mQuery Languages:\33[0m\n"
+    else
+      "\nQuery Languages:\n"
     var gui_string = if color then
       "\n\33[33mGUIs:\33[0m\n"
     else
@@ -817,6 +893,10 @@ implement make_output (isc, color) =
       "\n\33[33mTheorem Provers:\33[0m\n"
     else
       "\nTheorem Provers\n"
+    var quantum_string = if color then
+      "\n\33[33mQuantum Programming Languages:\33[0m\n"
+    else
+      "\nQuantum Programming Languages:\n"
     
     // TODO: data formats?
   in
@@ -838,12 +918,16 @@ implement make_output (isc, color) =
                  + maybe_string("COBOL", isc.cobol.lines)
                  + maybe_string("Crystal", isc.crystal.lines)
                  + maybe_string("D", isc.d.lines)
+                 + maybe_string("Egison", isc.egison.lines)
                  + maybe_string("Elixir", isc.elixir.lines)
                  + maybe_string("Elm", isc.elm.lines)
                  + maybe_string("Erlang", isc.erlang.lines)
                  + maybe_string("F#", isc.fsharp.lines)
                  + maybe_string("Factor", isc.factor.lines)
+                 + maybe_string("Felix", isc.felix.lines)
+                 + maybe_string("Fish", isc.fish.lines)
                  + maybe_string("Fortran", isc.fortran.lines)
+                 + maybe_string("Frege", isc.frege.lines)
                  + maybe_string("Futhark", isc.futhark.lines)
                  + maybe_string("Go", isc.go.lines)
                  + maybe_string("Haskell", isc.haskell.lines)
@@ -866,6 +950,7 @@ implement make_output (isc, color) =
                  + maybe_string("Python", isc.python.lines)
                  + maybe_string("R", isc.r.lines)
                  + maybe_string("Racket", isc.racket.lines)
+                 + maybe_string("Red", isc.r.lines)
                  + maybe_string("Ruby", isc.ruby.lines)
                  + maybe_string("Rust", isc.rust.lines)
                  + maybe_string("Scala", isc.scala.lines)
@@ -875,17 +960,21 @@ implement make_output (isc, color) =
                  + maybe_string("Standard ML", isc.sml.lines)
                  + maybe_string("Swift", isc.swift.lines)
                  + maybe_string("TCL", isc.tcl.lines)
+                 + maybe_string("Visual Basic", isc.vb.lines)
+                 + maybe_string("Zig", isc.zig.lines)
                  )
     + with_nonempty( editor_string
                    , maybe_string("Emacs Lisp", isc.elisp.lines)
                    + maybe_string("Vimscript", isc.vimscript.lines)
                    )
+    + with_nonempty(query_string, maybe_string("SQL", isc.sql.lines))
     + with_nonempty( doc_string
                    , maybe_string("Markdown", isc.markdown.lines)
                    + maybe_string("Plaintext", isc.plaintext.lines)
                    + maybe_string("TeX", isc.tex.lines)
                    )
     + with_nonempty(txt_string, maybe_string("Awk", isc.awk.lines) + maybe_string("Sed", isc.sed.lines))
+    + with_nonempty(quantum_string, maybe_string("Q#", isc.qsharp.lines))
     + with_nonempty( cfg_string
                    , maybe_string("Cabal", isc.cabal.lines)
                    + maybe_string("Cabal Project", isc.cabal_project.lines)
@@ -899,6 +988,7 @@ implement make_output (isc, color) =
                    , maybe_string("Bash", isc.bash.lines)
                    + maybe_string("Batch", isc.batch.lines)
                    + maybe_string("Dash", isc.dash.lines)
+                   + maybe_string("Fish", isc.fish.lines)
                    + maybe_string("Ion", isc.ion.lines)
                    + maybe_string("PowerShell", isc.powershell.lines)
                    )
@@ -912,7 +1002,9 @@ implement make_output (isc, color) =
                    )
     + with_nonempty( web_string
                    , maybe_string("Cassius", isc.cassius.lines)
+                   + maybe_string("CoffeeScript", isc.coffeescript.lines)
                    + maybe_string("CSS", isc.css.lines)
+                   + maybe_string("Dart", isc.dart.lines)
                    + maybe_string("Hamlet", isc.hamlet.lines)
                    + maybe_string("HTML", isc.html.lines)
                    + maybe_string("JavaScript", isc.javascript.lines)
@@ -923,7 +1015,10 @@ implement make_output (isc, color) =
     + with_nonempty(hw_string, maybe_string("Verilog", isc.verilog.lines) + maybe_string("VHDL", isc.vhdl.lines))
     + with_nonempty(gui_string, maybe_string("FLTK Data", isc.fluid.lines))
     + with_nonempty(nb_string, maybe_string("Jupyter", isc.jupyter.lines))
-    + with_nonempty(contract_string, maybe_string("Plutus", isc.plutus.lines))
+    + with_nonempty( contract_string
+                   , maybe_string("Plutus", isc.plutus.lines)
+                   + maybe_string("Solidity", isc.solidity.lines)
+                   )
     + with_nonempty( thm_string
                    , maybe_string("Coq", isc.coq.lines)
                    + maybe_string("F*", isc.fstar.lines)

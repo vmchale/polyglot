@@ -148,6 +148,18 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , sed = x.sed + y.sed
                 , k = x.k + y.k
                 , typescript = x.typescript + y.typescript
+                , coffeescript = x.coffeescript + y.coffeescript
+                , red = x.red + y.red
+                , fish = x.fish + y.fish
+                , vb = x.vb + y.vb
+                , frege = x.frege + y.frege
+                , dart = x.dart + y.dart
+                , solidity = x.solidity + y.solidity
+                , egison = x.egison + y.egison
+                , zig = x.zig + y.zig
+                , sql = x.sql + y.sql
+                , felix = x.felix + y.felix
+                , qsharp = x.qsharp + y.qsharp
                 } : source_contents
   in
     next
@@ -267,6 +279,18 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~sed n => sc_r -> sed := prev.sed + n
       | ~k n => sc_r -> k := prev.k + n
       | ~typescript n => sc_r -> typescript := prev.typescript + n
+      | ~coffeescript n => sc_r -> coffeescript := prev.coffeescript + n
+      | ~red n => sc_r -> red := prev.red + n
+      | ~fish n => sc_r -> fish := prev.fish + n
+      | ~vb n => sc_r -> vb := prev.vb + n
+      | ~frege n => sc_r -> frege := prev.frege + n
+      | ~dart n => sc_r -> dart := prev.dart + n
+      | ~solidity n => sc_r -> solidity := prev.solidity + n
+      | ~egison n => sc_r -> egison := prev.egison + n
+      | ~zig n => sc_r -> zig := prev.zig + n
+      | ~sql n => sc_r -> sql := prev.sql + n
+      | ~felix n => sc_r -> felix := prev.felix + n
+      | ~qsharp n => sc_r -> qsharp := prev.qsharp + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -381,6 +405,7 @@ fn check_shebang(s : string) : pl_type =
       | "#!/usr/bin/env stack" => haskell(line_count(s, Some_vt("--")))
       | "#!/usr/bin/env runhaskell" => haskell(line_count(s, Some_vt("--")))
       | "#!/usr/bin/env node" => javascript(line_count(s, None_vt))
+      | "#!/usr/bin/env fish" => fish(line_count(s, Some_vt("#")))
       | _ => unknown
   end
 
@@ -558,6 +583,18 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "awk" => awk(line_count(s, Some_vt("#")))
       | "sed" => sed(line_count(s, Some_vt("#")))
       | "k" => k(line_count(s, Some_vt("/")))
+      | "ts" => typescript(line_count(s, Some_vt("//")))
+      | "coffee" => coffeescript(line_count(s, Some_vt("//")))
+      | "red" => red(line_count(s, Some_vt(";")))
+      | "vb" => vb(line_count(s, Some_vt("'")))
+      | "frege" => frege(line_count(s, Some_vt("--")))
+      | "dart" => dart(line_count(s, Some_vt("//")))
+      | "sol" => solidity(line_count(s, Some_vt("//")))
+      | "egi" => egison(line_count(s, Some_vt(";")))
+      | "zig" => zig(line_count(s, Some_vt("//")))
+      | "sql" => sql(line_count(s, Some_vt("--")))
+      | "flx" => felix(line_count(s, Some_vt("//")))
+      | "qs" => qsharp(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -733,6 +770,18 @@ fn empty_contents() : source_contents =
                , sed = empty_file
                , k = empty_file
                , typescript = empty_file
+               , coffeescript = empty_file
+               , red = empty_file
+               , fish = empty_file
+               , vb = empty_file
+               , frege = empty_file
+               , dart = empty_file
+               , solidity = empty_file
+               , egison = empty_file
+               , zig = empty_file
+               , sql = empty_file
+               , felix = empty_file
+               , qsharp = empty_file
                } : source_contents
   in
     isc

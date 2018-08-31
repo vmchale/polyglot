@@ -1,8 +1,10 @@
 # polyglot
 
+
 ## 0.5.3
 
-  * Add support for TypeScript
+  * Add support for TypeScript, CoffeeScript, Red, Frege, Dart, Egison, Zig,
+    SQL, Felix, and Q#.
   * Fix typo
 
 ## 0.5.2

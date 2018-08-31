@@ -109,6 +109,18 @@ vtypedef source_contents = @{ rust = file
                             , sed = file
                             , k = file
                             , typescript = file
+                            , coffeescript = file
+                            , red = file
+                            , fish = file
+                            , vb = file
+                            , frege = file
+                            , dart = file
+                            , solidity = file
+                            , egison = file
+                            , zig = file
+                            , sql = file
+                            , felix = file
+                            , qsharp = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -224,3 +236,15 @@ datavtype pl_type =
   | sed of file
   | k of file
   | typescript of file
+  | coffeescript of file
+  | red of file
+  | fish of file
+  | vb of file
+  | frege of file
+  | dart of file
+  | solidity of file
+  | egison of file
+  | zig of file
+  | sql of file
+  | felix of file
+  | qsharp of file
