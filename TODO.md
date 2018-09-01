@@ -16,12 +16,13 @@
 - [ ] Avoid overlaps when subdirectories passed as arguments?
 - [ ] Make intelligent guesses also work w/ `thefuck`? Write python idk.
 # Performance
+- [ ] Make command-line parser call-by-reference
 - [x] parallelism
   - [ ] better parallelism
 - [ ] Use `memcmp` for string/comment comparisons?
 - [ ] make sure everything is tail recursive
-- [ ] linear types everywhere!!
 - [ ] get rid of GC (?)
+  - [ ] Use more linear types
   - [ ] Write my own dirstream??
 - [x] Make loops call-by-reference?
 - [ ] Look at https://github.com/llogiq/bytecount (beat it?)
