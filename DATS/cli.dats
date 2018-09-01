@@ -17,7 +17,7 @@ vtypedef command_line = @{ version = bool
                          }
 
 fn version() : void =
-  println!("polygot version 0.5.5\nCopyright (c) 2018 Vanessa McHale")
+  println!("polygot version 0.5.6\nCopyright (c) 2018 Vanessa McHale")
 
 fn help() : void =
   print("polyglot - Count lines of code quickly.
