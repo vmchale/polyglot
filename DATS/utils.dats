@@ -139,3 +139,4 @@ implement free_pl (pl) =
     | ~thrift _ => ()
     | ~vala _ => ()
     | ~apex _ => ()
+    | ~sas _ => ()

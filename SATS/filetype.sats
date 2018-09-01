@@ -130,6 +130,7 @@ vtypedef source_contents = @{ rust = file
                             , thrift = file
                             , vala = file
                             , apex = file
+                            , sas = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -266,3 +267,4 @@ datavtype pl_type =
   | thrift of file
   | vala of file
   | apex of file
+  | sas of file

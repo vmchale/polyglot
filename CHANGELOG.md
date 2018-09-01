@@ -3,6 +3,7 @@
 ## 0.5.6
 
   * Add support for Apex
+  * Add support for SAS
   * Fix typo
 
 ## 0.5.5

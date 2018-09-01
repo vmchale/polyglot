@@ -688,6 +688,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Red", isc.red)
   + maybe_table("Ruby", isc.ruby)
   + maybe_table("Rust", isc.rust)
+  + maybe_table("SAS", isc.sas)
   + maybe_table("Scala", isc.scala)
   + maybe_table("Scheme", isc.scheme)
   + maybe_table("Sed", isc.sed)
@@ -846,6 +847,7 @@ implement print_file (pt, filename) =
       | thrift (f) => maybe_file("Thrift", f)
       | vala (f) => maybe_file("Vala", f)
       | apex (f) => maybe_file("Apex", f)
+      | sas (f) => maybe_file("SAS", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1096,6 +1098,7 @@ implement make_output (isc, color) =
                    + maybe_string("Madlang", isc.madlang.lines)
                    + maybe_string("Makefile", isc.makefile.lines)
                    + maybe_string("Rakefile", isc.rakefile.lines)
+                   + maybe_string("SAS", isc.sas.lines)
                    + maybe_string("Zimpl", isc.zimpl.lines)
                    )
   end
