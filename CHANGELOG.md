@@ -1,5 +1,10 @@
 # polyglot
 
+## 0.5.6
+
+  * Add support for Apex
+  * Fix typo
+
 ## 0.5.5
   
   * Add support for Cogent

@@ -168,6 +168,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , clean = x.clean + y.clean
                 , thrift = x.thrift + y.thrift
                 , vala = x.vala + y.vala
+                , apex = x.apex + y.apex
                 } : source_contents
   in
     next
@@ -307,6 +308,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~clean n => sc_r -> clean := prev.clean + n
       | ~thrift n => sc_r -> thrift := prev.thrift + n
       | ~vala n => sc_r -> vala := prev.vala + n
+      | ~apex n => sc_r -> apex := prev.apex + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -621,6 +623,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "dcl" => clean(line_count(s, Some_vt("//")))
       | "thrift" => thrift(line_count(s, Some_vt("//")))
       | "vala" => vala(line_count(s, Some_vt("//")))
+      | "cls" => apex(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -816,6 +819,7 @@ fn empty_contents() : source_contents =
                , clean = empty_file
                , thrift = empty_file
                , vala = empty_file
+               , apex = empty_file
                } : source_contents
   in
     isc

@@ -195,6 +195,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.clean.lines
                      + sc.thrift.lines
                      + sc.vala.lines
+                     + sc.apex.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -322,6 +323,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.clean.blanks
                       + sc.thrift.blanks
                       + sc.vala.blanks
+                      + sc.apex.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -449,6 +451,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.clean.comments
                         + sc.thrift.comments
                         + sc.vala.comments
+                        + sc.apex.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -576,6 +579,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.clean.files
                      + sc.thrift.files
                      + sc.vala.files
+                     + sc.apex.files
              }
   in
     f
@@ -583,8 +587,9 @@ fn sum_fields(sc : source_contents) : file =
 
 fn table_helper(isc : source_contents) : string =
   maybe_table("Ada", isc.ada)
-  + maybe_table("Alex", isc.alex)
   + maybe_table("Agda", isc.agda)
+  + maybe_table("Alex", isc.alex)
+  + maybe_table("Apex", isc.apex)
   + maybe_table("Assembly", isc.assembly)
   + maybe_table("ATS", isc.ats)
   + maybe_table("Awk", isc.awk)
@@ -840,6 +845,7 @@ implement print_file (pt, filename) =
       | clean (f) => maybe_file("Clean", f)
       | thrift (f) => maybe_file("Thrift", f)
       | vala (f) => maybe_file("Vala", f)
+      | apex (f) => maybe_file("Apex", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -951,6 +957,7 @@ implement make_output (isc, color) =
     with_nonempty( pl_string
                  , maybe_string("Ada", isc.ada.lines)
                  + maybe_string("Agda", isc.agda.lines)
+                 + maybe_string("Apex", isc.apex.lines)
                  + maybe_string("Assembly", isc.assembly.lines)
                  + maybe_string("ATS", isc.ats.lines)
                  + maybe_string("Blodwen", isc.blodwen.lines)
