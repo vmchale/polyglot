@@ -170,6 +170,9 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , vala = x.vala + y.vala
                 , apex = x.apex + y.apex
                 , sas = x.sas + y.sas
+                , nu = x.nu + y.nu
+                , haxe = x.haxe + y.haxe
+                , eiffel = x.eiffel + y.eiffel
                 } : source_contents
   in
     next
@@ -311,6 +314,9 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~vala n => sc_r -> vala := prev.vala + n
       | ~apex n => sc_r -> apex := prev.apex + n
       | ~sas n => sc_r -> sas := prev.sas + n
+      | ~nu n => sc_r -> nu := prev.nu + n
+      | ~haxe n => sc_r -> haxe := prev.haxe + n
+      | ~eiffel n => sc_r -> eiffel := prev.eiffel + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -447,6 +453,7 @@ fn match_filename(s : string) : pl_type =
       | "justfile" => justfile(line_count(s, Some_vt("#")))
       | "Rakefile" => rakefile(line_count(s, None_vt))
       | "cabal.project.local" => cabal_project(line_count(s, Some_vt("--")))
+      | "Nukefile" => nu(line_count(s, Some_vt(";")))
       | _ => check_shebang(s)
   end
 
@@ -627,6 +634,9 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "vala" => vala(line_count(s, Some_vt("//")))
       | "cls" => apex(line_count(s, Some_vt("//")))
       | "sas" => sas(line_count(s, Some_vt("%*")))
+      | "nu" => nu(line_count(s, Some_vt(";")))
+      | "hx" => haxe(line_count(s, Some_vt("//")))
+      | "e" => eiffel(line_count(s, Some_vt("--")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -824,6 +834,9 @@ fn empty_contents() : source_contents =
                , vala = empty_file
                , apex = empty_file
                , sas = empty_file
+               , nu = empty_file
+               , haxe = empty_file
+               , eiffel = empty_file
                } : source_contents
   in
     isc

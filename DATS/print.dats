@@ -196,6 +196,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.thrift.lines
                      + sc.vala.lines
                      + sc.apex.lines
+                     + sc.sas.lines
+                     + sc.nu.lines
+                     + sc.haxe.lines
+                     + sc.eiffel.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -324,6 +328,10 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.thrift.blanks
                       + sc.vala.blanks
                       + sc.apex.blanks
+                      + sc.sas.blanks
+                      + sc.nu.blanks
+                      + sc.haxe.blanks
+                      + sc.eiffel.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -452,6 +460,10 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.thrift.comments
                         + sc.vala.comments
                         + sc.apex.comments
+                        + sc.sas.comments
+                        + sc.nu.comments
+                        + sc.haxe.comments
+                        + sc.eiffel.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -580,6 +592,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.thrift.files
                      + sc.vala.files
                      + sc.apex.files
+                     + sc.sas.files
+                     + sc.nu.files
+                     + sc.haxe.files
+                     + sc.eiffel.files
              }
   in
     f
@@ -622,6 +638,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Dash", isc.dash)
   + maybe_table("Dhall", isc.dhall)
   + maybe_table("Egison", isc.egison)
+  + maybe_table("Eiffel", isc.eiffel)
   + maybe_table("Elixir", isc.elixir)
   + maybe_table("Elm", isc.elm)
   + maybe_table("Emacs Lisp", isc.elisp)
@@ -640,6 +657,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Hamlet", isc.hamlet)
   + maybe_table("Happy", isc.happy)
   + maybe_table("Haskell", isc.haskell)
+  + maybe_table("Haxe", isc.haxe)
   + maybe_table("HTML", isc.html)
   + maybe_table("Idris", isc.idris)
   + maybe_table("iPKG", isc.ipkg)
@@ -668,6 +686,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Mercury", isc.mercury)
   + maybe_table("Nim", isc.nim)
   + maybe_table("Nix", isc.nix)
+  + maybe_table("Nu", isc.nu)
   + maybe_table("Objective C", isc.objective_c)
   + maybe_table("OCaml", isc.ocaml)
   + maybe_table("Oz", isc.oz)
@@ -848,6 +867,9 @@ implement print_file (pt, filename) =
       | vala (f) => maybe_file("Vala", f)
       | apex (f) => maybe_file("Apex", f)
       | sas (f) => maybe_file("SAS", f)
+      | nu (f) => maybe_file("Nu", f)
+      | haxe (f) => maybe_file("Haxe", f)
+      | eiffel (f) => maybe_file("Eiffel", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -978,6 +1000,7 @@ implement make_output (isc, color) =
                  + maybe_string("Crystal", isc.crystal.lines)
                  + maybe_string("D", isc.d.lines)
                  + maybe_string("Egison", isc.egison.lines)
+                 + maybe_string("Eiffel", isc.eiffel.lines)
                  + maybe_string("Elixir", isc.elixir.lines)
                  + maybe_string("Elm", isc.elm.lines)
                  + maybe_string("Erlang", isc.erlang.lines)
@@ -990,6 +1013,7 @@ implement make_output (isc, color) =
                  + maybe_string("Futhark", isc.futhark.lines)
                  + maybe_string("Go", isc.go.lines)
                  + maybe_string("Haskell", isc.haskell.lines)
+                 + maybe_string("Haxe", isc.haxe.lines)
                  + maybe_string("Idris", isc.idris.lines)
                  + maybe_string("Kotlin", isc.kotlin.lines)
                  + maybe_string("J", isc.j.lines)
@@ -1001,6 +1025,7 @@ implement make_output (isc, color) =
                  + maybe_string("Margaret", isc.margaret.lines)
                  + maybe_string("Mercury", isc.mercury.lines)
                  + maybe_string("Nim", isc.nim.lines)
+                 + maybe_string("Nu", isc.nu.lines)
                  + maybe_string("Objective C", isc.objective_c.lines)
                  + maybe_string("OCaml", isc.ocaml.lines)
                  + maybe_string("Oz", isc.oz.lines)

@@ -140,3 +140,6 @@ implement free_pl (pl) =
     | ~vala _ => ()
     | ~apex _ => ()
     | ~sas _ => ()
+    | ~nu _ => ()
+    | ~haxe _ => ()
+    | ~eiffel _ => ()

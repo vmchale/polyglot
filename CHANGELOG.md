@@ -1,5 +1,12 @@
 # polyglot
 
+## 0.5.7
+
+  * Add support for Nu
+  * Add support for Haxe
+  * Add support for Eiffel
+  * Minor bugfix
+
 ## 0.5.6
 
   * Add support for Apex

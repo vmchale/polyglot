@@ -128,6 +128,10 @@
 - [x] Vala
 - [x] Apex
 - [x] SAS
+- [x] Nu
+- [x] Haxe
+- [x] Eiffel
+- [ ] TLA+
 - [ ] Boo https://github.com/boo-lang/boo
 - [ ] `dappfile`
 - [ ] ShaderLab (`.shader`)
@@ -195,7 +199,6 @@
 - [ ] emacs dev env
 - [ ] Xtend
 - [ ] less (fancy CSS)
-- [ ] haxe
 - [ ] HLSL
 - [ ] GNU plot (`.plt`)
 - [ ] dtrace
@@ -250,6 +253,7 @@
 - [ ] https://github.com/SRL/SRL-5/blob/master/SRL/core/color.simba
 - [ ] Figure out `.dpr` and `.dfm` file extensions
 - [ ] This list: https://github.com/Aaronepower/tokei/blob/master/languages.json
+- [ ] NSIS
 - [ ] GdScript: https://github.com/trending/gdscript
 - [ ] See: https://github.com/MakeNowJust/quine
 - [ ] List: https://esolangs.org/wiki/Language_list
@@ -295,3 +299,4 @@
 - [ ] https://github.com/pugjs/pug
 - [ ] https://github.com/trending/piglatin
 - [ ] https://github.com/trending/stata
+- [ ] BitBake

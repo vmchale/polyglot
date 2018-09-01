@@ -131,6 +131,9 @@ vtypedef source_contents = @{ rust = file
                             , vala = file
                             , apex = file
                             , sas = file
+                            , nu = file
+                            , haxe = file
+                            , eiffel = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -268,3 +271,6 @@ datavtype pl_type =
   | vala of file
   | apex of file
   | sas of file
+  | nu of file
+  | haxe of file
+  | eiffel of file
