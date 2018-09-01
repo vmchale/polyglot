@@ -8,6 +8,7 @@ and node_t(a: vt@ype) =
   | node_t of @{ value = a, next = pointer_t(a) }
   | allocated_t of @{ value = a?, next = pointer_t(a) }
 
+// TODO: Arc pointers?
 absprop NOT_NULL (b : bool)
 
 absprop ALLOCATED (b : bool)
