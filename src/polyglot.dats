@@ -134,7 +134,8 @@ fn work(excludes : List0(string), send : channel(List0(string)), chan : channel(
   void =
   {
     var n = channel_remove(send)
-    var x = map_stream(empty_contents(), n, excludes, verbose)
+    var x = empty_contents()
+    val () = map_stream(x, n, excludes, verbose)
     val () = channel_insert(chan, x)
     val () = handle_unref(chan)
     val () = handle_unref(send)
@@ -220,9 +221,19 @@ implement main0 (argc, argv) =
             threads(parsed.includes, parsed.excludes, parsed.verbose)
           else
             if length(parsed.includes) > 0 then
-              map_stream(empty_contents(), parsed.includes, parsed.excludes, parsed.verbose)
+              let
+                var x = empty_contents()
+                val () = map_stream(x, parsed.includes, parsed.excludes, parsed.verbose)
+              in
+                x
+              end
             else
-              map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes, parsed.verbose)
+              let
+                var x = empty_contents()
+                val () = map_stream(x, list_cons(".", list_nil()), parsed.excludes, parsed.verbose)
+              in
+                x
+              end
         in
           if parsed.no_table then
             print(make_output(result, not(parsed.no_colorize)))

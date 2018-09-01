@@ -184,7 +184,6 @@ overload + with add_contents
 // This is the step function used when streaming directory contents. 
 fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : void =
   let
-    // FIXME: this is inefficient
     val () = case+ scf of
       | ~haskell n => sc_r.haskell := sc_r.haskell + n
       | ~ats n => sc_r.ats := sc_r.ats + n
@@ -672,12 +671,12 @@ fn bad_dir(s : string, excludes : List0(string)) : bool =
     | ".sass-cache" => true
     | _ => list_exists_cloref(excludes, lam x => x = s || x = s + "/")
 
-fnx step_stream( acc : source_contents
+fnx step_stream( acc : &source_contents >> source_contents
                , full_name : string
                , file_proper : string
                , excludes : List0(string)
                , verbose : bool
-               ) : source_contents =
+               ) : void =
   if test_file_isdir(full_name) > 0 then
     flow_stream(full_name, acc, excludes, verbose)
   else
@@ -687,25 +686,44 @@ fnx step_stream( acc : source_contents
         print!(print_file(ft, full_name))
       else
         ()
-      var acc_l = acc
-      val () = adjust_contents(acc_l, ft)
-    in
-      acc_l
-    end
-and flow_stream(s : string, init : source_contents, excludes : List0(string), verbose : bool) : source_contents =
+      val () = adjust_contents(acc, ft)
+    in end
+and flow_stream(s : string, init : &source_contents >> source_contents, excludes : List0(string), verbose : bool) :
+  void =
   let
     var files = $EXTRA.streamize_dirname_fname(s)
     var ffiles = stream_vt_filter_cloptr(files, lam x => not(bad_dir(x, excludes)))
   in
     if s != "." then
-      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream( acc
-                                                                            , s + "/" + next
-                                                                            , next
-                                                                            , excludes
-                                                                            , verbose
-                                                                            ))
+      let
+        fun loop( ffiles : stream_vt(string)
+                , init : &source_contents >> source_contents
+                , f : (&source_contents >> source_contents, string, string, List0(string), bool) -> void
+                ) : void =
+          case+ !ffiles of
+            | ~stream_vt_cons (next, nexts) => {
+              val () = f(init, s + "/" + next, next, excludes, verbose)
+              val () = loop(nexts, init, f)
+            }
+            | ~stream_vt_nil() => ()
+      in
+        loop(ffiles, init, step_stream)
+      end
     else
-      stream_vt_foldleft_cloptr(ffiles, init, lam (acc, next) => step_stream(acc, next, next, excludes, verbose))
+      let
+        fun loop( ffiles : stream_vt(string)
+                , init : &source_contents >> source_contents
+                , f : (&source_contents >> source_contents, string, string, List0(string), bool) -> void
+                ) : void =
+          case+ !ffiles of
+            | ~stream_vt_cons (next, nexts) => {
+              val () = f(init, next, next, excludes, verbose)
+              val () = loop(nexts, init, f)
+            }
+            | ~stream_vt_nil() => ()
+      in
+        loop(ffiles, init, step_stream)
+      end
   end
 
 fn empty_contents() : source_contents =
@@ -848,13 +866,22 @@ fn empty_contents() : source_contents =
     isc
   end
 
-fn map_stream(acc : source_contents, includes : List0(string), excludes : List0(string), verbose : bool) :
-  source_contents =
-  list_foldleft_cloref(includes, acc, lam (acc, next) => if test_file_exists(next) || test_file_isdir(next) < 0
-                      || next = "" then
-                        step_stream(acc, next, next, excludes, verbose)
-                      else
-                        (maybe_err(next) ; acc))
+fn map_stream( acc : &source_contents >> source_contents
+             , includes : List0(string)
+             , excludes : List0(string)
+             , verbose : bool
+             ) : void =
+  let
+    fun loop(includes : List0(string), acc : &source_contents >> source_contents) : void =
+      case+ includes of
+        | list_cons (next, nexts) => if test_file_exists(next) || test_file_isdir(next) < 0 || next = "" then
+          (step_stream(acc, next, next, excludes, verbose) ; loop(nexts, acc))
+        else
+          maybe_err(next)
+        | list_nil() => ()
+  in
+    loop(includes, acc)
+  end
 
 fn step_list(s : string, excludes : List0(string)) : List0(string) =
   let

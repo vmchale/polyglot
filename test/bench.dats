@@ -9,7 +9,10 @@ fun linecount_bench() : void =
   { val _ = line_count("DATS/cli.dats", Some_vt("//")) }
 
 fun flow_stream_bench() : void =
-  { val _ = step_stream(empty_contents(), ".", ".", list_nil, false) }
+  {
+    var x = empty_contents()
+    val _ = step_stream(x, ".", ".", list_nil, false)
+  }
 
 fun keyword_bench() : void =
   {
