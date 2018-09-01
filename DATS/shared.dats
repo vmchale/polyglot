@@ -327,30 +327,28 @@ fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) 
   list_foldright_cloref(keys, lam (next, acc) =<cloref1> acc || eq_string_string(next, word), false)
 
 // helper function for check_keywords
-fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_type =
+fn step_keyword(size : file, pre : &pl_type >> pl_type, word : string, ext : string) : void =
   case+ pre of
     | unknown _ => 
       begin
         case+ ext of
           | "y" => let
-            val _ = free(pre)
             var happy_keywords = "module" :: "import" :: nil
           in
             ifcase
-              | match_keywords(happy_keywords, word) => happy(size)
+              | match_keywords(happy_keywords, word) => (free(pre) ; pre := happy(size))
               | let
                 var yacc_keywords = "struct" :: "char" :: "int" :: nil
               in
                 match_keywords(yacc_keywords, word)
-              end => yacc(size)
-              | _ => unknown
+              end => (free(pre) ; pre := yacc(size))
+              | _ => (free(pre) ; pre := unknown)
           end
           | "v" => let
-            var _ = free(pre)
             var verilog_keywords = "endmodule" :: "posedge" :: "edge" :: "always" :: "wire" :: nil
           in
             ifcase
-              | match_keywords(verilog_keywords, word) => verilog(size)
+              | match_keywords(verilog_keywords, word) => (free(pre) ; pre := verilog(size))
               | let
                 var coq_keywords = "Qed"
                 :: "Require"
@@ -358,25 +356,24 @@ fn step_keyword(size : file, pre : pl_type, word : string, ext : string) : pl_ty
                 :: "Inductive" :: "Remark" :: "Lemma" :: "Proof" :: "Definition" :: "Theorem" :: nil
               in
                 match_keywords(coq_keywords, word)
-              end => coq(size)
-              | _ => unknown
+              end => (free(pre) ; pre := coq(size))
+              | _ => (free(pre) ; pre := unknown)
           end
           | "m" => let
-            val _ = free(pre)
             var mercury_keywords = "module" :: "pred" :: nil
           in
             ifcase
-              | match_keywords(mercury_keywords, word) => mercury(size)
+              | match_keywords(mercury_keywords, word) => (free(pre) ; pre := mercury(size))
               | let
                 var objective_c_keywords = "unsigned" :: "nil" :: "nullable" :: "nonnull" :: nil
               in
                 match_keywords(objective_c_keywords, word)
-              end => objective_c(size)
-              | _ => unknown
+              end => (free(pre) ; pre := objective_c(size))
+              | _ => (free(pre) ; pre := unknown)
           end
-          | _ => pre
+          | _ => ()
       end
-    | _ => pre
+    | _ => ()
 
 // Function to disambiguate extensions such as .v (Coq and Verilog) and .m
 // (Mercury and Objective C). This should only be called when extensions are in
@@ -389,10 +386,16 @@ fn check_keywords(s : string, size : file, ext : string) : pl_type =
       | ~Some_vt (x) => let
         var init: pl_type = unknown
         var viewstream = $EXTRA.streamize_fileref_word(x)
-        var result = stream_vt_foldleft_cloptr(viewstream, init, lam (acc, next) => step_keyword(size, acc, next, ext))
+        
+        fun loop(viewstream : stream_vt(string), init : &pl_type >> pl_type) : void =
+          case+ !viewstream of
+            | ~stream_vt_cons (next, nexts) => (step_keyword(size, init, next, ext) ; loop(nexts, init))
+            | ~stream_vt_nil() => ()
+        
+        val () = loop(viewstream, init)
         val _ = fileref_close(x)
       in
-        result
+        init
       end
       | ~None_vt() => (bad_file(s) ; unknown)
   end

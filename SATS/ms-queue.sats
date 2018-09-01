@@ -8,6 +8,7 @@ and node_t(a: vt@ype) =
   | node_t of @{ value = a, next = pointer_t(a) }
   | allocated_t of @{ value = a?, next = pointer_t(a) }
 
+// TODO: look at code here: https://slide-rs.github.io/specs-website/docs/docs/0.10/crossbeam/sync/struct.MsQueue.html
 vtypedef node_ptr(a: vt@ype) = [l:addr] (node_t(a) @ l | ptr(l))
 vtypedef queue_t(a: vt@ype) = @{ queue_head = pointer_t(a), queue_tail = pointer_t(a) }
 
