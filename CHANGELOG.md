@@ -5,6 +5,7 @@
   * Add support for Nu
   * Add support for Haxe
   * Add support for Eiffel
+  * Add support for TLA+
   * Minor bugfix
 
 ## 0.5.6
