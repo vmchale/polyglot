@@ -5,13 +5,13 @@ fn malloc {a:vt@ype}(size_t) : [ l : addr | l > null ] (a? @ l | ptr(l)) =
   "mac#"
 
 extern
-praxi prfree {l:addr}{a:vt@ype} (a? @ l) : void
+praxi prfree {a:vt@ype}{l:addr} (a? @ l) : void
 
-// FIXME
 implement {a} new_node () =
   let
     val (pf | pre_x) = malloc(sizeof<a>)
     val ret = allocated_t(@{ value = !pre_x, next = none_t })
+    prval () = prfree(pf)
   in
-    (pf | ret)
+    ret
   end

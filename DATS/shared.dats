@@ -185,7 +185,7 @@ overload + with add_contents
 fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
   let
     var sc_r = ref<source_contents>(prev)
-    val _ = case+ scf of
+    val () = case+ scf of
       | ~haskell n => sc_r -> haskell := prev.haskell + n
       | ~ats n => sc_r -> ats := prev.ats + n
       | ~rust n => sc_r -> rust := prev.rust + n
