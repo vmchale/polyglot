@@ -132,9 +132,12 @@
 - [x] Haxe
 - [x] Eiffel
 - [x] TLA+
+- [ ] Io (`.io`, `#`)
+- [ ] Linker script
 - [ ] Grain (`.gr`, `#`)
 - [ ] Boo https://github.com/boo-lang/boo
 - [ ] `dappfile`
+- [ ] https://github.com/trending/zephir
 - [ ] ShaderLab (`.shader`)
 - [ ] HLSL (`.cginc`)
 - [ ] Literate Haskell
@@ -232,7 +235,7 @@
 - [ ] See this list: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
   - [ ] Also think of a better way to add new languages
 - [ ] Brig PL: https://github.com/klevinism/Brig
-- [ ] `.sin`: https://github.com/jemalloc/jemalloc/blob/dev/msvc/jemalloc_vc2015.sln
+- [ ] `.sln`: https://github.com/jemalloc/jemalloc/blob/dev/msvc/jemalloc_vc2015.sln
 - [ ] This list: https://github.com/BurntSushi/ripgrep/blob/1d09d4d31ba3ac2eb09edf31e8ec46b2b5cec388/ignore/src/types.rs#L99
 - [ ] Clafer http://www.clafer.org/
 - [ ] Discus https://github.com/discus-lang/ddc/blob/master/test/ddc-regress/source/01-Discus/10-Parser/Test.dsx
@@ -299,3 +302,4 @@
 - [ ] https://github.com/trending/piglatin
 - [ ] https://github.com/trending/stata
 - [ ] BitBake
+- [ ] https://en.wikipedia.org/wiki/Cadence_SKILL
