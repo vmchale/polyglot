@@ -173,6 +173,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , nu = x.nu + y.nu
                 , haxe = x.haxe + y.haxe
                 , eiffel = x.eiffel + y.eiffel
+                , tla = x.tla + y.tla
                 } : source_contents
   in
     next
@@ -317,6 +318,7 @@ fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
       | ~nu n => sc_r -> nu := prev.nu + n
       | ~haxe n => sc_r -> haxe := prev.haxe + n
       | ~eiffel n => sc_r -> eiffel := prev.eiffel + n
+      | ~tla n => sc_r -> tla := prev.tla + n
       | ~unknown _ => ()
   in
     !sc_r
@@ -637,6 +639,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "nu" => nu(line_count(s, Some_vt(";")))
       | "hx" => haxe(line_count(s, Some_vt("//")))
       | "e" => eiffel(line_count(s, Some_vt("--")))
+      | "tla" => tla(line_count(s, Some_vt("\\*")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -837,6 +840,7 @@ fn empty_contents() : source_contents =
                , nu = empty_file
                , haxe = empty_file
                , eiffel = empty_file
+               , tla = empty_file
                } : source_contents
   in
     isc

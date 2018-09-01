@@ -131,7 +131,7 @@
 - [x] Nu
 - [x] Haxe
 - [x] Eiffel
-- [ ] TLA+
+- [x] TLA+
 - [ ] Boo https://github.com/boo-lang/boo
 - [ ] `dappfile`
 - [ ] ShaderLab (`.shader`)
@@ -169,7 +169,6 @@
 - [ ] rdoc
 - [ ] Scons
 - [ ] Cmake
-- [ ] shen
 - [ ] gradle
 - [ ] tulip (`.tlp`)
 - [ ] kitten (`.ktn`)

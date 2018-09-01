@@ -143,3 +143,4 @@ implement free_pl (pl) =
     | ~nu _ => ()
     | ~haxe _ => ()
     | ~eiffel _ => ()
+    | ~tla _ => ()

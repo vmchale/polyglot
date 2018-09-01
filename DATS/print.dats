@@ -200,6 +200,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.nu.lines
                      + sc.haxe.lines
                      + sc.eiffel.lines
+                     + sc.tla.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -332,6 +333,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.nu.blanks
                       + sc.haxe.blanks
                       + sc.eiffel.blanks
+                      + sc.tla.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -464,6 +466,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.nu.comments
                         + sc.haxe.comments
                         + sc.eiffel.comments
+                        + sc.tla.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -596,6 +599,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.nu.files
                      + sc.haxe.files
                      + sc.eiffel.files
+                     + sc.tla.files
              }
   in
     f
@@ -720,6 +724,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("TCL", isc.tcl)
   + maybe_table("TeX", isc.tex)
   + maybe_table("Thrift", isc.thrift)
+  + maybe_table("TLA+", isc.tla)
   + maybe_table("TOML", isc.toml)
   + maybe_table("TypeScript", isc.typescript)
   + maybe_table("Vala", isc.vala)
@@ -870,6 +875,7 @@ implement print_file (pt, filename) =
       | nu (f) => maybe_file("Nu", f)
       | haxe (f) => maybe_file("Haxe", f)
       | eiffel (f) => maybe_file("Eiffel", f)
+      | tla (f) => maybe_file("TLA+", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1124,6 +1130,7 @@ implement make_output (isc, color) =
                    + maybe_string("Makefile", isc.makefile.lines)
                    + maybe_string("Rakefile", isc.rakefile.lines)
                    + maybe_string("SAS", isc.sas.lines)
+                   + maybe_string("TLA+", isc.tla.lines)
                    + maybe_string("Zimpl", isc.zimpl.lines)
                    )
   end
