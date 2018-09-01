@@ -188,7 +188,7 @@ fn threads(includes : List0(string), excludes : List0(string), verbose : bool) :
         end
     
     var r = loop_return(ncpu, chan)
-    val () = ignoret(usleep(80u))
+    val () = ignoret(usleep(90u))
     val () = while(channel_refcount(chan) > 1)()
     val () = handle_unref(chan)
   in
