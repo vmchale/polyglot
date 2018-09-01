@@ -125,7 +125,9 @@
 - [x] Cogent
 - [x] Clean
 - [x] Thrift
-- [ ] Vala
+- [x] Vala
+- [x] Apex
+- [x] SAS
 - [ ] Boo https://github.com/boo-lang/boo
 - [ ] `dappfile`
 - [ ] ShaderLab (`.shader`)
