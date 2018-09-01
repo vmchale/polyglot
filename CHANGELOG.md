@@ -2,7 +2,7 @@
 
 ## 0.5.8
   
-  * Fix performance issue
+  * Fix performance issue by making some core functions call-by-reference
 
 ## 0.5.7
 
