@@ -132,6 +132,7 @@
 - [x] Haxe
 - [x] Eiffel
 - [x] TLA+
+- [ ] Grain (`.gr`, `#`)
 - [ ] Boo https://github.com/boo-lang/boo
 - [ ] `dappfile`
 - [ ] ShaderLab (`.shader`)
@@ -225,7 +226,6 @@
 - [ ] Everything supported by `cloc --show-lang`
 - [ ] Also `gocloc --show-lang`, `scc --languages`
 - [ ] `.clang-format` files??
-- [ ] Grain: https://github.com/grain-lang/grain ??
 - [ ] Hy https://github.com/hylang/hy
 - [ ] coconut http://coconut-lang.org/
 - [ ] Doxyfile
