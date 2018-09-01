@@ -19,14 +19,16 @@
 - [ ] Make command-line parser call-by-reference
 - [x] parallelism
   - [ ] better parallelism
-- [ ] Use `memcmp` for string/comment comparisons?
+- [ ] Use `memcmp` for string/comment comparisons? (`strcmp`)
+  - [ ] Also filter by length?
+  - [ ] Potentially useful in the `ifcase` things...
 - [ ] make sure everything is tail recursive
 - [ ] get rid of GC (?)
   - [ ] Use more linear types
   - [ ] Write my own dirstream??
 - [x] Make loops call-by-reference?
 - [ ] Look at https://github.com/llogiq/bytecount (beat it?)
-  - [ ] count lines with SIMD? not just search for stuff
+  - [ ] count lines with SIMD - not just search for stuff
 - [ ] also maybe https://github.com/boyerjohn/rapidstring
 - [ ] Use `strpbrk` during parsing comments?
 - [ ] Try to use `alloca` instead of `malloc` (lol)
