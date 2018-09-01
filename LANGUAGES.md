@@ -303,3 +303,4 @@
 - [ ] https://github.com/trending/stata
 - [ ] BitBake
 - [ ] https://en.wikipedia.org/wiki/Cadence_SKILL
+- [ ] https://github.com/ftripier/spookyc
