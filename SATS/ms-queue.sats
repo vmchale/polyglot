@@ -14,7 +14,7 @@ absprop ALLOCATED (b : bool)
 
 vtypedef queue_t(a: vt@ype) = @{ head = pointer_t(a), tail = pointer_t(a) }
 
-fun {a:vt@ype} new_node () : node_t(a)
+fun {a:vt@ype} new_node () : [ l : addr | l > null ] (a? @ l | node_t(a))
 
 fun {a:vt@ype} initialize (&queue_t(a)? >> queue_t(a)) : void
 
