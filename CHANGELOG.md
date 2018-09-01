@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.8
+  
+  * Fix performance issue
+
 ## 0.5.7
 
   * Add support for Nu

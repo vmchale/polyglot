@@ -182,146 +182,146 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
 overload + with add_contents
 
 // This is the step function used when streaming directory contents. 
-fn adjust_contents(prev : source_contents, scf : pl_type) : source_contents =
+fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : void =
   let
-    var sc_r = ref<source_contents>(prev)
+    // FIXME: this is inefficient
     val () = case+ scf of
-      | ~haskell n => sc_r -> haskell := prev.haskell + n
-      | ~ats n => sc_r -> ats := prev.ats + n
-      | ~rust n => sc_r -> rust := prev.rust + n
-      | ~markdown n => sc_r -> markdown := prev.markdown + n
-      | ~python n => sc_r -> python := prev.python + n
-      | ~vimscript n => sc_r -> vimscript := prev.vimscript + n
-      | ~yaml n => sc_r -> yaml := prev.yaml + n
-      | ~toml n => sc_r -> toml := prev.toml + n
-      | ~happy n => sc_r -> happy := prev.happy + n
-      | ~alex n => sc_r -> alex := prev.alex + n
-      | ~idris n => sc_r -> idris := prev.idris + n
-      | ~madlang n => sc_r -> madlang := prev.madlang + n
-      | ~elm n => sc_r -> elm := prev.elm + n
-      | ~c n => sc_r -> c := prev.c + n
-      | ~go n => sc_r -> go := prev.go + n
-      | ~cabal n => sc_r -> cabal := prev.cabal + n
-      | ~verilog n => sc_r -> verilog := prev.verilog + n
-      | ~vhdl n => sc_r -> vhdl := prev.vhdl + n
-      | ~html n => sc_r -> html := prev.html + n
-      | ~css n => sc_r -> css := prev.css + n
-      | ~purescript n => sc_r -> purescript := prev.purescript + n
-      | ~futhark n => sc_r -> futhark := prev.futhark + n
-      | ~brainfuck n => sc_r -> brainfuck := prev.brainfuck + n
-      | ~ruby n => sc_r -> ruby := prev.ruby + n
-      | ~julia n => sc_r -> julia := prev.julia + n
-      | ~tex n => sc_r -> tex := prev.tex + n
-      | ~perl n => sc_r -> perl := prev.perl + n
-      | ~sml n => sc_r -> sml := prev.sml + n
-      | ~ocaml n => sc_r -> ocaml := prev.ocaml + n
-      | ~agda n => sc_r -> agda := prev.agda + n
-      | ~cobol n => sc_r -> cobol := prev.cobol + n
-      | ~tcl n => sc_r -> tcl := prev.tcl + n
-      | ~r n => sc_r -> r := prev.r + n
-      | ~lua n => sc_r -> lua := prev.lua + n
-      | ~cpp n => sc_r -> cpp := prev.cpp + n
-      | ~lalrpop n => sc_r -> lalrpop := prev.lalrpop + n
-      | ~header n => sc_r -> header := prev.header + n
-      | ~sixten n => sc_r -> sixten := prev.sixten + n
-      | ~dhall n => sc_r -> dhall := prev.dhall + n
-      | ~ipkg n => sc_r -> ipkg := prev.ipkg + n
-      | ~justfile n => sc_r -> justfile := prev.justfile + n
-      | ~makefile n => sc_r -> makefile := prev.makefile + n
-      | ~ion n => sc_r -> ion := prev.ion + n
-      | ~bash n => sc_r -> bash := prev.bash + n
-      | ~dash n => sc_r -> dash := prev.dash + n
-      | ~hamlet n => sc_r -> hamlet := prev.hamlet + n
-      | ~cassius n => sc_r -> cassius := prev.cassius + n
-      | ~lucius n => sc_r -> lucius := prev.lucius + n
-      | ~julius n => sc_r -> julius := prev.julius + n
-      | ~mercury n => sc_r -> mercury := prev.mercury + n
-      | ~yacc n => sc_r -> yacc := prev.yacc + n
-      | ~lex n => sc_r -> lex := prev.lex + n
-      | ~coq n => sc_r -> coq := prev.coq + n
-      | ~jupyter n => sc_r -> jupyter := prev.jupyter + n
-      | ~java n => sc_r -> java := prev.java + n
-      | ~scala n => sc_r -> scala := prev.scala + n
-      | ~erlang n => sc_r -> erlang := prev.erlang + n
-      | ~elixir n => sc_r -> elixir := prev.elixir + n
-      | ~pony n => sc_r -> pony := prev.pony + n
-      | ~clojure n => sc_r -> clojure := prev.clojure + n
-      | ~cabal_project n => sc_r -> cabal_project := prev.cabal_project + n
-      | ~assembly n => sc_r -> assembly := prev.assembly + n
-      | ~nix n => sc_r -> nix := prev.nix + n
-      | ~php n => sc_r -> php := prev.php + n
-      | ~javascript n => sc_r -> javascript := prev.javascript + n
-      | ~kotlin n => sc_r -> kotlin := prev.kotlin + n
-      | ~fsharp n => sc_r -> fsharp := prev.fsharp + n
-      | ~fortran n => sc_r -> fortran := prev.fortran + n
-      | ~swift n => sc_r -> swift := prev.swift + n
-      | ~csharp n => sc_r -> csharp := prev.csharp + n
-      | ~nim n => sc_r -> nim := prev.nim + n
-      | ~cpp_header n => sc_r -> cpp_header := prev.cpp_header + n
-      | ~elisp n => sc_r -> elisp := prev.elisp + n
-      | ~plaintext n => sc_r -> plaintext := prev.plaintext + n
-      | ~rakefile n => sc_r -> rakefile := prev.rakefile + n
-      | ~llvm n => sc_r -> llvm := prev.llvm + n
-      | ~autoconf n => sc_r -> autoconf := prev.autoconf + n
-      | ~batch n => sc_r -> batch := prev.batch + n
-      | ~powershell n => sc_r -> powershell := prev.powershell + n
-      | ~m4 n => sc_r -> m4 := prev.m4 + n
-      | ~objective_c n => sc_r -> objective_c := prev.objective_c + n
-      | ~automake n => sc_r -> automake := prev.automake + n
-      | ~margaret n => sc_r -> margaret := prev.margaret + n
-      | ~carp n => sc_r -> carp := prev.carp + n
-      | ~shen n => sc_r -> shen := prev.shen + n
-      | ~greencard n => sc_r -> greencard := prev.greencard + n
-      | ~cmm n => sc_r -> cmm := prev.cmm + n
-      | ~fluid n => sc_r -> fluid := prev.fluid + n
-      | ~plutus n => sc_r -> plutus := prev.plutus + n
-      | ~j n => sc_r -> j := prev.j + n
-      | ~blodwen n => sc_r -> blodwen := prev.blodwen + n
-      | ~crystal n => sc_r -> crystal := prev.crystal + n
-      | ~racket n => sc_r -> racket := prev.racket + n
-      | ~ada n => sc_r -> ada := prev.ada + n
-      | ~isabelle n => sc_r -> isabelle := prev.isabelle + n
-      | ~fstar n => sc_r -> fstar := prev.fstar + n
-      | ~d n => sc_r -> d := prev.d + n
-      | ~factor n => sc_r -> factor := prev.factor + n
-      | ~scheme n => sc_r -> scheme := prev.scheme + n
-      | ~chapel n => sc_r -> chapel := prev.chapel + n
-      | ~pascal n => sc_r -> pascal := prev.pascal + n
-      | ~ragel n => sc_r -> ragel := prev.ragel + n
-      | ~xml n => sc_r -> xml := prev.xml + n
-      | ~awk n => sc_r -> awk := prev.awk + n
-      | ~sed n => sc_r -> sed := prev.sed + n
-      | ~k n => sc_r -> k := prev.k + n
-      | ~typescript n => sc_r -> typescript := prev.typescript + n
-      | ~coffeescript n => sc_r -> coffeescript := prev.coffeescript + n
-      | ~red n => sc_r -> red := prev.red + n
-      | ~fish n => sc_r -> fish := prev.fish + n
-      | ~vb n => sc_r -> vb := prev.vb + n
-      | ~frege n => sc_r -> frege := prev.frege + n
-      | ~dart n => sc_r -> dart := prev.dart + n
-      | ~solidity n => sc_r -> solidity := prev.solidity + n
-      | ~egison n => sc_r -> egison := prev.egison + n
-      | ~zig n => sc_r -> zig := prev.zig + n
-      | ~sql n => sc_r -> sql := prev.sql + n
-      | ~felix n => sc_r -> felix := prev.felix + n
-      | ~qsharp n => sc_r -> qsharp := prev.qsharp + n
-      | ~oz n => sc_r -> oz := prev.oz + n
-      | ~jai n => sc_r -> jai := prev.jai + n
-      | ~zimpl n => sc_r -> zimpl := prev.zimpl + n
-      | ~volt n => sc_r -> volt := prev.volt + n
-      | ~cogent n => sc_r -> cogent := prev.cogent + n
-      | ~clean n => sc_r -> clean := prev.clean + n
-      | ~thrift n => sc_r -> thrift := prev.thrift + n
-      | ~vala n => sc_r -> vala := prev.vala + n
-      | ~apex n => sc_r -> apex := prev.apex + n
-      | ~sas n => sc_r -> sas := prev.sas + n
-      | ~nu n => sc_r -> nu := prev.nu + n
-      | ~haxe n => sc_r -> haxe := prev.haxe + n
-      | ~eiffel n => sc_r -> eiffel := prev.eiffel + n
-      | ~tla n => sc_r -> tla := prev.tla + n
+      | ~haskell n => sc_r.haskell := sc_r.haskell + n
+      | ~ats n => sc_r.ats := sc_r.ats + n
+      | ~rust n => sc_r.rust := sc_r.rust + n
+      | ~markdown n => sc_r.markdown := sc_r.markdown + n
+      | ~python n => sc_r.python := sc_r.python + n
+      | ~vimscript n => sc_r.vimscript := sc_r.vimscript + n
+      | ~yaml n => sc_r.yaml := sc_r.yaml + n
+      | ~toml n => sc_r.toml := sc_r.toml + n
+      | ~happy n => sc_r.happy := sc_r.happy + n
+      | ~alex n => sc_r.alex := sc_r.alex + n
+      | ~idris n => sc_r.idris := sc_r.idris + n
+      | ~madlang n => sc_r.madlang := sc_r.madlang + n
+      | ~elm n => sc_r.elm := sc_r.elm + n
+      | ~c n => sc_r.c := sc_r.c + n
+      | ~go n => sc_r.go := sc_r.go + n
+      | ~cabal n => sc_r.cabal := sc_r.cabal + n
+      | ~verilog n => sc_r.verilog := sc_r.verilog + n
+      | ~vhdl n => sc_r.vhdl := sc_r.vhdl + n
+      | ~html n => sc_r.html := sc_r.html + n
+      | ~css n => sc_r.css := sc_r.css + n
+      | ~purescript n => sc_r.purescript := sc_r.purescript + n
+      | ~futhark n => sc_r.futhark := sc_r.futhark + n
+      | ~brainfuck n => sc_r.brainfuck := sc_r.brainfuck + n
+      | ~ruby n => sc_r.ruby := sc_r.ruby + n
+      | ~julia n => sc_r.julia := sc_r.julia + n
+      | ~tex n => sc_r.tex := sc_r.tex + n
+      | ~perl n => sc_r.perl := sc_r.perl + n
+      | ~sml n => sc_r.sml := sc_r.sml + n
+      | ~ocaml n => sc_r.ocaml := sc_r.ocaml + n
+      | ~agda n => sc_r.agda := sc_r.agda + n
+      | ~cobol n => sc_r.cobol := sc_r.cobol + n
+      | ~tcl n => sc_r.tcl := sc_r.tcl + n
+      | ~r n => sc_r.r := sc_r.r + n
+      | ~lua n => sc_r.lua := sc_r.lua + n
+      | ~cpp n => sc_r.cpp := sc_r.cpp + n
+      | ~lalrpop n => sc_r.lalrpop := sc_r.lalrpop + n
+      | ~header n => sc_r.header := sc_r.header + n
+      | ~sixten n => sc_r.sixten := sc_r.sixten + n
+      | ~dhall n => sc_r.dhall := sc_r.dhall + n
+      | ~ipkg n => sc_r.ipkg := sc_r.ipkg + n
+      | ~justfile n => sc_r.justfile := sc_r.justfile + n
+      | ~makefile n => sc_r.makefile := sc_r.makefile + n
+      | ~ion n => sc_r.ion := sc_r.ion + n
+      | ~bash n => sc_r.bash := sc_r.bash + n
+      | ~dash n => sc_r.dash := sc_r.dash + n
+      | ~hamlet n => sc_r.hamlet := sc_r.hamlet + n
+      | ~cassius n => sc_r.cassius := sc_r.cassius + n
+      | ~lucius n => sc_r.lucius := sc_r.lucius + n
+      | ~julius n => sc_r.julius := sc_r.julius + n
+      | ~mercury n => sc_r.mercury := sc_r.mercury + n
+      | ~yacc n => sc_r.yacc := sc_r.yacc + n
+      | ~lex n => sc_r.lex := sc_r.lex + n
+      | ~coq n => sc_r.coq := sc_r.coq + n
+      | ~jupyter n => sc_r.jupyter := sc_r.jupyter + n
+      | ~java n => sc_r.java := sc_r.java + n
+      | ~scala n => sc_r.scala := sc_r.scala + n
+      | ~erlang n => sc_r.erlang := sc_r.erlang + n
+      | ~elixir n => sc_r.elixir := sc_r.elixir + n
+      | ~pony n => sc_r.pony := sc_r.pony + n
+      | ~clojure n => sc_r.clojure := sc_r.clojure + n
+      | ~cabal_project n => sc_r.cabal_project := sc_r.cabal_project + n
+      | ~assembly n => sc_r.assembly := sc_r.assembly + n
+      | ~nix n => sc_r.nix := sc_r.nix + n
+      | ~php n => sc_r.php := sc_r.php + n
+      | ~javascript n => sc_r.javascript := sc_r.javascript + n
+      | ~kotlin n => sc_r.kotlin := sc_r.kotlin + n
+      | ~fsharp n => sc_r.fsharp := sc_r.fsharp + n
+      | ~fortran n => sc_r.fortran := sc_r.fortran + n
+      | ~swift n => sc_r.swift := sc_r.swift + n
+      | ~csharp n => sc_r.csharp := sc_r.csharp + n
+      | ~nim n => sc_r.nim := sc_r.nim + n
+      | ~cpp_header n => sc_r.cpp_header := sc_r.cpp_header + n
+      | ~elisp n => sc_r.elisp := sc_r.elisp + n
+      | ~plaintext n => sc_r.plaintext := sc_r.plaintext + n
+      | ~rakefile n => sc_r.rakefile := sc_r.rakefile + n
+      | ~llvm n => sc_r.llvm := sc_r.llvm + n
+      | ~autoconf n => sc_r.autoconf := sc_r.autoconf + n
+      | ~batch n => sc_r.batch := sc_r.batch + n
+      | ~powershell n => sc_r.powershell := sc_r.powershell + n
+      | ~m4 n => sc_r.m4 := sc_r.m4 + n
+      | ~objective_c n => sc_r.objective_c := sc_r.objective_c + n
+      | ~automake n => sc_r.automake := sc_r.automake + n
+      | ~margaret n => sc_r.margaret := sc_r.margaret + n
+      | ~carp n => sc_r.carp := sc_r.carp + n
+      | ~shen n => sc_r.shen := sc_r.shen + n
+      | ~greencard n => sc_r.greencard := sc_r.greencard + n
+      | ~cmm n => sc_r.cmm := sc_r.cmm + n
+      | ~fluid n => sc_r.fluid := sc_r.fluid + n
+      | ~plutus n => sc_r.plutus := sc_r.plutus + n
+      | ~j n => sc_r.j := sc_r.j + n
+      | ~blodwen n => sc_r.blodwen := sc_r.blodwen + n
+      | ~crystal n => sc_r.crystal := sc_r.crystal + n
+      | ~racket n => sc_r.racket := sc_r.racket + n
+      | ~ada n => sc_r.ada := sc_r.ada + n
+      | ~isabelle n => sc_r.isabelle := sc_r.isabelle + n
+      | ~fstar n => sc_r.fstar := sc_r.fstar + n
+      | ~d n => sc_r.d := sc_r.d + n
+      | ~factor n => sc_r.factor := sc_r.factor + n
+      | ~scheme n => sc_r.scheme := sc_r.scheme + n
+      | ~chapel n => sc_r.chapel := sc_r.chapel + n
+      | ~pascal n => sc_r.pascal := sc_r.pascal + n
+      | ~ragel n => sc_r.ragel := sc_r.ragel + n
+      | ~xml n => sc_r.xml := sc_r.xml + n
+      | ~awk n => sc_r.awk := sc_r.awk + n
+      | ~sed n => sc_r.sed := sc_r.sed + n
+      | ~k n => sc_r.k := sc_r.k + n
+      | ~typescript n => sc_r.typescript := sc_r.typescript + n
+      | ~coffeescript n => sc_r.coffeescript := sc_r.coffeescript + n
+      | ~red n => sc_r.red := sc_r.red + n
+      | ~fish n => sc_r.fish := sc_r.fish + n
+      | ~vb n => sc_r.vb := sc_r.vb + n
+      | ~frege n => sc_r.frege := sc_r.frege + n
+      | ~dart n => sc_r.dart := sc_r.dart + n
+      | ~solidity n => sc_r.solidity := sc_r.solidity + n
+      | ~egison n => sc_r.egison := sc_r.egison + n
+      | ~zig n => sc_r.zig := sc_r.zig + n
+      | ~sql n => sc_r.sql := sc_r.sql + n
+      | ~felix n => sc_r.felix := sc_r.felix + n
+      | ~qsharp n => sc_r.qsharp := sc_r.qsharp + n
+      | ~oz n => sc_r.oz := sc_r.oz + n
+      | ~jai n => sc_r.jai := sc_r.jai + n
+      | ~zimpl n => sc_r.zimpl := sc_r.zimpl + n
+      | ~volt n => sc_r.volt := sc_r.volt + n
+      | ~cogent n => sc_r.cogent := sc_r.cogent + n
+      | ~clean n => sc_r.clean := sc_r.clean + n
+      | ~thrift n => sc_r.thrift := sc_r.thrift + n
+      | ~vala n => sc_r.vala := sc_r.vala + n
+      | ~apex n => sc_r.apex := sc_r.apex + n
+      | ~sas n => sc_r.sas := sc_r.sas + n
+      | ~nu n => sc_r.nu := sc_r.nu + n
+      | ~haxe n => sc_r.haxe := sc_r.haxe + n
+      | ~eiffel n => sc_r.eiffel := sc_r.eiffel + n
+      | ~tla n => sc_r.tla := sc_r.tla + n
       | ~unknown _ => ()
   in
-    !sc_r
+    ()
   end
 
 fun match_keywords { m : nat | m <= 10 }(keys : list(string, m), word : string) : bool =
@@ -687,8 +687,10 @@ fnx step_stream( acc : source_contents
         print!(print_file(ft, full_name))
       else
         ()
+      var acc_l = acc
+      val () = adjust_contents(acc_l, ft)
     in
-      adjust_contents(acc, ft)
+      acc_l
     end
 and flow_stream(s : string, init : source_contents, excludes : List0(string), verbose : bool) : source_contents =
   let
