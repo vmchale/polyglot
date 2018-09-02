@@ -17,6 +17,7 @@
 #include "$PATSHOMELOCS/edit-distance-0.4.0/DATS/edit-distance.dats"
 #include "DATS/utils.dats"
 #include "DATS/error.dats"
+#include "DATS/html.dats"
 
 staload "SATS/ms-queue.sats"
 
