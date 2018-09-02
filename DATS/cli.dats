@@ -122,6 +122,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "--exclude" => bad_exclude(s)
         | _ when levenshtein_(s, "--exclude") <= 2 => unrecognized(s, "--exclude")
         | _ when levenshtein_(s, "--help") <= 2 => unrecognized(s, "--help")
+        | _ when levenshtein_(s, "--html") <= 2 => unrecognized(s, "--html")
         | _ when levenshtein_(s, "--no-parallel") <= 3 => unrecognized(s, "--no-parallel")
         | _ when levenshtein_(s, "--no-table") <= 3 => unrecognized(s, "--no-table")
         | _ => let
