@@ -1,6 +1,6 @@
 # polyglot
 
-## 0.5.9
+## 0.5.10
 
   * Add HTML output flag `--html`
   * Re-categorize some theorem provers
