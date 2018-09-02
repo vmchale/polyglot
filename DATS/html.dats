@@ -6,7 +6,7 @@ staload "libats/libc/SATS/stdio.sats"
 fn maybe_html_table(s : string, f : file) : string =
   let
     fn th(s : string) : string =
-      "<th><div class=\"cell\">" + s + "</th></div>"
+      "<th><div class=\"cell\">" + s + "</div></th>"
     
     var code = f.lines - f.comments - f.blanks
   in
