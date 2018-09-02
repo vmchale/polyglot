@@ -33,6 +33,8 @@ disabled on some platforms.
 
 **-v**, **-\-verbose** Enable per-file output
 
+**-\-html** Dump HTML output
+
 # EXAMPLES
 
 Show the contents of ~/programming
@@ -51,6 +53,13 @@ Show the contents of ./project/src, displaying an alternate output in the termin
 
 ```
 poly ./project/src --no-table
+```
+
+Write a file called report.html containing line count information from the
+current directory
+
+```
+poly --html > report.html
 ```
 
 # BUG REPORTS
