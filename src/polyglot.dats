@@ -19,10 +19,6 @@
 #include "DATS/error.dats"
 #include "DATS/html.dats"
 
-staload "SATS/ms-queue.sats"
-
-#include "DATS/ms-queue.dats"
-
 staload ML = "libats/ML/SATS/list0.sats"
 staload "libats/SATS/deqarray.sats"
 staload "libats/SATS/athread.sats"
