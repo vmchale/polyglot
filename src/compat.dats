@@ -4,6 +4,7 @@
 #include "$PATSHOMELOCS/edit-distance-0.4.0/DATS/edit-distance.dats"
 #include "DATS/utils.dats"
 #include "DATS/error.dats"
+#include "DATS/html.dats"
 
 implement main0 (argc, argv) =
   let
@@ -45,6 +46,9 @@ implement main0 (argc, argv) =
           if parsed.no_table then
             print(make_output(result, not(cli.no_colorize)))
           else
-            print(make_table(result, not(cli.no_colorize)))
+            if parsed.html then
+              print(make_html(result))
+            else
+              print(make_table(result, not(cli.no_colorize)))
         end
   end
