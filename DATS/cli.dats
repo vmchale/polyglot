@@ -8,7 +8,7 @@ staload "$PATSHOMELOCS/edit-distance-0.4.0/SATS/edit-distance.sats"
 vtypedef command_line = @{ version = bool
                          , help = bool
                          , no_table = bool
-                         , html
+                         , html = bool
                          , no_parallel = bool
                          , no_colorize = bool
                          , skip_links = bool
@@ -31,6 +31,7 @@ fn help() : void =
     -p, --no-parallel        do not execute in parallel
     -t, --no-table           display results in alternate format
     -v, --verbose            display per-file results
+    --html                   dump HTML output
  
     When no directory is provided poly will execute in the
     current directory.
@@ -94,6 +95,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
       case+ s of
         | "--help" => acc_r -> help := true
         | "-h" => acc_r -> help := true
+        | "--html" => acc_r -> html := true
         | "--no-table" => if not(acc.no_table) then
           acc_r -> no_table := true
         else

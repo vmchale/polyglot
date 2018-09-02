@@ -2,14 +2,15 @@
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "DATS/shared.dats"
 #include "$PATSHOMELOCS/edit-distance-0.4.0/DATS/edit-distance.dats"
-#include "DATS/error.dats"
 #include "DATS/utils.dats"
+#include "DATS/error.dats"
 
 implement main0 (argc, argv) =
   let
     val cli = @{ version = false
                , help = false
                , no_table = false
+               , html = false
                , no_parallel = false
                , no_colorize = false
                , skip_links = false
@@ -27,9 +28,19 @@ implement main0 (argc, argv) =
       else
         let
           var result = if length(parsed.includes) > 0 then
-            map_stream(empty_contents(), parsed.includes, parsed.excludes, parsed.verbose)
+            let
+              var x = empty_contents()
+              val () = map_stream(x, parsed.includes, parsed.excludes, parsed.verbose)
+            in
+              x
+            end
           else
-            map_stream(empty_contents(), list_cons(".", list_nil()), parsed.excludes, parsed.verbose)
+            let
+              var x = empty_contents()
+              val () = map_stream(x, list_cons(".", list_nil()), parsed.excludes, parsed.verbose)
+            in
+              x
+            end
         in
           if parsed.no_table then
             print(make_output(result, not(cli.no_colorize)))

@@ -21,3 +21,4 @@ atspkg build --pkg-args "./no-gc.dhall" --target=sh4-linux-gnu
 atspkg build --pkg-args "./no-gc.dhall" --target=hppa-linux-gnu
 atspkg build --pkg-args "./no-gc.dhall" --target=sparc64-linux-gnu
 atspkg build --pkg-args "./no-gc.dhall" --target=arm-linux-gnueabi
+# atspkg build --pkg-args '{ gc = False, cross = True, parallel = False, static = True, icc = False }' --target=x86_64-unknown-redox

@@ -202,6 +202,7 @@ implement main0 (argc, argv) =
     val cli = @{ version = false
                , help = false
                , no_table = false
+               , html = false
                , no_parallel = false
                , no_colorize = false
                , skip_links = false
@@ -239,6 +240,9 @@ implement main0 (argc, argv) =
           if parsed.no_table then
             print(make_output(result, not(parsed.no_colorize)))
           else
-            print(make_table(result, not(parsed.no_colorize)))
+            if parsed.html then
+              print(make_html(result))
+            else
+              print(make_table(result, not(parsed.no_colorize)))
         end
   end
