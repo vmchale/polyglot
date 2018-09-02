@@ -8,6 +8,7 @@ staload "$PATSHOMELOCS/edit-distance-0.4.0/SATS/edit-distance.sats"
 vtypedef command_line = @{ version = bool
                          , help = bool
                          , no_table = bool
+                         , html
                          , no_parallel = bool
                          , no_colorize = bool
                          , skip_links = bool

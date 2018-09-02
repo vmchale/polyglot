@@ -986,7 +986,6 @@ implement make_output (isc, color) =
   in
     with_nonempty( pl_string
                  , maybe_string("Ada", isc.ada.lines)
-                 + maybe_string("Agda", isc.agda.lines)
                  + maybe_string("Apex", isc.apex.lines)
                  + maybe_string("Assembly", isc.assembly.lines)
                  + maybe_string("ATS", isc.ats.lines)
@@ -1115,9 +1114,11 @@ implement make_output (isc, color) =
                    + maybe_string("Solidity", isc.solidity.lines)
                    )
     + with_nonempty( thm_string
-                   , maybe_string("Coq", isc.coq.lines)
+                   , maybe_string("Agda", isc.agda.lines)
+                   + maybe_string("Coq", isc.coq.lines)
                    + maybe_string("F*", isc.fstar.lines)
                    + maybe_string("Isabelle", isc.isabelle.lines)
+                   + maybe_string("TLA+", isc.tla.lines)
                    )
     + with_nonempty( other
                    , maybe_string("Autoconf", isc.autoconf.lines)
@@ -1130,7 +1131,6 @@ implement make_output (isc, color) =
                    + maybe_string("Makefile", isc.makefile.lines)
                    + maybe_string("Rakefile", isc.rakefile.lines)
                    + maybe_string("SAS", isc.sas.lines)
-                   + maybe_string("TLA+", isc.tla.lines)
                    + maybe_string("Zimpl", isc.zimpl.lines)
                    )
   end

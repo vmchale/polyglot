@@ -1,5 +1,10 @@
 # polyglot
 
+## 0.5.9
+
+  * Add HTML output flag `--html`
+  * Re-categorize some theorem provers
+
 ## 0.5.8
   
   * Fix performance issue by making some core functions call-by-reference

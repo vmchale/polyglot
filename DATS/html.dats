@@ -25,12 +25,7 @@ fn maybe_html_table(s : string, f : file) : string =
 
 fn make_html(isc : source_contents) : string =
   let
-    var header = "<head>
-<style>
-table {
-    border-collapse: collapse;
-    width: 60%
-}
+    var header = "<head><style>table {border-collapse: collapse;width: 60%}
 
 td, th {
     border: 1px solid #a6a6a6;
