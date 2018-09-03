@@ -5,6 +5,8 @@ fn bad_directory(string) : void
 
 fn bad_flag(string) : void
 
+fn error_flag(string) : void
+
 fn internal_error() : void
 
 fn bad_exclude(string) : void

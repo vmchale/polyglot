@@ -120,6 +120,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-c" => acc_r -> no_colorize := true
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
+        | "-" => error_flag(s)
         | _ when levenshtein_(s, "--exclude") <= 2 => unrecognized(s, "--exclude")
         | _ when levenshtein_(s, "--help") <= 2 => unrecognized(s, "--help")
         | _ when levenshtein_(s, "--html") <= 2 => unrecognized(s, "--html")

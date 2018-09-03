@@ -4,6 +4,7 @@
 
   * Add support for Lean
   * Tiny performance improvements
+  * Fix bug in command-line parser
 
 ## 0.5.10
 

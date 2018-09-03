@@ -13,6 +13,9 @@ implement bad_directory (s) =
 implement bad_flag (s) =
   (prerr!("\33[31mError:\33[0m flag " + s + " must appear occur at most once\n") ; exit(1))
 
+implement error_flag (s) =
+  (prerr!("\33[31mError:\33[0m flag '" + s + "' not recognized. Try 'poly --help'\n") ; exit(1))
+
 implement internal_error () =
   (prerr!("\33[31mError:\33[0m internal error\n") ; exit(1))
 
