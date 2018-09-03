@@ -7,7 +7,7 @@ staload "libats/libc/SATS/stdio.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
 // FIXME: changing BUFSZ changes the # of comments & the # of blanks
-#define BUFSZ (32*1024)
+#define BUFSZ (16*1024)
 
 %{^
 #include <stdbool.h>

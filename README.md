@@ -39,42 +39,42 @@ On the Rust repo:
   <tr>
     <td><code>polyglot</code></td>
     <td>ATS</td>
-    <td>143.2 ms</td>
+    <td>132.3 ms</td>
   </tr>
   <tr>
     <td><code>loc</code></td>
     <td>Rust</td>
-    <td>171.8 ms</td>
+    <td>137.1 ms</td>
   </tr>
   <tr>
     <td><code>tokei</code></td>
     <td>Rust</td>
-    <td>304.6 ms</td>
+    <td>287.0 ms</td>
   </tr>
   <tr>
     <td><code>scc</code></td>
     <td>Go</td>
-    <td>471.1 ms</td>
+    <td>344.4 ms</td>
   </tr>
   <tr>
     <td><code>gocloc</code></td>
     <td>Go</td>
-    <td>839.8 ms</td>
+    <td>894.9 ms</td>
   </tr>
   <tr>
     <td><code>cloc</code></td>
     <td>Perl</td>
-    <td>5.052 s</td>
+    <td>5.435 s</td>
   </tr>
   <tr>
     <td><code>enry</code></td>
     <td>Go</td>
-    <td>5.440 s</td>
+    <td>6.481 s</td>
   </tr>
   <tr>
     <td><code>linguist</code></td>
     <td>Ruby</td>
-    <td>17.46 s</td>
+    <td>19.18 s</td>
   </tr>
 </table>
 

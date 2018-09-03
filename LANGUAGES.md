@@ -132,6 +132,7 @@
 - [x] Haxe
 - [x] Eiffel
 - [x] TLA+
+- [x] Lean
 - [ ] Io (`.io`, `#`)
 - [ ] Linker script
 - [ ] Grain (`.gr`, `#`)
@@ -157,7 +158,6 @@
 - [ ] modula
 - [ ] LSL http://xahsl.org/sl/ls.html
 - [ ] Spire https://github.com/spire/spire
-- [ ] lean
 - [ ] dyon
 - [ ] ketos
 - [ ] harlan (`.kfc`)

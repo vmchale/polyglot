@@ -118,6 +118,7 @@ tr:nth-child(even) {
     + maybe_html_table("K", isc.k)
     + maybe_html_table("Kotlin", isc.kotlin)
     + maybe_html_table("LALRPOP", isc.lalrpop)
+    + maybe_html_table("Lean", isc.lean)
     + maybe_html_table("Lex", isc.lex)
     + maybe_html_table("LLVM", isc.llvm)
     + maybe_html_table("Lua", isc.lua)

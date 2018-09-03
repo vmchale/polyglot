@@ -201,6 +201,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.haxe.lines
                      + sc.eiffel.lines
                      + sc.tla.lines
+                     + sc.lean.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -334,6 +335,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.haxe.blanks
                       + sc.eiffel.blanks
                       + sc.tla.blanks
+                      + sc.lean.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -467,6 +469,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.haxe.comments
                         + sc.eiffel.comments
                         + sc.tla.comments
+                        + sc.lean.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -600,6 +603,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.haxe.files
                      + sc.eiffel.files
                      + sc.tla.files
+                     + sc.lean.files
              }
   in
     f
@@ -678,6 +682,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("K", isc.k)
   + maybe_table("Kotlin", isc.kotlin)
   + maybe_table("LALRPOP", isc.lalrpop)
+  + maybe_table("Lean", isc.lean)
   + maybe_table("Lex", isc.lex)
   + maybe_table("LLVM", isc.llvm)
   + maybe_table("Lua", isc.lua)
@@ -876,6 +881,7 @@ implement print_file (pt, filename) =
       | haxe (f) => maybe_file("Haxe", f)
       | eiffel (f) => maybe_file("Eiffel", f)
       | tla (f) => maybe_file("TLA+", f)
+      | lean (f) => maybe_file("Lean", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1118,6 +1124,7 @@ implement make_output (isc, color) =
                    + maybe_string("Coq", isc.coq.lines)
                    + maybe_string("F*", isc.fstar.lines)
                    + maybe_string("Isabelle", isc.isabelle.lines)
+                   + maybe_string("Lean", isc.lean.lines)
                    + maybe_string("TLA+", isc.tla.lines)
                    )
     + with_nonempty( other

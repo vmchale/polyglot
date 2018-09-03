@@ -174,6 +174,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , haxe = x.haxe + y.haxe
                 , eiffel = x.eiffel + y.eiffel
                 , tla = x.tla + y.tla
+                , lean = x.lean + y.lean
                 } : source_contents
   in
     next
@@ -318,6 +319,7 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~haxe n => sc_r.haxe := sc_r.haxe + n
       | ~eiffel n => sc_r.eiffel := sc_r.eiffel + n
       | ~tla n => sc_r.tla := sc_r.tla + n
+      | ~lean n => sc_r.lean := sc_r.lean + n
       | ~unknown _ => ()
   in
     ()
@@ -575,6 +577,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "kts" => kotlin(line_count(s, None_vt))
       | "fs" => fsharp(line_count(s, None_vt))
       | "f" => fortran(line_count(s, Some_vt("*")))
+      | "F" => fortran(line_count(s, Some_vt("*")))
       | "for" => fortran(line_count(s, Some_vt("*")))
       | "f90" => fortran(line_count(s, Some_vt("*")))
       | "f95" => fortran(line_count(s, Some_vt("*")))
@@ -639,6 +642,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "hx" => haxe(line_count(s, Some_vt("//")))
       | "e" => eiffel(line_count(s, Some_vt("--")))
       | "tla" => tla(line_count(s, Some_vt("\\*")))
+      | "lean" => lean(line_count(s, Some_vt("--")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -861,6 +865,7 @@ fn empty_contents() : source_contents =
                , haxe = empty_file
                , eiffel = empty_file
                , tla = empty_file
+               , lean = empty_file
                } : source_contents
   in
     isc
