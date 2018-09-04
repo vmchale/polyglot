@@ -66,18 +66,23 @@ fn map_depth(xs : List0(string), excludes : List0(string)) : List0(string) =
                                        g0ofg1(step_list(x, excludes))
                                      else
                                        list0_nil))
-          | _ =>> g1ofg0(list0_mapjoin(xs0, lam x => let
-                                        var ys = step_list(x, excludes)
-                                        var zs = step_list_files(x, excludes)
-                                      in
-                                        if not(bad_dir(x, excludes)) then
+          | _ =>> g1ofg0(list0_mapjoin(xs0, lam x => if not(bad_dir(x, excludes)) then
+                                        let
+                                          var ys = step_list(x, excludes)
+                                          var zs = step_list_files(x, excludes)
+                                        in
                                           g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
-                                        else
-                                          if x = "." && i = 3 then
+                                        end
+                                      else
+                                        if x = "." && i = 3 then
+                                          let
+                                            var ys = step_list(x, excludes)
+                                            var zs = step_list_files(x, excludes)
+                                          in
                                             g0ofg1(loop(i - 1, ys, excludes)) + g0ofg1(zs)
-                                          else
-                                            list0_nil
-                                      end))
+                                          end
+                                        else
+                                          list0_nil))
       end
   in
     loop(3, xs, excludes)
@@ -96,7 +101,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
         if n < length(acc) then
           let
             extern
-            castfn cast_list {a:t@ype} (x : a) :<> List0(List0(string))
+            castfn cast_list(List0(List0(string))) :<> List0(List0(string))
             
             val (p, q) = list_split_at(acc, n)
             var res = if i > 2 then

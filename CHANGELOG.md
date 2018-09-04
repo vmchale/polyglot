@@ -5,6 +5,8 @@
   * Add support for Lean
   * Tiny performance improvements
   * Fix bug in command-line parser
+  * Exclude `build` directory for Blodwen
+  * Detect `R` shebangs
 
 ## 0.5.10
 

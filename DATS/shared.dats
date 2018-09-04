@@ -435,6 +435,7 @@ fn check_shebang(s : string) : pl_type =
       | "#!/usr/bin/env runhaskell" => haskell(line_count(s, Some_vt("--")))
       | "#!/usr/bin/env node" => javascript(line_count(s, None_vt))
       | "#!/usr/bin/env fish" => fish(line_count(s, Some_vt("#")))
+      | "#!/usr/bin/Rscript" => r(line_count(s, None_vt))
       | _ => unknown
   end
 
@@ -656,11 +657,11 @@ fn bad_dir(s : string, excludes : List0(string)) : bool =
     | ".." => true
     | ".pijul" => true
     | "_darcs" => true
-    | ".hg" => true
     | ".git" => true
+    | ".hg" => true
+    | "build" => true
     | "target" => true
     | ".atspkg" => true
-    | ".egg-info" => true
     | "nimcache" => true
     | "dist-newstyle" => true
     | "dist" => true
@@ -671,9 +672,14 @@ fn bad_dir(s : string, excludes : List0(string)) : bool =
     | ".stack-work" => true
     | ".cabal-sandbox" => true
     | "node_modules" => true
+    | ".egg-info" => true
     | ".lein-plugins" => true
     | ".sass-cache" => true
-    | _ => list_exists_cloref(excludes, lam x => x = s || x = s + "/")
+    | _ => let
+      val s0 = s + "/"
+    in
+      list_exists_cloref(excludes, lam x => x = s || x = s0)
+    end
 
 fnx step_stream( acc : &source_contents >> source_contents
                , full_name : string
