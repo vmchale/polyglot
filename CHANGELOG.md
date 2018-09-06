@@ -5,6 +5,7 @@
   * Fix bug in `fish` printing
   * Add support for Squirrel
   * Add support for Io
+  * Fix Chapel printing bug
 
 ## 0.5.11
 

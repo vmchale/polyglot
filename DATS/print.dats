@@ -1016,7 +1016,7 @@ implement make_output (isc, color) =
                  + maybe_string("C++ Header", isc.cpp_header.lines)
                  + maybe_string("C#", isc.csharp.lines)
                  + maybe_string("C Header", isc.header.lines)
-                 + maybe_string("Chapel", isc.header.lines)
+                 + maybe_string("Chapel", isc.chapel.lines)
                  + maybe_string("Clean", isc.clean.lines)
                  + maybe_string("COBOL", isc.cobol.lines)
                  + maybe_string("Cogent", isc.cogent.lines)

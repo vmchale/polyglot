@@ -150,13 +150,10 @@ fn wclfil {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : ch
       in
         if n > 0 then
           let
-            fn {a:vt@ype} ptr_add_pf {l:addr}{m:nat}(p : ptr(l), ofs : size_t(m)) : ptr(l+m) =
-              $UN.cast(ptr_add<a>(p, ofs))
-            
             extern
             castfn witness(x : size_t) :<> [m:nat] size_t(m)
             
-            var pz = ptr_add_pf<char>(p, witness(n))
+            var pz = ptr_add<char>(p, witness(n))
             var ret: file
             val () = wclbuf(pf | p, pz, c, res, comment, ret)
           in
