@@ -4,7 +4,7 @@ update:
     cargo install --git https://github.com/cgag/loc --force
     cargo install tokei --force
     go get -u github.com/boyter/scc/
-    go get -u go get gopkg.in/src-d/enry.v1/...
+    go get -u gopkg.in/src-d/enry.v1/...
     go get -u github.com/hhatto/gocloc/cmd/gocloc
     sudo gem install github-linguist
     sudo npm install -g git+https://github.com/GOGO98901/Node-Counter.git

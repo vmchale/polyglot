@@ -175,6 +175,8 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , eiffel = x.eiffel + y.eiffel
                 , tla = x.tla + y.tla
                 , lean = x.lean + y.lean
+                , io = x.io + y.io
+                , squirrel = x.squirrel + y.squirrel
                 } : source_contents
   in
     next
@@ -320,6 +322,8 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~eiffel n => sc_r.eiffel := sc_r.eiffel + n
       | ~tla n => sc_r.tla := sc_r.tla + n
       | ~lean n => sc_r.lean := sc_r.lean + n
+      | ~io n => sc_r.io := sc_r.io + n
+      | ~squirrel n => sc_r.squirrel := sc_r.squirrel + n
       | ~unknown _ => ()
   in
     ()
@@ -644,6 +648,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "e" => eiffel(line_count(s, Some_vt("--")))
       | "tla" => tla(line_count(s, Some_vt("\\*")))
       | "lean" => lean(line_count(s, Some_vt("--")))
+      | "io" => io(line_count(s, Some_vt("#")))
+      | "nut" => squirrel(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -872,6 +878,8 @@ fn empty_contents() : source_contents =
                , eiffel = empty_file
                , tla = empty_file
                , lean = empty_file
+               , io = empty_file
+               , squirrel = empty_file
                } : source_contents
   in
     isc

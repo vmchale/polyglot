@@ -133,7 +133,10 @@
 - [x] Eiffel
 - [x] TLA+
 - [x] Lean
-- [ ] Io (`.io`, `#`)
+- [x] Io (`.io`, `#`)
+- [x] Squirrel (`.nut`, `//`)
+- [ ] harlan (`.kfc`, `#`)
+- [ ] Self (`.self`)
 - [ ] Linker script
 - [ ] Grain (`.gr`, `#`)
 - [ ] Boo https://github.com/boo-lang/boo
@@ -160,7 +163,6 @@
 - [ ] Spire https://github.com/spire/spire
 - [ ] dyon
 - [ ] ketos
-- [ ] harlan (`.kfc`)
 - [ ] puppet (`.pp`)
 - [ ] forth
 - [ ] Objective C++
@@ -290,12 +292,9 @@
 - [ ] Icon
 - [ ] Hoon
 - [ ] Mint https://github.com/mint-lang/mint
-- [ ] TLA
 - [ ] SuperCollider (`.sc`)
 - [ ] Stan (`.stan`)
-- [ ] Squirrel (`.nut`)
 - [ ] Smali (`.smali`; `#`)
-- [ ] Self (`.self`)
 - [ ] Rexx (`.rexx`)
 - [ ] https://github.com/joakimthun/Elsa
 - [ ] https://github.com/pugjs/pug
@@ -311,3 +310,5 @@
 - [ ] https://zdnet1.cbsistatic.com/hub/i/r/2018/08/16/ea443352-5708-4c04-aa77-1a5d8b6b8b2d/resize/770xauto/78ef73d9bdb2b77e1aa8dbdfe4afee5f/lang-rank-618-1-1024x708.png
 - [ ] http://focalize.inria.fr/
 - [ ] https://www.npmjs.com/package/code-counter
+- [ ] https://www.amber-lang.net/
+- [ ] https://en.wikipedia.org/wiki/JOSS

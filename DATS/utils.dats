@@ -145,3 +145,5 @@ implement free_pl (pl) =
     | ~eiffel _ => ()
     | ~tla _ => ()
     | ~lean _ => ()
+    | ~io _ => ()
+    | ~squirrel _ => ()

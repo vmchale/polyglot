@@ -202,6 +202,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.eiffel.lines
                      + sc.tla.lines
                      + sc.lean.lines
+                     + sc.io.lines
+                     + sc.squirrel.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -336,6 +338,8 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.eiffel.blanks
                       + sc.tla.blanks
                       + sc.lean.blanks
+                      + sc.io.blanks
+                      + sc.squirrel.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -470,6 +474,8 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.eiffel.comments
                         + sc.tla.comments
                         + sc.lean.comments
+                        + sc.io.comments
+                        + sc.squirrel.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -604,6 +610,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.eiffel.files
                      + sc.tla.files
                      + sc.lean.files
+                     + sc.io.files
+                     + sc.squirrel.files
              }
   in
     f
@@ -669,6 +677,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("HTML", isc.html)
   + maybe_table("Idris", isc.idris)
   + maybe_table("iPKG", isc.ipkg)
+  + maybe_table("Io", isc.io)
   + maybe_table("Ion", isc.ion)
   + maybe_table("Isabelle", isc.isabelle)
   + maybe_table("J", isc.j)
@@ -724,6 +733,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Sixten", isc.sixten)
   + maybe_table("Solidity", isc.solidity)
   + maybe_table("SQL", isc.sql)
+  + maybe_table("Squirrel", isc.squirrel)
   + maybe_table("Standard ML", isc.sml)
   + maybe_table("Swift", isc.swift)
   + maybe_table("TCL", isc.tcl)
@@ -882,6 +892,8 @@ implement print_file (pt, filename) =
       | eiffel (f) => maybe_file("Eiffel", f)
       | tla (f) => maybe_file("TLA+", f)
       | lean (f) => maybe_file("Lean", f)
+      | io (f) => maybe_file("Io", f)
+      | squirrel (f) => maybe_file("Squirrel", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1018,7 +1030,6 @@ implement make_output (isc, color) =
                  + maybe_string("F#", isc.fsharp.lines)
                  + maybe_string("Factor", isc.factor.lines)
                  + maybe_string("Felix", isc.felix.lines)
-                 + maybe_string("Fish", isc.fish.lines)
                  + maybe_string("Fortran", isc.fortran.lines)
                  + maybe_string("Frege", isc.frege.lines)
                  + maybe_string("Futhark", isc.futhark.lines)
@@ -1026,6 +1037,7 @@ implement make_output (isc, color) =
                  + maybe_string("Haskell", isc.haskell.lines)
                  + maybe_string("Haxe", isc.haxe.lines)
                  + maybe_string("Idris", isc.idris.lines)
+                 + maybe_string("Io", isc.io.lines)
                  + maybe_string("Kotlin", isc.kotlin.lines)
                  + maybe_string("J", isc.j.lines)
                  + maybe_string("Jai", isc.jai.lines)
@@ -1054,6 +1066,7 @@ implement make_output (isc, color) =
                  + maybe_string("Scheme", isc.scheme.lines)
                  + maybe_string("Shen", isc.shen.lines)
                  + maybe_string("Sixten", isc.sixten.lines)
+                 + maybe_string("Squirrel", isc.squirrel.lines)
                  + maybe_string("Standard ML", isc.sml.lines)
                  + maybe_string("Swift", isc.swift.lines)
                  + maybe_string("TCL", isc.tcl.lines)

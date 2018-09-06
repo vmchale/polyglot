@@ -1,5 +1,11 @@
 # polyglot
 
+## 0.5.12
+
+  * Fix bug in `fish` printing
+  * Add support for Squirrel
+  * Add support for Io
+
 ## 0.5.11
 
   * Add support for Lean
