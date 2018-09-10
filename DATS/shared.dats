@@ -403,6 +403,17 @@ fn check_keywords(s : string, size : file, ext : string) : pl_type =
       | ~None_vt() => (bad_file(s) ; unknown)
   end
 
+fn freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : !FILEptr1, p : ptr(l), c : char) : size_t =
+  let
+    extern
+    castfn as_fileref(x : !FILEptr1) :<> FILEref
+    
+    var n = $extfcall(size_t, "fread", p, sizeof<char>, BUFSZ - 1, as_fileref(inp))
+    val () = $UN.ptr0_set<char>(ptr_add<char>(p, n), c)
+  in
+    n
+  end
+
 // Check shebang on scripts.
 //
 // TODO flexible parser that drops spaces as appropriate
