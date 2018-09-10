@@ -407,6 +407,8 @@ fn check_keywords(s : string, size : file, ext : string) : pl_type =
 //
 // TODO flexible parser that drops spaces as appropriate
 // TODO check magic number so as to avoid checking shebang of binary file
+// FIXME: instead of using fileref_get_line_string, read into a buffer!
+// 26 chars?
 fn check_shebang(s : string) : pl_type =
   let
     var ref = fileref_open_opt(s, file_mode_r)

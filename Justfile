@@ -1,4 +1,3 @@
-# taskset --cpu-list 1 poly
 poly:
     @rm -f *_dats.c
     @rm -f *_sats.c
@@ -15,6 +14,7 @@ ci:
     shellcheck bash/release
     shellcheck bash/update
 
+# taskset --cpu-list 1 poly
 bench:
     @poly ~/git-builds/rust >> /dev/null
     bench "poly ~/git-builds/rust" "loc -u ~/git-builds/rust" "tokei ~/git-builds/rust" "scc -c -co ~/git-builds/rust" "gocloc ~/git-builds/rust" "enry -mode=line ~/git-builds/rust" "linguist ~/git-builds/rust" "cloc ~/git-builds/rust"

@@ -314,3 +314,5 @@
 - [ ] https://www.amber-lang.net/
 - [ ] https://en.wikipedia.org/wiki/JOSS
 - [ ] http://shakespearelang.sourceforge.net/report/shakespeare
+- [ ] Unreal Script
+- [ ] Lobster (`.lobster`, `//`)

@@ -55,6 +55,7 @@
 - [ ] First comment in a file is ignored
 - [ ] Handle `sed`-style multiline comments
 - [ ] Comments on borders between buffers
+- [ ] Is `.ac` always M4?
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
