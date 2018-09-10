@@ -10,6 +10,10 @@ staload UN = "prelude/SATS/unsafe.sats"
 // FIXME: changing BUFSZ changes the # of comments & the # of blanks
 #define BUFSZ (16*1024)
 
+%{#
+#include <string.h>
+%}
+
 %{^
 #include <stdbool.h>
 
@@ -248,18 +252,3 @@ fn line_count(s : string, pre : Option_vt(small_string)) : file =
   case+ pre of
     | ~Some_vt (x) => count_char(s, get_chars(x))
     | ~None_vt() => count_char(s, None_vt)
-
-// get the first 27 characters of a file
-fn get_file_newline(filename : string) : string =
-  let
-    val (pfat, pfgc | p) = malloc_gc(g1i2u(27))
-    prval () = pfat := b0ytes2bytes_v(pfat)
-    var inp = fopen_exn(filename, file_mode_r)
-    var n = freadc_(pfat | inp, i2sz(27), p, '\n')
-    val () = fclose_exn(inp)
-    val (pf1, pf2 | p2) = memchr(pfat | p, '\n', i2sz(27))
-    prval () = pfat := bytes_v_unsplit(pf1,pf2)
-    val () = mfree_gc(pfat, pfgc | p)
-  in
-    ""
-  end
