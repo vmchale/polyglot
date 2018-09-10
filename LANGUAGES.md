@@ -211,6 +211,7 @@
 - [ ] quack (`.qk`)
 - [ ] saltstack
 - [ ] plasma
+- [ ] Ballerina (`.bal`, `//`)
 - [ ] everything here: http://www.rosettacode.org/wiki/Rosetta_Code
 - [ ] SISAL
 - [ ] G-code (`.mpt`, `.mpf`, `.nc`)
@@ -312,3 +313,4 @@
 - [ ] https://www.npmjs.com/package/code-counter
 - [ ] https://www.amber-lang.net/
 - [ ] https://en.wikipedia.org/wiki/JOSS
+- [ ] http://shakespearelang.sourceforge.net/report/shakespeare

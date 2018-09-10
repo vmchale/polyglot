@@ -96,9 +96,6 @@ The easiest way to install is to use the installation script, like so:
 curl -sSl https://raw.githubusercontent.com/vmchale/polyglot/master/bash/install.sh | sh -s
 ```
 
-You may need to add `$HOME/.local/bin` to your `PATH` and
-`$HOME/.local/share/man/man1` to your `MANPATH`.
-
 You can optionally install [compleat](https://github.com/mbrubeck/compleat) for
 shell completions as well.
 
@@ -165,10 +162,10 @@ For languages already supported, see
  Dash                     3         115           85            0           30
  Dhall                    5          95           85            0           10
  Justfile                 1          33           29            1            3
- Markdown                 7         804          689            0          115
+ Markdown                 7         804          690            0          114
  TOML                     1           3            3            0            0
  YAML                     1          51           45            0            6
 -------------------------------------------------------------------------------
- Total                   36        4792         4465           38          289
+ Total                   36        4792         4466           38          288
 -------------------------------------------------------------------------------
 ```

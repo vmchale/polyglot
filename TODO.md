@@ -46,6 +46,7 @@
 - [ ] Figure out Windows (?)
   - [ ] Cross-compilation?
 # Bugs
+- [ ] Use as a test case: git@github.com:kovidgoyal/kitty.git
 - [ ] Fortran `c` comments
 - [ ] Parallelism fails on Mac because mac does not support spinlocks, only
   mutexes (which should be slower?)
