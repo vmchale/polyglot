@@ -316,3 +316,4 @@
 - [ ] http://shakespearelang.sourceforge.net/report/shakespeare
 - [ ] Unreal Script
 - [ ] Lobster (`.lobster`, `//`)
+- [ ] Nomyx (http://hackage.haskell.org/package/Nomyx-Language)

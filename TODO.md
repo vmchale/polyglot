@@ -60,7 +60,6 @@
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
 - [ ] `poly -t README.md` adds spurious line of output
-- [ ] `poly -tc` still adds colors
 - [ ] handle `\-dir` for directories
 - [ ] Allow three characters for comments (J's `NB.`)
 - [ ] Fix library linking for distributable Mac binaries
