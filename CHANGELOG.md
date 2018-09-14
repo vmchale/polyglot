@@ -1,5 +1,11 @@
 # polyglot
 
+## 0.5.13
+
+  * Add support for Agda libraries
+  * Add support for Cedille
+  * Alphabetize 'Carp' correctly
+
 ## 0.5.12
 
   * Fix bug in `fish` printing

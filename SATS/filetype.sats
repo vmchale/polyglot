@@ -138,6 +138,8 @@ vtypedef source_contents = @{ rust = file
                             , lean = file
                             , io = file
                             , squirrel = file
+                            , agdalib = file
+                            , cedille = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -282,3 +284,5 @@ datavtype pl_type =
   | lean of file
   | io of file
   | squirrel of file
+  | agdalib of file
+  | cedille of file

@@ -135,6 +135,8 @@
 - [x] Lean
 - [x] Io (`.io`, `#`)
 - [x] Squirrel (`.nut`, `//`)
+- [x] Agda library
+- [x] https://cedille.github.io/
 - [ ] harlan (`.kfc`, `#`)
 - [ ] Self (`.self`)
 - [ ] Linker script
@@ -153,7 +155,6 @@
 - [ ] Jenkinsfile (groovy?)
 - [ ] mustache
 - [ ] jinja
-- [ ] Agda library
 - [ ] groovy
 - [ ] Intel hex (`.ihex`)
 - [ ] occam
@@ -270,6 +271,7 @@
 - [ ] SNOBOL (`.sbl`)
 - [ ] Zimbu (`.zu`)
 - [ ] Dao Script https://github.com/daokoder/dao
+- [ ] http://hackage.haskell.org/package/dao
 - [ ] SparForte: https://github.com/kburtch/SparForte
 - [ ] SourcePawn
 - [ ] LOLCODE https://github.com/trending/lolcode
@@ -317,3 +319,11 @@
 - [ ] Unreal Script
 - [ ] Lobster (`.lobster`, `//`)
 - [ ] Nomyx (http://hackage.haskell.org/package/Nomyx-Language)
+- [ ] http://feldspar.github.io/
+- [ ] https://code.google.com/archive/p/foma/
+- [ ] aurochs http://hackage.haskell.org/package/Aurochs-0.1/src/test.aur
+- [ ] http://hackage.haskell.org/package/descript-lang
+- [ ] http://hackage.haskell.org/package/axel
+- [ ] http://hackage.haskell.org/package/atomo
+- [ ] http://hackage.haskell.org/package/hwhile
+- [ ] https://hacklang.org/

@@ -204,6 +204,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.lean.lines
                      + sc.io.lines
                      + sc.squirrel.lines
+                     + sc.agdalib.lines
+                     + sc.cedille.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -340,6 +342,8 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.lean.blanks
                       + sc.io.blanks
                       + sc.squirrel.blanks
+                      + sc.agdalib.blanks
+                      + sc.cedille.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -476,6 +480,8 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.lean.comments
                         + sc.io.comments
                         + sc.squirrel.comments
+                        + sc.agdalib.comments
+                        + sc.cedille.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -612,6 +618,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.lean.files
                      + sc.io.files
                      + sc.squirrel.files
+                     + sc.agdalib.files
+                     + sc.cedille.files
              }
   in
     f
@@ -620,6 +628,7 @@ fn sum_fields(sc : source_contents) : file =
 fn table_helper(isc : source_contents) : string =
   maybe_table("Ada", isc.ada)
   + maybe_table("Agda", isc.agda)
+  + maybe_table("Agda library", isc.agdalib)
   + maybe_table("Alex", isc.alex)
   + maybe_table("Apex", isc.apex)
   + maybe_table("Assembly", isc.assembly)
@@ -632,7 +641,6 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Blodwen", isc.blodwen)
   + maybe_table("Brainfuck", isc.brainfuck)
   + maybe_table("C", isc.c)
-  + maybe_table("Carp", isc.carp)
   + maybe_table("C--", isc.cmm)
   + maybe_table("C++ Header", isc.cpp_header)
   + maybe_table("C++", isc.cpp)
@@ -640,7 +648,9 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("C Header", isc.header)
   + maybe_table("Cabal", isc.cabal)
   + maybe_table("Cabal Project", isc.cabal_project)
+  + maybe_table("Carp", isc.carp)
   + maybe_table("Cassius", isc.cassius)
+  + maybe_table("Cedille", isc.cedille)
   + maybe_table("Chapel", isc.chapel)
   + maybe_table("Clean", isc.clean)
   + maybe_table("COBOL", isc.cobol)
@@ -894,6 +904,8 @@ implement print_file (pt, filename) =
       | lean (f) => maybe_file("Lean", f)
       | io (f) => maybe_file("Io", f)
       | squirrel (f) => maybe_file("Squirrel", f)
+      | agdalib (f) => maybe_file("Agda libary", f)
+      | cedille (f) => maybe_file("Cedille", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1010,12 +1022,12 @@ implement make_output (isc, color) =
                  + maybe_string("Blodwen", isc.blodwen.lines)
                  + maybe_string("Brainfuck", isc.brainfuck.lines)
                  + maybe_string("C", isc.c.lines)
-                 + maybe_string("Carp", isc.carp.lines)
                  + maybe_string("C++", isc.cpp.lines)
                  + maybe_string("C--", isc.cmm.lines)
                  + maybe_string("C++ Header", isc.cpp_header.lines)
                  + maybe_string("C#", isc.csharp.lines)
                  + maybe_string("C Header", isc.header.lines)
+                 + maybe_string("Carp", isc.carp.lines)
                  + maybe_string("Chapel", isc.chapel.lines)
                  + maybe_string("Clean", isc.clean.lines)
                  + maybe_string("COBOL", isc.cobol.lines)
@@ -1089,7 +1101,8 @@ implement make_output (isc, color) =
     + with_nonempty(txt_string, maybe_string("Awk", isc.awk.lines) + maybe_string("Sed", isc.sed.lines))
     + with_nonempty(quantum_string, maybe_string("Q#", isc.qsharp.lines))
     + with_nonempty( cfg_string
-                   , maybe_string("Cabal", isc.cabal.lines)
+                   , maybe_string("Agda library", isc.agdalib.lines)
+                   + maybe_string("Cabal", isc.cabal.lines)
                    + maybe_string("Cabal Project", isc.cabal_project.lines)
                    + maybe_string("Dhall", isc.dhall.lines)
                    + maybe_string("iPKG", isc.ipkg.lines)
@@ -1134,6 +1147,7 @@ implement make_output (isc, color) =
                    )
     + with_nonempty( thm_string
                    , maybe_string("Agda", isc.agda.lines)
+                   + maybe_string("Cedille", isc.cedille.lines)
                    + maybe_string("Coq", isc.coq.lines)
                    + maybe_string("F*", isc.fstar.lines)
                    + maybe_string("Isabelle", isc.isabelle.lines)

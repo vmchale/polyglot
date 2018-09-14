@@ -147,3 +147,5 @@ implement free_pl (pl) =
     | ~lean _ => ()
     | ~io _ => ()
     | ~squirrel _ => ()
+    | ~agdalib _ => ()
+    | ~cedille _ => ()

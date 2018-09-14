@@ -48,9 +48,6 @@
 # Bugs
 - [ ] Use as a test case: git@github.com:kovidgoyal/kitty.git
 - [ ] Fortran `c` comments
-- [ ] Parallelism fails on Mac because mac does not support spinlocks, only
-  mutexes (which should be slower?)
-  - [ ] Ideally we would get rid of channels/locks altogether?
 - [ ] Allow multiple syntaxes for comments, e.g. `#` for assembly
 - [ ] First comment in a file is ignored
 - [ ] Handle `sed`-style multiline comments
