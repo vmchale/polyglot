@@ -9,7 +9,7 @@ ci:
     yamllint .yamllint
     atspkg test --pkg-args "./native.dhall" target/test
     shellcheck bash/install.sh -e SC2016
-    shellcheck bash/build
+    shellcheck bash/buildall
     shellcheck bash/next
     shellcheck bash/release
     shellcheck bash/update
