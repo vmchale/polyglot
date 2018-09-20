@@ -18,6 +18,13 @@ getTarget() {
     fi
 }
 
+addBin() {
+
+    printf 'export PATH=$HOME/.local/bin:$PATH' >> "$HOME"/.bashrc
+    export PATH=$HOME/.local/bin:$PATH
+
+}
+
 main() {
 
     latest="$(curl -s https://github.com/vmchale/polyglot/releases/latest/ | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)"
@@ -41,6 +48,11 @@ main() {
         curl -L https://github.com/vmchale/polyglot/releases/download/"$latest"/poly.usage -o "$compleat_dest"
     fi
     chmod +x "$dest"
+
+    case :$PATH: in
+        *:$HOME/.local/bin:*) ;;
+        *) addBin ;;
+    esac
 
 }
 
