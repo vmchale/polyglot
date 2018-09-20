@@ -206,13 +206,6 @@ in
   f
 end
 
-extern
-fn alloca_ {n:nat}(size_t(n)) :<!wrt> [l:agz] (b0ytes(n) @ l | ptr(l)) =
-  "mac#alloca"
-
-extern
-praxi alloca_free {n:nat}{ l : addr | l > null } (b0ytes(n) @ l) : void
-
 fn count_char(s : string, comment : Option_vt(pair)) : file =
   let
     // TODO: use a dataview to make this safe??
@@ -231,12 +224,10 @@ fn count_char(s : string, comment : Option_vt(pair)) : file =
       end
     else
       let
-        val (pfat | p) = alloca_(g1i2u(BUFSZ))
+        val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
         prval () = pfat := b0ytes2bytes_v(pfat)
         var res = wclfil(pfat | inp, p, comment)
-        prval () = alloca_free(pfat)
-        
-        // val () = mfree_gc(pfat, pfgc | p)
+        val () = mfree_gc(pfat, pfgc | p)
         val () = fclose1_exn(inp)
         val () = free(comment)
       in
