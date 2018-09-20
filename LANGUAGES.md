@@ -327,3 +327,4 @@
 - [ ] http://hackage.haskell.org/package/atomo
 - [ ] http://hackage.haskell.org/package/hwhile
 - [ ] https://hacklang.org/
+- [ ] Skew http://skew-lang.org/
