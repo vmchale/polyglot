@@ -15,6 +15,7 @@
 - [ ] Library for semantic analysis?
 - [ ] Avoid overlaps when subdirectories passed as arguments?
 - [ ] Make intelligent guesses also work w/ `thefuck`? Write python idk.
+- [ ] Point to github URL?
 # Performance
 - [ ] Make command-line parser call-by-reference
 - [x] parallelism
@@ -26,12 +27,10 @@
 - [ ] get rid of GC (?)
   - [ ] Use more linear types
   - [ ] Write my own dirstream??
-- [x] Make loops call-by-reference?
 - [ ] Look at https://github.com/llogiq/bytecount (beat it?)
   - [ ] count lines with SIMD - not just search for stuff
 - [ ] also maybe https://github.com/boyerjohn/rapidstring
 - [ ] Use `strpbrk` during parsing comments?
-- [ ] Try to use `alloca` instead of `malloc` (lol)
 - [ ] Benchmark memory footprint!
 - [ ] `check_keywords` is very inefficient
 # Distribution
@@ -63,9 +62,7 @@
 - [ ] Bug w/ comments: https://www.reddit.com/r/rust/comments/99e4tq/reading_files_quickly_in_rust/e4nh5nf
 # Code Maintenance
 - [ ] Flag for printing debug info?
-- [ ] Add benchmark suite
 - [ ] Library for this
-  - [ ] `.sats` files
   - [ ] Library stanza & Haskell bindings
   - [ ] Executable that depends on the library
 - [ ] linear types to ensure each field gets printed at the end?
