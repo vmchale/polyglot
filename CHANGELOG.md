@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.14
+
+  * More compact HTML output
+
 ## 0.5.13
 
   * Add support for Agda libraries

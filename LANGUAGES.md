@@ -328,3 +328,15 @@
 - [ ] http://hackage.haskell.org/package/hwhile
 - [ ] https://hacklang.org/
 - [ ] Skew http://skew-lang.org/
+- [ ] https://extemporelang.github.io/
+- [ ] https://myrlang.org/
+- [ ] Rum: https://github.com/vrom911/Compiler
+- [ ] Icon
+- [ ] Joy
+- [ ] smalltalk
+- [ ] spry https://github.com/gokr/spry
+- [ ] Ren
+- [ ] Kit https://github.com/kitlang/kit
+- [ ] unison https://github.com/unisonweb/unison
+- [ ] luna https://github.com/luna/luna
+- [ ] http://skiplang.com/
