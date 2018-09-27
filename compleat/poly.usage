@@ -1,1 +1,1 @@
-poly (<DIR> | (-h | --help) | (-V | --version) | (-p | --no-parallel) | (-c | --no-color) | (-t | --no-table) | ((-e | --excludes) <DIR>)) ... ;
+poly (<DIR> | (-h | --help) | (-V | --version) | (-p | --no-parallel) | (-c | --no-color) | (-t | --no-table) | --html | ((-e | --excludes) <DIR>)) ... ;
