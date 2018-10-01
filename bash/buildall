@@ -4,7 +4,7 @@ set -e
 
 atspkg build --pkg-args "./native.dhall" target/polyglot.deb
 atspkg build --pkg-args "./gc.dhall" --target=s390x-linux-gnu
-atspkg build --pkg-args "./gc.dhall" --target=arm-linux-gnueabihf
+# atspkg build --pkg-args "./gc.dhall" --target=arm-linux-gnueabihf
 atspkg build --pkg-args "./gc.dhall" --target=powerpc64-linux-gnu
 atspkg build --pkg-args "./gc.dhall" --target=powerpc64le-linux-gnu
 atspkg build --pkg-args "./gc.dhall" --target=powerpc-linux-gnu
@@ -20,5 +20,5 @@ atspkg build --pkg-args "./no-gc.dhall" --target=riscv64-linux-gnu
 atspkg build --pkg-args "./no-gc.dhall" --target=sh4-linux-gnu
 atspkg build --pkg-args "./no-gc.dhall" --target=hppa-linux-gnu
 atspkg build --pkg-args "./no-gc.dhall" --target=sparc64-linux-gnu
-atspkg build --pkg-args "./no-gc.dhall" --target=arm-linux-gnueabi
+# atspkg build --pkg-args "./no-gc.dhall" --target=arm-linux-gnueabi
 # atspkg build --pkg-args '{ gc = False, cross = True, parallel = False, static = True, icc = False }' --target=x86_64-unknown-redox

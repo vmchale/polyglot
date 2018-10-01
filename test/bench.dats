@@ -37,5 +37,5 @@ implement main0 () =
     val _ = print_slope("linecount (DATS/cli.dats)", 10, linecount_delay)
     val _ = print_slope("keyword check (test/data/Coq.v)", 8, keyword_delay)
     val _ = print_slope("step_stream", 5, stream_delay)
-    val _ = print_slope("shebang chewck", 10, shebang_delay)
+    val _ = print_slope("shebang check", 10, shebang_delay)
   }

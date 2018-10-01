@@ -339,4 +339,8 @@
 - [ ] Kit https://github.com/kitlang/kit
 - [ ] unison https://github.com/unisonweb/unison
 - [ ] luna https://github.com/luna/luna
-- [ ] http://skiplang.com/
+- [ ] Skip (`.sk`, `//`)
+- [ ] https://github.com/Microsoft/dafny
+- [ ] euclid
+- [ ] CLU
+- [ ] Ceptre: https://github.com/chrisamaphone/interactive-lp/blob/master/examples/love-triangle.cep
