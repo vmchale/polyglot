@@ -3,6 +3,7 @@
 ## 0.5.14
 
   * More compact HTML output
+  * Remove unused language support
 
 ## 0.5.13
 

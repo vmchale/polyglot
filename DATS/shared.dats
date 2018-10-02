@@ -123,7 +123,6 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , m4 = x.m4 + y.m4
                 , objective_c = x.objective_c + y.objective_c
                 , automake = x.automake + y.automake
-                , margaret = x.margaret + y.margaret
                 , carp = x.carp + y.carp
                 , shen = x.shen + y.shen
                 , greencard = x.greencard + y.greencard
@@ -272,7 +271,6 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~m4 n => sc_r.m4 := sc_r.m4 + n
       | ~objective_c n => sc_r.objective_c := sc_r.objective_c + n
       | ~automake n => sc_r.automake := sc_r.automake + n
-      | ~margaret n => sc_r.margaret := sc_r.margaret + n
       | ~carp n => sc_r.carp := sc_r.carp + n
       | ~shen n => sc_r.shen := sc_r.shen + n
       | ~greencard n => sc_r.greencard := sc_r.greencard + n
@@ -615,7 +613,6 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "ac" => m4(line_count(s, None_vt))
       | "mm" => objective_c(line_count(s, Some_vt("//")))
       | "am" => automake(line_count(s, Some_vt("#")))
-      | "mgt" => margaret(line_count(s, Some_vt("--")))
       | "carp" => carp(line_count(s, Some_vt(";")))
       | "pls" => plutus(line_count(s, None_vt))
       | "ijs" => j(line_count(s, Some_vt("NB")))
@@ -845,7 +842,6 @@ fn empty_contents() : source_contents =
                , m4 = empty_file
                , objective_c = empty_file
                , automake = empty_file
-               , margaret = empty_file
                , carp = empty_file
                , shen = empty_file
                , greencard = empty_file

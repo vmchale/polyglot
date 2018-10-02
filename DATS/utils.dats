@@ -92,7 +92,6 @@ implement free_pl (pl) =
     | ~m4 _ => ()
     | ~objective_c _ => ()
     | ~automake _ => ()
-    | ~margaret _ => ()
     | ~carp _ => ()
     | ~shen _ => ()
     | ~greencard _ => ()

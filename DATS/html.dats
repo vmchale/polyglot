@@ -109,7 +109,6 @@ fn make_html(isc : source_contents) : string =
     + maybe_html_table("M4", isc.m4)
     + maybe_html_table("Madlang", isc.madlang)
     + maybe_html_table("Makefile", isc.makefile)
-    + maybe_html_table("Margaret", isc.margaret)
     + maybe_html_table("Markdown", isc.markdown)
     + maybe_html_table("Mercury", isc.mercury)
     + maybe_html_table("Nim", isc.nim)

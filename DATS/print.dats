@@ -149,7 +149,6 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.m4.lines
                      + sc.objective_c.lines
                      + sc.automake.lines
-                     + sc.margaret.lines
                      + sc.carp.lines
                      + sc.shen.lines
                      + sc.greencard.lines
@@ -287,7 +286,6 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.m4.blanks
                       + sc.objective_c.blanks
                       + sc.automake.blanks
-                      + sc.margaret.blanks
                       + sc.carp.blanks
                       + sc.shen.blanks
                       + sc.greencard.blanks
@@ -425,7 +423,6 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.m4.comments
                         + sc.objective_c.comments
                         + sc.automake.comments
-                        + sc.margaret.comments
                         + sc.carp.comments
                         + sc.shen.comments
                         + sc.greencard.comments
@@ -563,7 +560,6 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.m4.files
                      + sc.objective_c.files
                      + sc.automake.files
-                     + sc.margaret.files
                      + sc.carp.files
                      + sc.shen.files
                      + sc.greencard.files
@@ -709,7 +705,6 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("M4", isc.m4)
   + maybe_table("Madlang", isc.madlang)
   + maybe_table("Makefile", isc.makefile)
-  + maybe_table("Margaret", isc.margaret)
   + maybe_table("Markdown", isc.markdown)
   + maybe_table("Mercury", isc.mercury)
   + maybe_table("Nim", isc.nim)
@@ -849,7 +844,6 @@ implement print_file (pt, filename) =
       | m4 (f) => maybe_file("M4", f)
       | objective_c (f) => maybe_file("Objective C", f)
       | automake (f) => maybe_file("Automake", f)
-      | margaret (f) => maybe_file("Margaret", f)
       | carp (f) => maybe_file("Carp", f)
       | shen (f) => maybe_file("Shen", f)
       | greencard (f) => maybe_file("Greencard", f)
@@ -1057,7 +1051,6 @@ implement make_output (isc, color) =
                  + maybe_string("Julia", isc.julia.lines)
                  + maybe_string("K", isc.k.lines)
                  + maybe_string("Lua", isc.lua.lines)
-                 + maybe_string("Margaret", isc.margaret.lines)
                  + maybe_string("Mercury", isc.mercury.lines)
                  + maybe_string("Nim", isc.nim.lines)
                  + maybe_string("Nu", isc.nu.lines)

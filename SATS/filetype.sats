@@ -83,7 +83,6 @@ vtypedef source_contents = @{ rust = file
                             , m4 = file
                             , objective_c = file
                             , automake = file
-                            , margaret = file
                             , carp = file
                             , shen = file
                             , greencard = file
@@ -229,7 +228,6 @@ datavtype pl_type =
   | m4 of file
   | objective_c of file
   | automake of file
-  | margaret of file
   | carp of file
   | shen of file
   | greencard of file
