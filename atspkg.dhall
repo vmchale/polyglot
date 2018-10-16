@@ -1,7 +1,7 @@
 let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 in
 
-let not = http://hackage.haskell.org/package/dhall/src/Prelude/Bool/not
+let not = https://raw.githubusercontent.com/dhall-lang/Prelude/master/Bool/not
 in
 
 let

@@ -344,3 +344,14 @@
 - [ ] euclid
 - [ ] CLU
 - [ ] Ceptre: https://github.com/chrisamaphone/interactive-lp/blob/master/examples/love-triangle.cep
+- [ ] granule https://github.com/granule-project/granule
+- [ ] https://github.com/pigworker/Syrup
+- [ ] https://github.com/lbochenek/eggplant
+- [ ] http://www-sop.inria.fr/meije/rp/ROS/Tt-SM.html
+- [ ] http://www.minizinc.org/
+- [ ] https://alan-platform.com/about/
+- [ ] https://github.com/Zolang/Zolang
+- [ ] https://github.com/m-ender/retina
+- [ ] https://esolangs.org/wiki/Fish
+- [ ] https://github.com/fergusq/roda
+- [ ] https://github.com/DJMcMayhem/Brain-Flak

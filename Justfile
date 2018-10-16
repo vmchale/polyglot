@@ -16,6 +16,8 @@ ci:
 
 # taskset --cpu-list 1 poly
 bench:
+    @poly ~/git-builds/junk/freebsd >> /dev/null
+    bench "poly ~/git-builds/junk/freebsd" "loc -u ~/git-builds/junk/freebsd" "tokei ~/git-builds/junk/freebsd" "scc -c -co ~/git-builds/junk/freebsd" "gocloc ~/git-builds/junk/freebsd" "enry -mode=line ~/git-builds/junk/freebsd" "linguist ~/git-builds/junk/freebsd" "cloc ~/git-builds/junk/freebsd"
     @poly ~/git-builds/OpenBLAS >> /dev/null
     bench "poly ~/git-builds/OpenBLAS" "loc -u ~/git-builds/OpenBLAS" "tokei ~/git-builds/OpenBLAS" "scc -c -co ~/git-builds/OpenBLAS" "gocloc ~/git-builds/OpenBLAS" "enry -mode=line ~/git-builds/OpenBLAS" "linguist ~/git-builds/OpenBLAS" "cloc ~/git-builds/OpenBLAS"
     @poly ~/git-builds/linux >> /dev/null
