@@ -45,6 +45,7 @@
 - [ ] Figure out Windows (?)
   - [ ] Cross-compilation?
 # Bugs
+- [ ] Fix gcc/clang build
 - [ ] Use as a test case: git@github.com:kovidgoyal/kitty.git
 - [ ] Fortran `c` comments
 - [ ] Allow multiple syntaxes for comments, e.g. `#` for assembly

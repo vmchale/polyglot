@@ -209,7 +209,6 @@ end
 fn count_char(s : string, comment : Option_vt(pair)) : file =
   let
     // TODO: use a dataview to make this safe??
-    // fails on a bad symlink, which is bad
     var inp = fopen(s, file_mode_r)
   in
     if FILEptr_is_null(inp) then
@@ -224,6 +223,7 @@ fn count_char(s : string, comment : Option_vt(pair)) : file =
       end
     else
       let
+        // TODO: allocate once per thread
         val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
         prval () = pfat := b0ytes2bytes_v(pfat)
         var res = wclfil(pfat | inp, p, comment)

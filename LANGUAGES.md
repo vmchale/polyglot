@@ -355,3 +355,11 @@
 - [ ] https://esolangs.org/wiki/Fish
 - [ ] https://github.com/fergusq/roda
 - [ ] https://github.com/DJMcMayhem/Brain-Flak
+- [ ] https://github.com/maiavictor/formality
+- [ ] https://www.cs.bu.edu/~hwxi/DML/DML.html
+- [ ] http://pvs.csl.sri.com/
+- [ ] BlueSpec
+- [ ] hap: https://github.com/evincarofautumn/Hap/blob/master/test/and.hap
+- [ ] https://github.com/munificent/vigil
+- [ ] https://github.com/DennisMitchell/jellylanguage
+- [ ] https://bitbucket.org/zacharyjtaylor/my-language

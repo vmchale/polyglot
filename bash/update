@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 set -ex
 wget https://raw.githubusercontent.com/AlDanial/cloc/master/cloc -O "$HOME/.local/bin/cloc"
+chmod +x "$HOME/.local/bin/cloc"
 sudo gem install github-linguist
 sudo npm install -g git+https://github.com/GOGO98901/Node-Counter.git
 go get -u github.com/boyter/scc/
