@@ -21,7 +21,7 @@ Reasons to use polyglot:
 
 Reasons not to use polyglot:
 
-  * It's written in ATS
+  * Written in ATS
   * Best on Linux
   * No regex-based exclusions
   * Doesn't count block comments
