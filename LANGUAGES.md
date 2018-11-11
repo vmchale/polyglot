@@ -363,3 +363,6 @@
 - [ ] https://github.com/munificent/vigil
 - [ ] https://github.com/DennisMitchell/jellylanguage
 - [ ] https://bitbucket.org/zacharyjtaylor/my-language
+- [ ] Zot (.zot)
+- [ ] http://www.earl-grey.io/
+- [ ] https://github.com/matijapretnar/eff/
