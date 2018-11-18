@@ -366,3 +366,5 @@
 - [ ] Zot (.zot)
 - [ ] http://www.earl-grey.io/
 - [ ] https://github.com/matijapretnar/eff/
+- [ ] Nearley (`.ne`)
+- [ ] https://github.com/playXE/Jazz
