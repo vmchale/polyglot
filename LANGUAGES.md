@@ -368,3 +368,7 @@
 - [ ] https://github.com/matijapretnar/eff/
 - [ ] Nearley (`.ne`)
 - [ ] https://github.com/playXE/Jazz
+- [ ] https://github.com/MLstate/opalang
+- [ ] https://github.com/grain-lang/grain
+- [ ] https://github.com/p-org/P
+- [ ] https://adamant-lang.org/
