@@ -73,7 +73,9 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
             , prelude.lowerDeps { name = "edit-distance", version = [0,4,0] }
             , prelude.plainDeps "ats-bench"
             ]
-        , clib = [ prelude.upperDeps { name = "gc", version = [7,6,8] } ]
+        , clib = if cfg.static
+          then [ prelude.upperDeps { name = "gc", version = [7,6,8] } ]
+          else prelude.mapPlainDeps ([] : List Text)
         -- TODO: make a mapIncludes function?
         , cflags = [ "-I", "include", "-I", ".", "-flto", "-O2" ] # staticFlag # native # iccFlags
         , ccompiler = prelude.printCompiler cc
