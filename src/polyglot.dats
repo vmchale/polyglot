@@ -26,8 +26,9 @@ staload _ = "libats/DATS/deqarray.dats"
 staload _ = "libats/DATS/athread.dats"
 staload "SATS/nproc.sats"
 
-val ncpu = get_nprocs{4}()
+val ncpu = 4
 
+// get_nprocs{4}()
 fn step_list(s : string, excludes : List0(string)) : List0(string) =
   let
     var files = streamize_dirname_fname(s)

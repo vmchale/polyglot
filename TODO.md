@@ -17,7 +17,6 @@
 - [ ] Make intelligent guesses also work w/ `thefuck`? Write python idk.
 - [ ] Point to github URL?
 # Performance
-- [ ] Make command-line parser call-by-reference
 - [x] parallelism
   - [ ] better parallelism
 - [ ] Use `memcmp` for string/comment comparisons? (`strcmp`)
@@ -27,7 +26,7 @@
 - [ ] get rid of GC (?)
   - [ ] Use more linear types
   - [ ] Write my own dirstream??
-- [ ] Look at https://github.com/llogiq/bytecount (beat it?)
+- [ ] Look at https://github.com/llogiq/bytecount
   - [ ] count lines with SIMD - not just search for stuff
 - [ ] also maybe https://github.com/boyerjohn/rapidstring
 - [ ] Use `strpbrk` during parsing comments?
@@ -46,6 +45,8 @@
   - [ ] Cross-compilation?
 # Bugs
 - [ ] Fix gcc/clang build
+  - [ ] Seems to be due to `nproc`
+  - [ ] Post to ATS mailing list?
 - [ ] Use as a test case: git@github.com:kovidgoyal/kitty.git
 - [ ] Fortran `c` comments
 - [ ] Allow multiple syntaxes for comments, e.g. `#` for assembly
@@ -56,6 +57,7 @@
 - [ ] `.bf` could be befunge
 - [ ] Handle dhall files w/ no extension?
 - [ ] doesn't disambiguate objective C/C headers
+- [ ] `ncpu` goes insane for some reason
 - [ ] `poly -t README.md` adds spurious line of output
 - [ ] handle `\-dir` for directories
 - [ ] Allow three characters for comments (J's `NB.`)

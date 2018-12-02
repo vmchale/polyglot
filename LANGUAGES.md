@@ -372,3 +372,4 @@
 - [ ] https://github.com/grain-lang/grain
 - [ ] https://github.com/p-org/P
 - [ ] https://adamant-lang.org/
+- [ ] https://github.com/flax-lang/flax
