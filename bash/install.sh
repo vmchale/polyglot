@@ -14,7 +14,11 @@ getTarget() {
             "mips64"*) MACHINE="linux-gnuabi64";;
             *) MACHINE="linux-gnu";;
         esac
-        echo "poly-$(uname -m)-$MACHINE"
+        case $(uname -m) in
+            "armv7l") ARCH="arm";;
+            *) ARCH="$(uname -m)";;
+        esac
+        echo "poly-$ARCH-$MACHINE"
     fi
 }
 
