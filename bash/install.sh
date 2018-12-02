@@ -9,14 +9,14 @@ getTarget() {
         echo "poly-$(uname -m)-apple-darwin"
     else
         case $(uname -m) in
+            "armv7l") ARCH="arm";;
+            *) ARCH="$(uname -m)";;
+        esac
+        case $ARCH in
             "x86_64") MACHINE="unknown-linux-icc";;
             "arm") MACHINE="linux-gnueabihf";;
             "mips64"*) MACHINE="linux-gnuabi64";;
             *) MACHINE="linux-gnu";;
-        esac
-        case $(uname -m) in
-            "armv7l") ARCH="arm";;
-            *) ARCH="$(uname -m)";;
         esac
         echo "poly-$ARCH-$MACHINE"
     fi
