@@ -373,3 +373,6 @@
 - [ ] https://github.com/p-org/P
 - [ ] https://adamant-lang.org/
 - [ ] https://github.com/flax-lang/flax
+- [ ] https://github.com/anoniscoding/yorlang
+- [ ] https://en.wikipedia.org/wiki/GNU_Guile
+- [ ] https://en.wikipedia.org/wiki/F-Script_(programming_language)

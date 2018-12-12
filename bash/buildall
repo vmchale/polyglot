@@ -8,6 +8,7 @@ atspkg build --pkg-args "./gc.dhall" --target=arm-linux-gnueabihf
 atspkg build --pkg-args "./gc.dhall" --target=powerpc64-linux-gnu
 atspkg build --pkg-args "./gc.dhall" --target=powerpc64le-linux-gnu
 atspkg build --pkg-args "./gc.dhall" --target=powerpc-linux-gnu
+atspkg build --pkg-args "./gc.dhall" --target=powerpc-linux-gnuspe
 atspkg build --pkg-args "./gc.dhall" --target=aarch64-linux-gnu
 atspkg build --pkg-args "./gc.dhall" --target=alpha-linux-gnu
 atspkg build --pkg-args "./gc.dhall" --target=m68k-linux-gnu

@@ -115,6 +115,7 @@ fn apportion(includes : List0(string), excludes : List0(string)) : List0(List0(s
           acc :: nil
       else
         let
+          // if I replace this with j != 1 it segfaults
           fun fill_nil { j : nat | j > 0 } .<j>. (j : int(j)) :<> List0(List0(string)) =
             if j > 1 then
               nil :: fill_nil(j - 1)

@@ -3,7 +3,6 @@ set -ex
 wget https://raw.githubusercontent.com/AlDanial/cloc/master/cloc -O "$HOME/.local/bin/cloc"
 chmod +x "$HOME/.local/bin/cloc"
 sudo gem install github-linguist
-# sudo npm install -g git+https://github.com/GOGO98901/Node-Counter.git
 go get -u github.com/boyter/scc/
 go get -u gopkg.in/src-d/enry.v1/...
 go get -u github.com/hhatto/gocloc/cmd/gocloc
