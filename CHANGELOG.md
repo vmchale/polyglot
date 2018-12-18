@@ -2,6 +2,10 @@
 
 ## 0.5.14
 
+  * Add `--no-style` flag to suppress CSS styles from HTML output
+
+## 0.5.14
+
   * More compact HTML output
   * Remove unused language support
 
