@@ -131,6 +131,7 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | _ when levenshtein_(s, "--html") <= 2 => unrecognized(s, "--html")
         | _ when levenshtein_(s, "--no-parallel") <= 3 => unrecognized(s, "--no-parallel")
         | _ when levenshtein_(s, "--no-table") <= 3 => unrecognized(s, "--no-table")
+        | _ when levenshtein_(s, "--no-style") <= 3 => unrecognized(s, "--no-style")
         | _ => let
           val new_acc = process_short(witness(s), acc, false)
           val _ = acc_r -> help := new_acc.help

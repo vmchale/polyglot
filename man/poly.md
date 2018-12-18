@@ -35,6 +35,8 @@ disabled on some platforms.
 
 **-\-html** Dump HTML output
 
+**-s**, **-\-no-style** Do not dump CSS styles with HTML output
+
 # EXAMPLES
 
 Show the contents of ~/programming
