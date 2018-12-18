@@ -1,4 +1,6 @@
 // This file contains various error functions.
+fn redundant_cli_flag() : void
+
 fn bad_file(string) : void
 
 fn bad_directory(string) : void

@@ -20,6 +20,7 @@ implement main0 (argc, argv) =
                , includes = list_nil()
                } : command_line
     val parsed = get_cli(argc, argv, 0, false, cli)
+    val () = check_cli(parsed)
   in
     if parsed.help then
       (help() ; exit(0))

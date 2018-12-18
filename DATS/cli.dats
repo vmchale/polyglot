@@ -9,6 +9,7 @@ vtypedef command_line = @{ version = bool
                          , help = bool
                          , no_table = bool
                          , html = bool
+                         , no_style = bool
                          , no_parallel = bool
                          , no_colorize = bool
                          , skip_links = bool
@@ -32,6 +33,7 @@ fn help() : void =
     -t, --no-table           display results in alternate format
     -v, --verbose            display per-file results
     --html                   dump HTML output
+    -s, --no-style           do not add CSS styles to HTML output
  
     When no directory is provided poly will execute in the
     current directory.
@@ -57,6 +59,7 @@ fun process_short { s : int | s > 0 }(s : string(s), acc : command_line, fail : 
         bad_flag("-t")
       | "e" => bad_exclude("-e")
       | "c" => acc_r -> no_colorize := true
+      | "s" => acc_r -> no_style := true
       | "V" => acc_r -> version := true
       | "v" => acc_r -> verbose := true
       | "-" when fail => ( println!("\33[31mError:\33[0m failed to parse command-line flags. Try 'poly --help'.")
@@ -118,6 +121,8 @@ fun process(s : string, acc : command_line, is_first : bool) : command_line =
         | "-v" => acc_r -> verbose := true
         | "--no-color" => acc_r -> no_colorize := true
         | "-c" => acc_r -> no_colorize := true
+        | "--no-style" => acc_r -> no_style := true
+        | "-s" => acc_r -> no_style := true
         | "-e" => bad_exclude(s)
         | "--exclude" => bad_exclude(s)
         | "-" => error_flag(s)
@@ -192,3 +197,9 @@ fun get_cli { n : int | n >= 1 }{ m : nat | m < n } .<n-m>. ( argc : int(n)
       else
         process(arg, acc, current = 0)
   end
+
+fn check_cli(chk : command_line) : void =
+  if chk.no_style && not(chk.html) then
+    redundant_cli_flag()
+  else
+    ()

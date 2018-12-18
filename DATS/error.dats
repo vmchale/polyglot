@@ -1,6 +1,9 @@
 staload "libats/ML/SATS/string.sats"
 staload "SATS/error.sats"
 
+implement redundant_cli_flag () =
+  prerr!("\33[33mWarning:\33[0m Flag --no-style has no effect when --html is not present\n")
+
 implement bad_file (s) =
   if s != "" then
     prerr!("\33[33mWarning:\33[0m could not open file at " + s + "\n")

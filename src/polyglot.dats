@@ -205,6 +205,7 @@ implement main0 (argc, argv) =
                , help = false
                , no_table = false
                , html = false
+               , no_style = false
                , no_parallel = false
                , no_colorize = false
                , skip_links = false
@@ -213,6 +214,7 @@ implement main0 (argc, argv) =
                , includes = list_nil()
                } : command_line
     val parsed = get_cli(argc, argv, 0, false, cli)
+    val () = check_cli(parsed)
   in
     if parsed.help then
       (help() ; exit(0))
@@ -242,9 +244,12 @@ implement main0 (argc, argv) =
           if parsed.no_table then
             print(make_output(result, not(parsed.no_colorize)))
           else
-            if parsed.html then
+            if parsed.html && not(parsed.no_style) then
               print(make_html(result))
             else
-              print(make_table(result, not(parsed.no_colorize)))
+              if parsed.html then
+                print(make_table_columns(result))
+              else
+                print(make_table(result, not(parsed.no_colorize)))
         end
   end

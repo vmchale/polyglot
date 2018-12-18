@@ -23,9 +23,9 @@ fn maybe_html_table(s : string, f : file) : string =
       ""
   end
 
-fn make_html(isc : source_contents) : string =
+fn make_table_columns(isc : source_contents) : string =
   let
-    var header = "<head><style>table{border-collapse:collapse;width:60%}td,th{border:1px solid #a6a6a6;text-align:left;padding:8px}div.cell{font-weight:100}body{color:#222;font-family:\"Palatino Linotype\",\"Book Antiqua\",Palatino,Georgia,serif}tr:nth-child(even){background-color:#dddddd}</style></head><body><table><tr><th>Language</th><th>Files</th><th>Lines</th><th>Code</th><th>Comments</th><th>Blanks</th></tr>"
+    var table_header = "<table><tr><th>Language</th><th>Files</th><th>Lines</th><th>Code</th><th>Comments</th><th>Blanks</th></tr>"
     var content = maybe_html_table("Ada", isc.ada)
     + maybe_html_table("Agda", isc.agda)
     + maybe_html_table("Agda library", isc.agdalib)
@@ -162,9 +162,17 @@ fn make_html(isc : source_contents) : string =
     + maybe_html_table("XML", isc.xml)
     + maybe_html_table("Zig", isc.zig)
     + maybe_html_table("Zimpl", isc.zimpl)
-    var footer = "</table></body>"
+    var table_footer = "</table>"
   in
-    header + content + footer
+    table_header + content + table_footer
+  end
+
+fn make_html(isc : source_contents) : string =
+  let
+    var header = "<head><style>table{border-collapse:collapse;width:60%}td,th{border:1px solid #a6a6a6;text-align:left;padding:8px}div.cell{font-weight:100}body{color:#222;font-family:\"Palatino Linotype\",\"Book Antiqua\",Palatino,Georgia,serif}tr:nth-child(even){background-color:#dddddd}</style></head><body>"
+    var footer = "</body>"
+  in
+    header + make_table_columns(isc) + footer
   end
 
 fn write_report(isc : source_contents, path : string) : void =

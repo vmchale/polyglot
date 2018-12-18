@@ -62,6 +62,12 @@ current directory
 poly --html > report.html
 ```
 
+Append line count information in HTML to README.md
+
+```
+poly --html --no-table >> README.md
+```
+
 # BUG REPORTS
 
 For bug reports and updates, go to https://github.com/vmchale/polyglot
