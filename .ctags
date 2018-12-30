@@ -1,6 +1,8 @@
 --langdef=ATS
 --langmap=ATS:.dats
 --langmap=ATS:+.sats
+--langdef=DHALL
+--langmap=DHALL:.dhall
 --regex-ATS=/^fun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^fn *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^prfun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
@@ -15,3 +17,5 @@
 --regex-ATS=/^datavtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^dataprop *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/
 --regex-ATS=/^dataviewprop *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/
+--regex-DHALL=/let *([[:lower:]][[:alnum:]_]+)/\1/f,function/
+--regex-DHALL=/let *([[:upper:]][[:alnum:]_]+)/\1/t,type/

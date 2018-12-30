@@ -44,10 +44,12 @@
 - [ ] Figure out Windows (?)
   - [ ] Cross-compilation?
 # Bugs
+- [ ] Fix infinite loop in `poly /usr/local/mercury-14.01.1/`
 - [ ] Fix gcc/clang build
   - [ ] Seems to be due to `nproc`
   - [ ] Post to ATS mailing list?
 - [ ] Use as a test case: git@github.com:kovidgoyal/kitty.git
+- [ ] Use as a test case: qt5-everywhere
 - [ ] Fortran `c` comments
 - [ ] Allow multiple syntaxes for comments, e.g. `#` for assembly
 - [ ] First comment in a file is ignored

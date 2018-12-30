@@ -377,3 +377,6 @@
 - [ ] https://en.wikipedia.org/wiki/GNU_Guile
 - [ ] https://en.wikipedia.org/wiki/F-Script_(programming_language)
 - [ ] https://github.com/p-org/P
+- [ ] http://microsoft.github.io/ivy/language.html
+- [ ] Id90 programming language
+- [ ] `.qs` can also be qtscript?
