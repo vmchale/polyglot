@@ -20,7 +20,7 @@ When no directory is given, polyglot will execute in the current directory.
 
 **-h**, **-\-help** Display help and exit
 
-**-v**, **-\-version** Display version and exit
+**-V**, **-\-version** Display version and exit
 
 **-e**, **-\-exclude** Exclude a directory
 
@@ -29,7 +29,7 @@ disabled on some platforms.
 
 **-t**, **-\-no-table** Show results in an alternate format.
 
-**-p**, **-\-no-color** Don't colorize output
+**-c**, **-\-no-color** Don't colorize output
 
 **-v**, **-\-verbose** Enable per-file output
 
