@@ -1,2 +1,2 @@
 #!/usr/bin/env bash 
-perl -0777 -i -pe 's/```\n----.*```/```\n'"$(poly -c)"'\n```/igs' README.md
+perl -0777 -i -pe 's/```\n----.*```/```\n'"$(poly -c -e data)"'\n```/igs' README.md

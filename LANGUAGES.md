@@ -380,3 +380,6 @@
 - [ ] http://microsoft.github.io/ivy/language.html
 - [ ] Id90 programming language
 - [ ] `.qs` can also be qtscript?
+- [ ] https://github.com/dibyendumajumdar/ravi
+- [ ] https://github.com/lhartikk/ArnoldC
+- [ ] https://en.wikipedia.org/wiki/SPARK_(programming_language)
