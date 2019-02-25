@@ -148,3 +148,4 @@ implement free_pl (pl) =
     | ~squirrel _ => ()
     | ~agdalib _ => ()
     | ~cedille _ => ()
+    | ~raml _ => ()

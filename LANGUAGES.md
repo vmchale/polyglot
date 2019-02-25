@@ -196,6 +196,7 @@
 - [ ] roff/troff/groff
 - [ ] Limbo
 - [ ] Terra
+- [ ] https://github.com/titan-lang/titan
 - [ ] logos (also `.x`)
 - [ ] PureBasic
 - [ ] Pure https://agraef.github.io/pure-lang/
@@ -383,3 +384,5 @@
 - [ ] https://github.com/dibyendumajumdar/ravi
 - [ ] https://github.com/lhartikk/ArnoldC
 - [ ] https://en.wikipedia.org/wiki/SPARK_(programming_language)
+- [ ] https://github.com/pikatchu/LinearML
+- [ ] https://github.com/tov/alms

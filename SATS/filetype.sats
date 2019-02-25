@@ -139,6 +139,7 @@ vtypedef source_contents = @{ rust = file
                             , squirrel = file
                             , agdalib = file
                             , cedille = file
+                            , raml = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -284,3 +285,4 @@ datavtype pl_type =
   | squirrel of file
   | agdalib of file
   | cedille of file
+  | raml of file

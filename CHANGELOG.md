@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.15
+
+  * Add support for RAML
+
 ## 0.5.14
 
   * Add `--no-style` flag to suppress CSS styles from HTML output

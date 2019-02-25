@@ -44,6 +44,7 @@
 - [ ] Figure out Windows (?)
   - [ ] Cross-compilation?
 # Bugs
+- [ ] Warn on nonexistent directory
 - [ ] Fix infinite loop in `poly /usr/local/mercury-14.01.1/`
 - [ ] Fix gcc/clang build
   - [ ] Seems to be due to `nproc`

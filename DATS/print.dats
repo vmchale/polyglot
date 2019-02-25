@@ -205,6 +205,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.squirrel.lines
                      + sc.agdalib.lines
                      + sc.cedille.lines
+                     + sc.raml.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -342,6 +343,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.squirrel.blanks
                       + sc.agdalib.blanks
                       + sc.cedille.blanks
+                      + sc.raml.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -479,6 +481,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.squirrel.comments
                         + sc.agdalib.comments
                         + sc.cedille.comments
+                        + sc.raml.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -616,6 +619,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.squirrel.files
                      + sc.agdalib.files
                      + sc.cedille.files
+                     + sc.raml.files
              }
   in
     f
@@ -727,6 +731,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Racket", isc.racket)
   + maybe_table("Ragel", isc.ragel)
   + maybe_table("Rakefile", isc.rakefile)
+  + maybe_table("RAML", isc.raml)
   + maybe_table("Red", isc.red)
   + maybe_table("Ruby", isc.ruby)
   + maybe_table("Rust", isc.rust)
@@ -900,6 +905,7 @@ implement print_file (pt, filename) =
       | squirrel (f) => maybe_file("Squirrel", f)
       | agdalib (f) => maybe_file("Agda libary", f)
       | cedille (f) => maybe_file("Cedille", f)
+      | raml (f) => maybe_file("RAML", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1064,6 +1070,7 @@ implement make_output (isc, color) =
                  + maybe_string("Python", isc.python.lines)
                  + maybe_string("R", isc.r.lines)
                  + maybe_string("Racket", isc.racket.lines)
+                 + maybe_string("RAML", isc.raml.lines)
                  + maybe_string("Red", isc.r.lines)
                  + maybe_string("Ruby", isc.ruby.lines)
                  + maybe_string("Rust", isc.rust.lines)

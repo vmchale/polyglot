@@ -178,6 +178,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , squirrel = x.squirrel + y.squirrel
                 , agdalib = x.agdalib + y.agdalib
                 , cedille = x.cedille + y.cedille
+                , raml = x.raml + y.raml
                 } : source_contents
   in
     next
@@ -326,6 +327,7 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~squirrel n => sc_r.squirrel := sc_r.squirrel + n
       | ~agdalib n => sc_r.agdalib := sc_r.agdalib + n
       | ~cedille n => sc_r.cedille := sc_r.cedille + n
+      | ~raml n => sc_r.raml := sc_r.raml + n
       | ~unknown _ => ()
   in
     ()
@@ -666,6 +668,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "nut" => squirrel(line_count(s, Some_vt("//")))
       | "agda-lib" => agda(line_count(s, None_vt))
       | "ced" => cedille(line_count(s, Some_vt("--")))
+      | "raml" => raml(line_count(s, None_vt()))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -897,6 +900,7 @@ fn empty_contents() : source_contents =
                , squirrel = empty_file
                , agdalib = empty_file
                , cedille = empty_file
+               , raml = empty_file
                } : source_contents
   in
     isc
