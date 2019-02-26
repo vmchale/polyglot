@@ -19,7 +19,6 @@ cache:
 install:
   - export PATH=$HOME/.local/bin:$PATH
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
-  - atspkg -V
   - |
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
@@ -27,6 +26,7 @@ install:
     else
       brew install libarchive
     fi
+  - atspkg -V
 
 script:
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
