@@ -24,6 +24,8 @@ install:
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
       pip install yamllint
+    else
+      brew install libarchive
     fi
 
 script:

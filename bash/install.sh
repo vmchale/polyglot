@@ -3,13 +3,6 @@
 set -e
 set pipefail
 
-installlibarchive() {
-    if [ "$(uname)" = "Darwin" ]
-    then
-        brew install libarchive
-    fi
-}
-
 getTarget() {
     if [ "$(uname)" = "Darwin" ]
     then
@@ -40,8 +33,6 @@ main() {
 
     latest="$(curl -s https://github.com/vmchale/polyglot/releases/latest/ | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)"
     binname=$(getTarget)
-
-    installlibarchive
 
     mkdir -p "$HOME/.local/bin"
     mkdir -p "$HOME/.local/share/man/man1/"
