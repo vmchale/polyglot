@@ -81,7 +81,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         , ccompiler = prelude.printCompiler cc
         , debPkg = prelude.mkDeb
             (prelude.debian "polyglot" ⫽
-                { version = [0,5,19]
+                { version = [0,5,20]
                 , maintainer = "Vanessa McHale <vamchale@gmail.com>"
                 , description = "Determine project contents"
                 , manpage = [ "man/poly.1" ]

@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.16
+  
+  * Fix detection of `c2hs` and `hsc2hs` files
+
 ## 0.5.15
 
   * Add support for RAML
