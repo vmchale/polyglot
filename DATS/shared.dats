@@ -496,8 +496,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
     case+ match of
       | "hs" => haskell(line_count(s, Some_vt("--")))
       | "cpphs" => haskell(line_count(s, Some_vt("--")))
-      | "hsc2hs" => haskell(line_count(s, Some_vt("--")))
-      | "c2hs" => haskell(line_count(s, Some_vt("--")))
+      | "hsc" => haskell(line_count(s, Some_vt("--")))
+      | "chs" => haskell(line_count(s, Some_vt("--")))
       | "hs-boot" => haskell(line_count(s, Some_vt("--")))
       | "hsig" => haskell(line_count(s, Some_vt("--")))
       | "gc" => greencard(line_count(s, Some_vt("--")))
