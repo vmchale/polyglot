@@ -6,7 +6,7 @@ int get_nprocs() {
     sysctlbyname("hw.logicalcpu", &count, &count_len, NULL, 0);
     return count;
 }
-#elif defined(__x86_64__)
+#elif defined(__x86_64__) && !defined(__linux__)
 extern int get_nprocs() {
   int t;
 

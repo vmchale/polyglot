@@ -1,6 +1,6 @@
 # polyglot
 
-## 0.5.16
+## 0.5.19
   
   * Fix detection of `c2hs` and `hsc2hs` files
 

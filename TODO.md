@@ -17,6 +17,7 @@
 - [ ] Make intelligent guesses also work w/ `thefuck`? Write python idk.
 - [ ] Point to github URL?
 # Performance
+- [ ] https://lawsofux.com/doherty-threshold.html
 - [x] parallelism
   - [ ] better parallelism
 - [ ] Use `memcmp` for string/comment comparisons? (`strcmp`)
