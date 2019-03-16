@@ -25,6 +25,8 @@ Reasons not to use polyglot:
   * Best on Linux
   * No regex-based exclusions
   * Doesn't count block comments
+  * Multiline string
+    [bug](https://github.com/Aaronepower/tokei/blob/master/COMPARISON.md#Accuracy).
 
 ### Benchmarks
 
