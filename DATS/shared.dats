@@ -700,6 +700,7 @@ fn bad_dir(s : string, excludes : List0(string)) : bool =
     | ".egg-info" => true
     | ".lein-plugins" => true
     | ".sass-cache" => true
+    | ".pyre" => true
     | _ => let
       val s0 = s + "/"
     in
