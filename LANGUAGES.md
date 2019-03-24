@@ -387,3 +387,4 @@
 - [ ] https://github.com/pikatchu/LinearML
 - [ ] https://github.com/tov/alms
 - [ ] https://github.com/wasplang/wasp
+- [ ] http://www.ceu-lang.org/

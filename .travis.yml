@@ -11,6 +11,10 @@ matrix:
       os: osx
       language: c
 
+addons:
+  apt:
+    packages:
+      - libarchive-dev
 cache:
   directories:
     - $HOME/.atspkg
