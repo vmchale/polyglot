@@ -387,3 +387,4 @@
 - [ ] https://github.com/pikatchu/LinearML
 - [ ] https://github.com/tov/alms
 - [ ] https://github.com/OpenEuphoria/euphoria
+- [ ] https://github.com/wasplang/wasp
