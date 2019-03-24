@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.21
+
+  * Skip `.pyre` directories
+
 ## 0.5.19
   
   * Fix detection of `c2hs` and `hsc2hs` files

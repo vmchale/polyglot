@@ -386,5 +386,6 @@
 - [ ] https://en.wikipedia.org/wiki/SPARK_(programming_language)
 - [ ] https://github.com/pikatchu/LinearML
 - [ ] https://github.com/tov/alms
+- [ ] https://github.com/OpenEuphoria/euphoria
 - [ ] https://github.com/wasplang/wasp
 - [ ] http://www.ceu-lang.org/
