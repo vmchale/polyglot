@@ -79,8 +79,8 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         -- TODO: make a mapIncludes function?
         , cflags = [ "-I", "include", "-I", ".", "-flto", "-O2" ] # staticFlag # native # iccFlags
         , ccompiler = prelude.printCompiler cc
-        , compiler = [0,3,13]
-        , version = [0,3,13]
+        , compiler = [0,3,12]
+        , version = [0,3,11]
         , debPkg = prelude.mkDeb
             (prelude.debian "polyglot" ⫽
                 { version = [0,5,21]
