@@ -391,3 +391,6 @@
 - [ ] http://www.ceu-lang.org/
 - [ ] https://github.com/kivikakk/comrak/blob/master/src/lexer.pest
 - [ ] git@github.com:mirth-lang/mirth.git
+- [ ] https://github.com/nickmqb/muon
+- [ ] https://github.com/Microsoft/BosqueLanguage
+- [ ] https://github.com/historicalsource/deadline/blob/master/clock.zil
