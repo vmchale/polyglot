@@ -45,6 +45,7 @@
 - [ ] Figure out Windows (?)
   - [ ] Cross-compilation?
 # Bugs
+- [ ] Warnings should not display in color when `-c` is passed
 - [ ] Warn on nonexistent directory
 - [ ] Fix infinite loop in `poly /usr/local/mercury-14.01.1/`
 - [ ] Fix gcc/clang build

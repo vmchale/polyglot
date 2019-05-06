@@ -267,6 +267,7 @@
 - [ ] https://github.com/dzaima/Canvas
 - [ ] https://github.com/kite-lang/kite
 - [ ] Miranda language
+- [ ] git@github.com:mirth-lang/mirth.git
 - [ ] QCL
 - [ ] Gofer (?)
 - [ ] SNOBOL (`.sbl`)
@@ -389,3 +390,4 @@
 - [ ] https://github.com/OpenEuphoria/euphoria
 - [ ] https://github.com/wasplang/wasp
 - [ ] http://www.ceu-lang.org/
+- [ ] https://github.com/lys-lang/lys
