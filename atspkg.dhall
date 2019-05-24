@@ -1,4 +1,4 @@
-let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 in
 
 let not = https://raw.githubusercontent.com/dhall-lang/dhall-lang/master/Prelude/Bool/not
@@ -73,7 +73,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
             , prelude.lowerDeps { name = "edit-distance", version = [0,4,0] }
             , prelude.plainDeps "ats-bench"
             ]
-        , clib = if cfg.static
+        , clib = if cfg.gc
           then [ prelude.upperDeps { name = "gc", version = [7,6,8] } ]
           else prelude.mapPlainDeps ([] : List Text)
         -- TODO: make a mapIncludes function?
