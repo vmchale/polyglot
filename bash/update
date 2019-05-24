@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
-set -ex
+set -ex pipefail
 latest="$(curl -s https://github.com/AlDanial/cloc/releases/latest/ | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)"
 wget "https://github.com/AlDanial/cloc/releases/download/$latest/cloc-$latest.pl" -O "$HOME/.local/bin/cloc"
 chmod +x "$HOME/.local/bin/cloc"
-sudo gem install github-linguist
 go get -u github.com/boyter/scc/
 go get -u gopkg.in/src-d/enry.v1/...
 go get -u github.com/hhatto/gocloc/cmd/gocloc
