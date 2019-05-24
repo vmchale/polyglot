@@ -217,7 +217,7 @@
 - [ ] everything here: http://www.rosettacode.org/wiki/Rosetta_Code
 - [ ] SISAL
 - [ ] G-code (`.mpt`, `.mpf`, `.nc`)
-- [ ] ALGOL
+- [ ] ALGOL (see http://okmij.org/ftp/Babel/index.html#RTRAN ?)
 - [ ] flow-matic
 - [ ] B
 - [ ] delphi
@@ -391,3 +391,5 @@
 - [ ] https://github.com/wasplang/wasp
 - [ ] http://www.ceu-lang.org/
 - [ ] https://github.com/lys-lang/lys
+- [ ] http://gittup.org/tup/manual.html
+- [ ] https://github.com/wren-lang/wren
