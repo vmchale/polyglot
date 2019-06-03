@@ -6,6 +6,7 @@ chmod +x "$HOME/.local/bin/cloc"
 go get -u github.com/boyter/scc/
 go get -u gopkg.in/src-d/enry.v1/...
 go get -u github.com/hhatto/gocloc/cmd/gocloc
+gem install github-linguist
 rustup update
 cargo install loc --force
 cargo install tokei --force
