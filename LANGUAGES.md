@@ -55,7 +55,7 @@
 - [x] Java
 - [x] Scala
 - [x] Erlang
-- [x] Elixir
+ [x] Elixir
 - [x] Pony
 - [x] Clojure
 - [x] Cabal project
@@ -87,7 +87,8 @@
 - [x] C--
 - [x] FLTK Data
 - [x] Plutus
-- [x] J
+- [x] J (https://code.jsoftware.com/wiki/Guides/Syntax_Coloring#Vim for
+  extensions...)
 - [x] Blodwen
 - [x] Crystal
 - [x] Racket
@@ -398,3 +399,11 @@
 - [ ] https://github.com/nickmqb/muon
 - [ ] https://github.com/Microsoft/BosqueLanguage
 - [ ] https://github.com/historicalsource/deadline/blob/master/clock.zil
+- [ ] https://github.com/ffwff/hana
+- [ ] https://sites.google.com/view/lcore
+- [ ] https://www.cs.ox.ac.uk/conferences/fscd2017/preproceedings_unprotected/TLLA_Orchard.pdf
+- [ ] https://granule-project.github.io/granule.html
+- [ ] https://link.springer.com/chapter/10.1007/3-540-45337-7_9
+- [ ] Q# and Q (APL dialect)
+- [ ] moose (.moo) https://github.com/Mercury-Language/mercury/tree/master/extras/moose
+- [ ] https://github.com/elendiastarman/Minkolang

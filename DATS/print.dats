@@ -206,6 +206,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.agdalib.lines
                      + sc.cedille.lines
                      + sc.raml.lines
+                     + sc.scribble.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -344,6 +345,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.agdalib.blanks
                       + sc.cedille.blanks
                       + sc.raml.blanks
+                      + sc.scribble.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -482,6 +484,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.agdalib.comments
                         + sc.cedille.comments
                         + sc.raml.comments
+                        + sc.scribble.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -620,6 +623,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.agdalib.files
                      + sc.cedille.files
                      + sc.raml.files
+                     + sc.scribble.files
              }
   in
     f
@@ -738,6 +742,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("SAS", isc.sas)
   + maybe_table("Scala", isc.scala)
   + maybe_table("Scheme", isc.scheme)
+  + maybe_table("Scribble", isc.scribble)
   + maybe_table("Sed", isc.sed)
   + maybe_table("Shen", isc.shen)
   + maybe_table("Sixten", isc.sixten)
@@ -906,6 +911,7 @@ implement print_file (pt, filename) =
       | agdalib (f) => maybe_file("Agda libary", f)
       | cedille (f) => maybe_file("Cedille", f)
       | raml (f) => maybe_file("RAML", f)
+      | scribble (f) => maybe_file("Scribble", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1096,6 +1102,7 @@ implement make_output (isc, color) =
     + with_nonempty( doc_string
                    , maybe_string("Markdown", isc.markdown.lines)
                    + maybe_string("Plaintext", isc.plaintext.lines)
+                   + maybe_string("Scribble", isc.scribble.lines)
                    + maybe_string("TeX", isc.tex.lines)
                    )
     + with_nonempty(txt_string, maybe_string("Awk", isc.awk.lines) + maybe_string("Sed", isc.sed.lines))

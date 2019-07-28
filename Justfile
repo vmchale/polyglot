@@ -14,7 +14,14 @@ ci:
     shellcheck bash/release
     shellcheck bash/update
 
+# strings -a $(which tokei) | rg 'rustc version'
+version:
+    @strings -a $(which poly) | rg 'GCC' --color never
+
+strip:
+    strip --strip-all -R .note -R .comment $(which poly)
+
 # taskset --cpu-list 1 poly
 bench:
     @poly ~/git-builds/OpenBLAS >> /dev/null
-    bench "poly ~/git-builds/OpenBLAS" "loc -u ~/git-builds/OpenBLAS" "tokei ~/git-builds/OpenBLAS" "scc -c --cocomo --binary ~/git-builds/OpenBLAS" "gocloc ~/git-builds/OpenBLAS" "enry -mode=line ~/git-builds/OpenBLAS" "linguist ~/git-builds/OpenBLAS" "cloc ~/git-builds/OpenBLAS"
+    bench "poly ~/git-builds/OpenBLAS" "loc -u ~/git-builds/OpenBLAS" "tokei --no-ignore-vcs ~/git-builds/OpenBLAS" "scc -c --cocomo --binary ~/git-builds/OpenBLAS" "gocloc ~/git-builds/OpenBLAS" "enry -mode=line ~/git-builds/OpenBLAS" "cloc ~/git-builds/OpenBLAS" "github-linguist ~/git-builds/OpenBLAS"

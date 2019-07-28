@@ -17,6 +17,7 @@
 - [ ] Make intelligent guesses also work w/ `thefuck`? Write python idk.
 - [ ] Point to github URL?
 # Performance
+- [ ] Use GCC 9.1.0
 - [ ] https://lawsofux.com/doherty-threshold.html
 - [x] parallelism
   - [ ] better parallelism

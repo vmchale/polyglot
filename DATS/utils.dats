@@ -149,3 +149,4 @@ implement free_pl (pl) =
     | ~agdalib _ => ()
     | ~cedille _ => ()
     | ~raml _ => ()
+    | ~scribble _ => ()

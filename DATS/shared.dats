@@ -179,6 +179,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , agdalib = x.agdalib + y.agdalib
                 , cedille = x.cedille + y.cedille
                 , raml = x.raml + y.raml
+                , scribble = x.scribble + y.scribble
                 } : source_contents
   in
     next
@@ -328,6 +329,7 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~agdalib n => sc_r.agdalib := sc_r.agdalib + n
       | ~cedille n => sc_r.cedille := sc_r.cedille + n
       | ~raml n => sc_r.raml := sc_r.raml + n
+      | ~scribble n => sc_r.scribble := sc_r.scribble + n
       | ~unknown _ => ()
   in
     ()
@@ -670,6 +672,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "agda-lib" => agda(line_count(s, None_vt))
       | "ced" => cedille(line_count(s, Some_vt("--")))
       | "raml" => raml(line_count(s, None_vt()))
+      | "scrbl" => scribble(line_count(s, Some_vt(";")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -903,6 +906,7 @@ fn empty_contents() : source_contents =
                , agdalib = empty_file
                , cedille = empty_file
                , raml = empty_file
+               , scribble = empty_file
                } : source_contents
   in
     isc

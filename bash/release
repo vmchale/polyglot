@@ -5,19 +5,19 @@ set -ex pipefail
 VERSION="$(grep -P -o '\d+\.\d+\.\d+' DATS/cli.dats | tail -n1)"
 TOKEN="$(cat "$HOME"/.git-token)"
 
-git tag "$VERSION"
-git push origin --tags
-git tag -d "$VERSION"
-git push origin master
+# git tag "$VERSION"
+# git push origin --tags
+# git tag -d "$VERSION"
+# git push origin master
 
-github-release release -s "$TOKEN" -u vmchale -r polyglot -t "$VERSION"
+# github-release release -s "$TOKEN" -u vmchale -r polyglot -t "$VERSION"
 
-for PLATFORM in s390x-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu powerpc-linux-gnu powerpc-linux-gnuspe powerpc64-linux-gnu powerpc64le-linux-gnu alpha-linux-gnu mips-linux-gnu mipsel-linux-gnu mips64-linux-gnuabi64 mips64el-linux-gnuabi64 i686-linux-gnu sh4-linux-gnu riscv64-linux-gnu hppa-linux-gnu arm-linux-gnueabi
+for PLATFORM in s390x-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu powerpc-linux-gnu powerpc64-linux-gnu powerpc64le-linux-gnu alpha-linux-gnu mips-linux-gnu mipsel-linux-gnu mips64-linux-gnuabi64 mips64el-linux-gnuabi64 i686-linux-gnu sh4-linux-gnu riscv64-linux-gnu hppa-linux-gnu arm-linux-gnueabi mipsisa32r6el-linux-gnu mipsisa32r6-linux-gnu mipsisa64r6el-linux-gnuabi64 mipsisa64r6-linux-gnuabi64 # powerpc-linux-gnuspe
 do
-    github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly-"$PLATFORM" -f target/poly-"$PLATFORM" -t "$VERSION"
+    github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly-"$PLATFORM" -f target/poly-"$PLATFORM" -t "$VERSION" --replace
 done
 
-github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$VERSION"
-github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$VERSION"
-github-release upload -s "$TOKEN" -u vmchale -r polyglot -n polyglot.deb -f target/polyglot.deb -t "$VERSION"
-github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly-x86_64-unknown-linux-icc -f target/poly -t "$VERSION"
+github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly.1 -f man/poly.1 -t "$VERSION" --replace
+github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly.usage -f compleat/poly.usage -t "$VERSION" --replace
+github-release upload -s "$TOKEN" -u vmchale -r polyglot -n polyglot.deb -f target/polyglot.deb -t "$VERSION" --replace
+github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly-x86_64-unknown-linux-icc -f target/poly -t "$VERSION" --replace
