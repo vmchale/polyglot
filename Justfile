@@ -16,7 +16,7 @@ ci:
 
 # strings -a $(which tokei) | rg 'rustc version'
 version:
-    @strings -a $(which poly) | rg 'GCC' --color never
+    @strings -a $(which poly) | rg '(GCC|GLIBC )' --color never
 
 strip:
     strip --strip-all -R .note -R .comment $(which poly)
