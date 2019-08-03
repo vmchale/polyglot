@@ -29,20 +29,6 @@ extern
 fn is_link(string) : bool =
   "mac#"
 
-// monoidal addition for 'file' type
-fn add_results(x : file, y : file) : file =
-  let
-    var next = @{ lines = x.lines + y.lines
-                , blanks = x.blanks + y.blanks
-                , comments = x.comments + y.comments
-                , files = x.files + y.files
-                }
-  in
-    next
-  end
-
-overload + with add_results
-
 extern
 fun memchr {l:addr}{m:nat}(pf : bytes_v(l, m) | p : ptr(l), c : char, size_t) :
   [ l0 : addr | l+m > l0 ] (bytes_v(l, l0-l), bytes_v(l0, l+m-l0)| ptr(l0)) =
