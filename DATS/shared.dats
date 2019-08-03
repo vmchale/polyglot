@@ -180,6 +180,8 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , cedille = x.cedille + y.cedille
                 , raml = x.raml + y.raml
                 , scribble = x.scribble + y.scribble
+                , bibtex = x.bibtex + y.bibtex
+                , csv = x.csv + y.csv
                 } : source_contents
   in
     next
@@ -330,6 +332,8 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~cedille n => sc_r.cedille := sc_r.cedille + n
       | ~raml n => sc_r.raml := sc_r.raml + n
       | ~scribble n => sc_r.scribble := sc_r.scribble + n
+      | ~bibtex n => sc_r.bibtex := sc_r.bibtex + n
+      | ~csv n => sc_r.csv := sc_r.csv + n
       | ~unknown _ => ()
   in
     ()
@@ -673,6 +677,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "ced" => cedille(line_count(s, Some_vt("--")))
       | "raml" => raml(line_count(s, None_vt()))
       | "scrbl" => scribble(line_count(s, Some_vt(";")))
+      | "bib" => bibtex(line_count(s, None_vt()))
+      | "csv" => csv(line_count(s, None_vt()))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -907,6 +913,8 @@ fn empty_contents() : source_contents =
                , cedille = empty_file
                , raml = empty_file
                , scribble = empty_file
+               , bibtex = empty_file
+               , csv = empty_file
                } : source_contents
   in
     isc

@@ -66,8 +66,8 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
                 , libs = [ "pthread" ]
                 }
             ]
-        , man = [ "man/poly.md" ] : Optional Text
-        , completions = [ "compleat/poly.usage" ] : Optional Text
+        , man = Some "man/poly.md"
+        , completions = Some "compleat/poly.usage"
         , dependencies = (prelude.mapPlainDeps deps) #
             [ prelude.upperDeps { name = "specats", version = [0,2,3] }
             , prelude.lowerDeps { name = "edit-distance", version = [0,4,0] }
@@ -83,11 +83,10 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         , version = [0,3,13]
         , debPkg = prelude.mkDeb
             (prelude.debian "polyglot" ⫽
-                { version = [0,5,23]
+                { version = [0,5,24]
                 , maintainer = "Vanessa McHale <vamchale@gmail.com>"
                 , description = "Determine project contents"
-                , manpage = [ "man/poly.1" ]
-                    : Optional Text
+                , manpage = Some "man/poly.1"
                 , binaries = [ "${prelude.atsProject}/poly" ]
                 })
         }

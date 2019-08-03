@@ -5,14 +5,14 @@ set -ex pipefail
 VERSION="$(grep -P -o '\d+\.\d+\.\d+' DATS/cli.dats | tail -n1)"
 TOKEN="$(cat "$HOME"/.git-token)"
 
-# git tag "$VERSION"
-# git push origin --tags
-# git tag -d "$VERSION"
-# git push origin master
+git tag "$VERSION"
+git push origin --tags
+git tag -d "$VERSION"
+git push origin master
 
-# github-release release -s "$TOKEN" -u vmchale -r polyglot -t "$VERSION"
+github-release release -s "$TOKEN" -u vmchale -r polyglot -t "$VERSION"
 
-for PLATFORM in s390x-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu powerpc-linux-gnu powerpc64-linux-gnu powerpc64le-linux-gnu alpha-linux-gnu mips-linux-gnu mipsel-linux-gnu mips64-linux-gnuabi64 mips64el-linux-gnuabi64 i686-linux-gnu sh4-linux-gnu riscv64-linux-gnu hppa-linux-gnu arm-linux-gnueabi mipsisa32r6el-linux-gnu mipsisa32r6-linux-gnu mipsisa64r6el-linux-gnuabi64 mipsisa64r6-linux-gnuabi64 # powerpc-linux-gnuspe
+for PLATFORM in s390x-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu powerpc-linux-gnu powerpc64-linux-gnu powerpc64le-linux-gnu alpha-linux-gnu mips-linux-gnu mipsel-linux-gnu mips64-linux-gnuabi64 mips64el-linux-gnuabi64 i686-linux-gnu sh4-linux-gnu riscv64-linux-gnu hppa-linux-gnu arm-linux-gnueabi powerpc-linux-gnuspe # mipsisa32r6el-linux-gnu mipsisa32r6-linux-gnu mipsisa64r6el-linux-gnuabi64 mipsisa64r6-linux-gnuabi64
 do
     github-release upload -s "$TOKEN" -u vmchale -r polyglot -n poly-"$PLATFORM" -f target/poly-"$PLATFORM" -t "$VERSION" --replace
 done
