@@ -150,3 +150,5 @@ implement free_pl (pl) =
     | ~cedille _ => ()
     | ~raml _ => ()
     | ~scribble _ => ()
+    | ~bibtex _ => ()
+    | ~csv _ => ()

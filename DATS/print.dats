@@ -207,6 +207,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.cedille.lines
                      + sc.raml.lines
                      + sc.scribble.lines
+                     + sc.bibtex.lines
+                     + sc.csv.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -346,6 +348,8 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.cedille.blanks
                       + sc.raml.blanks
                       + sc.scribble.blanks
+                      + sc.bibtex.blanks
+                      + sc.csv.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -485,6 +489,8 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.cedille.comments
                         + sc.raml.comments
                         + sc.scribble.comments
+                        + sc.bibtex.comments
+                        + sc.csv.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -624,6 +630,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.cedille.files
                      + sc.raml.files
                      + sc.scribble.files
+                     + sc.bibtex.files
+                     + sc.csv.files
              }
   in
     f
@@ -642,6 +650,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Automake", isc.automake)
   + maybe_table("Bash", isc.bash)
   + maybe_table("Batch", isc.batch)
+  + maybe_table("BibTeX", isc.bibtex)
   + maybe_table("Blodwen", isc.blodwen)
   + maybe_table("Brainfuck", isc.brainfuck)
   + maybe_table("C", isc.c)
@@ -663,6 +672,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Coq", isc.coq)
   + maybe_table("Crystal", isc.crystal)
   + maybe_table("CSS", isc.css)
+  + maybe_table("CSV", isc.csv)
   + maybe_table("D", isc.d)
   + maybe_table("Dart", isc.dart)
   + maybe_table("Dash", isc.dash)
@@ -912,6 +922,8 @@ implement print_file (pt, filename) =
       | cedille (f) => maybe_file("Cedille", f)
       | raml (f) => maybe_file("RAML", f)
       | scribble (f) => maybe_file("Scribble", f)
+      | bibtex (f) => maybe_file("BibTeX", f)
+      | csv (f) => maybe_file("CSV", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1164,6 +1176,7 @@ implement make_output (isc, color) =
     + with_nonempty( other
                    , maybe_string("Autoconf", isc.autoconf.lines)
                    + maybe_string("Automake", isc.automake.lines)
+                   + maybe_string("CSV", isc.csv.lines)
                    + maybe_string("Greencard", isc.greencard.lines)
                    + maybe_string("Justfile", isc.justfile.lines)
                    + maybe_string("LLVM", isc.llvm.lines)

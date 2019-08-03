@@ -141,6 +141,8 @@ vtypedef source_contents = @{ rust = file
                             , cedille = file
                             , raml = file
                             , scribble = file
+                            , bibtex = file
+                            , csv = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -288,3 +290,5 @@ datavtype pl_type =
   | cedille of file
   | raml of file
   | scribble of file
+  | bibtex of file
+  | csv of file
