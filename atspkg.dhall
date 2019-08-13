@@ -85,7 +85,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
             (prelude.debian "polyglot" ⫽
                 { version = [0,5,24]
                 , maintainer = "Vanessa McHale <vamchale@gmail.com>"
-                , description = "Determine project contents\nPolyglot is a command-line tool to determine language makeup of projects"
+                , description = "Determine project contents"
                 , manpage = Some "man/poly.1"
                 , binaries = [ "${prelude.atsProject}/poly" ]
                 })
