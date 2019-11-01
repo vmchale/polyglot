@@ -1,8 +1,6 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
-in
 
 let not = https://raw.githubusercontent.com/dhall-lang/dhall-lang/9f259cd68870b912fbf2f2a08cd63dc3ccba9dc3/Prelude/Bool/not
-in
 
 let
 pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : Bool }) →
@@ -11,37 +9,31 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         if not cfg.cross
             then [ "-mtune=native" ]
             else ([] : List Text)
-        in
 
     let deps =
         if cfg.parallel
             then [ "concurrency" ]
             else ([] : List Text)
-        in
 
     let staticFlag =
         if cfg.static
             then [ "-static" ]
             else ([] : List Text)
-        in
 
     let srcFile =
         if cfg.parallel
             then "polyglot"
             else "compat"
-        in
 
     let cc =
         if cfg.icc
             then prelude.icc
             else prelude.gcc
-    in
 
     let iccFlags =
         if cfg.icc
             then prelude.iccFlags
             else ([] : List Text)
-    in
 
     prelude.default ⫽
         { bin =
