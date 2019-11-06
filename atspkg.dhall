@@ -34,6 +34,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         if cfg.icc
             then prelude.iccFlags
             else ([] : List Text)
+    in
 
     prelude.default ⫽
         { bin =
@@ -51,7 +52,9 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
                 , gcBin = cfg.gc
                 , libs = [ "pthread" ]
                 }
-            , prelude.bin ⫽
+            ]
+        , bench =
+            [ prelude.bin ⫽
                 { src = "test/bench.dats"
                 , target = "${prelude.atsProject}/bench"
                 , gcBin = cfg.gc
