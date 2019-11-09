@@ -4,6 +4,8 @@ staload UN = "prelude/SATS/unsafe.sats"
 staload "SATS/error.sats"
 staload "$PATSHOMELOCS/edit-distance-0.5.0/SATS/edit-distance.sats"
 
+#include "DATS/version.dats"
+
 // Type for the parsed command-line arguments.
 vtypedef command_line = @{ version = bool
                          , help = bool
@@ -21,7 +23,9 @@ vtypedef command_line = @{ version = bool
 fn version() : void =
   {
     val () = println!("polygot version 0.5.24")
-    val () = println!("Copyright (c) 2018-2019 Vanessa McHale")
+    val () = compiler_version()
+    val () = libc_version()
+    val () = println!("\nCopyright (c) 2018-2019 Vanessa McHale")
   }
 
 fn help() : void =
