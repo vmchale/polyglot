@@ -5,7 +5,7 @@ wget "https://github.com/AlDanial/cloc/releases/download/$latest/cloc-$latest.pl
 chmod +x "$HOME/.local/bin/cloc"
 go get -u github.com/boyter/scc/
 go get -u gopkg.in/src-d/enry.v1/...
-go get -u github.com/hhatto/gocloc/cmd/gocloc
+# go get -u github.com/hhatto/gocloc/cmd/gocloc
 # sudo gem install github-linguist
 # TODO: figure out update process for github-linguist
 rustup update

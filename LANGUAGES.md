@@ -407,4 +407,5 @@
 - [ ] Q# and Q (APL dialect)
 - [ ] moose (.moo) https://github.com/Mercury-Language/mercury/tree/master/extras/moose
 - [ ] https://github.com/elendiastarman/Minkolang
+- [ ] http://norstrulde.org/language84/
 - [ ] https://mun-lang.org
