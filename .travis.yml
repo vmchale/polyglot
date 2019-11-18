@@ -23,7 +23,6 @@ install:
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
       pip install yamllint
-    else
     fi
   - atspkg -V
 
