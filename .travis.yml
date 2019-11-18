@@ -11,13 +11,6 @@ matrix:
       os: osx
       language: c
 
-  allow_failures:
-    - os: osx
-
-addons:
-  apt:
-    packages:
-      - libarchive-dev
 cache:
   directories:
     - $HOME/.atspkg
@@ -30,8 +23,6 @@ install:
     if [ $TARGET = "x86_64-unknown-linux" ]
     then
       pip install yamllint
-    else
-      brew install libarchive
     fi
   - atspkg -V
 
