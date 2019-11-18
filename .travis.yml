@@ -11,10 +11,6 @@ matrix:
       os: osx
       language: c
 
-addons:
-  apt:
-    packages:
-      - libarchive-dev
 cache:
   directories:
     - $HOME/.atspkg
@@ -28,7 +24,6 @@ install:
     then
       pip install yamllint
     else
-      brew install libarchive
     fi
   - atspkg -V
 
