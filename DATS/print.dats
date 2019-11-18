@@ -86,6 +86,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.go.lines
                      + sc.html.lines
                      + sc.css.lines
+                     + sc.scss.lines
                      + sc.verilog.lines
                      + sc.vhdl.lines
                      + sc.c.lines
@@ -227,6 +228,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.go.blanks
                       + sc.html.blanks
                       + sc.css.blanks
+                      + sc.scss.blanks
                       + sc.verilog.blanks
                       + sc.vhdl.blanks
                       + sc.c.blanks
@@ -368,6 +370,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.go.comments
                         + sc.html.comments
                         + sc.css.comments
+                        + sc.scss.comments
                         + sc.verilog.comments
                         + sc.vhdl.comments
                         + sc.c.comments
@@ -509,6 +512,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.go.files
                      + sc.html.files
                      + sc.css.files
+                     + sc.scss.files
                      + sc.verilog.files
                      + sc.vhdl.files
                      + sc.c.files
@@ -753,6 +757,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Scala", isc.scala)
   + maybe_table("Scheme", isc.scheme)
   + maybe_table("Scribble", isc.scribble)
+  + maybe_table("SCSS", isc.scss)
   + maybe_table("Sed", isc.sed)
   + maybe_table("Shen", isc.shen)
   + maybe_table("Sixten", isc.sixten)
@@ -808,6 +813,7 @@ implement print_file (pt, filename) =
       | go (f) => maybe_file("Go", f)
       | html (f) => maybe_file("HTML", f)
       | css (f) => maybe_file("CSS", f)
+      | scss (f) => maybe_file("SCSS", f)
       | c (f) => maybe_file("C", f)
       | brainfuck (f) => maybe_file("Brainfuck", f)
       | ruby (f) => maybe_file("Ruby", f)
@@ -1155,6 +1161,7 @@ implement make_output (isc, color) =
                    + maybe_string("JavaScript", isc.javascript.lines)
                    + maybe_string("Julius", isc.julius.lines)
                    + maybe_string("Lucius", isc.lucius.lines)
+                   + maybe_string("SCSS", isc.scss.lines)
                    + maybe_string("TypeScript", isc.typescript.lines)
                    )
     + with_nonempty(hw_string, maybe_string("Verilog", isc.verilog.lines) + maybe_string("VHDL", isc.vhdl.lines))

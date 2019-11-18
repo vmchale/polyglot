@@ -47,6 +47,7 @@ implement free_pl (pl) =
     | ~go _ => ()
     | ~html _ => ()
     | ~css _ => ()
+    | ~scss _ => ()
     | ~brainfuck _ => ()
     | ~ruby _ => ()
     | ~julia _ => ()

@@ -59,6 +59,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , go = x.go + y.go
                 , html = x.html + y.html
                 , css = x.css + y.css
+                , scss = x.scss + y.scss
                 , verilog = x.verilog + y.verilog
                 , vhdl = x.vhdl + y.vhdl
                 , c = x.c + y.c
@@ -213,6 +214,7 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~vhdl n => sc_r.vhdl := sc_r.vhdl + n
       | ~html n => sc_r.html := sc_r.html + n
       | ~css n => sc_r.css := sc_r.css + n
+      | ~scss n => sc_r.scss := sc_r.scss + n
       | ~purescript n => sc_r.purescript := sc_r.purescript + n
       | ~futhark n => sc_r.futhark := sc_r.futhark + n
       | ~brainfuck n => sc_r.brainfuck := sc_r.brainfuck + n
@@ -551,6 +553,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "html" => html(line_count(s, None_vt))
       | "htm" => html(line_count(s, None_vt))
       | "css" => css(line_count(s, None_vt))
+      | "scss" => scss(line_count(s, None_vt))
       | "vhdl" => vhdl(line_count(s, None_vt))
       | "vhd" => vhdl(line_count(s, None_vt))
       | "c" => c(line_count(s, Some_vt("//")))
@@ -792,6 +795,7 @@ fn empty_contents() : source_contents =
                , go = empty_file
                , html = empty_file
                , css = empty_file
+               , scss = empty_file
                , verilog = empty_file
                , vhdl = empty_file
                , c = empty_file

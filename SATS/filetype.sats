@@ -20,6 +20,7 @@ vtypedef source_contents = @{ rust = file
                             , go = file
                             , html = file
                             , css = file
+                            , scss = file
                             , verilog = file
                             , vhdl = file
                             , c = file
@@ -176,6 +177,7 @@ datavtype pl_type =
   | go of file
   | html of file
   | css of file
+  | scss of file
   | c of file
   | brainfuck of file
   | ruby of file

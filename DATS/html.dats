@@ -137,6 +137,8 @@ fn make_table_columns(isc : source_contents) : string =
     + maybe_html_table("SAS", isc.sas)
     + maybe_html_table("Scala", isc.scala)
     + maybe_html_table("Scheme", isc.scheme)
+    + maybe_html_table("Scribble", isc.scribble)
+    + maybe_html_table("SCSS", isc.scss)
     + maybe_html_table("Sed", isc.sed)
     + maybe_html_table("Shen", isc.shen)
     + maybe_html_table("Sixten", isc.sixten)
