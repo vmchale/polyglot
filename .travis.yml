@@ -11,9 +11,6 @@ matrix:
       os: osx
       language: c
 
-  allow_failures:
-    - os: osx
-
 addons:
   apt:
     packages:
