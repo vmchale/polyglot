@@ -410,3 +410,4 @@
 - [ ] http://norstrulde.org/language84/
 - [ ] https://mun-lang.org
 - [ ] org-mode
+- [ ] terraform (`.tf`?)
