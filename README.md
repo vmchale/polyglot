@@ -24,6 +24,7 @@ Reasons not to use polyglot:
   * Written in ATS
   * Best on Linux
   * No regex-based exclusions
+  * Doesn't read `.gitignore` &c.
   * Doesn't count block comments
   * Multiline string
     [bug](https://github.com/Aaronepower/tokei/blob/master/COMPARISON.md#Accuracy).
@@ -85,7 +86,7 @@ with some additional data.
 
 ### Heuristics
 
-Polyglot distinguishes itself from `tokei`, `gocloc`, `scc`, and `loc` by being able to disambiguate file names.
+Polyglot distinguishes itself from `tokei`, `gocloc`, and `loc` by being able to disambiguate file names.
 Thus, `poly` will not confuse Happy for Yacc (for instance).
 
 ## Installation
@@ -133,7 +134,7 @@ atspkg build --pkg-args './gc.dhall'
 
 This will put a binary at `target/poly`.
 
-If you are on Mac, you may have to replace the last line with
+If you are on Mac, replace the last line with
 
 ```bash
 atspkg build --pkg-args './mac.dhall'
@@ -163,10 +164,10 @@ For languages already supported, see
  C Header                 1          43           35            0            8
  Dash                     5         144          110            8           26
  Dhall                    5          93           83            0           10
- Markdown                 6         928          803            0          125
+ Markdown                 6         938          813            0          125
  TOML                     1           3            3            0            0
  YAML                     1          58           52            0            6
 -------------------------------------------------------------------------------
- Total                   37        5087         4734           49          304
+ Total                   37        5097         4744           49          304
 -------------------------------------------------------------------------------
 ```
