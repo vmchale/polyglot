@@ -183,6 +183,8 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , scribble = x.scribble + y.scribble
                 , bibtex = x.bibtex + y.bibtex
                 , csv = x.csv + y.csv
+                , terraform = x.terraform + y.terraform
+                , org = x.org + y.org
                 } : source_contents
   in
     next
@@ -336,6 +338,8 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~scribble n => sc_r.scribble := sc_r.scribble + n
       | ~bibtex n => sc_r.bibtex := sc_r.bibtex + n
       | ~csv n => sc_r.csv := sc_r.csv + n
+      | ~terraform n => sc_r.terraform := sc_r.terraform + n
+      | ~org n => sc_r.org := sc_r.org + n
       | ~unknown _ => ()
   in
     ()
@@ -682,6 +686,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "scrbl" => scribble(line_count(s, Some_vt(";")))
       | "bib" => bibtex(line_count(s, None_vt()))
       | "csv" => csv(line_count(s, None_vt()))
+      | "tf" => terraform(line_count(s, Some_vt("#")))
+      | "org" => org(line_count(s, Some_vt("#")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -919,6 +925,8 @@ fn empty_contents() : source_contents =
                , scribble = empty_file
                , bibtex = empty_file
                , csv = empty_file
+               , terraform = empty_file
+               , org = empty_file
                } : source_contents
   in
     isc

@@ -138,6 +138,8 @@
 - [x] Squirrel (`.nut`, `//`)
 - [x] Agda library
 - [x] https://cedille.github.io/
+- [x] terraform (`.tf`?)
+- [x] SCSS
 - [ ] harlan (`.kfc`, `#`)
 - [ ] Self (`.self`)
 - [ ] Linker script
@@ -410,4 +412,3 @@
 - [ ] http://norstrulde.org/language84/
 - [ ] https://mun-lang.org
 - [ ] org-mode
-- [ ] terraform (`.tf`?)

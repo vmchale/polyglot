@@ -144,6 +144,8 @@ vtypedef source_contents = @{ rust = file
                             , scribble = file
                             , bibtex = file
                             , csv = file
+                            , terraform = file
+                            , org = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -294,3 +296,5 @@ datavtype pl_type =
   | scribble of file
   | bibtex of file
   | csv of file
+  | terraform of file
+  | org of file

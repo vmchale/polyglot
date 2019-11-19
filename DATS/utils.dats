@@ -153,3 +153,5 @@ implement free_pl (pl) =
     | ~scribble _ => ()
     | ~bibtex _ => ()
     | ~csv _ => ()
+    | ~terraform _ => ()
+    | ~org _ => ()
