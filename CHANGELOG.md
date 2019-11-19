@@ -1,5 +1,9 @@
 # polyglot
 
+## 0.5.26
+
+  * Add `.scss` detection
+
 ## 0.5.21
 
   * Skip `.pyre` directories
