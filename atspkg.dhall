@@ -78,7 +78,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
         , version = [0,3,13]
         , debPkg = prelude.mkDeb
             (prelude.debian "polyglot" ⫽
-                { version = [0,5,26]
+                { version = [0,5,27]
                 , maintainer = "Vanessa McHale <vamchale@gmail.com>"
                 , description = "Determine project contents\nPolyglot is a command-line tool to determine language makeup of projects"
                 , manpage = Some "man/poly.1"
