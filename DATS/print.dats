@@ -947,7 +947,7 @@ implement print_file (pt, filename) =
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
   in
     if neq_string_string(b, "") then
-      right_pad(witness(filename + " "), 79, "-")
+      right_pad(witness(filename + " "), 79, $UN.cast("─"))
       + "\n"
       + b
       + "───────────────────────────────────────────────────────────────────────────────\n"
