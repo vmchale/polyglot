@@ -6,3 +6,4 @@ tags
 *.c
 target
 poly.1
+*.gz

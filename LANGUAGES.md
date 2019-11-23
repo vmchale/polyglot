@@ -138,6 +138,8 @@
 - [x] Squirrel (`.nut`, `//`)
 - [x] Agda library
 - [x] https://cedille.github.io/
+- [x] terraform (`.tf`?)
+- [x] SCSS
 - [ ] harlan (`.kfc`, `#`)
 - [ ] Self (`.self`)
 - [ ] Linker script
@@ -407,3 +409,6 @@
 - [ ] Q# and Q (APL dialect)
 - [ ] moose (.moo) https://github.com/Mercury-Language/mercury/tree/master/extras/moose
 - [ ] https://github.com/elendiastarman/Minkolang
+- [ ] http://norstrulde.org/language84/
+- [ ] https://mun-lang.org
+- [ ] org-mode

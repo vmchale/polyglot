@@ -20,6 +20,7 @@ vtypedef source_contents = @{ rust = file
                             , go = file
                             , html = file
                             , css = file
+                            , scss = file
                             , verilog = file
                             , vhdl = file
                             , c = file
@@ -143,6 +144,8 @@ vtypedef source_contents = @{ rust = file
                             , scribble = file
                             , bibtex = file
                             , csv = file
+                            , terraform = file
+                            , org = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -176,6 +179,7 @@ datavtype pl_type =
   | go of file
   | html of file
   | css of file
+  | scss of file
   | c of file
   | brainfuck of file
   | ruby of file
@@ -292,3 +296,5 @@ datavtype pl_type =
   | scribble of file
   | bibtex of file
   | csv of file
+  | terraform of file
+  | org of file

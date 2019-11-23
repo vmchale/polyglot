@@ -86,6 +86,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.go.lines
                      + sc.html.lines
                      + sc.css.lines
+                     + sc.scss.lines
                      + sc.verilog.lines
                      + sc.vhdl.lines
                      + sc.c.lines
@@ -209,6 +210,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.scribble.lines
                      + sc.bibtex.lines
                      + sc.csv.lines
+                     + sc.terraform.lines
+                     + sc.org.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -227,6 +230,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.go.blanks
                       + sc.html.blanks
                       + sc.css.blanks
+                      + sc.scss.blanks
                       + sc.verilog.blanks
                       + sc.vhdl.blanks
                       + sc.c.blanks
@@ -350,6 +354,8 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.scribble.blanks
                       + sc.bibtex.blanks
                       + sc.csv.blanks
+                      + sc.terraform.blanks
+                      + sc.org.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -368,6 +374,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.go.comments
                         + sc.html.comments
                         + sc.css.comments
+                        + sc.scss.comments
                         + sc.verilog.comments
                         + sc.vhdl.comments
                         + sc.c.comments
@@ -491,6 +498,8 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.scribble.comments
                         + sc.bibtex.comments
                         + sc.csv.comments
+                        + sc.terraform.comments
+                        + sc.org.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -509,6 +518,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.go.files
                      + sc.html.files
                      + sc.css.files
+                     + sc.scss.files
                      + sc.verilog.files
                      + sc.vhdl.files
                      + sc.c.files
@@ -632,6 +642,8 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.scribble.files
                      + sc.bibtex.files
                      + sc.csv.files
+                     + sc.terraform.files
+                     + sc.org.files
              }
   in
     f
@@ -730,6 +742,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Nu", isc.nu)
   + maybe_table("Objective C", isc.objective_c)
   + maybe_table("OCaml", isc.ocaml)
+  + maybe_table("Org-mode", isc.org)
   + maybe_table("Oz", isc.oz)
   + maybe_table("Pascal", isc.pascal)
   + maybe_table("Perl", isc.perl)
@@ -753,6 +766,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Scala", isc.scala)
   + maybe_table("Scheme", isc.scheme)
   + maybe_table("Scribble", isc.scribble)
+  + maybe_table("SCSS", isc.scss)
   + maybe_table("Sed", isc.sed)
   + maybe_table("Shen", isc.shen)
   + maybe_table("Sixten", isc.sixten)
@@ -762,6 +776,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Standard ML", isc.sml)
   + maybe_table("Swift", isc.swift)
   + maybe_table("TCL", isc.tcl)
+  + maybe_table("Terraform", isc.terraform)
   + maybe_table("TeX", isc.tex)
   + maybe_table("Thrift", isc.thrift)
   + maybe_table("TLA+", isc.tla)
@@ -808,6 +823,7 @@ implement print_file (pt, filename) =
       | go (f) => maybe_file("Go", f)
       | html (f) => maybe_file("HTML", f)
       | css (f) => maybe_file("CSS", f)
+      | scss (f) => maybe_file("SCSS", f)
       | c (f) => maybe_file("C", f)
       | brainfuck (f) => maybe_file("Brainfuck", f)
       | ruby (f) => maybe_file("Ruby", f)
@@ -924,6 +940,8 @@ implement print_file (pt, filename) =
       | scribble (f) => maybe_file("Scribble", f)
       | bibtex (f) => maybe_file("BibTeX", f)
       | csv (f) => maybe_file("CSV", f)
+      | terraform (f) => maybe_file("Terraform", f)
+      | org (f) => maybe_file("Org-mode", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1155,6 +1173,7 @@ implement make_output (isc, color) =
                    + maybe_string("JavaScript", isc.javascript.lines)
                    + maybe_string("Julius", isc.julius.lines)
                    + maybe_string("Lucius", isc.lucius.lines)
+                   + maybe_string("SCSS", isc.scss.lines)
                    + maybe_string("TypeScript", isc.typescript.lines)
                    )
     + with_nonempty(hw_string, maybe_string("Verilog", isc.verilog.lines) + maybe_string("VHDL", isc.vhdl.lines))
@@ -1183,8 +1202,10 @@ implement make_output (isc, color) =
                    + maybe_string("M4", isc.m4.lines)
                    + maybe_string("Madlang", isc.madlang.lines)
                    + maybe_string("Makefile", isc.makefile.lines)
+                   + maybe_string("Org-mode", isc.org.lines)
                    + maybe_string("Rakefile", isc.rakefile.lines)
                    + maybe_string("SAS", isc.sas.lines)
+                   + maybe_string("Terraform", isc.terraform.lines)
                    + maybe_string("Zimpl", isc.zimpl.lines)
                    )
   end

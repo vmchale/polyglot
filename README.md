@@ -24,6 +24,7 @@ Reasons not to use polyglot:
   * Written in ATS
   * Best on Linux
   * No regex-based exclusions
+  * Doesn't read `.gitignore` &c.
   * Doesn't count block comments
   * Multiline string
     [bug](https://github.com/Aaronepower/tokei/blob/master/COMPARISON.md#Accuracy).
@@ -85,7 +86,7 @@ with some additional data.
 
 ### Heuristics
 
-Polyglot distinguishes itself from `tokei`, `gocloc`, `scc`, and `loc` by being able to disambiguate file names.
+Polyglot distinguishes itself from `tokei`, `gocloc`, and `loc` by being able to disambiguate file names.
 Thus, `poly` will not confuse Happy for Yacc (for instance).
 
 ## Installation
@@ -133,7 +134,7 @@ atspkg build --pkg-args './gc.dhall'
 
 This will put a binary at `target/poly`.
 
-If you are on Mac, you may have to replace the last line with
+If you are on Mac, replace the last line with
 
 ```bash
 atspkg build --pkg-args './mac.dhall'
@@ -158,16 +159,15 @@ For languages already supported, see
 -------------------------------------------------------------------------------
  Language             Files       Lines         Code     Comments       Blanks
 -------------------------------------------------------------------------------
- ATS                     16        3695         3537           39          119
+ ATS                     17        3794         3626           41          127
  C                        1          24           22            0            2
  C Header                 1          43           35            0            8
- Dash                     5         142          109            7           26
- Dhall                    5          99           89            0           10
- Justfile                 1          27           21            2            4
- Markdown                 6         917          792            0          125
+ Dash                     5         144          110            8           26
+ Dhall                    5          93           83            0           10
+ Markdown                 6         938          813            0          125
  TOML                     1           3            3            0            0
- YAML                     1          61           54            0            7
+ YAML                     1          58           52            0            6
 -------------------------------------------------------------------------------
- Total                   37        5011         4662           48          301
+ Total                   37        5097         4744           49          304
 -------------------------------------------------------------------------------
 ```
