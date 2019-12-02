@@ -1,5 +1,7 @@
 # polyglot
 
+  * Skip `.vagrant` directories
+
 ## 0.5.27
 
   * Fancy command-line output
