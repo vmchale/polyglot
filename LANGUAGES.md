@@ -412,3 +412,4 @@
 - [ ] http://norstrulde.org/language84/
 - [ ] https://mun-lang.org
 - [ ] org-mode
+- [ ] https://github.com/dundalek/awesome-lisp-languages
