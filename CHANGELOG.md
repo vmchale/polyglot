@@ -1,5 +1,8 @@
 # polyglot
 
+## 0.5.27
+
+  * Fancy command-line output
   * Add terraform + org-mode support
 
 ## 0.5.26

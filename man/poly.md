@@ -72,4 +72,4 @@ poly --html --no-table >> README.md
 
 # BUG REPORTS
 
-For bug reports and updates, go to https://github.com/vmchale/polyglot
+For bug reports and updates, go to https://github.com/vmchale/polyglot/issues

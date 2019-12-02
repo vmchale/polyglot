@@ -1,6 +1,17 @@
 staload "SATS/filetype.sats"
 staload "SATS/utils.sats"
 
+implement add_results (x, y) =
+  let
+    var next = @{ lines = x.lines + y.lines
+                , blanks = x.blanks + y.blanks
+                , comments = x.comments + y.comments
+                , files = x.files + y.files
+                }
+  in
+    next
+  end
+
 implement eq_pl_type (x, y) =
   case- (x, y) of
     | (happy (_), happy (_)) => true
