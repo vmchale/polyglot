@@ -67,6 +67,7 @@ pkg = λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool, icc : 
             [ prelude.upperDeps { name = "specats", version = [0,2,3] }
             , prelude.lowerDeps { name = "edit-distance", version = [0,4,0] }
             , prelude.plainDeps "ats-bench"
+            , prelude.plainDeps "stack"
             ]
         , clib = if cfg.gc
           then [ prelude.upperDeps { name = "gc", version = [7,6,8] } ]
