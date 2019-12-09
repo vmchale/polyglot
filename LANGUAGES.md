@@ -427,3 +427,4 @@
 - [ ] https://legion.stanford.edu/overview/index.html
 - [ ] https://en.wikipedia.org/wiki/Telescript_(programming_language)
 - [ ] https://en.wikipedia.org/wiki/Obliq
+- [ ] https://spatial-lang.org
