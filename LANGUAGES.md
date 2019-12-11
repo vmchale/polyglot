@@ -427,3 +427,6 @@
 - [ ] https://legion.stanford.edu/overview/index.html
 - [ ] https://en.wikipedia.org/wiki/Telescript_(programming_language)
 - [ ] https://en.wikipedia.org/wiki/Obliq
+- [ ] http://concurnas.com/
+- [ ] https://spatial-lang.org
+- [ ] https://www.chisel-lang.org/chisel3/
