@@ -432,3 +432,4 @@
 - [ ] https://www.chisel-lang.org/chisel3/
 - [ ] https://mortoray.com/2018/08/07/sadly-i-must-say-goodbye-to-leaf-my-programming-language/
 - [ ] https://www.cl.cam.ac.uk/~pes20/lem/
+- [ ] ratfor
