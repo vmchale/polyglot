@@ -212,6 +212,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.csv.lines
                      + sc.terraform.lines
                      + sc.org.lines
+                     + sc.vagrantfile.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -356,6 +357,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.csv.blanks
                       + sc.terraform.blanks
                       + sc.org.blanks
+                      + sc.vagrantfile.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -500,6 +502,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.csv.comments
                         + sc.terraform.comments
                         + sc.org.comments
+                        + sc.vagrantfile.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -644,6 +647,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.csv.files
                      + sc.terraform.files
                      + sc.org.files
+                     + sc.vagrantfile.files
              }
   in
     f
@@ -783,6 +787,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("TOML", isc.toml)
   + maybe_table("TypeScript", isc.typescript)
   + maybe_table("Vala", isc.vala)
+  + maybe_table("Vagrantfile", isc.vagrantfile)
   + maybe_table("Verilog", isc.verilog)
   + maybe_table("VHDL", isc.vhdl)
   + maybe_table("Vimscript", isc.vimscript)
@@ -942,6 +947,7 @@ implement print_file (pt, filename) =
       | csv (f) => maybe_file("CSV", f)
       | terraform (f) => maybe_file("Terraform", f)
       | org (f) => maybe_file("Org-mode", f)
+      | vagrantfile (f) => maybe_file("Vagrantfile", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1206,6 +1212,7 @@ implement make_output (isc, color) =
                    + maybe_string("Rakefile", isc.rakefile.lines)
                    + maybe_string("SAS", isc.sas.lines)
                    + maybe_string("Terraform", isc.terraform.lines)
+                   + maybe_string("Vagrantfile", isc.vagrantfile.lines)
                    + maybe_string("Zimpl", isc.zimpl.lines)
                    )
   end
