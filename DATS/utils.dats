@@ -166,3 +166,4 @@ implement free_pl (pl) =
     | ~csv _ => ()
     | ~terraform _ => ()
     | ~org _ => ()
+    | ~vagrantfile _ => ()

@@ -157,6 +157,7 @@ fn make_table_columns(isc : source_contents) : string =
     + maybe_html_table("TOML", isc.toml)
     + maybe_html_table("TypeScript", isc.typescript)
     + maybe_html_table("Vala", isc.vala)
+    + maybe_html_table("Vagrantfile", isc.vagrantfile)
     + maybe_html_table("Verilog", isc.verilog)
     + maybe_html_table("VHDL", isc.vhdl)
     + maybe_html_table("Vimscript", isc.vimscript)

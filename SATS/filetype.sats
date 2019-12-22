@@ -146,6 +146,7 @@ vtypedef source_contents = @{ rust = file
                             , csv = file
                             , terraform = file
                             , org = file
+                            , vagrantfile = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -298,3 +299,4 @@ datavtype pl_type =
   | csv of file
   | terraform of file
   | org of file
+  | vagrantfile of file

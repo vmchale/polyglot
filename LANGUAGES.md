@@ -140,6 +140,7 @@
 - [x] https://cedille.github.io/
 - [x] terraform (`.tf`?)
 - [x] SCSS
+- [x] Vagrantfile
 - [ ] harlan (`.kfc`, `#`)
 - [ ] Self (`.self`)
 - [ ] Linker script
@@ -228,7 +229,6 @@
 - [ ] Pyret
 - [ ] Stylus
 - [ ] haddock interface
-- [ ] Vagrantfile
 - [ ] NAnt script
 - [ ] RobotFramework
 - [ ] QML
@@ -431,3 +431,7 @@
 - [ ] https://spatial-lang.org
 - [ ] https://www.chisel-lang.org/chisel3/
 - [ ] https://joypy.osdn.io/
+- [ ] https://mortoray.com/2018/08/07/sadly-i-must-say-goodbye-to-leaf-my-programming-language/
+- [ ] https://www.cl.cam.ac.uk/~pes20/lem/
+- [ ] ratfor
+- [ ] http://www.e-pig.org
