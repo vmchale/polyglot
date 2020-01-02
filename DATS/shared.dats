@@ -185,6 +185,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , csv = x.csv + y.csv
                 , terraform = x.terraform + y.terraform
                 , org = x.org + y.org
+                , vagrantfile = x.vagrantfile + y.vagrantfile
                 } : source_contents
   in
     next
@@ -340,6 +341,7 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~csv n => sc_r.csv := sc_r.csv + n
       | ~terraform n => sc_r.terraform := sc_r.terraform + n
       | ~org n => sc_r.org := sc_r.org + n
+      | ~vagrantfile n => sc_r.vagrantfile := sc_r.vagrantfile + n
       | ~unknown _ => ()
   in
     ()
@@ -490,6 +492,7 @@ fn match_filename(s : string) : pl_type =
       | "justfile" => justfile(line_count(s, Some_vt("#")))
       | "Rakefile" => rakefile(line_count(s, None_vt))
       | "cabal.project.local" => cabal_project(line_count(s, Some_vt("--")))
+      | "Vagrantfile" => vagrantfile(line_count(s, Some_vt("#")))
       | "Nukefile" => nu(line_count(s, Some_vt(";")))
       | _ => check_shebang(s)
   end
@@ -928,6 +931,7 @@ fn empty_contents() : source_contents =
                , csv = empty_file
                , terraform = empty_file
                , org = empty_file
+               , vagrantfile = empty_file
                } : source_contents
   in
     isc

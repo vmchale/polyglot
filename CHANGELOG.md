@@ -1,6 +1,7 @@
 # polyglot
 
   * Skip `.vagrant` directories
+  * `Vagrantfile` detection
 
 ## 0.5.27
 
