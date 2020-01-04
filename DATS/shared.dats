@@ -494,6 +494,7 @@ fn match_filename(s : string) : pl_type =
       | "cabal.project.local" => cabal_project(line_count(s, Some_vt("--")))
       | "Vagrantfile" => vagrantfile(line_count(s, Some_vt("#")))
       | "Nukefile" => nu(line_count(s, Some_vt(";")))
+      | "Pipfile" => toml(line_count(s, Some_vt("#")))
       | _ => check_shebang(s)
   end
 
