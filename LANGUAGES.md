@@ -433,5 +433,7 @@
 - [ ] https://joypy.osdn.io/
 - [ ] https://mortoray.com/2018/08/07/sadly-i-must-say-goodbye-to-leaf-my-programming-language/
 - [ ] https://www.cl.cam.ac.uk/~pes20/lem/
+- [ ] https://github.com/AlexCouch/beagle-lang
 - [ ] ratfor
 - [ ] http://www.e-pig.org
+- [ ] https://clio-lang.org/
