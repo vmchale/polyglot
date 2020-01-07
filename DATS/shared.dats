@@ -707,6 +707,7 @@ fn bad_dir(s : string, excludes : List0(string)) : bool =
     | "_darcs" => true
     | ".git" => true
     | ".hg" => true
+    | ".fossil" => true
     | "build" => true
     | "target" => true
     | ".atspkg" => true
