@@ -438,3 +438,4 @@
 - [ ] http://www.e-pig.org
 - [ ] https://clio-lang.org/
 - [ ] https://github.com/beefytech/Beef/
+- [ ] http://blog.oxyllang.org/
