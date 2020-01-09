@@ -147,6 +147,7 @@ vtypedef source_contents = @{ rust = file
                             , terraform = file
                             , org = file
                             , vagrantfile = file
+                            , glsl = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -300,3 +301,4 @@ datavtype pl_type =
   | terraform of file
   | org of file
   | vagrantfile of file
+  | glsl of file

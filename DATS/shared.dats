@@ -186,6 +186,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , terraform = x.terraform + y.terraform
                 , org = x.org + y.org
                 , vagrantfile = x.vagrantfile + y.vagrantfile
+                , glsl = x.glsl + y.glsl
                 } : source_contents
   in
     next
@@ -342,6 +343,7 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~terraform n => sc_r.terraform := sc_r.terraform + n
       | ~org n => sc_r.org := sc_r.org + n
       | ~vagrantfile n => sc_r.vagrantfile := sc_r.vagrantfile + n
+      | ~glsl n => sc_r.glsl := sc_r.glsl + n
       | ~unknown _ => ()
   in
     ()
@@ -692,6 +694,8 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "csv" => csv(line_count(s, None_vt()))
       | "tf" => terraform(line_count(s, Some_vt("#")))
       | "org" => org(line_count(s, Some_vt("#")))
+      | "vert" => glsl(line_count(s, Some_vt("//")))
+      | "frag" => glsl(line_count(s, Some_vt("//")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -934,6 +938,7 @@ fn empty_contents() : source_contents =
                , terraform = empty_file
                , org = empty_file
                , vagrantfile = empty_file
+               , glsl = empty_file
                } : source_contents
   in
     isc

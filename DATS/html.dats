@@ -79,6 +79,7 @@ fn make_table_columns(isc : source_contents) : string =
     + maybe_html_table("Fortran", isc.fortran)
     + maybe_html_table("Frege", isc.frege)
     + maybe_html_table("Futhark", isc.futhark)
+    + maybe_html_table("GLSL", isc.glsl)
     + maybe_html_table("Go", isc.go)
     + maybe_html_table("Greencard", isc.greencard)
     + maybe_html_table("Hamlet", isc.hamlet)
