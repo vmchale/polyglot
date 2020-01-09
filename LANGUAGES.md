@@ -141,6 +141,7 @@
 - [x] terraform (`.tf`?)
 - [x] SCSS
 - [x] Vagrantfile
+- [x] GLSL
 - [ ] harlan (`.kfc`, `#`)
 - [ ] Self (`.self`)
 - [ ] Linker script
