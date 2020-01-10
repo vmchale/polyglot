@@ -22,7 +22,7 @@ vtypedef command_line = @{ version = bool
 
 fn version() : void =
   {
-    val () = println!("polygot version 0.5.28")
+    val () = println!("polygot version 0.5.29")
     val () = compiler_version()
     val () = libc_version()
     val () = println!("\nCopyright (c) 2018-2019 Vanessa McHale")
