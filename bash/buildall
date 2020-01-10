@@ -2,6 +2,7 @@
 
 set -e
 
+atspkg build --pkg-args './gc.dhall'
 # atspkg build --pkg-args "./gc.dhall" target/polyglot.deb
 atspkg build --pkg-args "./gc.dhall" --target=s390x-linux-gnu
 atspkg build --pkg-args "./gc.dhall" --target=arm-linux-gnueabihf
