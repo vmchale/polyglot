@@ -167,3 +167,4 @@ implement free_pl (pl) =
     | ~terraform _ => ()
     | ~org _ => ()
     | ~vagrantfile _ => ()
+    | ~glsl _ => ()

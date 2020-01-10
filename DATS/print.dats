@@ -213,6 +213,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.terraform.lines
                      + sc.org.lines
                      + sc.vagrantfile.lines
+                     + sc.glsl.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -358,6 +359,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.terraform.blanks
                       + sc.org.blanks
                       + sc.vagrantfile.blanks
+                      + sc.glsl.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -503,6 +505,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.terraform.comments
                         + sc.org.comments
                         + sc.vagrantfile.comments
+                        + sc.glsl.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -648,6 +651,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.terraform.files
                      + sc.org.files
                      + sc.vagrantfile.files
+                     + sc.glsl.files
              }
   in
     f
@@ -708,6 +712,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Fortran", isc.fortran)
   + maybe_table("Frege", isc.frege)
   + maybe_table("Futhark", isc.futhark)
+  + maybe_table("GLSL", isc.glsl)
   + maybe_table("Go", isc.go)
   + maybe_table("Greencard", isc.greencard)
   + maybe_table("Hamlet", isc.hamlet)
@@ -948,6 +953,7 @@ implement print_file (pt, filename) =
       | terraform (f) => maybe_file("Terraform", f)
       | org (f) => maybe_file("Org-mode", f)
       | vagrantfile (f) => maybe_file("Vagrantfile", f)
+      | glsl (f) => maybe_file("GLSL", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1202,6 +1208,7 @@ implement make_output (isc, color) =
                    , maybe_string("Autoconf", isc.autoconf.lines)
                    + maybe_string("Automake", isc.automake.lines)
                    + maybe_string("CSV", isc.csv.lines)
+                   + maybe_string("GLSL", isc.glsl.lines)
                    + maybe_string("Greencard", isc.greencard.lines)
                    + maybe_string("Justfile", isc.justfile.lines)
                    + maybe_string("LLVM", isc.llvm.lines)

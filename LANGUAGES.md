@@ -141,6 +141,7 @@
 - [x] terraform (`.tf`?)
 - [x] SCSS
 - [x] Vagrantfile
+- [x] GLSL
 - [ ] harlan (`.kfc`, `#`)
 - [ ] Self (`.self`)
 - [ ] Linker script
@@ -430,10 +431,15 @@
 - [ ] http://concurnas.com/
 - [ ] https://spatial-lang.org
 - [ ] https://www.chisel-lang.org/chisel3/
+- [ ] https://joypy.osdn.io/
 - [ ] https://mortoray.com/2018/08/07/sadly-i-must-say-goodbye-to-leaf-my-programming-language/
 - [ ] https://www.cl.cam.ac.uk/~pes20/lem/
+- [ ] https://github.com/AlexCouch/beagle-lang
 - [ ] ratfor
 - [ ] http://www.e-pig.org
 - [ ] https://www.microsoft.com/en-us/research/project/spec/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fprojects%2Fspecsharp%2F
   (Spec#, JML, AsmL, ...)
 - [ ] https://github.com/TerryCavanagh/VVVVVV/search?l=angelscript lol?
+- [ ] https://clio-lang.org/
+- [ ] https://github.com/beefytech/Beef/
+- [ ] http://blog.oxyllang.org/

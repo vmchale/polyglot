@@ -2,6 +2,7 @@
 
   * Skip `.vagrant` directories
   * `Vagrantfile` detection
+  * Support detection of GLSL shader/vertex fragments
 
 ## 0.5.27
 
