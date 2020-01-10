@@ -434,3 +434,6 @@
 - [ ] https://www.cl.cam.ac.uk/~pes20/lem/
 - [ ] ratfor
 - [ ] http://www.e-pig.org
+- [ ] https://www.microsoft.com/en-us/research/project/spec/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fprojects%2Fspecsharp%2F
+  (Spec#, JML, AsmL, ...)
+- [ ] https://github.com/TerryCavanagh/VVVVVV/search?l=angelscript lol?
