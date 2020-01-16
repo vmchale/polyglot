@@ -445,3 +445,4 @@
 - [ ] http://blog.oxyllang.org/
 - [ ] https://github.com/0x0f0f0f/minicaml
 - [ ] https://github.com/skx/monkey
+- [ ] all languages in sidebar: https://concatenative.org/wiki/view/Factor/Deployment
