@@ -448,3 +448,5 @@
 - [ ] all languages in sidebar: https://concatenative.org/wiki/view/Factor/Deployment
 - [ ] https://github.com/microsoft/verona
 - [ ] https://seq-lang.org
+- [ ] https://github.com/paulstansifer/unseemly
+- [ ] https://www.cs.cmu.edu/~scandal/nesl.html
