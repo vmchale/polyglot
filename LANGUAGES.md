@@ -448,3 +448,4 @@
 - [ ] all languages in sidebar: https://concatenative.org/wiki/view/Factor/Deployment
 - [ ] https://github.com/microsoft/verona
 - [ ] https://github.com/paulstansifer/unseemly
+- [ ] https://odin-lang.org/
