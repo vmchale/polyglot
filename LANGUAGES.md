@@ -450,3 +450,4 @@
 - [ ] https://seq-lang.org
 - [ ] https://github.com/paulstansifer/unseemly
 - [ ] https://www.cs.cmu.edu/~scandal/nesl.html
+- [ ] https://www.mint-lang.com
