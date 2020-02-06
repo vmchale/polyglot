@@ -451,3 +451,4 @@
 - [ ] https://github.com/paulstansifer/unseemly
 - [ ] https://www.cs.cmu.edu/~scandal/nesl.html
 - [ ] https://www.mint-lang.com
+- [ ] https://github.com/finkel-lang/finkel
