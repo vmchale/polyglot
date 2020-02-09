@@ -451,3 +451,11 @@
 - [ ] https://github.com/paulstansifer/unseemly
 - [ ] https://odin-lang.org/
 - [ ] https://www.cs.cmu.edu/~scandal/nesl.html
+- [ ] ReasonML
+- [ ] https://flix.dev/#/
+- [ ] http://discus-lang.org/
+- [ ] https://moonscript.org/
+- [ ] https://github.com/ryvnf/czc/
+- [ ] https://spectrum.ieee.org/tech-talk/computing/software/classical-chinese
+- [ ] http://www.grammaticalframework.org/
+- [ ] Fennel language
