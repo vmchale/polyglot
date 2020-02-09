@@ -459,3 +459,5 @@
 - [ ] https://spectrum.ieee.org/tech-talk/computing/software/classical-chinese
 - [ ] http://www.grammaticalframework.org/
 - [ ] Fennel language
+- [ ] https://www.mint-lang.com
+- [ ] https://github.com/finkel-lang/finkel
