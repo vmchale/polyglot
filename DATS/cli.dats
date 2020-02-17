@@ -25,7 +25,7 @@ fn version() : void =
     val () = println!("polygot version 0.5.29")
     val () = compiler_version()
     val () = libc_version()
-    val () = println!("\nCopyright (c) 2018-2019 Vanessa McHale")
+    val () = println!("\nCopyright (c) 2018-2020 Vanessa McHale")
   }
 
 fn help() : void =
