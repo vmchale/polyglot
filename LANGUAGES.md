@@ -461,3 +461,5 @@
 - [ ] Fennel language
 - [ ] https://www.mint-lang.com
 - [ ] https://github.com/finkel-lang/finkel
+- [ ] https://tuplexlanguage.github.io/tuplex/index.html
+- [ ] https://en.wikipedia.org/wiki/CWEB
