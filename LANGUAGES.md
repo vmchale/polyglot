@@ -463,3 +463,7 @@
 - [ ] https://github.com/finkel-lang/finkel
 - [ ] https://tuplexlanguage.github.io/tuplex/index.html
 - [ ] https://en.wikipedia.org/wiki/CWEB
+- [ ] http://pyos.github.io/dg/
+- [ ] https://github.com/syscolabs/kasaya
+- [ ] http://www.timber-lang.org
+- [ ] https://ballerina.io
