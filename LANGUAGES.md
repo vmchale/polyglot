@@ -463,3 +463,7 @@
 - [ ] https://github.com/finkel-lang/finkel
 - [ ] https://tuplexlanguage.github.io/tuplex/index.html
 - [ ] https://en.wikipedia.org/wiki/CWEB
+- [ ] https://github.com/bee-lang/bee
+- [ ] https://github.com/julianhyde/morel
+- [ ] http://coconut-lang.org/
+- [ ] https://github.com/vighneshq/sage-lang
