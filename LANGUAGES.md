@@ -469,3 +469,7 @@
 - [ ] https://ballerina.io
 - [ ] https://github.com/sorbet/sorbet/search?l=starlark
 - [ ] http://lang5.sourceforge.net/tiki-index.php
+- [ ] http://phix.x10.mx/
+- [ ] https://github.com/p-org/P
+- [ ] https://github.com/rxi/fe
+- [ ] http://heavyfishdesign.com/getting_started.html
