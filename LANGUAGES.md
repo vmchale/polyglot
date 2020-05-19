@@ -481,3 +481,5 @@
 - [ ] https://janet-lang.org/
 - [ ] https://mitten-lang.org/
 - [ ] https://github.com/aradi/fypp
+- [ ] https://github.com/microsoft/BosqueLanguage
+- [ ] https://github.com/Morgan-Stanley/hobbes
