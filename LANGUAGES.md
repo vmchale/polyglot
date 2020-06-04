@@ -483,3 +483,6 @@
 - [ ] https://github.com/aradi/fypp
 - [ ] https://github.com/microsoft/BosqueLanguage
 - [ ] https://github.com/Morgan-Stanley/hobbes
+- [ ] https://github.com/mun-lang/mun
+- [ ] https://concurnas.com/
+- [ ] https://github.com/cuelang/cue
