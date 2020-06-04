@@ -486,3 +486,4 @@
 - [ ] https://github.com/mun-lang/mun
 - [ ] https://concurnas.com/
 - [ ] https://github.com/cuelang/cue
+- [ ] https://github.com/gelisam/klister/blob/master/stdlib/prelude.kl
