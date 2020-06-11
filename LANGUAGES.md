@@ -489,3 +489,5 @@
 - [ ] https://github.com/gelisam/klister/blob/master/stdlib/prelude.kl
 - [ ] https://kappalanguage.org/
 - [ ] https://github.com/marcobambini/gravity
+- [ ] https://wren.io/
+- [ ] https://www.hamler-lang.org/
