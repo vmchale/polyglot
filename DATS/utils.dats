@@ -168,3 +168,4 @@ implement free_pl (pl) =
     | ~org _ => ()
     | ~vagrantfile _ => ()
     | ~glsl _ => ()
+    | ~dickinson _ => ()

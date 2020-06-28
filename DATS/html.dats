@@ -63,6 +63,7 @@ fn make_table_columns(isc : source_contents) : string =
     + maybe_html_table("D", isc.d)
     + maybe_html_table("Dart", isc.dart)
     + maybe_html_table("Dash", isc.dash)
+    + maybe_html_table("Dickinson", isc.dickinson)
     + maybe_html_table("Dhall", isc.dhall)
     + maybe_html_table("Egison", isc.egison)
     + maybe_html_table("Eiffel", isc.eiffel)
