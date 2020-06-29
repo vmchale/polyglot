@@ -148,6 +148,7 @@ vtypedef source_contents = @{ rust = file
                             , org = file
                             , vagrantfile = file
                             , glsl = file
+                            , dickinson = file
                             }
 
 // Reference to source_contents; used to update the structure.
@@ -302,3 +303,4 @@ datavtype pl_type =
   | org of file
   | vagrantfile of file
   | glsl of file
+  | dickinson of file

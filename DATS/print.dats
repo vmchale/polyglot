@@ -214,6 +214,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.org.lines
                      + sc.vagrantfile.lines
                      + sc.glsl.lines
+                     + sc.dickinson.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -360,6 +361,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.org.blanks
                       + sc.vagrantfile.blanks
                       + sc.glsl.blanks
+                      + sc.dickinson.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -506,6 +508,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.org.comments
                         + sc.vagrantfile.comments
                         + sc.glsl.comments
+                        + sc.dickinson.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -652,6 +655,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.org.files
                      + sc.vagrantfile.files
                      + sc.glsl.files
+                     + sc.dickinson.files
              }
   in
     f
@@ -696,6 +700,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("D", isc.d)
   + maybe_table("Dart", isc.dart)
   + maybe_table("Dash", isc.dash)
+  + maybe_table("Dickinson", isc.dickinson)
   + maybe_table("Dhall", isc.dhall)
   + maybe_table("Egison", isc.egison)
   + maybe_table("Eiffel", isc.eiffel)
@@ -954,6 +959,7 @@ implement print_file (pt, filename) =
       | org (f) => maybe_file("Org-mode", f)
       | vagrantfile (f) => maybe_file("Vagrantfile", f)
       | glsl (f) => maybe_file("GLSL", f)
+      | dickinson (f) => maybe_file("Dickinson", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1207,6 +1213,7 @@ implement make_output (isc, color) =
     + with_nonempty( other
                    , maybe_string("Autoconf", isc.autoconf.lines)
                    + maybe_string("Automake", isc.automake.lines)
+                   + maybe_string("Dickinson", isc.dickinson.lines)
                    + maybe_string("CSV", isc.csv.lines)
                    + maybe_string("GLSL", isc.glsl.lines)
                    + maybe_string("Greencard", isc.greencard.lines)
