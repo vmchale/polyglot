@@ -491,3 +491,6 @@
 - [ ] https://github.com/marcobambini/gravity
 - [ ] https://wren.io/
 - [ ] https://www.hamler-lang.org/
+- [ ] https://gist.github.com/macintux/6349828#alternative-languages-targeting-the-erlang-vm
+- [ ] https://github.com/somebody1234/Charcoal
+- [ ] http://norstrulde.org/language84/
