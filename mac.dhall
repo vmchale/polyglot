@@ -1,1 +1,1 @@
-{ gc = True, cross = True, parallel = True, static = False, icc = False }
+{ gc = True, cross = True, parallel = True, static = False }
