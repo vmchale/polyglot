@@ -507,3 +507,17 @@
 - [ ] https://github.com/marcobambini/gravity
 - [ ] https://wren.io/
 - [ ] https://www.hamler-lang.org/
+- [ ] https://frinklang.org/
+- [ http://www.dip-lang.org/
+- [ ] `.cow` (cowfile)
+- [ ] https://github.com/Camto/calc/
+- [ ] https://github.com/bauripalash/mewmew
+- [ ] https://github.com/Storyyeller/cubiml-demo
+- [ ] https://www.reddit.com/r/ProgrammingLanguages/comments/hplj2i/vale/
+- [ ] https://www.frostlang.org/
+- [ ] https://github.com/ELENA-LANG/elena-lang/releases/tag/v5.0.23
+- [ ] http://citrine-lang.org/
+- [ ] https://github.com/sagebind/riptide
+- [ ] https://jinx-lang.org/
+- [ ] https://qed-lang.org/
+- [ ] https://github.com/RockstarLang/rockstar
