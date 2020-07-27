@@ -510,3 +510,7 @@
 - [ ] https://gist.github.com/macintux/6349828#alternative-languages-targeting-the-erlang-vm
 - [ ] https://github.com/somebody1234/Charcoal
 - [ ] http://norstrulde.org/language84/
+- [ ] https://www.modelica.org/
+- [ ] https://gitlab.com/umbrellaresearch/yoga2/
+- [ ] https://fennel-lang.org/
+- [ ] https://github.com/adam-mcdaniel/oakc
