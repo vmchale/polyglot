@@ -34,8 +34,8 @@ val shebang_delay = lam () => shebang_bench()
 
 implement main0 () =
   {
-    val _ = print_slope("linecount (DATS/cli.dats)", 10, linecount_delay)
-    val _ = print_slope("keyword check (test/data/Coq.v)", 8, keyword_delay)
-    val _ = print_slope("step_stream", 5, stream_delay)
-    val _ = print_slope("shebang check", 10, shebang_delay)
+    val _ = print_slope("linecount (DATS/cli.dats)", 12, linecount_delay)
+    val _ = print_slope("keyword check (test/data/Coq.v)", 9, keyword_delay)
+    val _ = print_slope("step_stream", 6, stream_delay)
+    val _ = print_slope("shebang check", 12, shebang_delay)
   }
