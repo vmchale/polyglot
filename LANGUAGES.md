@@ -521,3 +521,6 @@
 - [ ] https://jinx-lang.org/
 - [ ] https://qed-lang.org/
 - [ ] https://github.com/RockstarLang/rockstar
+- [ ] https://gist.github.com/macintux/6349828#alternative-languages-targeting-the-erlang-vm
+- [ ] https://github.com/somebody1234/Charcoal
+- [ ] http://norstrulde.org/language84/
