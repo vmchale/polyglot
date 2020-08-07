@@ -53,8 +53,8 @@ in  λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool }) →
                           ]
                     else  prelude.mapPlainDeps ([] : List Text)
                 , cflags = [ "-I", "include", "-I", "." ] # staticFlag
-                , compiler = [ 0, 3, 13 ]
-                , version = [ 0, 3, 13 ]
+                , compiler = [ 0, 4, 2 ]
+                , version = [ 0, 4, 2 ]
                 , debPkg =
                     prelude.mkDeb
                       (   prelude.debian "polyglot"
