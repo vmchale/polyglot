@@ -44,7 +44,6 @@ in  λ(cfg : { gc : Bool, cross : Bool, parallel : Bool, static : Bool }) →
                       , prelude.lowerDeps
                           { name = "edit-distance", version = [ 0, 4, 0 ] }
                       , prelude.plainDeps "ats-bench"
-                      , prelude.plainDeps "stack"
                       ]
                 , clib =
                     if    cfg.gc
