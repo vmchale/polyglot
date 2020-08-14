@@ -452,6 +452,7 @@
 - [ ] https://odin-lang.org/
 - [ ] https://www.cs.cmu.edu/~scandal/nesl.html
 - [ ] ReasonML
+  - [ ] reason https://github.com/reasonml-community/reason-react-hacker-news/blob/8ba4b7855e7c40cd5f2d575beb9a381c8f8ff7e5/src/NotFound.re
 - [ ] https://flix.dev/#/
 - [ ] http://discus-lang.org/
 - [ ] https://moonscript.org/
@@ -524,3 +525,6 @@
 - [ ] https://gist.github.com/macintux/6349828#alternative-languages-targeting-the-erlang-vm
 - [ ] https://github.com/somebody1234/Charcoal
 - [ ] http://norstrulde.org/language84/
+- [ ] https://www.emojicode.org/
+- [ ] http://www.oilshell.org/cross-ref.html?tag=oil-language#oil-language
+- [ ] https://miniscript.org/
