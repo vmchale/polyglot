@@ -151,9 +151,6 @@ vtypedef source_contents = @{ rust = file
                             , dickinson = file
                             }
 
-// Reference to source_contents; used to update the structure.
-vtypedef source_contents_r = ref(source_contents)
-
 // Sum type representing all supported data types.
 datavtype pl_type =
   | unknown
