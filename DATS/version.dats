@@ -24,7 +24,7 @@ void compiler_version(void) {
 }
 #elif defined(__PGIC__)
 void compiler_version(void) {
-  prinf("compiled with pgcc version: %d.%d.%d\n", __PGIC__, __PGIC_MINOR,
+  prinf("compiled with pgcc version: %d.%d\n", __PGIC__,
         __PGIC_PATCHLEVEL__);
 }
 #else
