@@ -528,3 +528,7 @@
 - [ ] https://www.emojicode.org/
 - [ ] http://www.oilshell.org/cross-ref.html?tag=oil-language#oil-language
 - [ ] https://miniscript.org/
+- [ ] https://www.modelica.org/
+- [ ] https://gitlab.com/umbrellaresearch/yoga2/
+- [ ] https://fennel-lang.org/
+- [ ] https://github.com/adam-mcdaniel/oakc
