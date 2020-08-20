@@ -114,6 +114,7 @@ fn make_table_columns(isc : source_contents) : string =
     + maybe_html_table("Makefile", isc.makefile)
     + maybe_html_table("Markdown", isc.markdown)
     + maybe_html_table("Mercury", isc.mercury)
+    + maybe_html_table("Mirth", isc.mirth)
     + maybe_html_table("Nim", isc.nim)
     + maybe_html_table("Nix", isc.nix)
     + maybe_html_table("Nu", isc.nu)

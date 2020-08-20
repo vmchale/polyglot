@@ -271,7 +271,7 @@
 - [ ] https://github.com/dzaima/Canvas
 - [ ] https://github.com/kite-lang/kite
 - [ ] Miranda language
-- [ ] git@github.com:mirth-lang/mirth.git
+- [x] git@github.com:mirth-lang/mirth.git
 - [ ] QCL
 - [ ] Gofer (?)
 - [ ] SNOBOL (`.sbl`)
@@ -398,7 +398,6 @@
 - [ ] http://gittup.org/tup/manual.html
 - [ ] https://github.com/wren-lang/wren
 - [ ] https://github.com/kivikakk/comrak/blob/master/src/lexer.pest
-- [ ] git@github.com:mirth-lang/mirth.git
 - [ ] https://github.com/nickmqb/muon
 - [ ] https://github.com/Microsoft/BosqueLanguage
 - [ ] https://github.com/historicalsource/deadline/blob/master/clock.zil
@@ -533,3 +532,4 @@
 - [ ] https://fennel-lang.org/
 - [ ] https://github.com/adam-mcdaniel/oakc
 - [ ] https://github.com/toymachine/park-lang
+- [ ] https://github.com/llaisdy/beam_languages#languages-28

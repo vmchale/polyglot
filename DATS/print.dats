@@ -215,6 +215,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.vagrantfile.lines
                      + sc.glsl.lines
                      + sc.dickinson.lines
+                     + sc.mirth.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -362,6 +363,7 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.vagrantfile.blanks
                       + sc.glsl.blanks
                       + sc.dickinson.blanks
+                      + sc.mirth.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -509,6 +511,7 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.vagrantfile.comments
                         + sc.glsl.comments
                         + sc.dickinson.comments
+                        + sc.mirth.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -656,6 +659,7 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.vagrantfile.files
                      + sc.glsl.files
                      + sc.dickinson.files
+                     + sc.mirth.files
              }
   in
     f
@@ -751,6 +755,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Makefile", isc.makefile)
   + maybe_table("Markdown", isc.markdown)
   + maybe_table("Mercury", isc.mercury)
+  + maybe_table("Mirth", isc.mirth)
   + maybe_table("Nim", isc.nim)
   + maybe_table("Nix", isc.nix)
   + maybe_table("Nu", isc.nu)
@@ -960,6 +965,7 @@ implement print_file (pt, filename) =
       | vagrantfile (f) => maybe_file("Vagrantfile", f)
       | glsl (f) => maybe_file("GLSL", f)
       | dickinson (f) => maybe_file("Dickinson", f)
+      | mirth (f) => maybe_file("Mirth", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1112,6 +1118,7 @@ implement make_output (isc, color) =
                  + maybe_string("K", isc.k.lines)
                  + maybe_string("Lua", isc.lua.lines)
                  + maybe_string("Mercury", isc.mercury.lines)
+                 + maybe_string("Mirth", isc.mirth.lines)
                  + maybe_string("Nim", isc.nim.lines)
                  + maybe_string("Nu", isc.nu.lines)
                  + maybe_string("Objective C", isc.objective_c.lines)
