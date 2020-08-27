@@ -3,6 +3,7 @@
   * Skip `.vagrant` directories
   * `Vagrantfile` detection
   * Support detection of GLSL shader/vertex fragments
+  * Support detection of Mirth programs
 
 ## 0.5.27
 

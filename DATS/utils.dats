@@ -169,3 +169,4 @@ implement free_pl (pl) =
     | ~vagrantfile _ => ()
     | ~glsl _ => ()
     | ~dickinson _ => ()
+    | ~mirth _ => ()

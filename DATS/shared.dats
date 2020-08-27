@@ -188,6 +188,7 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , vagrantfile = x.vagrantfile + y.vagrantfile
                 , glsl = x.glsl + y.glsl
                 , dickinson = x.dickinson + y.dickinson
+                , mirth = x.mirth + y.mirth
                 } : source_contents
   in
     next
@@ -346,6 +347,7 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~vagrantfile n => sc_r.vagrantfile := sc_r.vagrantfile + n
       | ~glsl n => sc_r.glsl := sc_r.glsl + n
       | ~dickinson n => sc_r.dickinson := sc_r.dickinson + n
+      | ~mirth n => sc_r.mirth := sc_r.mirth + n
       | ~unknown _ => ()
   in
     ()
@@ -699,6 +701,7 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "vert" => glsl(line_count(s, Some_vt("//")))
       | "frag" => glsl(line_count(s, Some_vt("//")))
       | "dck" => dickinson(line_count(s, Some_vt(";")))
+      | "mth" => mirth(line_count(s, Some_vt("#")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -943,6 +946,7 @@ fn empty_contents() : source_contents =
                , vagrantfile = empty_file
                , glsl = empty_file
                , dickinson = empty_file
+               , mirth = empty_file
                } : source_contents
   in
     isc
