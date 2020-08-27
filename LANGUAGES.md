@@ -532,3 +532,6 @@
 - [ ] https://gitlab.com/umbrellaresearch/yoga2/
 - [ ] https://fennel-lang.org/
 - [ ] https://github.com/adam-mcdaniel/oakc
+- [ ] lua shebang: https://github.com/facebookresearch/CParser/blob/master/lcpp#L1
+- [ ] https://elena-lang.github.io/
+- [ ] https://stackoverflow.blog/2020/08/24/motoko-the-language-that-turns-the-web-into-a-computer/
