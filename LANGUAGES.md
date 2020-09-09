@@ -536,3 +536,5 @@
 - [ ] https://stackoverflow.blog/2020/08/24/motoko-the-language-that-turns-the-web-into-a-computer/
 - [ ] https://github.com/toymachine/park-lang
 - [ ] https://github.com/llaisdy/beam_languages#languages-28
+- [ ] https://keli-language.gitbook.io/doc/
+- [ ] https://elv.sh/
