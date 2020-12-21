@@ -538,3 +538,7 @@
 - [ ] https://github.com/llaisdy/beam_languages#languages-28
 - [ ] https://keli-language.gitbook.io/doc/
 - [ ] https://elv.sh/
+- [ ] https://en.wikipedia.org/wiki/FriCAS
+- [ ] https://www.blech-lang.org/
+- [ ] https://macoy.me/blog/programming/CakelispIntro
+- [ ] https://gamelisp.rs/
