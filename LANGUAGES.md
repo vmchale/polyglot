@@ -531,8 +531,12 @@
 - [ ] https://gitlab.com/umbrellaresearch/yoga2/
 - [ ] https://fennel-lang.org/
 - [ ] https://github.com/adam-mcdaniel/oakc
+- [ ] lua shebang: https://github.com/facebookresearch/CParser/blob/master/lcpp#L1
+- [ ] https://elena-lang.github.io/
+- [ ] https://stackoverflow.blog/2020/08/24/motoko-the-language-that-turns-the-web-into-a-computer/
 - [ ] https://github.com/toymachine/park-lang
 - [ ] https://github.com/llaisdy/beam_languages#languages-28
+<<<<<<< HEAD
 - [ ] http://www.txl.ca/txl-abouttxl.html
 - [ ] http://www.kevinalbrecht.com/code/joy-mirror/joy.html
 - [ ] http://www.nsl.com/k/f/f.htm
@@ -550,3 +554,9 @@
 - [ ] https://chaos-lang.org/
 - [ ] https://github.com/vrtbl/passerine
 - [ ] odin language
+- [ ] https://keli-language.gitbook.io/doc/
+- [ ] https://elv.sh/
+- [ ] https://en.wikipedia.org/wiki/FriCAS
+- [ ] https://www.blech-lang.org/
+- [ ] https://macoy.me/blog/programming/CakelispIntro
+- [ ] https://gamelisp.rs/
