@@ -536,7 +536,29 @@
 - [ ] https://stackoverflow.blog/2020/08/24/motoko-the-language-that-turns-the-web-into-a-computer/
 - [ ] https://github.com/toymachine/park-lang
 - [ ] https://github.com/llaisdy/beam_languages#languages-28
+<<<<<<< HEAD
+- [ ] http://www.txl.ca/txl-abouttxl.html
+- [ ] http://www.kevinalbrecht.com/code/joy-mirror/joy.html
+- [ ] http://www.nsl.com/k/f/f.htm
+- [ ] https://cryptm.org/xs/installation.html
+- [ ] https://manool.org/
+- [ ] http://www.nars2000.org/
+- [ ] https://github.com/vtereshkov/umka-lang
+- [ ] http://www.om-language.org/
+- [ ] https://amulet.works/
+- [ ] https://www.reddit.com/r/manool/comments/jo84xr/native_runtime_performance_for_a_highlevel/
+- [ ] https://marcobambini.github.io/gravity/#/README
+- [ ] https://github.com/WeirdConstructor/WLambda
+- [ ] https://github.com/gramlang/gram
+- [ ] https://www.play-lang.dev/
+- [ ] https://chaos-lang.org/
+- [ ] https://github.com/vrtbl/passerine
+- [ ] odin language
 - [ ] https://keli-language.gitbook.io/doc/
 - [ ] https://elv.sh/
 - [ ] `.yrl` -> Yecc source code (Erlang)
 - [ ] https://souffle-lang.github.io/
+- [ ] https://en.wikipedia.org/wiki/FriCAS
+- [ ] https://www.blech-lang.org/
+- [ ] https://macoy.me/blog/programming/CakelispIntro
+- [ ] https://gamelisp.rs/
