@@ -538,3 +538,5 @@
 - [ ] https://github.com/llaisdy/beam_languages#languages-28
 - [ ] https://keli-language.gitbook.io/doc/
 - [ ] https://elv.sh/
+- [ ] `.yrl` -> Yecc source code (Erlang)
+- [ ] https://souffle-lang.github.io/
