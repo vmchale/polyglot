@@ -556,6 +556,8 @@
 - [ ] odin language
 - [ ] https://keli-language.gitbook.io/doc/
 - [ ] https://elv.sh/
+- [ ] `.yrl` -> Yecc source code (Erlang)
+- [ ] https://souffle-lang.github.io/
 - [ ] https://en.wikipedia.org/wiki/FriCAS
 - [ ] https://www.blech-lang.org/
 - [ ] https://macoy.me/blog/programming/CakelispIntro
