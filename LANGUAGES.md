@@ -560,3 +560,16 @@
 - [ ] https://www.blech-lang.org/
 - [ ] https://macoy.me/blog/programming/CakelispIntro
 - [ ] https://gamelisp.rs/
+-  [ ] https://github.com/topshell-language/topshell
+- [ ] http://www.juniper-lang.org/
+- [ ] https://github.com/MCSH/rumi
+- [ ] https://github.com/jcolag/Thue
+- [ ] https://github.com/microsoft/BosqueLanguage
+- [ ] https://github.com/mrakgr/The-Spiral-Language
+- [ ] https://www.reddit.com/r/ProgrammingLanguages/comments/lizzh4/candy/
+  - [ ] https://github.com/candy-lang/candy
+- [ ] https://www.reddit.com/r/ProgrammingLanguages/comments/ljdj30/just_a_language_like_make_except_not_a_build/
+- [ ] https://www.reddit.com/r/ProgrammingLanguages/comments/ljkavx/aulang_a_fast_and_simple_scripting_language/
+- [ ] https://github.com/jameshaydon/lawvere
+- [ ] https://github.com/odddollar/Container-lang
+- [ ] https://github.com/nau/lasca-compiler/
