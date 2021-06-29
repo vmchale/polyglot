@@ -142,6 +142,7 @@
 - [x] SCSS
 - [x] Vagrantfile
 - [x] GLSL
+- [ ] `.yrl` -> Yecc source code (Erlang)
 - [ ] harlan (`.kfc`, `#`)
 - [ ] Self (`.self`)
 - [ ] Linker script
@@ -536,7 +537,6 @@
 - [ ] https://stackoverflow.blog/2020/08/24/motoko-the-language-that-turns-the-web-into-a-computer/
 - [ ] https://github.com/toymachine/park-lang
 - [ ] https://github.com/llaisdy/beam_languages#languages-28
-<<<<<<< HEAD
 - [ ] http://www.txl.ca/txl-abouttxl.html
 - [ ] http://www.kevinalbrecht.com/code/joy-mirror/joy.html
 - [ ] http://www.nsl.com/k/f/f.htm
@@ -556,7 +556,6 @@
 - [ ] odin language
 - [ ] https://keli-language.gitbook.io/doc/
 - [ ] https://elv.sh/
-- [ ] `.yrl` -> Yecc source code (Erlang)
 - [ ] https://souffle-lang.github.io/
 - [ ] https://en.wikipedia.org/wiki/FriCAS
 - [ ] https://www.blech-lang.org/
@@ -575,3 +574,7 @@
 - [ ] https://github.com/jameshaydon/lawvere
 - [ ] https://github.com/odddollar/Container-lang
 - [ ] https://github.com/nau/lasca-compiler/
+- [ ] https://github.com/TaconeoMental/WaidLang
+- [ ] http://www.adapplang.com/
+- [ ] http://seed7.sourceforge.net/
+- [ ] https://intuitiveexplanations.com/tech/kalyn
