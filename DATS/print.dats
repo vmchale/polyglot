@@ -216,6 +216,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.glsl.lines
                      + sc.dickinson.lines
                      + sc.mirth.lines
+                     + sc.flix.lines
+                     + sc.jac.lines
+                     + sc.gdb.lines
+                     + sc.bqn.lines
              , blanks = sc.rust.blanks
                       + sc.haskell.blanks
                       + sc.ats.blanks
@@ -364,6 +368,10 @@ fn sum_fields(sc : source_contents) : file =
                       + sc.glsl.blanks
                       + sc.dickinson.blanks
                       + sc.mirth.blanks
+                      + sc.flix.blanks
+                      + sc.jac.blanks
+                      + sc.gdb.blanks
+                      + sc.bqn.blanks
              , comments = sc.rust.comments
                         + sc.haskell.comments
                         + sc.ats.comments
@@ -512,6 +520,10 @@ fn sum_fields(sc : source_contents) : file =
                         + sc.glsl.comments
                         + sc.dickinson.comments
                         + sc.mirth.comments
+                        + sc.flix.comments
+                        + sc.jac.comments
+                        + sc.gdb.comments
+                        + sc.bqn.comments
              , files = sc.rust.files
                      + sc.haskell.files
                      + sc.ats.files
@@ -660,6 +672,10 @@ fn sum_fields(sc : source_contents) : file =
                      + sc.glsl.files
                      + sc.dickinson.files
                      + sc.mirth.files
+                     + sc.flix.files
+                     + sc.jac.files
+                     + sc.gdb.files
+                     + sc.bqn.files
              }
   in
     f
@@ -681,6 +697,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("BibTeX", isc.bibtex)
   + maybe_table("Blodwen", isc.blodwen)
   + maybe_table("Brainfuck", isc.brainfuck)
+  + maybe_table("BQN", isc.bqn)
   + maybe_table("C", isc.c)
   + maybe_table("C--", isc.cmm)
   + maybe_table("C++ Header", isc.cpp_header)
@@ -717,10 +734,12 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Factor", isc.factor)
   + maybe_table("Felix", isc.felix)
   + maybe_table("Fish", isc.fish)
+  + maybe_table("Flix", isc.flix)
   + maybe_table("FLTK Data", isc.fluid)
   + maybe_table("Fortran", isc.fortran)
   + maybe_table("Frege", isc.frege)
   + maybe_table("Futhark", isc.futhark)
+  + maybe_table("GDB", isc.gdb)
   + maybe_table("GLSL", isc.glsl)
   + maybe_table("Go", isc.go)
   + maybe_table("Greencard", isc.greencard)
@@ -735,6 +754,7 @@ fn table_helper(isc : source_contents) : string =
   + maybe_table("Ion", isc.ion)
   + maybe_table("Isabelle", isc.isabelle)
   + maybe_table("J", isc.j)
+  + maybe_table("Jacinda", isc.jac)
   + maybe_table("Jai", isc.jai)
   + maybe_table("Java", isc.java)
   + maybe_table("JavaScript", isc.javascript)
@@ -966,6 +986,10 @@ implement print_file (pt, filename) =
       | glsl (f) => maybe_file("GLSL", f)
       | dickinson (f) => maybe_file("Dickinson", f)
       | mirth (f) => maybe_file("Mirth", f)
+      | flix (f) => maybe_file("Flix", f)
+      | jac (f) => maybe_file("Jacinda", f)
+      | gdb (f) => maybe_file("gdb", f)
+      | bqn (f) => maybe_file("bqn", f)
     
     extern
     castfn witness(string) : [ m : nat | m >= 0 && m < 79 ] string(m)
@@ -1081,6 +1105,7 @@ implement make_output (isc, color) =
                  + maybe_string("ATS", isc.ats.lines)
                  + maybe_string("Blodwen", isc.blodwen.lines)
                  + maybe_string("Brainfuck", isc.brainfuck.lines)
+                 + maybe_string("BQN", isc.bqn.lines)
                  + maybe_string("C", isc.c.lines)
                  + maybe_string("C++", isc.cpp.lines)
                  + maybe_string("C--", isc.cmm.lines)
@@ -1102,9 +1127,11 @@ implement make_output (isc, color) =
                  + maybe_string("F#", isc.fsharp.lines)
                  + maybe_string("Factor", isc.factor.lines)
                  + maybe_string("Felix", isc.felix.lines)
+                 + maybe_string("Flix", isc.flix.lines)
                  + maybe_string("Fortran", isc.fortran.lines)
                  + maybe_string("Frege", isc.frege.lines)
                  + maybe_string("Futhark", isc.futhark.lines)
+                 + maybe_string("Gdb", isc.gdb.lines)
                  + maybe_string("Go", isc.go.lines)
                  + maybe_string("Haskell", isc.haskell.lines)
                  + maybe_string("Haxe", isc.haxe.lines)
@@ -1112,6 +1139,7 @@ implement make_output (isc, color) =
                  + maybe_string("Io", isc.io.lines)
                  + maybe_string("Kotlin", isc.kotlin.lines)
                  + maybe_string("J", isc.j.lines)
+                 + maybe_string("Jacinda", isc.jac.lines)
                  + maybe_string("Jai", isc.jai.lines)
                  + maybe_string("Java", isc.java.lines)
                  + maybe_string("Julia", isc.julia.lines)

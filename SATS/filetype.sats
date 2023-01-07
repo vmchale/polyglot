@@ -150,6 +150,10 @@ vtypedef source_contents = @{ rust = file
                             , glsl = file
                             , dickinson = file
                             , mirth = file
+                            , flix = file
+                            , jac = file
+                            , gdb = file
+                            , bqn = file
                             }
 
 // Sum type representing all supported data types.
@@ -303,3 +307,7 @@ datavtype pl_type =
   | glsl of file
   | dickinson of file
   | mirth of file
+  | flix of file
+  | jac of file
+  | gdb of file
+  | bqn of file

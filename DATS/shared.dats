@@ -189,6 +189,10 @@ fn add_contents(x : source_contents, y : source_contents) : source_contents =
                 , glsl = x.glsl + y.glsl
                 , dickinson = x.dickinson + y.dickinson
                 , mirth = x.mirth + y.mirth
+                , flix = x.flix + y.flix
+                , jac = x.jac + y.jac
+                , gdb = x.gdb + y.gdb
+                , bqn = x.bqn + y.bqn
                 } : source_contents
   in
     next
@@ -348,6 +352,10 @@ fn adjust_contents(sc_r : &source_contents >> source_contents, scf : pl_type) : 
       | ~glsl n => sc_r.glsl := sc_r.glsl + n
       | ~dickinson n => sc_r.dickinson := sc_r.dickinson + n
       | ~mirth n => sc_r.mirth := sc_r.mirth + n
+      | ~flix n => sc_r.flix := sc_r.flix + n
+      | ~jac n => sc_r.jac := sc_r.jac + n
+      | ~gdb n => sc_r.gdb := sc_r.gdb + n
+      | ~bqn n => sc_r.bqn := sc_r.bqn + n
       | ~unknown _ => ()
   in
     ()
@@ -702,6 +710,10 @@ fn prune_extension(s : string, file_proper : string) : pl_type =
       | "frag" => glsl(line_count(s, Some_vt("//")))
       | "dck" => dickinson(line_count(s, Some_vt(";")))
       | "mth" => mirth(line_count(s, Some_vt("#")))
+      | "flix" => flix(line_count(s, Some_vt("//")))
+      | "jac" => jac(line_count(s, Some_vt("{.")))
+      | "gdb" => gdb(line_count(s, Some_vt("#")))
+      | "bqn" => bqn(line_count(s, Some_vt("#")))
       | "" => match_filename(s)
       | "sh" => match_filename(s)
       | "yamllint" => match_filename(s)
@@ -947,6 +959,10 @@ fn empty_contents() : source_contents =
                , glsl = empty_file
                , dickinson = empty_file
                , mirth = empty_file
+               , flix = empty_file
+               , jac = empty_file
+               , gdb = empty_file
+               , bqn = empty_file
                } : source_contents
   in
     isc

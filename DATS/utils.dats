@@ -170,3 +170,7 @@ implement free_pl (pl) =
     | ~glsl _ => ()
     | ~dickinson _ => ()
     | ~mirth _ => ()
+    | ~flix _ => ()
+    | ~jac _ => ()
+    | ~gdb _ => ()
+    | ~bqn _ => ()
