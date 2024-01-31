@@ -142,8 +142,13 @@
 - [x] SCSS
 - [x] Vagrantfile
 - [x] GLSL
-- [ ] `.yrl` -> Yecc source code (Erlang)
+- [x] https://flix.dev/
+- [x] jacinda
+- [x] gdb
+- [x] bqn
 - [ ] harlan (`.kfc`, `#`)
+- [ ] https://amulet.works/
+- [ ] `.yrl` -> Yecc source code (Erlang)
 - [ ] Self (`.self`)
 - [ ] Linker script
 - [ ] Grain (`.gr`, `#`)
@@ -171,7 +176,7 @@
 - [ ] dyon
 - [ ] ketos
 - [ ] puppet (`.pp`)
-- [ ] forth
+- [ ] forth (`.fs`, collides with F# (note vim syntax lines))
 - [ ] Objective C++
 - [ ] Bison (`.yy` among others)
 - [ ] Flex (`.lex` among others)
@@ -545,7 +550,6 @@
 - [ ] http://www.nars2000.org/
 - [ ] https://github.com/vtereshkov/umka-lang
 - [ ] http://www.om-language.org/
-- [ ] https://amulet.works/
 - [ ] https://www.reddit.com/r/manool/comments/jo84xr/native_runtime_performance_for_a_highlevel/
 - [ ] https://marcobambini.github.io/gravity/#/README
 - [ ] https://github.com/WeirdConstructor/WLambda
@@ -578,3 +582,21 @@
 - [ ] http://www.adapplang.com/
 - [ ] http://seed7.sourceforge.net/
 - [ ] https://intuitiveexplanations.com/tech/kalyn
+- [ ] https://github.com/P-bibs/skiff/
+- [ ] https://grain-lang.org/
+- [ ] https://ballerina.io/
+- [ ] https://ren-lang.github.io/
+- [ ] http://100r.co/site/orca.html
+- [ ] https://blog.toit.io/the-toit-language-is-now-open-source-14bdcb1604d9
+  - [ ] https://docs.toit.io/language
+- [ ] https://ampl.com/
+- [ ] https://tablam.org/
+- [ ] `.x` (linker script)
+- [ ] http://www.timber-lang.org/
+- [ ] http://cth.altocumulus.org/~hallgren/Alfa/
+- [ ] https://github.com/cognate-lang/cognate
+- [ ] https://github.com/erg-lang/erg
+- [ ] Mezzo
+- [ ] https://ki-lang.dev/
+- [ ] https://www.northarc.com/wrench/www/
+- [ ] https://antelang.org/
